@@ -1,0 +1,23 @@
+.signIn {
+
+
+    &__google {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        column-gap: 0.75em;
+        padding: 0.25em 0.75em;
+        font-family: var(--font-montserrat);
+        border-radius: var(--border-radius);
+        background: linear-gradient(to right, #0c2177;
+                border: 1px solid #525252;
+                color: var(--foreground-color);
+                cursor: pointer;
+
+                &Icon {
+                width: 3em;
+                height: 3em;
+            }
+        }
+    }

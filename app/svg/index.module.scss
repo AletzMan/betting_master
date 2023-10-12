@@ -1,0 +1,31 @@
+.AppLogo {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    text-decoration: none;
+    width: 10em;
+
+    &_crown {
+        position: absolute;
+        top: -1em;
+        width: 2.8em;
+        height: 2.8em;
+        left: calc(50% - 1.4em);
+        color: var(--foreground-color);
+    }
+
+    &_ball {
+
+        width: 2.5em;
+        height: 2.5em;
+        color: var(--foreground-color);
+
+    }
+
+    &_title {
+        text-align: center;
+        font-size: 1em;
+        color: var(--highlight-color);
+    }
+}
