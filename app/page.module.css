@@ -3,6 +3,9 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+  padding: 1rem;
+  min-height: calc(100svh - 7em);
+  margin: 0 auto;
+  max-width: var(--max-width);
+  background-color: #FFFFFF05;
 }

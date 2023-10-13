@@ -1,5 +1,5 @@
 :root {
-  --max-width: 1100px;
+  --max-width: 1200px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
@@ -7,10 +7,24 @@
   --font-primary: ;
 
   --foreground-color: #FFFFFF;
+  --foreground-second-color: #c8c7c7;
   --background-start-color: #181818;
   --background-end-color: #000000;
-  --header-color: #030522;
-  --highlight-color: #054fa9;
+  --header-color: #202130;
+  --headerhover-color: #3a3b51;
+  --highlight-color: #c81944;
+  --highlighthover-color: #F41E47;
+  --screen-color: #191f24;
+  --border-color: #fff9f960;
+  --borderTwo-color: #9a9a9acd;
+
+  --twitter-color: #0c0c0c;
+  --twitterTwo-color: #343333;
+
+  --hover-link: #FFFFFF10;
+
+  --box-shadow: 0 0 4px 2px #31222290 inset;
+  --box-shadowTwo: 0 0 4px 2px #4e4e4e90;
 
   --border-radius: 0.25em;
 }
@@ -29,8 +43,13 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-color));
+  color: var(--foreground-color);
   background: linear-gradient(to bottom,
       transparent,
       var(--background-end-color)) var(--background-start-color);
+}
+
+.logo__team_slided {
+  width: 6em;
+  height: 6em;
 }
