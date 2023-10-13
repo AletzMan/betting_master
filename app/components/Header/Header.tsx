@@ -10,8 +10,10 @@ import { LinksPage } from "@/app/constants/constants"
 import { signOut } from "firebase/auth"
 import { auth } from "@/app/config/firebase"
 import { IsLoggedUser } from "@/app/services/fetch_utils"
+import { usePathname } from "next/navigation"
 
 export function Header() {
+	const pathname = usePathname()
 	const { user, setUser } = useUser()
 	const [userLocal, setUserLocal] = useState<IUserInfo>({ uid: "", name: "", photo: "" })
 	const [viewMenuProfile, setViewMenuProfile] = useState(false)
@@ -99,7 +101,7 @@ export function Header() {
 				</div>
 				<nav className={styles.nav}>
 					{LinksPage.map((link) => (
-						<Link className={`${styles.nav_link} ${link.id === 0 && styles.nav_linkActive}`} key={link.id} href={link.href} title={link.title}>
+						<Link className={`${styles.nav_link} ${link.href === pathname && styles.nav_linkActive}`} key={link.id} href={link.href} title={link.title}>
 							{link.text}
 						</Link>
 					))}
