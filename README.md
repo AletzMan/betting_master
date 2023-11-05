@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Betting Master (con Next.js)
 
-## Getting Started
+Betting Master es una aplicación construida con Next.js que te permite disfrutar de apuestas deportivas en línea y hacer un seguimiento de tus pronósticos y resultados. ¡Domina tus apuestas con Betting Master!
 
-First, run the development server:
+## Tabla de Contenidos
+
+- [Demo](#demo)
+- [Capturas de Pantalla](#capturas-de-pantalla)
+- [Tecnologías Utilizadas](#tecnologías-utilizadas)
+- [Instalación](#instalación)
+- [Uso](#uso)
+- [Contribución](#contribución)
+- [Licencia](#licencia)
+
+## Demo
+
+Puedes acceder a una demo en línea de Betting Master [aquí](enlace-de-la-demo).
+
+## Capturas de Pantalla
+
+![Captura 1](screenshots/captura1.png)
+![Captura 2](screenshots/captura2.png)
+
+## Tecnologías Utilizadas
+
+Betting Master se ha construido utilizando las siguientes tecnologías:
+
+- Frontend: [Next.js](https://nextjs.org/), [React](https://es.reactjs.org/), [Redux](https://redux.js.org/)
+- Backend: [Node.js](https://nodejs.org/), [Express](https://expressjs.com/)
+- Base de Datos: [MongoDB](https://www.mongodb.com/)
+- Autenticación: [Firebase Authentication](https://firebase.google.com/docs/auth)
+
+## Instalación
+
+Para instalar Betting Master en tu entorno local, sigue estos pasos:
+
+1. Clona el repositorio:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+git clone https://github.com/tu-usuario/betting-master.git
