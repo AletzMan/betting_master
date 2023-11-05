@@ -1,20 +1,17 @@
 "use client"
-import { AppLogo, ExitLogo, LiveIcon, LogInIcon, LogOutIcon, MenuIcon, ProfileIcon } from "@/app/svg"
+import { AppLogo, LiveIcon, LogInIcon, LogOutIcon, MenuIcon, ProfileIcon } from "@/app/svg"
 import styles from "./header.module.scss"
-import Image from "next/image"
-import { useUser } from "@/app/config/zustand-store"
 import { useEffect, useState } from "react"
-import { IUserInfo } from "@/app/types/types"
 import Link from "next/link"
 import { LinksPage } from "@/app/constants/constants"
 import { signOut } from "firebase/auth"
 import { auth } from "@/app/config/firebase"
-import { IsLoggedUser } from "@/app/services/fetch_utils"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useOrientation } from "@/app/hooks/useOrientation"
 import { useLoggedUser } from "@/app/hooks/useLoggedUser"
 
 export function Header() {
+	const router = useRouter()
 	const pathname = usePathname()
 	const { isLogged, setIsLogged, setUser, userLocal } = useLoggedUser()
 	const { isLandscape } = useOrientation()
@@ -39,6 +36,8 @@ export function Header() {
 				setUser({ uid: "", name: "", photo: "" })
 				setIsLogged(false)
 				setViewMenuProfile(false)
+				router.push("/")
+				router.refresh()
 			}
 		} catch (error) {
 			console.error(error)
