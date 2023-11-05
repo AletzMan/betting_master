@@ -1,10 +1,12 @@
 :root {
-  --max-width: 1200px;
+  --max-width: 1000px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
   --font-primary: ;
+
+  --height-combo: 0;
 
   --foreground-color: #FFFFFF;
   --foreground-second-color: #c8c7c7;
@@ -17,14 +19,24 @@
   --screen-color: #191f24;
   --border-color: #fff9f960;
   --borderTwo-color: #9a9a9acd;
+  --subtitle-color: #2192e9;
+  --subtitleBack-color: #9dd1f920;
 
   --twitter-color: #0c0c0c;
   --twitterTwo-color: #343333;
 
-  --hover-link: #FFFFFF10;
+  --facebook-color: #3d5a98;
+  --facebookTwo-color: #5374bb;
 
-  --box-shadow: 0 0 4px 2px #31222290 inset;
+  --background-text: #191e24;
+  --background-textTwo: #34383c;
+
+  --hover-link: #FFFFFF10;
+  --hover-linkTwo: #34383c20;
+
+  --box-shadow: 0 0 3px 1px #31222260 inset;
   --box-shadowTwo: 0 0 4px 2px #4e4e4e90;
+  --box-shadowLive: 0 0 4px 2px #2fed0d90 inset;
 
   --border-radius: 0.25em;
 }
@@ -52,4 +64,27 @@ body {
 .logo__team_slided {
   width: 6em;
   height: 6em;
+}
+
+.scrollbar {
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 1px solid var(--hover-link);
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 0.4em;
+  height: 0.4em;
+  background-color: var(--twitterTwo-color);
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 1em;
+  background-color: var(--highlight-color);
+  cursor: pointer;
+}
+
+.scrollbar::-webkit-scrollbar-corner {
+  background-color: var(--highlight-color);
+
 }

@@ -1,0 +1,156 @@
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin: 0 auto;
+    height: 100svh;
+    padding: 7em 0 1em 0;
+    width: 100%;
+    background: linear-gradient(-30deg, var(--background-start-color), var(--background-end-color));
+    max-width: var(--max-width);
+
+    &_landscape {
+        padding: 3.4em 0.5em 0.5em 0.5em;
+
+    }
+
+    &_title {
+        font-size: 1.3em;
+        color: var(--highlight-color);
+
+        &Two {
+            font-size: 1em;
+            margin: 0 0 0.55em 0;
+        }
+    }
+
+    &_combobox {
+        padding: 0.5em 0;
+    }
+
+    &_tables {
+        display: flex;
+        flex-direction: row;
+        column-gap: 1em;
+        background-color: red;
+        width: 100%;
+        overflow: hidden;
+    }
+
+
+}
+
+.group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 29em;
+
+
+    &_text {
+        padding: 0.5em 1em;
+        margin: 0 0 0.5em 0;
+        border-radius: var(--border-radius);
+        background-color: var(--hover-link);
+    }
+
+    &_button {
+        width: 2.5em;
+        height: 2.5em;
+        border-radius: var(--border-radius);
+        border: none;
+        background-color: var(--hover-link);
+
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+
+        &:hover {
+            background-color: var(--headerhover-color);
+        }
+
+        &Next {
+            transform: rotate(180deg);
+        }
+
+        &Disabled {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    &_icon {
+        color: var(--foreground-color);
+
+
+    }
+}
+
+
+.table {
+    position: relative;
+    display: grid;
+    grid-template-columns: 12em 1fr;
+    max-width: 100svw;
+    align-items: center;
+    justify-content: flex-start;
+    width: max-content;
+    margin: 0 auto;
+    overflow-x: auto;
+    overflow-y: auto;
+    box-shadow: var(--box-shadowTwo);
+
+
+    @media (max-width: 540px) {
+        width: 90%;
+    }
+
+    &_description {
+        position: sticky;
+        left: 0;
+        height: 100%;
+        z-index: 2;
+    }
+
+    &_statistics {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        height: 100%;
+        max-width: 17em;
+
+
+    }
+
+    &_titles {
+        position: sticky;
+        top: 0;
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        height: 1.5em;
+        text-align: center;
+        grid-template-columns: repeat(8, 2em);
+        background-color: #212121;
+        padding: 0.3em 0.2em;
+        border-bottom: 1px solid #FFFFFF35;
+
+        &Text {
+            width: 2em;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: rgb(159, 58, 30);
+            text-align: center;
+        }
+
+        &Club {
+            color: rgb(34, 72, 185);
+            padding: 0 0 0 8em;
+        }
+
+    }
+
+
+}

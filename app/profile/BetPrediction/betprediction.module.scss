@@ -1,0 +1,39 @@
+.bets {
+    display: grid;
+    grid-template-columns: 1fr 2em;
+    align-items: center;
+    column-gap: 0.5em;
+    width: 100%;
+    padding: 0.5em;
+    margin: 0.25em 0;
+    background-color: var(--hover-link);
+    //border-bottom: 1px solid var(--hover-link);
+
+    &_day {
+        color: #389fce;
+    }
+
+    &_name {
+        padding: 0 0.5em;
+        color: var(--border-color);
+    }
+
+    &_button {
+        display: flex;
+        border-radius: 2em;
+        background-color: transparent;
+        border: none;
+        color: var(--border-color);
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--highlighthover-color);
+        }
+    }
+
+    &_view {
+        width: 1.5em;
+        height: 1.5em;
+    }
+}

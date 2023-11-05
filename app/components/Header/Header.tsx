@@ -1,5 +1,5 @@
 "use client"
-import { AppLogo, ExitLogo, LiveIcon, ProfileIcon } from "@/app/svg"
+import { AppLogo, ExitLogo, LiveIcon, LogInIcon, LogOutIcon, MenuIcon, ProfileIcon } from "@/app/svg"
 import styles from "./header.module.scss"
 import Image from "next/image"
 import { useUser } from "@/app/config/zustand-store"
@@ -11,32 +11,18 @@ import { signOut } from "firebase/auth"
 import { auth } from "@/app/config/firebase"
 import { IsLoggedUser } from "@/app/services/fetch_utils"
 import { usePathname } from "next/navigation"
+import { useOrientation } from "@/app/hooks/useOrientation"
+import { useLoggedUser } from "@/app/hooks/useLoggedUser"
 
 export function Header() {
 	const pathname = usePathname()
-	const { user, setUser } = useUser()
-	const [userLocal, setUserLocal] = useState<IUserInfo>({ uid: "", name: "", photo: "" })
+	const { isLogged, setIsLogged, setUser, userLocal } = useLoggedUser()
+	const { isLandscape } = useOrientation()
 	const [viewMenuProfile, setViewMenuProfile] = useState(false)
 
-	const [isLogged, setIsLogged] = useState(false)
-
 	useEffect(() => {
-		const LoggedUser = async () => {
-			const response = await IsLoggedUser()
-			setIsLogged(response.isLogged)
-			setUser(response.userInfo)
-
-			return response
-		}
-		LoggedUser()
-	}, [])
-
-	useEffect(() => {
-		setUserLocal(user)
-		if (user.name !== "") {
-			setIsLogged(true)
-		}
-	}, [user])
+		setViewMenuProfile(false)
+	}, [pathname])
 
 	const HandleViewMenu = () => {
 		setViewMenuProfile((prev) => !prev)
@@ -50,9 +36,9 @@ export function Header() {
 			})
 
 			if (response.status === 200) {
-				//router.push("/login")
 				setUser({ uid: "", name: "", photo: "" })
 				setIsLogged(false)
+				setViewMenuProfile(false)
 			}
 		} catch (error) {
 			console.error(error)
@@ -60,52 +46,89 @@ export function Header() {
 	}
 
 	return (
-		<header className={styles.header}>
+		<header className={`${styles.header} ${isLandscape && styles.header_active}`}>
 			<section className={styles.header_section}>
-				<Link href={"/"} title="Ir a inicio">
-					<AppLogo className={styles.header_logo} />
-				</Link>
 				<div className={styles.header_session}>
 					<Link href={`/lives`} className={styles.header_live} title="Ir a partidos en vivo">
 						<LiveIcon className={styles.header_liveIcon} />
-						<span className={styles.header_liveText}>Partidos en vivo</span>
+						<span className={styles.header_liveText}>En vivo</span>
 					</Link>
-					<button className={styles.header_user} onClick={HandleViewMenu} onMouseLeave={() => setViewMenuProfile(false)}>
-						<picture className={styles.header_picture}>
-							<Image className={styles.header_image} src={userLocal?.photo || "/user-icon.png"} alt="Imagen de perfil" width={50} height={50} />
-						</picture>
-						<span className={styles.header_name}>{userLocal.name || "Invitado"}</span>
+					<Link href={"/"} title="Ir a inicio">
+						<AppLogo className={styles.header_logo} />
+					</Link>
+					<button
+						className={`${styles.header_menu} ${viewMenuProfile && styles.header_menuActive}`}
+						onClick={HandleViewMenu}
+						onMouseLeave={() => setViewMenuProfile(false)}
+					>
+						<MenuIcon className={styles.header_menuIcon} />
+						<span className={styles.header_menuName}>Menu</span>
 					</button>
 					<nav
 						className={`${styles.profile} ${viewMenuProfile && styles.profile_active}`}
 						onMouseOver={() => setViewMenuProfile(true)}
 						onMouseLeave={() => setViewMenuProfile(false)}
 					>
-						<Link href={`/profile`} className={styles.profile_link} title="Ir a sesión de perfil">
+						<div className={styles.profile_user}>
+							<picture className={styles.profile_userPicture}>
+								<img
+									className={styles.profile_userImage}
+									src={userLocal?.photo || "/user-icon.png"}
+									alt="Imagen de perfil"
+									loading="lazy"
+									width={50}
+									height={50}
+								/>
+							</picture>
+							<span className={styles.profile_userName}>{userLocal.name || "Invitado"}</span>
+						</div>
+						<Link
+							href={`/profile`}
+							className={`${styles.profile_link} ${pathname === "/profile" && styles.profile_linkActive}`}
+							title="Ir a sesión de perfil"
+						>
 							<ProfileIcon className={styles.profile_icon} />
 							Perfil
 						</Link>
+						{LinksPage.map((link) => (
+							<Link
+								className={`${styles.profile_link} ${link.pathname === pathname && styles.profile_linkActive}`}
+								key={link.id}
+								href={link.href}
+								title={link.title}
+							>
+								{link.icon}
+								{link.text}
+							</Link>
+						))}
 						{!isLogged && (
 							<Link href={!isLogged ? "auth/login" : "/logout"} className={styles.profile_link} title={"Ir a sección iniciar sesión"}>
-								<ExitLogo className={styles.profile_icon} />
+								<LogInIcon className={styles.profile_icon} />
 								{"Iniciar sesión"}
 							</Link>
 						)}
 						{isLogged && (
 							<button onClick={HandleSignOut} className={styles.profile_link} title={"Cerrar sesión"}>
-								<ExitLogo className={styles.profile_icon} />
+								<LogOutIcon className={styles.profile_icon} />
 								{"Cerrar sesión"}
 							</button>
 						)}
 					</nav>
 				</div>
-				<nav className={styles.nav}>
-					{LinksPage.map((link) => (
-						<Link className={`${styles.nav_link} ${link.href === pathname && styles.nav_linkActive}`} key={link.id} href={link.href} title={link.title}>
-							{link.text}
-						</Link>
-					))}
-				</nav>
+				{!isLandscape && (
+					<nav className={styles.nav}>
+						{LinksPage.map((link) => (
+							<Link
+								className={`${styles.nav_link} ${link.pathname === pathname && styles.nav_linkActive}`}
+								key={link.id}
+								href={link.href}
+								title={link.title}
+							>
+								{link.text}
+							</Link>
+						))}
+					</nav>
+				)}
 			</section>
 		</header>
 	)

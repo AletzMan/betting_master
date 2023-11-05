@@ -1,0 +1,191 @@
+.match {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: var(--hover-link);
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--hover-link);
+    padding: 0.5em 0.35em;
+
+    &:hover {
+        border: 1px solid var(--hover-link);
+    }
+
+    &_header {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        column-gap: 0.5em;
+        padding: 0.1em;
+
+
+    }
+
+    &_team {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        &Away {
+            flex-direction: row-reverse;
+        }
+
+        &>svg {
+            width: 2.2em;
+            height: 2.2em;
+        }
+
+        &Name {
+            font-size: 0.95em;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-align: center;
+            color: var(--foreground-second-color);
+
+            @media (max-width: 600px) {
+                //font-size: 0.7em;
+            }
+        }
+    }
+
+
+    &_status {
+        grid-column: 1 / span 3;
+        text-align: center;
+        font-size: 0.85em;
+
+        &NotStarted {
+            color: #10a30d;
+        }
+
+        &Ended {
+            color: #c82825;
+        }
+
+        &Started {
+            color: #d39c0f;
+
+        }
+    }
+
+
+    &_stadium {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        column-gap: 0.5em;
+        font-size: 0.8em;
+        padding: 0.3em 0 0.2em 0;
+
+        &Icon {
+            width: 1.3em;
+            height: 1.3em;
+            color: var(--foreground-color);
+        }
+
+    }
+
+    &_hour {
+        color: #3c90cc;
+        font-size: 0.85em;
+    }
+
+}
+
+
+.predictions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0.3em;
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 0.2em;
+
+    &Empty {
+        animation: animationEmpty 1s ease-in-out alternate infinite;
+        border: 1px solid #c8282545;
+
+        @keyframes animationEmpty {
+            0% {
+                border: 1px solid #c82825;
+
+                //transform: scale(1);
+            }
+
+            100% {
+                border: 1px solid #c8282550;
+
+                //transform: scale(1);
+            }
+        }
+    }
+
+    &_prediction {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% / 3);
+        width: 2.5em;
+        height: 2.5em;
+        border-radius: 0.1em;
+        background-color: var(--hover-link);
+        transition: background-color 0.25s ease-in-out;
+
+        &:hover {
+            background-color: var(--background-textTwo);
+
+        }
+
+        &Input {
+            width: 2.7em;
+            height: 2.7em;
+            opacity: 0.05;
+            z-index: 2;
+            opacity: 0;
+            cursor: pointer;
+
+
+        }
+
+        &Letter {
+            position: absolute;
+            font-size: 1.3em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background-color: #24b1d575;
+            z-index: 1;
+            opacity: 0;
+            border-radius: 0.1em;
+            animation: animationLetter 0.45s both ease-in-out;
+
+            @keyframes animationLetter {
+                0% {
+                    opacity: 0;
+                    transform: scale(1);
+                }
+
+                60% {
+                    opacity: 1;
+                    transform: scale(1.1);
+                }
+
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+        }
+    }
+}

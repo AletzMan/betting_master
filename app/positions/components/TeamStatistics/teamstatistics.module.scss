@@ -1,0 +1,60 @@
+.team {
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+.statistics {
+    display: grid;
+    grid-template-columns: repeat(8, 2em);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.9em;
+    background-color: #FFFFFF15;
+    border-bottom: 1px solid #FFFFFF20;
+    padding: 0.15em 0.5em 0.15em 0.15em;
+
+    /*
+    &_games {
+        color: #CCCCCC;
+    }
+
+    &_win {
+        color: #4CAF50;
+    }
+
+    &_drawn {
+        color: #FFC107;
+    }
+
+    &_lost {
+        color: #F44336;
+    }
+
+    &_for {
+        color: #b2f6bd;
+    }
+
+    &_against {
+        color: #f8c5b4;
+    }
+*/
+    &_difference {
+        color: #ffcaff;
+
+        &Neg {
+            color: #ca1a1a;
+        }
+
+        &Pos {
+            color: #30cd04;
+        }
+    }
+
+    &_points {
+        color: #2286ea;
+    }
+}

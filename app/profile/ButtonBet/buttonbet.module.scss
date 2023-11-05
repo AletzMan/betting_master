@@ -1,0 +1,32 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: 100%;
+    font-size: 1.35em;
+    border-radius: var(--border-radius);
+    font-family: var(--font-monserrat);
+    border: 1px solid #e9e9e970;
+    background-color: #fcfbfb25;
+    color: #eeeeee;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+    @media (pointer: fine) {
+        &:hover {
+            border: 1px solid var(--headerhover-color);
+            background-color: var(--headerhover-color);
+            color: var(--foreground-second-color);
+        }
+    }
+
+
+
+    &Active {
+        border: 1px solid var(--headerhover-color);
+        background-color: var(--header-color);
+        color: var(--foreground-second-colorr);
+    }
+}

@@ -1,0 +1,45 @@
+.team {
+    display: flex;
+    flex-direction: row;
+}
+
+.description {
+    display: grid;
+    grid-template-columns: 1em 2em 1fr;
+    align-items: center;
+    column-gap: 0.5em;
+    min-width: 12em;
+    min-height: 1.9em;
+    background-color: #222222;
+    border-bottom: 1px solid #FFFFFF20;
+    padding: 0.15em 0.5em 0.15em 0.15em;
+    border-left: 3px solid transparent;
+
+
+    &_qualifiers {
+        border-left: 3px solid #1976D2;
+    }
+
+    &_playoff {
+        border-left: 3px solid #d27219;
+    }
+
+    &_position {
+        text-align: right;
+        font-size: 0.8em;
+        color: #d8ddff;
+    }
+
+    &_logo {
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    &_name {
+        font-size: 0.85em;
+        text-overflow: ellipsis;
+        text-wrap: nowrap;
+        overflow: hidden;
+
+    }
+}

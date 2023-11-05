@@ -1,0 +1,125 @@
+.dialog {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    width: 100svw;
+    height: 100svh;
+    padding: 0.25em;
+    z-index: 5;
+    background-color: #00000085;
+    backdrop-filter: blur(3px);
+
+    &_main {
+
+        max-height: 100svh;
+        background: linear-gradient(-30deg, var(--background-start-color), var(--background-end-color));
+        width: 100%;
+        max-width: 35em;
+
+        &Header {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em;
+            align-items: center;
+            background-color: var(--header-color);
+
+            &Title {
+                color: var(--foreground-color);
+                width: 100%;
+                text-align: center;
+                padding: 0 0 0.5em 0;
+                border-bottom: 1px solid var(--hover-link);
+                margin: 0 0 0.5em 0;
+            }
+        }
+    }
+
+    &_successfully {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        row-gap: 1em;
+        width: 100%;
+        text-align: center;
+        padding: 3em 0;
+        font-size: 1.2em;
+        color: #05af27;
+    }
+}
+
+.form {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-end;
+    width: 100%;
+
+    &_name {
+        flex: 0 1 45%;
+    }
+
+    &_label {
+        position: relative;
+        color: var(--foreground-color);
+        font-size: 0.85em;
+
+        &Error {
+            position: absolute;
+            bottom: 0.1em;
+            width: max-content;
+            padding: 0em 0.5em;
+            color: #f42020;
+            animation: error 1s ease-in-out alternate infinite;
+
+            @keyframes error {
+                0% {
+                    opacity: 1;
+                }
+
+                100% {
+                    opacity: 0.4;
+                }
+            }
+        }
+    }
+
+    &_input {
+        height: 1.95em;
+        width: 100%;
+        padding: 0 0.5em;
+        font-size: 0.9em;
+        font-weight: 500;
+        font-family: var(--font-montserrat);
+    }
+
+    &_buttons {
+        flex: 0 1 45%;
+        display: flex;
+        column-gap: 0.5em;
+        flex-direction: row;
+        padding: 0 0.4em;
+        width: 100%;
+    }
+
+    &_button {
+        border: none;
+        padding: 0.35em 0.6em;
+        min-width: 6em;
+        max-height: 2.1em;
+        border: 1px solid var(--border-color);
+        color: var(--foreground-color);
+        background-color: var(--highlight-color);
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--highlighthover-color);
+        }
+
+        &Cancel {
+            background-color: var(--headerhover-color);
+        }
+
+    }
+}

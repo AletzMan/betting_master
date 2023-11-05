@@ -1,0 +1,96 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.35em 0;
+
+    &Button {
+        border: none;
+        padding: 0.35em 0.6em;
+        color: var(--foreground-color);
+        background-color: var(--highlight-color);
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+            background-color: var(--highlighthover-color);
+        }
+    }
+
+    &Time {
+        font-size: 0.8em;
+        padding: 0.1em 0.5em;
+        border-radius: 0.2em;
+        border: 1px solid #FF0000;
+        background-color: #4a0606;
+
+        &Remainig {
+            font-size: 0.85em;
+
+            &Clock {
+                color: #06ea06;
+            }
+        }
+    }
+
+    &Options {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        overflow: hidden;
+        height: 1.4em;
+        column-gap: 0.25em;
+        font-size: 0.85em;
+        color: #c61bff;
+
+
+        &Option {
+            display: flex;
+            align-items: center;
+            column-gap: 0.25em;
+            animation: animateOptions 4s infinite alternate;
+
+            @keyframes animateOptions {
+                0% {
+                    transform: translateY(0);
+                }
+
+                30% {
+                    transform: translateY(0);
+                }
+
+
+
+                70% {
+                    transform: translateY(-100%);
+                }
+
+                100% {
+                    transform: translateY(-100%);
+                }
+            }
+        }
+
+
+        &Icon {
+            width: 1.2em;
+            height: 1.2em;
+
+            &Win {
+                color: #c29b0f;
+            }
+        }
+
+        &Text {
+            &Win {
+                color: #c29b0f;
+                margin: 0 0.5em 0 0;
+            }
+        }
+    }
+
+}

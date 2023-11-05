@@ -1,0 +1,51 @@
+.bets {
+    padding: 0.25em;
+    border: 1px solid var(--twitterTwo-color);
+    border-radius: var(--border-radius);
+    background-color: var(--twitter-color);
+
+    &Container {
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.35s ease-in-out;
+
+        &Open {
+            max-height: 20em;
+        }
+    }
+
+    &Header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &Day {
+            font-weight: 500;
+            padding: 0 0.5em;
+            color: var(--subtitle-color);
+        }
+
+        &Button {
+            border: none;
+            background-color: var(--hover-link);
+            transform: rotate(90deg);
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+
+            &:hover {
+                background-color: var(--headerhover-color);
+
+            }
+
+        }
+
+        &Icon {
+            color: var(--subtitle-color);
+            transition: transform 0.3s ease-in-out;
+
+            &Open {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}

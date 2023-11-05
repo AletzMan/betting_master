@@ -1,26 +1,27 @@
 "use client"
-import { BallIcon, GoogleLogo, LogInIcon, TwitterLogo } from "@/app/svg"
+import { BallIcon, FacebookIcon, GoogleLogo, LogInIcon, TwitterLogo } from "@/app/svg"
 import styles from "./login.module.scss"
-import { AuthProvider, GoogleAuthProvider, TwitterAuthProvider, User, signInWithPopup } from "firebase/auth"
+import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User, signInWithPopup } from "firebase/auth"
 import { FirebaseError } from "firebase/app"
 import { useUser } from "@/app/config/zustand-store"
 import { useState } from "react"
-import { auth, GoogleProvider, TwitterProvider } from "@/app/config/firebase"
+import { auth, FacebookProvider, GoogleProvider, TwitterProvider } from "@/app/config/firebase"
 import { useRouter } from "next/navigation"
+import { useOrientation } from "@/app/hooks/useOrientation"
 
 export default function LoginPage() {
+	const { isLandscape } = useOrientation()
 	const router = useRouter()
 	const { user, setUser } = useUser()
 	const [isLogged, setIsLogged] = useState(false)
 
 	const HandleSignInWithGoogle = async (provider: AuthProvider) => {
-		console.log(provider.providerId)
+		console.log(provider)
 		try {
 			let token: string | undefined = ""
 			//User info
 			let userInfo = {} as User
 			const result = await signInWithPopup(auth, provider)
-			console.log(result)
 			if (provider.providerId === "google.com") {
 				const credential = GoogleAuthProvider.credentialFromResult(result)
 				token = credential?.accessToken
@@ -28,6 +29,11 @@ export default function LoginPage() {
 			}
 			if (provider.providerId === "twitter.com") {
 				const credential = TwitterAuthProvider.credentialFromResult(result)
+				token = credential?.accessToken
+				userInfo = result.user
+			}
+			if (provider.providerId === "facebook.com") {
+				const credential = FacebookAuthProvider.credentialFromResult(result)
 				token = credential?.accessToken
 				userInfo = result.user
 			}
@@ -54,23 +60,24 @@ export default function LoginPage() {
 		}
 	}
 	return (
-		<main className={styles.main}>
+		<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
 			<section className={styles.main_section}>
 				<BallIcon className={styles.main_sectionBall} />
-				<header className={styles.header}>
-					<h1 className={styles.header_title}>Iniciar Sesión</h1>
-					<LogInIcon className={styles.header_icon} />
-				</header>
+				<h1 className={styles.header_title}>Iniciar Sesión</h1>
 				<article className={styles.main_article}>
-					<p className={styles.main_message}>Accede para llenar quinielas y mantenerte al tanto de los resultados.</p>
+					{/*<p className={styles.main_message}>Accede para llenar quinielas y mantenerte al tanto de los resultados.</p>*/}
 					<p className={`${styles.main_message} ${styles.main_messageDown}`}>Elige una opción para iniciar sesión en la aplicación.</p>
 					<button className={`${styles.button} ${styles.button_google}`} onClick={() => HandleSignInWithGoogle(GoogleProvider)}>
 						<GoogleLogo className={`${styles.button_icon} ${styles.button_iconGoogle}`} />
-						<span className={`${styles.button_text} ${styles.button_textGoogle}`}>Iniciar Sesión con Google</span>
+						<span className={`${styles.button_text} ${styles.button_textGoogle}`}>Iniciar con Google</span>
 					</button>
 					<button className={`${styles.button} ${styles.button_twitter}`} onClick={() => HandleSignInWithGoogle(TwitterProvider)}>
 						<TwitterLogo className={`${styles.button_icon} ${styles.button_iconTwitter}`} />
-						<span className={`${styles.button_text} ${styles.button_textTwitter}`}>Iniciar Sesión con X</span>
+						<span className={`${styles.button_text} ${styles.button_textTwitter}`}>Iniciar con X</span>
+					</button>
+					<button className={`${styles.button} ${styles.button_facebook}`} onClick={() => HandleSignInWithGoogle(FacebookProvider)}>
+						<FacebookIcon className={`${styles.button_icon} ${styles.button_iconFacebook}`} />
+						<span className={`${styles.button_text} ${styles.button_textFacebook}`}>Iniciar con Facebook</span>
 					</button>
 				</article>
 			</section>
