@@ -5,12 +5,14 @@ import styles from "./index.module.scss"
 
 interface IProps {
 	className: string
+	color?: string
+	color2?: string
 }
 
 export function ChivasLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 250 290" width={350} hanging={350} style={{ transform: "scale(1.3)" }}>
+		<svg className={className} viewBox="0 0 250 290" width={350} hanging={350} style={{ transform: "scale(1.23)" }}>
 			<g>
 				<g>
 					<g>
@@ -235,7 +237,7 @@ export function ChivasLogo(props: IProps) {
 export function TigresLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 465.96 702.11">
+		<svg className={className} viewBox="0 0 465.96 702.11" style={{ transform: "scale(1.08) translateY(0.02em)" }}>
 			<polygon
 				fill="#fafbfb"
 				points="456.02 0 9.94 0 0 0 0 9.94 0 692.17 0 702.11 9.94 702.11 456.02 702.11 465.96 702.11 465.96 692.17 465.96 9.94 465.96 0 456.02 0"
@@ -390,7 +392,7 @@ export function TigresLogo(props: IProps) {
 export function AmericaLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.3) translateY(-0.1em)" }}>
+		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.35) translateY(-0.05em)" }}>
 			<path
 				fill="#deca59"
 				d="M32.17,13.21a35.3,35.3,0,0,1,17.34-1.85c.46.74,1.24,1.18,1.7,1.91a33.91,33.91,0,0,0-17.56,1.11C33.21,13.93,32.83,13.32,32.17,13.21Z"
@@ -494,7 +496,7 @@ export function AmericaLogo(props: IProps) {
 export function PumasLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.35) translateY(-0.4em)" }}>
+		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.4) translateY(-0.2em)" }}>
 			<title>{"Pumas-90x90"}</title>
 			<path
 				fill="#001e47"
@@ -520,7 +522,7 @@ export function PumasLogo(props: IProps) {
 export function SanLuisLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.4) translateY(-0.25em)" }}>
+		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.4) translateY(-0.15em)" }}>
 			<title>{"Atletico-SanLuis-90x90"}</title>
 			<g id="Grupo_70" data-name="Grupo 70">
 				<path
@@ -533,7 +535,7 @@ export function SanLuisLogo(props: IProps) {
 			<path
 				id="Trazado_812"
 				data-name="Trazado 812"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M67.76,46.64A21.75,21.75,0,0,1,49.47,68.11c-1.13.18-2.24-6.59-3.41-6.59S44,68.31,42.94,68.17A21.75,21.75,0,1,1,67.76,46.64Z"
 			/>
 			<g id="Grupo_71" data-name="Grupo 71">
@@ -556,7 +558,7 @@ export function SanLuisLogo(props: IProps) {
 			<path
 				id="Trazado_818"
 				data-name="Trazado 818"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M30.8,59.85V58.67l-.29-.29V57.31h1l.86-.86h1l.8.81H35V55.5h-1.5V51.79h2.28V49.11l-1.27-1.93s8.31-3.82,9.73-7.5h-.5V37.22h.39v-.58a2.19,2.19,0,0,1,.42-2,2.53,2.53,0,0,1,2.84-.43c.54.39,1,1.73.42,2.35V37h.58v2.8h-.42a20.6,20.6,0,0,0,9.75,7.52l-1.46,1.92V51.8h2.23v3.69H57v1.73h1.07l.66-.77h1l.69.73h1v1l-.27.31v3.07l-4.6,4.3v-3.3L56,61.94V55.49H36V61.9l-.64.64v3.2l-4.85-5.22Z"
 			/>
 			<path
@@ -569,111 +571,111 @@ export function SanLuisLogo(props: IProps) {
 			<path
 				id="Trazado_820"
 				data-name="Trazado 820"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M29,21.94l1,1.53.12-.53.79-.56.71,1.17-.1.39.33,0,1.84,2.81,0,.53L35,26.37l-.47-.13-1.78-2.77.1-.48-.45,0-.67-1.15.81-.5.56.21-.94-1.64-.08.5-2.44,1.58Z"
 			/>
 			<path
 				id="Trazado_821"
 				data-name="Trazado 821"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M31.58,28.64l-.48.12-3.14-2,.07-.52-.53.23-1.69-1.07,0-.49-1.54,1.4.41-.09,1.23,2-.22.43.42-.1L28,31.65l0,0v.63l1.31-1.36-.39,0-.57-.87L29.43,29l.82.48.07.5Zm-3.83.67L26.25,27l2.42,1.35Z"
 			/>
 			<path
 				id="Trazado_822"
 				data-name="Trazado 822"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M28,82.18l-.27-.53,1.5-4.16.64,0-.42-.56.81-2.23.58-.12-2-1.4.21.45-2,2-.56-.14.23.46-3.13,3,0,0-.75.17,1.95,1.15-.13-.44.87-.89,1.58,1-.35,1.06-.57.22Zm-1.79-4.26,2.31-2.35-.94,3.16Z"
 			/>
 			<path
 				id="Trazado_823"
 				data-name="Trazado 823"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M35.06,18.85l1.86-.6-.19.52.59,2,.33.09-.17.35.88,2.57,2.07-.67.26-.38.47,1.49-.55,0-3.46,1.21.31-.54-1-3.19L36,21.56l.17-.43-.63-2Z"
 			/>
 			<path
 				id="Trazado_824"
 				data-name="Trazado 824"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M48.29,78.54l2.34-.29-.34.57.27,2.49.36.19-.28.37.49,3.24,2.6-.34.38-.4.24,1.88-.65-.19-4.36.67.48-.57-.53-4L48.82,82l.29-.46-.3-2.55Z"
 			/>
 			<path
 				id="Trazado_825"
 				data-name="Trazado 825"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M42,16.91l3.78,0,.25-.33,0,1.56L45.73,18H43.56v1.33h1.83l.32-.25v1.57l-.28-.19-1.69,0,0,2,2.28.07.4-.34.06,1.69-.4-.23-3.73.11.31-.31-.13-3.24L42.24,20l.35-.45-.12-2.13Z"
 			/>
-			<path id="Trazado_826" data-name="Trazado 826" fill="#2a2e5b" d="M43.08,16v.84l.37-.19,1.76-.79-.07-1.05-.21.33Z" />
+			<path id="Trazado_826" data-name="Trazado 826" fill="#3340d1" d="M43.08,16v.84l.37-.19,1.76-.79-.07-1.05-.21.33Z" />
 			<path
 				id="Trazado_827"
 				data-name="Trazado 827"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M48.63,23.7,50.7,24l-.32-.5.44-3.45.36-.35-.3-.29L51,18.27l1.06,0,.4.46.11-1.59-.23.11-3.14-.38-.27-.33-.19,1.62.25-.12.9,0-.14,1.21-.3.26.19.3-.4,3.43Z"
 			/>
 			<path
 				id="Trazado_828"
 				data-name="Trazado 828"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M67.54,79.72l1.88-1.35-.54-.18-2.63-3.58.11-.55-.46.08-1.49-2.07.08-.54L62.6,72.94l.58.06,1.51,2-.18.62.46-.06,2.66,3.55Z"
 			/>
 			<path
 				id="Trazado_829"
 				data-name="Trazado 829"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M52.82,24.74l1.77.68L54.47,25l1.27-3.41.42-.18-.26-.27.75-1.94.4-.2-1.81-.66.22.43-.66,1.91-.51.15.24.29L53.3,24.51Z"
 			/>
 			<path
 				id="Trazado_830"
 				data-name="Trazado 830"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M59.3,28c.07-.07,1-1.48,1-1.48l-.5.09-1.55-1s-.3-.23,0-.67,1.06-1.66,1.06-1.66l.44-.09-.12-.4.51-.85s.16-.35.62-.07l1.23.76.09.49.9-1.44-.35,0-2-1.18a1,1,0,0,0-1.13.21A6,6,0,0,0,58.72,22l-.41,0,.11.44-1.36,2.31s-.6.9,0,1.41,1.37.94,2.08,1.36Z"
 			/>
 			<path
 				id="Trazado_831"
 				data-name="Trazado 831"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M67.75,26.29c-.53-.63-1.5-1.55-1.5-1.55a.75.75,0,0,0-1,0,7.57,7.57,0,0,0-1.08,1.11l-.51-.1,0,.49-2.12,2.1s-.65.76.49,1.73c.67.57,1.31,1.59,1.84,1.09l2.36-2.24.46,0,0-.48,1.09-1.07A.78.78,0,0,0,67.75,26.29Zm-1.09.83-.71.65-.51,0,0,.53s-1.53,1.48-1.8,1.71-.42-.06-.77-.39c-.62-.6-.21-1-.21-1L64.28,27l.46-.05V26.5a6.87,6.87,0,0,1,.63-.58c.37-.3.48-.19.48-.19l.67.7A.55.55,0,0,1,66.66,27.12Z"
 			/>
 			<path
 				id="Trazado_832"
 				data-name="Trazado 832"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M16,73.65l.44,0,2.22,2.07a.9.9,0,0,0,1.14,0c.51-.48,1.93-1.88,1.93-1.88a.78.78,0,0,0,.18-.67c0-.5-.16-1.63-.16-1.63l.31-.33L21.7,71l-.17-1.15.4-.46s.25-.38.75.12S24,70.87,24,70.87l.1.5L25.38,70H25l-2-2a.81.81,0,0,0-1.11,0,14.53,14.53,0,0,0-1.54,1.39s-.13,0-.05.82.09,1,.09,1l-.38.4.46.19.1,1.5-.93,1s-.34.38-1-.27-1.13-1.23-1.13-1.23l-.06-.5Z"
 			/>
 			<path
 				id="Trazado_833"
 				data-name="Trazado 833"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M73.59,76.33v-.44l1.93-2.36a.91.91,0,0,0-.08-1.13c-.51-.49-2-1.81-2-1.81a.75.75,0,0,0-.68-.13l-1.62.25-.34-.28-.23.42-1.13.24-.49-.37s-.4-.22.07-.75,1.55-1.53,1.55-1.53l.49-.12-1.5-1.24,0,.35L67.42,69.7a.8.8,0,0,0,0,1.12,14.28,14.28,0,0,0,1.47,1.44s0,.13.83,0l1-.16.43.35.16-.47,1.49-.19,1,.86s.41.32-.2,1-1.16,1.21-1.16,1.21L72,75Z"
 			/>
 			<path
 				id="Trazado_834"
 				data-name="Trazado 834"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M32.1,84.11l2,.65-.14-.4,1.66-5.68L35.9,85l-.52.21,2.25.69-.19-.57L38.84,81l.38-.16-.3-.29.69-2.47.46-.29L38,77.13l.3.42-1.22,4.11-.16-4.53.33-.18L34.56,76l.33.43L34.1,79l-.5.15.27.35L32.6,83.82Z"
 			/>
 			<path
 				id="Trazado_835"
 				data-name="Trazado 835"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M55.56,76.82l2-.85-.15.44,1,2.52.4.13-.21.39,1.14,2.91s.13.52.49.39,1.18-.54,1.18-.54.4-.13.17-.61-1.23-2.88-1.23-2.88l-.48-.12.23-.4-.9-2.46-.37-.19,1.8-.77-.07.39.84,2.38.42.11-.11.48,1.23,3.09s.63,1.21-.21,1.75a22.56,22.56,0,0,1-2.57,1.25,1.28,1.28,0,0,1-1.59-.84v0C58,82.12,57.19,80,57.19,80l-.44-.09.23-.44L56,77Z"
 			/>
-			<rect id="Rect\xE1ngulo_21" data-name="Rect\xE1ngulo 21" fill="#2a2e5b" x={74.31} y={65.05} width={2.69} height={2.69} />
-			<rect id="Rect\xE1ngulo_22" data-name="Rect\xE1ngulo 22" fill="#2a2e5b" x={15} y={65.09} width={2.73} height={2.73} />
-			<circle id="Elipse_1" data-name="Elipse 1" fill="#2a2e5b" cx={40.41} cy={50.27} r={0.92} />
-			<circle id="Elipse_2" data-name="Elipse 2" fill="#2a2e5b" cx={46.02} cy={50.27} r={0.92} />
-			<circle id="Elipse_3" data-name="Elipse 3" fill="#2a2e5b" cx={51.61} cy={50.27} r={0.92} />
+			<rect id="Rect\xE1ngulo_21" data-name="Rect\xE1ngulo 21" fill="#3340d1" x={74.31} y={65.05} width={2.69} height={2.69} />
+			<rect id="Rect\xE1ngulo_22" data-name="Rect\xE1ngulo 22" fill="#3340d1" x={15} y={65.09} width={2.73} height={2.73} />
+			<circle id="Elipse_1" data-name="Elipse 1" fill="#3340d1" cx={40.41} cy={50.27} r={0.92} />
+			<circle id="Elipse_2" data-name="Elipse 2" fill="#3340d1" cx={46.02} cy={50.27} r={0.92} />
+			<circle id="Elipse_3" data-name="Elipse 3" fill="#3340d1" cx={51.61} cy={50.27} r={0.92} />
 			<g id="Grupo_72" data-name="Grupo 72">
-				<rect id="Rect\xE1ngulo_23" data-name="Rect\xE1ngulo 23" fill="#2a2e5b" x={34.77} y={53.11} width={0.5} height={1.11} />
-				<rect id="Rect\xE1ngulo_24" data-name="Rect\xE1ngulo 24" fill="#2a2e5b" x={36.97} y={53.11} width={0.5} height={1.11} />
-				<rect id="Rect\xE1ngulo_25" data-name="Rect\xE1ngulo 25" fill="#2a2e5b" x={39.17} y={53.11} width={0.5} height={1.11} />
-				<rect id="Rect\xE1ngulo_26" data-name="Rect\xE1ngulo 26" fill="#2a2e5b" x={41.36} y={53.11} width={0.5} height={1.11} />
-				<rect id="Rect\xE1ngulo_27" data-name="Rect\xE1ngulo 27" fill="#2a2e5b" x={43.56} y={53.11} width={0.5} height={1.11} />
-				<rect id="Rect\xE1ngulo_28" data-name="Rect\xE1ngulo 28" fill="#2a2e5b" x={45.76} y={53.11} width={0.5} height={1.11} />
-				<rect id="Rect\xE1ngulo_29" data-name="Rect\xE1ngulo 29" fill="#2a2e5b" x={47.96} y={53.11} width={0.5} height={1.11} />
-				<rect id="Rect\xE1ngulo_30" data-name="Rect\xE1ngulo 30" fill="#2a2e5b" x={50.16} y={53.11} width={0.5} height={1.11} />
-				<rect id="Rect\xE1ngulo_31" data-name="Rect\xE1ngulo 31" fill="#2a2e5b" x={52.35} y={53.11} width={0.5} height={1.11} />
-				<rect id="Rect\xE1ngulo_32" data-name="Rect\xE1ngulo 32" fill="#2a2e5b" x={54.55} y={53.11} width={0.5} height={1.11} />
-				<rect id="Rect\xE1ngulo_33" data-name="Rect\xE1ngulo 33" fill="#2a2e5b" x={56.75} y={53.11} width={0.5} height={1.11} />
+				<rect id="Rect\xE1ngulo_23" data-name="Rect\xE1ngulo 23" fill="#3340d1" x={34.77} y={53.11} width={0.5} height={1.11} />
+				<rect id="Rect\xE1ngulo_24" data-name="Rect\xE1ngulo 24" fill="#3340d1" x={36.97} y={53.11} width={0.5} height={1.11} />
+				<rect id="Rect\xE1ngulo_25" data-name="Rect\xE1ngulo 25" fill="#3340d1" x={39.17} y={53.11} width={0.5} height={1.11} />
+				<rect id="Rect\xE1ngulo_26" data-name="Rect\xE1ngulo 26" fill="#3340d1" x={41.36} y={53.11} width={0.5} height={1.11} />
+				<rect id="Rect\xE1ngulo_27" data-name="Rect\xE1ngulo 27" fill="#3340d1" x={43.56} y={53.11} width={0.5} height={1.11} />
+				<rect id="Rect\xE1ngulo_28" data-name="Rect\xE1ngulo 28" fill="#3340d1" x={45.76} y={53.11} width={0.5} height={1.11} />
+				<rect id="Rect\xE1ngulo_29" data-name="Rect\xE1ngulo 29" fill="#3340d1" x={47.96} y={53.11} width={0.5} height={1.11} />
+				<rect id="Rect\xE1ngulo_30" data-name="Rect\xE1ngulo 30" fill="#3340d1" x={50.16} y={53.11} width={0.5} height={1.11} />
+				<rect id="Rect\xE1ngulo_31" data-name="Rect\xE1ngulo 31" fill="#3340d1" x={52.35} y={53.11} width={0.5} height={1.11} />
+				<rect id="Rect\xE1ngulo_32" data-name="Rect\xE1ngulo 32" fill="#3340d1" x={54.55} y={53.11} width={0.5} height={1.11} />
+				<rect id="Rect\xE1ngulo_33" data-name="Rect\xE1ngulo 33" fill="#3340d1" x={56.75} y={53.11} width={0.5} height={1.11} />
 			</g>
 			<path
 				id="Trazado_836"
@@ -690,7 +692,7 @@ export function SanLuisLogo(props: IProps) {
 			<path
 				id="Trazado_838"
 				data-name="Trazado 838"
-				fill="#2a2e5b"
+				fill="#3340d1"
 				d="M47.54,62.2H46.37V61.08l.47-.46V59.49l.22-.22v-.38L46,58l-1,.84v.48l.18.18v1.2l.48.48V62.2h-1l-.95.94v4.74l1.87.32V64.57h.83V68.2l2-.29V63Z"
 			/>
 			<g id="Grupo_73" data-name="Grupo 73">
@@ -709,7 +711,7 @@ export function SanLuisLogo(props: IProps) {
 				<path
 					id="Trazado_841"
 					data-name="Trazado 841"
-					fill="#2a2e5b"
+					fill="#3340d1"
 					d="M72.34,31l-.4-.65-.63.37-.33.19h0l-1.57.91L63.94,35l.39.65,5.47-3.19a27.65,27.65,0,1,1-47.33-.24l5,3,1-.23-5.68-3.31-1.56-.92-.34-.19-.63-.37-.33.54A30.58,30.58,0,1,0,72.33,31ZM46.07,76.47A29.83,29.83,0,0,1,20.58,31.09l.33.2a29.47,29.47,0,1,0,50.47.25l.33-.2A29.84,29.84,0,0,1,46.07,76.47Z"
 				/>
 			</g>
@@ -720,7 +722,7 @@ export function SanLuisLogo(props: IProps) {
 export function TolucaLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 452.27 443.53">
+		<svg className={className} viewBox="0 0 452.27 443.53" style={{ transform: "scale(1.05)" }}>
 			<defs>
 				<style>{".cls-1{fill:none;}.cls-2{fill:#fff;}.cls-3{fill:#006241;}.cls-4{fill:#ce0e2d;}.cls-5{fill:#111c4e;}"}</style>
 			</defs>
@@ -808,7 +810,7 @@ export function TolucaLogo(props: IProps) {
 export function TijuanaLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.5) translateY(-0.25em)" }}>
+		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.5) translateY(-0.15em)" }}>
 			<polygon points="45.81 23.45 40.91 26.97 42.79 21.25 37.89 17.71 43.95 17.71 45.83 12 47.7 17.72 53.76 17.73 48.85 21.26 50.72 26.98 45.81 23.45" />
 			<path d="M45.82,85A29.25,29.25,0,1,1,75.25,55.75,29.38,29.38,0,0,1,45.82,85m0-56.78a27.53,27.53,0,1,0,27.7,27.53,27.64,27.64,0,0,0-27.7-27.53" />
 			<path fill="#FFFFFF" fillRule="evenodd" d="M45.82,27.36A28.39,28.39,0,1,1,17.25,55.75,28.49,28.49,0,0,1,45.82,27.36" />
@@ -1074,7 +1076,7 @@ export function TijuanaLogo(props: IProps) {
 export function MonterreyLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.4) translateY(-0.2em)" }}>
+		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.4) translateY(-0.02em)" }}>
 			<defs>
 				<style>{".cls-1{fill:#0a2240;}.cls-2{fill:#fff;}.cls-3{fill:#cb9700;}"}</style>
 			</defs>
@@ -1130,7 +1132,7 @@ export function MonterreyLogo(props: IProps) {
 export function LeonLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.4) translateY(-0.2em)" }}>
+		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.4) translateY(-0.1em)" }}>
 			<defs>
 				<linearGradient id="linear-gradient" x1={22.6} y1={48.46} x2={70.12} y2={48.46} gradientUnits="userSpaceOnUse">
 					<stop offset={0} stopColor="#006927" />
@@ -1338,7 +1340,7 @@ export function LeonLogo(props: IProps) {
 export function JuarezLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.3) translateY(-0.22em)" }}>
+		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.35) translateY(-0.11em)" }}>
 			<path
 				fill="#76bc21"
 				d="M72.29,65.53,48,83.69,23.67,65.53,16.2,30.59l6.24,3.71-2.6-12.06a8.63,8.63,0,0,0,3.94.38C31.66,21.82,37.5,15,48,15s16.32,6.84,24.2,7.64a8.6,8.6,0,0,0,3.94-.38L73.52,34.3l6.24-3.71L73.87,58.14l-.1.47a5.87,5.87,0,0,1,.93.34l6.49-30.36L75,32.3l2.5-11.66a9.61,9.61,0,0,1-4.13,1.06,7.45,7.45,0,0,1-1-.05c-3.26-.33-6.22-1.79-9.35-3.33C58.8,16.3,54.13,14,48,14s-10.81,2.3-14.93,4.32c-3.14,1.54-6.1,3-9.36,3.33a7.31,7.31,0,0,1-1,.05,9.69,9.69,0,0,1-4.14-1.06L21,32.3,14.8,28.59l8,37.49L48,84.89,73.18,66.08l.35-1.64-1,0Z"
@@ -1437,7 +1439,7 @@ export function JuarezLogo(props: IProps) {
 export function AtlasLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.3)  translateY(-0.25em)" }}>
+		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.3)  translateY(-0.15em)" }}>
 			<path
 				fill="#FFFFFF"
 				d="M47.17,88l-.76-.42c-20-10.92-33-31.47-33-52.34V33.67H15c16.34,0,27.21-8.3,30.73-16.53l1.44-3.35,1.44,3.35C52,25.1,63,33.66,79,33.66h1.56v1.57c0,22.17-11.28,40.27-32.63,52.34ZM16.58,36.78C17.19,55.73,29,74.21,47.15,84.42c19.6-11.35,29.78-27.37,30.27-47.66a41,41,0,0,1-20.25-5.85,30.4,30.4,0,0,1-10-9.76C42.36,29.05,31.7,36.3,16.58,36.78Z"
@@ -1456,7 +1458,7 @@ export function AtlasLogo(props: IProps) {
 export function SantosLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.5) translateY(-0.2em)" }}>
+		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.5) translateY(-0.05em)" }}>
 			<title>{"Santos-90x90"}</title>
 			<polygon
 				fill="#1e120d"
@@ -1567,10 +1569,7 @@ export function SantosLogo(props: IProps) {
 export function PueblaLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 564.85 655.51" style={{ transform: "scale(1.12)" }}>
-			<defs>
-				<style>{".cls-1{fill:#fff;}.cls-2,.cls-3{fill:#35426a;}.cls-3{fill-rule:evenodd;}"}</style>
-			</defs>
+		<svg className={className} viewBox="0 0 564.85 655.51" style={{ transform: "scale(1.1)" }}>
 			<title>{"pueblafc"}</title>
 			<path
 				fill="#FFFFFF"
@@ -1684,37 +1683,37 @@ export function PueblaLogo(props: IProps) {
 export function QueretaroLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.3) translateY(-0.2em)" }}>
-			<path className="cls-1" d="M22.38,14.06V62.42c0,11.19,14,20.88,25.83,20.88S74,73.61,74,62.42V14.06Z" />
-			<rect className="cls-2" x={23.03} y={15} width={50.25} height={7.99} />
+		<svg className={className} viewBox="0 0 90 90" style={{ transform: "scale(1.4) translateY(-0.05em)" }}>
+			<path fill="#FFFFFF" d="M22.38,14.06V62.42c0,11.19,14,20.88,25.83,20.88S74,73.61,74,62.42V14.06Z" />
+			<rect fill="#1F140F" x={23.03} y={15} width={50.25} height={7.99} />
 			<path
-				className="cls-1"
+				fill="#FFF"
 				d="M36.72,19.25a2.13,2.13,0,0,1-.13.76,1.69,1.69,0,0,1-.38.63,1.59,1.59,0,0,1-.56.38,2.78,2.78,0,0,1-1,.15h-.11a4.41,4.41,0,0,1-.6-.05,1.8,1.8,0,0,1-.64-.18,1.91,1.91,0,0,1-.48-.39,1.55,1.55,0,0,1-.29-.53,2.59,2.59,0,0,1-.12-.77V16.54h1.37v2.78a.74.74,0,0,0,.21.58.72.72,0,0,0,.55.21.75.75,0,0,0,.57-.21.81.81,0,0,0,.19-.58V16.54h1.39Z"
 			/>
 			<polygon
-				className="cls-1"
+				fill="#FFFFFF"
 				points="41.41 21.09 37.63 21.09 37.63 16.54 41.33 16.54 41.33 17.51 39.01 17.51 39.01 18.24 41.17 18.24 41.17 19.15 39.01 19.15 39.01 20.06 41.41 20.06 41.41 21.09"
 			/>
 			<polygon
-				className="cls-1"
+				fill="#FFFFFF"
 				points="50.77 21.09 47 21.09 47 16.54 50.7 16.54 50.7 17.51 48.39 17.51 48.39 18.24 50.53 18.24 50.53 19.15 48.39 19.15 48.39 20.06 50.77 20.06 50.77 21.09"
 			/>
-			<polygon className="cls-1" points="53.99 21.09 52.61 21.09 52.61 17.66 51.2 17.66 51.2 16.54 55.4 16.54 55.4 17.66 53.99 17.66 53.99 21.09" />
+			<polygon fill="#FFFFFF" points="53.99 21.09 52.61 21.09 52.61 17.66 51.2 17.66 51.2 16.54 55.4 16.54 55.4 17.66 53.99 17.66 53.99 21.09" />
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M69.4,20.09a1.87,1.87,0,0,1-.76.79,2.5,2.5,0,0,1-1.24.29h-.05a2.77,2.77,0,0,1-1.2-.25,1.89,1.89,0,0,1-.81-.78A2.54,2.54,0,0,1,65,18.81a2.38,2.38,0,0,1,.61-1.73,2.31,2.31,0,0,1,1.7-.62h0a2.32,2.32,0,0,1,1.71.61,2.35,2.35,0,0,1,.61,1.71A2.8,2.8,0,0,1,69.4,20.09Zm-2.05-2.56h0a.86.86,0,0,0-.68.29,1.65,1.65,0,0,0-.25,1,1.65,1.65,0,0,0,.25,1,.91.91,0,0,0,.69.3.83.83,0,0,0,.69-.3,1.72,1.72,0,0,0,.24-1.06,1.43,1.43,0,0,0-.25-.94A.83.83,0,0,0,67.35,17.53Z"
 			/>
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M63.3,21.09l-.63-1.21-.1-.19a1.05,1.05,0,0,0-.25-.34.58.58,0,0,0-.34-.11h-.12v1.85H60.47V16.54h2.31a3.18,3.18,0,0,1,1,.11,1,1,0,0,1,.54.42,1.23,1.23,0,0,1,.21.73,1.37,1.37,0,0,1-.16.66,1.29,1.29,0,0,1-.43.44,2,2,0,0,1-.49.18,1.76,1.76,0,0,1,.36.17,1.23,1.23,0,0,1,.22.23,2.24,2.24,0,0,1,.19.29l.67,1.32Zm-.63-3.62-.2,0h-.61v.93h.58l.23,0,.14,0a.33.33,0,0,0,.22-.14.42.42,0,0,0,.09-.27.44.44,0,0,0-.13-.33A.55.55,0,0,0,62.67,17.47Z"
 			/>
-			<path className="cls-1" d="M58.57,21.09l-.22-.76H56.78l-.21.76H55.15l1.68-4.55h1.51L60,21.09Zm-1-3.37-.49,1.63h1Z" />
+			<path fill="#FFFFFF" d="M58.57,21.09l-.22-.76H56.78l-.21.76H55.15l1.68-4.55h1.51L60,21.09Zm-1-3.37-.49,1.63h1Z" />
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M45,21.09l-.64-1.21-.09-.19a1,1,0,0,0-.26-.34.6.6,0,0,0-.34-.11h-.12v1.85H42.17V16.54h2.29a3.1,3.1,0,0,1,1,.11,1,1,0,0,1,.55.42,1.23,1.23,0,0,1,.2.73,1.26,1.26,0,0,1-.15.66,1.32,1.32,0,0,1-.44.44,1.73,1.73,0,0,1-.48.18,2.06,2.06,0,0,1,.36.17,2.11,2.11,0,0,1,.42.52l.66,1.32Zm-.64-3.62-.2,0h-.61v.93h.58l.23,0,.14,0a.35.35,0,0,0,.23-.14.48.48,0,0,0,.08-.27.41.41,0,0,0-.14-.33A.52.52,0,0,0,44.36,17.47Z"
 			/>
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M31.46,21.6l-.56-.33c-.2-.14-.33-.24-.4-.3a2.93,2.93,0,0,1-1.05.2h-.1a2.21,2.21,0,0,1-1.6-.55,2.28,2.28,0,0,1-.7-1.79,2.43,2.43,0,0,1,.6-1.75,2.33,2.33,0,0,1,1.71-.62h.09a2.21,2.21,0,0,1,1.63.61,2.36,2.36,0,0,1,.6,1.74,2.46,2.46,0,0,1-.49,1.61l.34.23a2.38,2.38,0,0,0,.32.16Zm-2-4.07h-.09a.84.84,0,0,0-.67.29,1.46,1.46,0,0,0-.26.94,1.77,1.77,0,0,0,.25,1.06.87.87,0,0,0,.68.3h.09l.18,0-.18-.15a3,3,0,0,0-.36-.18l.21-.51.15,0,.13.05a3.67,3.67,0,0,1,.41.26.78.78,0,0,0,.15.1,1.9,1.9,0,0,0,.16-.9,1.56,1.56,0,0,0-.25-1A.82.82,0,0,0,29.45,17.53Z"
 			/>
 			<path
@@ -1722,34 +1721,34 @@ export function QueretaroLogo(props: IProps) {
 				d="M23,24.15H73.28V62.22c0,5.23-3.15,10.14-7.7,13.82a28.92,28.92,0,0,1-17.43,6.52A29,29,0,0,1,30.71,76C26.17,72.36,23,67.45,23,62.22Z"
 			/>
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M23.3,24.45V62.22c0,5.14,3.11,10,7.59,13.59a28.68,28.68,0,0,0,17.26,6.46A28.6,28.6,0,0,0,65.4,75.81c4.49-3.62,7.6-8.45,7.6-13.59V24.45Z"
 			/>
 			<path
-				className="cls-2"
+				fill="#1F140F"
 				d="M66.57,24.45H60.71V42.51a17,17,0,0,1,3.9,10.85,16.87,16.87,0,0,1-2.19,8.37h0l-.08.1,2.76,2.65.08.07-.08.08-4.22,4.53-.08.08-.07-.09,0,0v9.18a29.79,29.79,0,0,0,4.38-2.92c.54-.44,1.06-.9,1.55-1.35Z"
 			/>
 			<path
-				className="cls-2"
+				fill="#1F140F"
 				d="M46.2,70.07V81.64a18.65,18.65,0,0,0,2,.1,22.21,22.21,0,0,0,3.94-.36V69.68a16.06,16.06,0,0,1-4,.5A14.81,14.81,0,0,1,46.2,70.07Z"
 			/>
-			<path className="cls-2" d="M52.14,37V24.45H46.23V36.64a16.21,16.21,0,0,1,5.92.4Z" />
-			<path className="cls-4" d="M59.19,24.45H53.53v13a16.35,16.35,0,0,1,5.66,3.44Z" />
-			<path className="cls-4" d="M53.58,69.23l-.07,0V81.09a29.13,29.13,0,0,0,5.68-2V67.43l-.81-.91A16.48,16.48,0,0,1,53.58,69.23Z" />
+			<path fill="#1F140F" d="M52.14,37V24.45H46.23V36.64a16.21,16.21,0,0,1,5.92.4Z" />
+			<path fill="#525fa3" d="M59.19,24.45H53.53v13a16.35,16.35,0,0,1,5.66,3.44Z" />
+			<path fill="#525fa3" d="M53.58,69.23l-.07,0V81.09a29.13,29.13,0,0,0,5.68-2V67.43l-.81-.91A16.48,16.48,0,0,1,53.58,69.23Z" />
 			<path
 				className="cls-5"
 				d="M48.1,37.17A16.07,16.07,0,0,1,64,53.36a16.49,16.49,0,0,1-.61,4.42,15.74,15.74,0,0,1-1.73,4l2.68,2.7.08.07-.08.07-3.48,3.62-.08.08-.06-.08-2.39-2.51a15.7,15.7,0,0,1-4.75,2.81,15.47,15.47,0,0,1-5.46,1,16.19,16.19,0,0,1,0-32.37Z"
 			/>
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M48.1,37.38a16,16,0,0,0,0,31.95,15.43,15.43,0,0,0,5.4-1,15.82,15.82,0,0,0,4.74-2.84l.08-.07.06.08L60.76,68l3.34-3.47-2.66-2.68,0-.06,0-.07a15.54,15.54,0,0,0,1.76-4,16.17,16.17,0,0,0,.59-4.37A15.85,15.85,0,0,0,48.1,37.38Z"
 			/>
 			<path
-				className="cls-4"
+				fill="#525fa3"
 				d="M48.1,43.21a10.08,10.08,0,0,1,10,10.15,9.84,9.84,0,0,1-.83,4.06l-.06.15-.11-.12-.52-.57-3.37,3.45.9,1,.07.09-.09.06a9.79,9.79,0,0,1-5.95,2,10.16,10.16,0,0,1,0-20.31Z"
 			/>
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M56.92,49.12l-16-2.45a10.15,10.15,0,0,0-1.7,2.6,8.67,8.67,0,0,1,.11.94,8.89,8.89,0,0,1,.06,1l0,5.3.64,0V51.14a2.34,2.34,0,0,1,1.52-2.33,2.73,2.73,0,0,1,1-.19,3,3,0,0,1,1,.18,2.16,2.16,0,0,1,1.51,2.09V56.1L46,56V51.43a2.05,2.05,0,0,1,1.52-1.75,2.84,2.84,0,0,1,.9-.19,2.54,2.54,0,0,1,.88.15,1.8,1.8,0,0,1,1.12,1.86v4.19l.93-.08V52.25a2,2,0,0,1,1.26-2,2.46,2.46,0,0,1,.85-.16,2.37,2.37,0,0,1,.85.15,1.78,1.78,0,0,1,1.23,1.71v3.36l.85-.06,0-2.92a1.54,1.54,0,0,1,.34-.9,2.54,2.54,0,0,1,.8-.64c-.08-.28-.16-.56-.26-.82A8.51,8.51,0,0,0,56.92,49.12Z"
 			/>
 			<path
@@ -1803,45 +1802,45 @@ export function QueretaroLogo(props: IProps) {
 				d="M46.4,65a1.62,1.62,0,0,0-.72-.41,1.52,1.52,0,0,0-.42-.06,1.48,1.48,0,0,0-.78.23,1.78,1.78,0,0,0-.71,1.14,1.71,1.71,0,0,0,0,.84,1.4,1.4,0,0,0,.38.72,1.42,1.42,0,0,0,.74.43,2.58,2.58,0,0,0,.39,0,3,3,0,0,0,.42,0,1.51,1.51,0,0,0,.68-.44,2,2,0,0,0,.4-.83,2,2,0,0,0,0-.9A1.42,1.42,0,0,0,46.4,65Zm-.06,1.52a1.4,1.4,0,0,1-.54.87.94.94,0,0,1-.54.17,1.15,1.15,0,0,1-.31,0,1,1,0,0,1-.68-.52,1.34,1.34,0,0,1-.08-1,1.4,1.4,0,0,1,.56-1,1.16,1.16,0,0,1,.51-.16,1,1,0,0,1,.33,0,1,1,0,0,1,.52.29,1.08,1.08,0,0,1,.26.55A1.78,1.78,0,0,1,46.34,66.51Z"
 			/>
 			<path
-				className="cls-2"
+				fill="#1F140F"
 				d="M49.4,61.63a2.16,2.16,0,0,1-1.66-.08,2.23,2.23,0,0,1-1.06-2.94,2.18,2.18,0,0,1,1.23-1.15,2.12,2.12,0,0,1,1.66.08,2.16,2.16,0,0,1,1.13,1.24,2.26,2.26,0,0,1-.07,1.7A2.18,2.18,0,0,1,49.4,61.63Z"
 			/>
-			<path className="cls-1" d="M50.62,58.9l0-.08,0,0a.79.79,0,0,1,0,.12Z" />
-			<polygon className="cls-1" points="47.02 60.85 47.02 60.85 47.02 60.85 47.02 60.85" />
-			<path className="cls-1" d="M50.11,58.11a2,2,0,0,1,.46.81.92.92,0,0,1,.15.14,2.5,2.5,0,0,0-.07-.26A2.19,2.19,0,0,0,50.1,58,.38.38,0,0,1,50.11,58.11Z" />
-			<path className="cls-1" d="M47.89,57.63a1.94,1.94,0,0,1,1-.13.56.56,0,0,1,.14-.09,2.12,2.12,0,0,0-1.08.1l-.25.11Z" />
-			<path className="cls-1" d="M48.67,61.61l-.15.08a2.11,2.11,0,0,0,.86-.12l.2-.08h-.12A1.7,1.7,0,0,1,48.67,61.61Z" />
-			<path className="cls-1" d="M46.67,60.08l-.09-.1c0,.1.05.2.08.3a2.22,2.22,0,0,0,.4.68c0-.06,0-.12,0-.13A2.58,2.58,0,0,1,46.67,60.08Z" />
+			<path fill="#FFFFFF" d="M50.62,58.9l0-.08,0,0a.79.79,0,0,1,0,.12Z" />
+			<polygon fill="#FFFFFF" points="47.02 60.85 47.02 60.85 47.02 60.85 47.02 60.85" />
+			<path fill="#FFFFFF" d="M50.11,58.11a2,2,0,0,1,.46.81.92.92,0,0,1,.15.14,2.5,2.5,0,0,0-.07-.26A2.19,2.19,0,0,0,50.1,58,.38.38,0,0,1,50.11,58.11Z" />
+			<path fill="#FFFFFF" d="M47.89,57.63a1.94,1.94,0,0,1,1-.13.56.56,0,0,1,.14-.09,2.12,2.12,0,0,0-1.08.1l-.25.11Z" />
+			<path fill="#FFFFFF" d="M48.67,61.61l-.15.08a2.11,2.11,0,0,0,.86-.12l.2-.08h-.12A1.7,1.7,0,0,1,48.67,61.61Z" />
+			<path fill="#FFFFFF" d="M46.67,60.08l-.09-.1c0,.1.05.2.08.3a2.22,2.22,0,0,0,.4.68c0-.06,0-.12,0-.13A2.58,2.58,0,0,1,46.67,60.08Z" />
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M49.77,61a1.25,1.25,0,0,1-.2.43h.16a2.23,2.23,0,0,0,.85-.95c0-.09.07-.18.1-.27a.86.86,0,0,1-.29.14A1.73,1.73,0,0,1,49.77,61Z"
 			/>
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M46.56,59.83l.12.14a1.13,1.13,0,0,1,.2-.37,2.43,2.43,0,0,1,.12-.92.84.84,0,0,1-.07-.39,1.9,1.9,0,0,0-.2.34,2.28,2.28,0,0,0-.18,1.19h0Z"
 			/>
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M48.35,61.67l.22-.09a.73.73,0,0,1-.21-.32,3.59,3.59,0,0,1-.81-.4.71.71,0,0,1-.42,0,1.05,1.05,0,0,0,0,.19h0a2.1,2.1,0,0,0,1.16.59h0Z"
 			/>
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M48.28,58.68a1.9,1.9,0,0,1,.8-.12l.29-.58a1,1,0,0,0-.48-.4,1.77,1.77,0,0,0-1,.13,1,1,0,0,0-.18.53A1.87,1.87,0,0,1,48.28,58.68Z"
 			/>
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M48.22,58.74a1.5,1.5,0,0,0-.56-.43,1.13,1.13,0,0,0-.57.37,2.25,2.25,0,0,0-.13.91,1.42,1.42,0,0,0,.49.37,1.93,1.93,0,0,1,.69-.43A2.92,2.92,0,0,1,48.22,58.74Z"
 			/>
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M49.45,58l-.29.58a1.92,1.92,0,0,1,.38.69,1.59,1.59,0,0,1,.71.15A1.27,1.27,0,0,0,50.5,59a1.83,1.83,0,0,0-.46-.8A.77.77,0,0,0,49.45,58Z"
 			/>
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M49.53,59.37A3.27,3.27,0,0,1,49,60a4.08,4.08,0,0,1,.14.79,2.46,2.46,0,0,0,.61.15,1.69,1.69,0,0,0,.62-.66,1.78,1.78,0,0,0-.1-.72A1.23,1.23,0,0,0,49.53,59.37Z"
 			/>
 			<path
-				className="cls-1"
+				fill="#FFFFFF"
 				d="M48.18,59.6a2,2,0,0,0-.68.43,2.19,2.19,0,0,0,.08.75,3.48,3.48,0,0,0,.8.4,3.56,3.56,0,0,0,.64-.42,2.81,2.81,0,0,0-.13-.79A3.76,3.76,0,0,1,48.18,59.6Z"
 			/>
 		</svg>
@@ -2027,7 +2026,7 @@ export function PachucaLogo(props: IProps) {
 export function CruzAzulLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 306 306">
+		<svg className={className} viewBox="0 0 306 306" style={{ transform: "scale(1.1) translateY(0.02em)" }}>
 			<circle id="circle3" fill="#FFFFFF" cx={153} cy={153} r={149.14} />
 			<path
 				id="path47"
@@ -2102,7 +2101,7 @@ export function CruzAzulLogo(props: IProps) {
 export function MazatlanLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 185.59 185.59">
+		<svg className={className} viewBox="0 0 185.59 185.59" style={{ transform: "scale(1.1)" }}>
 			<g id="Capa_2" data-name="Capa 2">
 				<g id="Capa_1-2" data-name="Capa 1">
 					<path fill="#a2d9e7" d="M158.41,27.18A92.79,92.79,0,1,0,27.18,158.41,92.79,92.79,0,1,0,158.41,27.18Z" />
@@ -2281,7 +2280,7 @@ export function MazatlanLogo(props: IProps) {
 export function NecaxaLogo(props: IProps) {
 	const { className } = props
 	return (
-		<svg className={className} viewBox="0 0 57.1 72.2" style={{ transform: "scale(1.1)" }}>
+		<svg className={className} viewBox="0 0 57.1 72.2" style={{ transform: "scale(1.15) translateY(-0.05em)" }}>
 			<style type="text/css">{"\n\t.st0{fill:#EA0029;}\n\t.st1{fill:#FFFFFF;}\n\t.st2{fill:#FFD600;}\n"}</style>
 			<g>
 				<g>
@@ -2348,17 +2347,116 @@ export function LiveIcon(props: IProps) {
 	)
 }
 
+export function StarIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 256 256">
+			<path
+				fill="currentColor"
+				d="M184.13 147.7a8.08 8.08 0 0 0-2.54 7.89l13.52 58.54a8 8 0 0 1-11.89 8.69l-51.1-31a7.93 7.93 0 0 0-8.24 0l-51.1 31a8 8 0 0 1-11.89-8.69l13.52-58.54a8.08 8.08 0 0 0-2.54-7.89l-45.11-39.35a8 8 0 0 1 4.54-14.07l59.46-5.14a8 8 0 0 0 6.67-4.88l23.23-55.36a8 8 0 0 1 14.68 0l23.23 55.36a8 8 0 0 0 6.67 4.88l59.46 5.14a8 8 0 0 1 4.54 14.07Z"
+				opacity=".2"
+			/>
+			<path
+				fill="currentColor"
+				d="M239.2 97.29a16 16 0 0 0-13.81-11L166 81.17l-23.28-55.36a15.95 15.95 0 0 0-29.44 0L90.07 81.17l-59.46 5.15a16 16 0 0 0-9.11 28.06l45.11 39.42l-13.52 58.54a16 16 0 0 0 23.84 17.34l51-31l51.11 31a16 16 0 0 0 23.84-17.34l-13.51-58.6l45.1-39.36a16 16 0 0 0 4.73-17.09Zm-15.22 5l-45.1 39.36a16 16 0 0 0-5.08 15.71L187.35 216l-51.07-31a15.9 15.9 0 0 0-16.54 0l-51 31l13.46-58.6a16 16 0 0 0-5.08-15.71L32 102.35a.37.37 0 0 1 0-.09l59.44-5.14a16 16 0 0 0 13.35-9.75L128 32.08l23.2 55.29a16 16 0 0 0 13.35 9.75l59.45 5.14v.07Z"
+			/>
+		</svg>
+	)
+}
+
+export function CircleIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="256" height="256" viewBox="0 0 256 256">
+			<g fill="currentColor">
+				<path d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96Z" opacity=".2" />
+				<path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88Z" />
+			</g>
+		</svg>
+	)
+}
+
+export function WinnerIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<g fill="none" stroke="currentColor" strokeWidth="1.5">
+				<path d="M12 16c-5.76 0-6.78-5.74-6.96-10.294c-.051-1.266-.076-1.9.4-2.485c.475-.586 1.044-.682 2.183-.874A26.374 26.374 0 0 1 12 2c1.784 0 3.253.157 4.377.347c1.139.192 1.708.288 2.184.874c.476.586.45 1.219.4 2.485c-.18 4.553-1.2 10.294-6.96 10.294Z" />
+				<path strokeLinecap="round" strokeLinejoin="round" d="m11 8l1.5-1.5v4" />
+				<path d="m19 5l.949.316c.99.33 1.485.495 1.768.888c.283.393.283.915.283 1.958v.073c0 .86 0 1.291-.207 1.643c-.207.352-.584.561-1.336.98L17.5 12.5M5 5l-.949.316c-.99.33-1.485.495-1.768.888C2 6.597 2 7.12 2 8.162v.073c0 .86 0 1.291.207 1.643c.207.352.584.561 1.336.98L6.5 12.5" />
+				<path strokeLinecap="round" d="M12 16v3" />
+				<path strokeLinecap="round" strokeLinejoin="round" d="M15.5 22h-7l.34-1.696a1 1 0 0 1 .98-.804h4.36a1 1 0 0 1 .98.804L15.5 22Z" />
+				<path strokeLinecap="round" d="M18 22H6" />
+			</g>
+		</svg>
+	)
+}
+
+export function MenuIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<g fill="none">
+				<path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z" />
+				<path
+					fill="currentColor"
+					d="M20 17.5a1.5 1.5 0 0 1 .144 2.993L20 20.5H4a1.5 1.5 0 0 1-.144-2.993L4 17.5h16Zm0-7a1.5 1.5 0 0 1 0 3H4a1.5 1.5 0 0 1 0-3h16Zm0-7a1.5 1.5 0 0 1 0 3H4a1.5 1.5 0 1 1 0-3h16Z"
+				/>
+			</g>
+		</svg>
+	)
+}
+
 export function ProfileIcon(props: IProps) {
 	const { className } = props
 	return (
 		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
-			<g fill="none" fillRule="evenodd">
-				<path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z" />
-				<path
-					fill="currentColor"
-					d="M20 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16Zm0 2H4v14h16V5Zm-3 10a1 1 0 0 1 .117 1.993L17 17H7a1 1 0 0 1-.117-1.993L7 15h10Zm-7-8a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2Zm7 4a1 1 0 1 1 0 2h-3a1 1 0 1 1 0-2h3Zm-7-2H8v2h2V9Zm7-2a1 1 0 0 1 .117 1.993L17 9h-3a1 1 0 0 1-.117-1.993L14 7h3Z"
-				/>
+			<path
+				fill="currentColor"
+				d="M9 11.5h6q.213 0 .356-.144q.144-.144.144-.357t-.144-.356Q15.213 10.5 15 10.5H9q-.213 0-.356.144q-.144.144-.144.357t.144.356q.143.143.356.143Zm0-4h6q.213 0 .356-.144q.144-.144.144-.357t-.144-.356Q15.213 6.5 15 6.5H9q-.213 0-.356.144q-.144.144-.144.357t.144.356Q8.787 7.5 9 7.5Zm9.912 12.437l-3.424-4.426q-.36-.482-.869-.747q-.51-.264-1.119-.264H5V4.615q0-.69.463-1.152Q5.925 3 6.615 3h10.77q.69 0 1.152.463q.463.462.463 1.152v14.77q0 .152-.022.29q-.022.137-.066.262ZM6.615 21q-.69 0-1.152-.462Q5 20.075 5 19.385V15.5h8.5q.367 0 .678.163q.312.164.532.454l3.527 4.616q-.183.127-.398.197q-.214.07-.454.07H6.615Z"
+			/>
+		</svg>
+	)
+}
+
+export function ResultsIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 100 100">
+			<path
+				fill="currentColor"
+				d="M92.11 21.929c0-.973-.789-1.761-1.761-1.761l-.006.001v-.005H44.465v.014a1.76 1.76 0 0 0-1.751 1.752h-.001v6.342c-.001.03-.009.057-.009.087c0 .972.788 1.76 1.761 1.761h45.878l.006.001c.973 0 1.761-.789 1.761-1.761v-6.431zm0 14.901c0-.973-.789-1.761-1.761-1.761l-.006.001v-.005H44.465v.014a1.76 1.76 0 0 0-1.751 1.752h-.001v6.343c-.001.03-.009.057-.009.087c0 .972.788 1.76 1.761 1.761h45.878v-.001l.006.001c.973 0 1.761-.789 1.761-1.761V36.83zM32.748 21.925a1.76 1.76 0 0 0-1.761-1.761c-.043 0-.084.01-.126.013H9.777c-.042-.003-.083-.013-.126-.013c-.973 0-1.761.789-1.761 1.761V43.26c0 .972.788 1.761 1.761 1.761h21.336c.973 0 1.761-.789 1.761-1.761V21.925zM92.11 56.744c0-.973-.789-1.761-1.761-1.761l-.006.001v-.005H44.465v.014a1.76 1.76 0 0 0-1.751 1.752h-.001v6.343c-.001.03-.009.057-.009.087c0 .972.788 1.761 1.761 1.761h45.878v-.001l.006.001c.973 0 1.761-.789 1.761-1.761v-6.431zm0 14.901c0-.973-.789-1.761-1.761-1.761l-.006.001v-.005H44.465v.014a1.76 1.76 0 0 0-1.751 1.752h-.001v6.342c-.001.03-.009.057-.009.087c0 .972.788 1.761 1.761 1.761h45.878v-.001l.006.001c.973 0 1.761-.789 1.761-1.761v-6.43zM32.748 56.74c0-.973-.788-1.762-1.761-1.762c-.043 0-.084.01-.126.013H9.777c-.042-.003-.083-.013-.126-.013c-.973 0-1.761.789-1.761 1.762v21.335c0 .972.789 1.761 1.761 1.761h21.336c.973 0 1.761-.789 1.761-1.761V56.74z"
+			/>
+		</svg>
+	)
+}
+
+export function PositionsIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<g id="feListOrder0" fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
+				<g id="feListOrder1" fill="currentColor">
+					<path
+						id="feListOrder2"
+						d="M10 4h10a1 1 0 0 1 0 2H10a1 1 0 1 1 0-2Zm0 7h10a1 1 0 0 1 0 2H10a1 1 0 0 1 0-2Zm0 7h10a1 1 0 0 1 0 2H10a1 1 0 0 1 0-2ZM4.5 4a.5.5 0 0 1 0-1h1c.28 0 .5.22.5.5v3a.5.5 0 0 1-1 0V4.015L4.5 4Zm0 6h2c.28 0 .5.22.5.5v.5l-1.7 2h1.2c.28 0 .5.22.5.5s-.224.5-.5.5h-2c-.28 0-.5-.22-.5-.5V13l1.7-2H4.5c-.28 0-.5-.22-.5-.5s.199-.5.5-.5Zm2 11h-2a.5.5 0 1 1 0-1H6v-.5H4.5a.5.5 0 1 1 0-1H6V18H4.5a.5.5 0 1 1 0-1h2a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5Z"
+					/>
+				</g>
 			</g>
+		</svg>
+	)
+}
+
+export function BetsIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<path
+				fill="currentColor"
+				fillRule="evenodd"
+				d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 18.375V5.625ZM21 9.375A.375.375 0 0 0 20.625 9h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5ZM10.875 18.75a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5ZM3.375 15h7.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375Zm0-3.75h7.5a.375.375 0 0 0 .375-.375v-1.5A.375.375 0 0 0 10.875 9h-7.5A.375.375 0 0 0 3 9.375v1.5c0 .207.168.375.375.375Z"
+				clipRule="evenodd"
+			/>
 		</svg>
 	)
 }
@@ -2466,6 +2564,15 @@ export function CheckIcon(props: IProps) {
 	)
 }
 
+export function CheckTwoIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m5 12l5 5L20 7" />
+		</svg>
+	)
+}
+
 export function LogInIcon(props: IProps) {
 	const { className } = props
 	return (
@@ -2477,6 +2584,482 @@ export function LogInIcon(props: IProps) {
 				strokeLinejoin="round"
 				strokeWidth="2"
 				d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4m-5-4l5-5l-5-5m5 5H3"
+			/>
+		</svg>
+	)
+}
+
+export function LogOutIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<path
+				fill="currentColor"
+				d="M12 4.354v6.65h7.442L17.72 9.28a.75.75 0 0 1-.073-.977l.073-.084a.75.75 0 0 1 .976-.072l.084.072l2.997 2.998a.75.75 0 0 1 .073.976l-.073.084l-2.996 3.003a.75.75 0 0 1-1.134-.975l.072-.084l1.713-1.717h-7.431L12 19.25a.75.75 0 0 1-.88.738l-8.5-1.501a.75.75 0 0 1-.62-.739V5.75a.75.75 0 0 1 .628-.74l8.5-1.396a.75.75 0 0 1 .872.74Zm-3.498 7.145a1.002 1.002 0 1 0 0 2.005a1.002 1.002 0 0 0 0-2.005ZM13 18.502h.765l.102-.007a.75.75 0 0 0 .648-.744l-.007-4.25H13v5ZM13.002 10L13 8.725V5h.745a.75.75 0 0 1 .743.647l.007.101l.007 4.252h-1.5Z"
+			/>
+		</svg>
+	)
+}
+
+export function ArrowIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<path
+				fill="currentColor"
+				d="M14.71 15.88L10.83 12l3.88-3.88a.996.996 0 1 0-1.41-1.41L8.71 11.3a.996.996 0 0 0 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0c.38-.39.39-1.03 0-1.42z"
+			/>
+		</svg>
+	)
+}
+
+export function ArrowUpIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 1024 1024">
+			<path
+				fill="currentColor"
+				d="M104.704 685.248a64 64 0 0 0 90.496 0l316.8-316.8l316.8 316.8a64 64 0 0 0 90.496-90.496L557.248 232.704a64 64 0 0 0-90.496 0L104.704 594.752a64 64 0 0 0 0 90.496z"
+			/>
+		</svg>
+	)
+}
+
+export function SoccerBallIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="64" height="64" viewBox="0 0 64 64">
+			<circle cx="32" cy="32" r="29.3" fill="#fff" />
+			<path
+				fill="#4a4e51"
+				d="M61.9 32c0-.7.2-10.9-5.8-17.5c-.3-.6-1.5-3-5.6-5.9C47.8 6.5 45 5 44.7 4.8C44.4 4.6 39.4 2 33.4 2c-.5 0-.9 0-1.4.1c-4.6-.1-8.8 1.1-11.9 2.5c-3.2 1.4-5.3 2.8-5.5 3c-3.4 1.9-9.9 9.5-10.4 13.6c-2.1 2.6-3.8 14.5 0 21.7c2.7 10 12.7 15 13.5 15.4c.5.3 5.9 3.7 12.6 3.7h.9c.6.1 1.1.1 1.7.1c7.2 0 18-5.1 20.2-9.1c6.2-4.6 9.4-16.2 8.8-21M17.8 47.1c-2.9-4.6-4.5-10.7-4.9-12.1c.9-1.4 5.4-8 7.9-10c1.4.3 7.5 1.4 13.2 2.4c.7 1.9 3.9 10 4.8 13.2c-1 1.2-4.9 5.7-8.7 9.2c-4.1.1-11-2.3-12.3-2.7m36-32.5c0 .4-.1 2-.9 3.9c-1.5-.8-5.3-2.4-10.6-2.7c-.8-1.2-3.8-5.3-8.5-8.1c.6-1.3 1.5-2.8 2.1-3.3c.2 0 .4-.1.8-.1c2.5 0 6.9 1.7 7.3 1.8c.4.2 8.3 4.4 9.8 8.5M11.8 34c-3.4-.6-5.5-1.6-6.1-2c-1.3-4.6-.2-9.6-.1-10.3c1.3-2.2 4.8-8 7.2-9.1c2.4-.5 5.5.1 6.7.4c-.1 1.6-.3 6.1.3 10.9c-2.6 2.2-6.9 8.5-8 10.1M31.7 3.5c.8.1 1.9.2 2.7.5c-.8 1-1.6 2.5-1.9 3.3c-1.6.3-7.5 1.4-12.2 4.4c-.9-.2-3.8-.9-6.5-.7c.7-1.3 1.7-2.2 1.8-2.3c.3-.3 7.4-5.3 16.1-5.2m19.1 38.1c-1.2 0-5.7-.3-10.6-1.5c-.9-3.3-4.1-11.4-4.8-13.3c3.1-4.4 6.1-8.5 6.9-9.7c5.7.4 9.7 2.5 10.5 2.9c3.3 5.3 4 10.7 4.1 11.6c-1.8 5.5-5.2 9.2-6.1 10M3.7 28.5c.1 1.3.3 2.6.7 3.9c-.3.9-.6 1.8-.7 2.7c-.3-2.3-.3-4.6 0-6.6M18.5 57l-.4.6l.4-.6c-2.5-1.2-4.4-4-5.2-5.1c1.5-1.5 3.4-2.9 4.1-3.4c1.6.6 8.3 2.8 12.6 2.8c.7 1 3.1 4 6 6.4c-1.8 1.8-4.4 2.6-4.9 2.8c-6.8.2-12.6-3.5-12.6-3.5m16.3 3.4c.9-.5 1.9-1.2 2.7-2.1c1.3-.2 6.9-1.1 11.9-4.8c.3 0 .9.1 1.5.1c-3.1 2.9-10.5 6.2-16.1 6.8M50.2 52c1.8-4.7 1.7-8.3 1.6-9.4c1-1 4.4-4.6 6.3-10.1c1 .2 1.7.4 2 .6c.1.4.3 1.3.2 2.7c-.8 5-3.4 12.6-8.1 15.9c-.5.3-1.3.4-2 .3"
+			/>
+		</svg>
+	)
+}
+
+export function GoalIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="38" height="24" viewBox="0 0 38 24">
+			<path d="M34.16333,18.84192 L37.87878,18.84192 L37.87878,19.937856 L34.16333,19.937856 L34.16333,19.951488 L33.07881,19.951488 L33.07881,1.287936 L4.79997,1.287936 L4.79997,19.951488 L3.71545,19.951488 L3.71545,19.937856 L-0.00019,19.937856 L-0.00019,18.84192 L3.71545,18.84192 L3.71545,0.192 L4.79997,0.192 L33.07881,0.192 L34.16333,0.192 L34.16333,18.84192 Z M27.619445,6.566592 C27.650605,6.59808 27.665235,6.64512 27.653075,6.691584 C27.648135,6.710592 27.639205,6.727296 27.627425,6.741696 L27.622485,6.748032 L26.930315,7.555776 C25.515005,5.95488 23.620705,4.796544 21.475035,4.308672 L21.475035,4.06272 C22.244915,4.099008 23.022775,4.22592 23.795885,4.451904 C25.248055,4.8768 26.543855,5.616 27.611085,6.559488 L27.611085,6.559296 C27.613935,6.5616 27.616405,6.563712 27.619445,6.566592 Z M8.175434,18.0965184 C8.160804,18.0544704 8.167834,18.0057024 8.198614,17.9692224 C8.211154,17.9540544 8.226354,17.9429184 8.243264,17.9352384 L8.250484,17.9315904 L9.220624,17.5065024 C9.810194,19.5689664 11.021064,21.4421184 12.746074,22.8208704 L12.640624,23.0424384 C11.962134,22.6728384 11.315374,22.2177984 10.715544,21.6759744 C9.588844,20.6574144 8.737644,19.4240064 8.179804,18.1065024 L8.179804,18.1068864 C8.178284,18.1034304 8.176764,18.1003584 8.175434,18.0965184 Z M19.198778,5.418136 C24.224278,5.418136 28.313268,9.549976 28.313268,14.628568 C28.313268,19.707352 24.224278,23.839 19.198778,23.839 C14.173088,23.839 10.084098,19.707352 10.084098,14.628568 C10.084098,9.549976 14.173088,5.418136 19.198778,5.418136 Z M25.417668,9.58492 L25.265478,12.22588 L27.123868,13.701016 C26.947548,12.154264 26.336508,10.739608 25.417668,9.58492 Z M24.343598,8.47228 C23.868218,8.066008 23.345528,7.714648 22.784648,7.428184 L19.777138,9.014488 L19.777138,10.64764 L22.690788,12.786712 L24.132888,12.129112 L24.343598,8.47228 Z M19.209038,11.64988 L16.454038,13.672408 L17.506258,16.945048 L20.911438,16.945048 L21.963848,13.672408 L19.209038,11.64988 Z M19.198778,6.566488 C18.441628,6.566488 17.708418,6.673624 17.013968,6.873688 L19.194028,8.02684 L21.381308,6.873112 C20.687618,6.673432 19.955168,6.566488 19.198778,6.566488 Z M15.612148,7.428376 C15.062478,7.70908 14.549288,8.052184 14.081508,8.448472 L14.294118,12.129112 L15.730328,12.784216 L18.640558,10.64764 L18.640558,9.030232 L15.612148,7.428376 Z M13.007058,9.550552 C12.067888,10.71772 11.444688,12.154456 11.270648,13.726552 L13.161528,12.22588 L13.007058,9.550552 Z M11.241578,15.209944 C11.308648,16.15612 11.537978,17.05756 11.901638,17.88604 L15.425188,18.653656 L16.457648,17.400664 L15.318028,13.85596 L13.812278,13.169368 L11.241578,15.209944 Z M12.646818,19.223128 C13.518158,20.487832 14.737958,21.489496 16.165048,22.084696 L15.214668,19.782424 L12.646818,19.223128 Z M20.852158,22.51612 L22.138648,19.400536 L21.061158,18.0934 L17.365848,18.0934 L16.288358,19.400536 L17.577508,22.523224 C18.101148,22.632856 18.643218,22.690648 19.198778,22.690648 C19.765358,22.690648 20.318638,22.630168 20.852158,22.51612 Z M22.267468,22.069912 C23.676698,21.474328 24.881678,20.481496 25.745608,19.230616 L23.212148,19.782424 L22.267468,22.069912 Z M23.001818,18.653656 L26.492878,17.893144 C26.860908,17.056216 27.092328,16.144792 27.157498,15.187672 L24.614348,13.169368 L23.097958,13.86076 L21.962518,17.392792 L23.001818,18.653656 Z" />
+		</svg>
+	)
+}
+
+export function CommentIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="29" height="28" viewBox="0 0 29 28">
+			<path d="M14.5988071,19.5216842 C11.7128549,19.5216842 9.36498731,17.2554916 9.36498731,14.4699326 L9.36498731,5.19775159 C9.36498731,2.4121926 11.7128549,0.146 14.5988071,0.146 C17.4847593,0.146 19.8326269,2.4121926 19.8326269,5.19775159 L19.8326269,14.4699326 C19.8326269,17.2554916 17.4847593,19.5216842 14.5988071,19.5216842 Z M14.5988071,1.22084076 C12.3268456,1.22084076 10.478566,3.00482449 10.478566,5.19775159 L10.478566,9.63923714 L18.7190482,9.63923714 L18.7190482,5.19775159 C18.7190482,3.00482449 16.8707686,1.22084076 14.5988071,1.22084076 Z M10.478566,10.7140779 L10.478566,14.4699326 C10.478566,16.6628597 12.3268456,18.4468435 14.5988071,18.4468435 C16.8707686,18.4468435 18.7190482,16.6628597 18.7190482,14.4699326 L18.7190482,10.7140779 L10.478566,10.7140779 Z M13.2440256,7.20300139 C12.9364864,7.20300139 12.6872362,6.96242183 12.6872362,6.66558101 C12.6872362,6.3687402 12.9364864,6.12816063 13.2440256,6.12816063 L15.9535887,6.12816063 C16.2611278,6.12816063 16.510378,6.3687402 16.510378,6.66558101 C16.510378,6.96242183 16.2611278,7.20300139 15.9535887,7.20300139 L13.2440256,7.20300139 Z M13.2440256,5.20006083 C12.9364864,5.20006083 12.6872362,4.95948121 12.6872362,4.66264045 C12.6872362,4.36579964 12.9364864,4.12522007 13.2440256,4.12522007 L15.9535887,4.12522007 C16.2611278,4.12522007 16.510378,4.36579964 16.510378,4.66264045 C16.510378,4.95948121 16.2611278,5.20006083 15.9535887,5.20006083 L13.2440256,5.20006083 Z M21.7274506,13.9325122 C22.0349898,13.9325122 22.28424,14.1730918 22.28424,14.4699326 C22.28424,18.0164873 19.6921246,20.9893037 16.2404657,21.7171304 L16.2404657,24.4340424 L16.2841823,24.4340424 C17.8212254,24.4340424 19.071609,25.641139 19.071609,27.1245032 C19.071609,27.421344 18.8223588,27.6619236 18.5148196,27.6619236 L10.6827946,27.6619236 C10.3752555,27.6619236 10.1260052,27.421344 10.1260052,27.1245032 C10.1260052,25.640929 11.3763888,24.4340424 12.9134319,24.4340424 L12.9571485,24.4340424 L12.9571485,21.7171304 C9.50570713,20.9893037 6.91337425,18.0164873 6.91337425,14.4699326 C6.91337425,14.1730918 7.16262445,13.9325122 7.47016359,13.9325122 C7.77770273,13.9325122 8.02695293,14.1730918 8.02695293,14.4699326 C8.02695293,17.9675736 10.975109,20.8131726 14.5988071,20.8131726 C18.2225052,20.8131726 21.1706613,17.9675736 21.1706613,14.4699326 C21.1706613,14.1730918 21.420129,13.9325122 21.7274506,13.9325122 Z M17.8629846,26.5870828 C17.632874,25.9596025 17.0121409,25.5088832 16.2843999,25.5088832 L12.9134319,25.5088832 C12.1854733,25.5088832 11.5647402,25.9596025 11.3348471,26.5870828 L17.8629846,26.5870828 Z M15.126887,24.4340424 L15.126887,21.8701693 C14.9522378,21.8817154 14.7762837,21.8880133 14.5988071,21.8880133 C14.4213305,21.8880133 14.2453764,21.8817154 14.0707272,21.8701693 L14.0707272,24.4340424 L15.126887,24.4340424 Z M3.1289467,5.16584226 C3.43648584,5.16584226 3.68573604,5.40642182 3.68573604,5.70326264 L3.68573604,10.9491993 C3.68573604,11.2458302 3.43648584,11.4866197 3.1289467,11.4866197 C2.82140756,11.4866197 2.57215736,11.2458302 2.57215736,10.9491993 L2.57215736,5.70326264 C2.57215736,5.40642182 2.82140756,5.16584226 3.1289467,5.16584226 Z M7.58326142,10.1434886 C7.27572228,10.1434886 7.02647208,9.90290901 7.02647208,9.60606825 L7.02647208,7.04618379 C7.02647208,6.74934303 7.27572228,6.50876341 7.58326142,6.50876341 C7.89080056,6.50876341 8.14005076,6.74934303 8.14005076,7.04618379 L8.14005076,9.60606825 C8.14005076,9.90290901 7.89080056,10.1434886 7.58326142,10.1434886 Z M0.90178934,3.04807006 C1.20932848,3.04807006 1.45857868,3.28864963 1.45857868,3.58549045 L1.45857868,12.5245128 C1.45857868,12.8213536 1.20932848,13.0619332 0.90178934,13.0619332 C0.5942502,13.0619332 0.345,12.8213536 0.345,12.5245128 L0.345,3.58549045 C0.345,3.28864963 0.5942502,3.04807006 0.90178934,3.04807006 Z M5.35610406,4.62359348 C5.6636432,4.62359348 5.9128934,4.8641731 5.9128934,5.16101386 L5.9128934,12.425216 C5.9128934,12.7220568 5.6636432,12.9626364 5.35610406,12.9626364 C5.04856492,12.9626364 4.79931472,12.7220568 4.79931472,12.425216 L4.79931472,5.16101386 C4.79931472,4.8641731 5.04856492,4.62359348 5.35610406,4.62359348 Z M26.0686675,5.16584226 C26.3762067,5.16584226 26.6254569,5.40642182 26.6254569,5.70326264 L26.6254569,10.9491993 C26.6254569,11.2458302 26.3762067,11.4866197 26.0686675,11.4866197 C25.7611284,11.4866197 25.5118782,11.2458302 25.5118782,10.9491993 L25.5118782,5.70326264 C25.5118782,5.40642182 25.7611284,5.16584226 26.0686675,5.16584226 Z M21.6143528,10.1434886 C21.3068137,10.1434886 21.0575635,9.90290901 21.0575635,9.60606825 L21.0575635,7.04618379 C21.0575635,6.74934303 21.3068137,6.50876341 21.6143528,6.50876341 C21.9218919,6.50876341 22.1711421,6.74934303 22.1711421,7.04618379 L22.1711421,9.60606825 C22.1711421,9.90290901 21.9218919,10.1434886 21.6143528,10.1434886 Z M28.2958249,3.04807006 C28.603364,3.04807006 28.8526142,3.28864963 28.8526142,3.58549045 L28.8526142,12.5245128 C28.8526142,12.8213536 28.603364,13.0619332 28.2958249,13.0619332 C27.9882857,13.0619332 27.7390355,12.8213536 27.7390355,12.5245128 L27.7390355,3.58549045 C27.7390355,3.28864963 27.9882857,3.04807006 28.2958249,3.04807006 Z M23.8415102,11.8880055 C23.9878848,11.8880055 24.1316496,11.9451065 24.2351776,12.0450331 C24.3387057,12.1455895 24.3982995,12.2837233 24.3982995,12.4254259 C24.3982995,12.5669187 24.3387057,12.7054724 24.2351776,12.805399 C24.1316496,12.9055355 23.9878848,12.9628463 23.8415102,12.9628463 C23.6951355,12.9628463 23.5513707,12.9055355 23.4478427,12.805399 C23.3443146,12.7054724 23.2847208,12.5669187 23.2847208,12.4254259 C23.2847208,12.2837233 23.3443146,12.1455895 23.4478427,12.0450331 C23.5513707,11.9451065 23.6951355,11.8880055 23.8415102,11.8880055 Z M23.8415102,4.62359348 C24.1490493,4.62359348 24.3982995,4.8641731 24.3982995,5.16101386 L24.3982995,10.1434886 C24.3982995,10.4403294 24.1490493,10.680909 23.8415102,10.680909 C23.533971,10.680909 23.2847208,10.4403294 23.2847208,10.1434886 L23.2847208,5.16101386 C23.2847208,4.8641731 23.533971,4.62359348 23.8415102,4.62359348 Z M14.5988071,17.2628392 C14.291268,17.2628392 14.0420178,17.0222596 14.0420178,16.7254188 C14.0420178,16.428578 14.291268,16.1879984 14.5988071,16.1879984 C15.5803658,16.1879984 16.3790105,15.417136 16.3790105,14.4699326 C16.3790105,14.1730918 16.6282608,13.9325122 16.9357999,13.9325122 C17.2431215,13.9325122 17.4925892,14.1730918 17.4925892,14.4699326 C17.4925892,16.0099779 16.1943566,17.2628392 14.5988071,17.2628392 Z M16.9355824,13.1515732 C16.7892077,13.1515732 16.6456604,13.0940525 16.5421324,12.9941258 C16.4383869,12.8941993 16.378793,12.7554356 16.378793,12.6141529 C16.378793,12.4728701 16.4386044,12.3341064 16.5421324,12.2341799 C16.6456604,12.1342532 16.7892077,12.0767325 16.9355824,12.0767325 C17.0821745,12.0767325 17.2257218,12.1342532 17.3292498,12.2341799 C17.4329954,12.3341064 17.4923717,12.4728701 17.4923717,12.6141529 C17.4923717,12.7554356 17.4327779,12.8941993 17.3292498,12.9941258 C17.2257218,13.0940525 17.0821745,13.1515732 16.9355824,13.1515732 Z" />
+		</svg>
+	)
+}
+
+export function LineUpIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="256" height="256" viewBox="0 0 256 256">
+			<path
+				fill="currentColor"
+				d="M144 80a8 8 0 0 1 8-8h96a8 8 0 0 1 0 16h-96a8 8 0 0 1-8-8Zm104 40h-96a8 8 0 0 0 0 16h96a8 8 0 0 0 0-16Zm0 48h-72a8 8 0 0 0 0 16h72a8 8 0 0 0 0-16Zm-96.25 22a8 8 0 0 1-5.76 9.74a7.55 7.55 0 0 1-2 .26a8 8 0 0 1-7.75-6c-6.16-23.94-30.34-42-56.25-42s-50.09 18.05-56.25 42a8 8 0 0 1-15.5-4c5.59-21.71 21.84-39.29 42.46-48a48 48 0 1 1 58.58 0c20.63 8.71 36.88 26.29 42.47 48ZM80 136a32 32 0 1 0-32-32a32 32 0 0 0 32 32Z"
+			/>
+		</svg>
+	)
+}
+
+export function YellowCardIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+			<g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+				<g>
+					<rect x="0" y="0" width="24" height="24" />
+					<rect
+						id="red"
+						stroke="#ECB414"
+						fill="#ECB414"
+						transform="translate(12.000000, 12.000000) rotate(14.000000) translate(-12.000000, -12.000000) "
+						x="7"
+						y="5"
+						width="10"
+						height="14"
+						rx="2"
+					/>
+				</g>
+			</g>
+		</svg>
+	)
+}
+
+export function StadiumIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} height="800px" width="800px" viewBox="0 0 512 512">
+			<g>
+				<path
+					fill="currentColor"
+					d="M511.827,319.302c-1.651,2.486-3.402,4.953-5.32,7.364C455.808,390.172,373.073,402.938,256,402.938
+		   c-117.057,0-199.792-12.766-250.491-76.265c-1.918-2.418-3.669-4.886-5.337-7.372c-1.001,39.066,1.868,74.055,21.763,100.464
+		   C66.514,478.97,141.361,492.219,256,492.219c114.655,0,189.502-13.25,234.097-72.453
+		   C509.976,393.357,512.828,358.368,511.827,319.302z"
+				/>
+				<path
+					fill="currentColor"
+					d="M256,381.925c114.638,0,189.502-12.499,234.08-68.359c31.303-39.216,19.112-95.31,1.601-143.757
+		   c-18.895-52.241-32.454-86.354-71.862-114.713C380.411,26.736,316.921,19.781,256,19.781c-60.906,0-124.395,6.955-163.82,35.314
+		   c-39.391,28.36-52.95,62.472-71.845,114.713c-17.51,48.448-29.702,104.541,1.601,143.757
+		   C66.514,369.426,141.361,381.925,256,381.925z M203.417,294.228l4.002-32.062h97.161l4.019,32.062H203.417z M214.523,78.801h82.952
+		   l3.235,25.908h-89.423L214.523,78.801z M127.803,93.119c3.018-9.164,11.574-15.359,21.214-15.359h49.414l-5.387,43.06h125.912
+		   l-1.134-9.055l-4.253-34.004h49.415c9.656,0,18.211,6.195,21.23,15.359l23.598,71.762H306.449c-1.185-2.969-2.752-5.72-4.704-8.122
+		   c-5.137-6.329-12.291-10.623-20.179-13.459c-7.905-2.826-16.677-4.194-25.566-4.202c-11.824,0.025-23.481,2.41-33.155,7.546
+		   c-4.819,2.586-9.155,5.896-12.574,10.115c-1.951,2.402-3.519,5.153-4.703,8.122H104.204L127.803,93.119z M290.388,180.982
+		   c-2.118,2.877-6.47,5.987-12.524,8.164c-6.07,2.234-13.725,3.56-21.864,3.552c-10.84,0.025-20.83-2.394-27.367-6.021
+		   c-3.235-1.776-5.587-3.794-7.004-5.695H290.388z M224.73,164.881c2.686-2.502,6.472-4.761,11.141-6.421
+		   c5.87-2.102,12.942-3.26,20.13-3.252c9.589-0.026,18.978,2.084,25.566,5.636c2.268,1.218,4.186,2.586,5.737,4.036H224.73z
+			M71.267,265.085l27.651-84.103h105.233c0.833,3.478,2.385,6.721,4.469,9.498c4.787,6.412,11.874,10.799,19.996,13.792
+		   c8.172,2.977,17.528,4.52,27.384,4.527c13.158-0.024,25.416-2.718,35.122-8.012c4.853-2.661,9.089-6.021,12.274-10.307
+		   c2.068-2.777,3.636-6.02,4.47-9.498h105.232l27.651,84.103c2.235,6.813,1.068,14.276-3.135,20.071
+		   c-4.186,5.804-10.907,9.24-18.078,9.24h-94.692l-6.038-48.331H193.21l-6.037,48.331H92.481c-7.155,0-13.892-3.436-18.095-9.24
+		   C70.183,279.361,69.033,271.898,71.267,265.085z"
+				/>
+			</g>
+		</svg>
+	)
+}
+
+export function RedCardIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+			<g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+				<g>
+					<rect x="0" y="0" width="24" height="24" />
+					<rect
+						id="red"
+						stroke="#B0120A"
+						fill="#E51C23"
+						transform="translate(12.000000, 12.000000) rotate(14.000000) translate(-12.000000, -12.000000) "
+						x="7"
+						y="5"
+						width="10"
+						height="14"
+						rx="2"
+					/>
+				</g>
+			</g>
+		</svg>
+	)
+}
+
+export function ChangeIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+			<defs />
+			<g id="Latest" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+				<g id="A02_subtitution_icon">
+					<g id="ic_swap_horiz_24px">
+						<polygon id="Shape" points="0 0 24 0 24 24 0 24" />
+						<polygon
+							id="Shape"
+							fill="#D0021B"
+							fillRule="nonzero"
+							transform="translate(16.000000, 14.875000) rotate(-450.000000) translate(-16.000000, -14.875000) "
+							points="14.2031818 9.875 9.125 14.875 14.2031818 19.875 14.2031818 16.125 23.125 16.125 23.125 13.625 14.2031818 13.625"
+						/>
+						<polygon
+							id="Path"
+							fill="#259B24"
+							transform="translate(8.000000, 8.875000) rotate(-450.000000) translate(-8.000000, -8.875000) "
+							points="14.875 8.875 9.79681818 3.875 9.79681818 7.625 0.875 7.625 0.875 10.125 9.79681818 10.125 9.79681818 13.875"
+						/>
+					</g>
+				</g>
+			</g>
+		</svg>
+	)
+}
+
+export function ManagerIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="16" height="16" viewBox="0 0 16 16">
+			<path
+				fill="currentColor"
+				d="M5 3a3 3 0 1 1 6 0a3 3 0 0 1-6 0zm7.001 4h-.553l-3.111 6.316L9.5 7.5L8 6L6.5 7.5l1.163 5.816L4.552 7h-.554c-1.999 0-1.999 1.344-1.999 3v5h12v-5c0-1.656 0-3-1.999-3z"
+			/>
+		</svg>
+	)
+}
+
+export function OffsideIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="21" height="27" viewBox="0 0 21 27">
+			<path d="M20.7754921,1.41648831 C20.8959977,1.49933031 20.9684735,1.63897228 20.9686256,1.78851757 L20.9686256,9.37241262 C20.9690821,9.38535505 20.9690821,9.3974591 20.9686256,9.41040152 L20.9686256,15.8902604 C20.9894707,16.4511339 20.6648765,16.964377 20.1593212,17.1699363 C18.1156462,17.8974369 14.8602207,18.3325015 11.4506638,18.3325015 C8.06879882,18.3325015 4.84233326,17.9050347 2.79480368,17.1882758 L2.79480368,25.9337405 C2.79480368,26.4276486 2.40726874,26.8280255 1.92920246,26.8280255 L1.06360123,26.8280255 C0.58553495,26.8280255 0.198,26.4276486 0.198,25.9337405 L0.198,1.34140127 C0.198,0.600539062 0.779277065,0 1.49637648,0 C2.2134759,0 2.79475297,0.600591461 2.79475297,1.34140127 L2.79475297,1.48271999 C4.68607162,2.21467446 7.95453154,2.66493466 11.4506131,2.66493466 C15.1103104,2.66493466 18.5284893,2.17086933 20.3687351,1.37629867 C20.5022752,1.31855553 20.6549359,1.3336463 20.7754921,1.41648831 Z M1.92915174,9.37105026 L1.92910102,9.37105026 L1.92910102,1.34140127 C1.92910102,1.0944472 1.7353589,0.894284982 1.49632577,0.894284982 C1.25729263,0.894284982 1.06355051,1.0944472 1.06355051,1.34140127 L1.06355051,25.9337929 L1.92915174,25.9337929 L1.92915174,15.904146 C1.92915174,15.898749 1.92915174,15.8942951 1.92915174,15.8893697 L1.92915174,9.41218307 C1.92828954,9.39850707 1.92828954,9.38472626 1.92915174,9.37105026 Z M11.0177871,17.4346535 L11.0177871,11.1568955 C7.72295392,11.1238321 4.73927462,10.7142331 2.79475297,10.0341531 L2.79475297,15.8947143 C2.78242853,16.070878 2.87027182,16.238396 3.01978798,16.3239627 C4.89335539,16.9915195 7.85842125,17.4006468 11.0177871,17.4346535 Z M11.0177871,10.2630821 L11.0177871,3.55607574 C7.72513479,3.52295989 4.73886888,3.1138325 2.79475297,2.43375254 L2.79475297,9.08621208 C4.60857477,9.78688465 7.6879079,10.2277655 11.0177871,10.2630821 Z M11.8833884,3.55560415 L11.8833884,10.2625581 C15.2124054,10.2268224 18.2886954,9.78594148 20.1029737,9.08526891 L20.1029737,2.43328095 C18.1588578,3.11294173 15.1725919,3.52206912 11.8833884,3.55560415 Z M19.8770765,16.3239627 C20.0274548,16.2374004 20.1156024,16.0685201 20.1029737,15.8911512 L20.1029737,10.0336815 C18.1588578,10.7137615 15.1769536,11.1233605 11.8833884,11.1568955 L11.8833884,17.4346535 C15.0428049,17.4002277 18.0043713,16.9911003 19.8770765,16.3239627 Z M4.14101363,7.22292994 C3.90616599,7.22292994 3.71581633,7.02083299 3.7157665,6.77149192 L3.7157665,4.06281093 C3.7157665,3.91340733 3.7854285,3.77373824 3.90178098,3.68967226 C4.01813346,3.60560628 4.16612783,3.58814764 4.2970306,3.64295718 C5.05065583,3.92118436 5.84294895,4.06312836 6.640823,4.06281093 C6.87567064,4.06281093 7.0660203,4.26496078 7.0660203,4.51424895 C7.0660203,4.76353711 6.87567064,4.96568696 6.640823,4.96568696 C5.94051561,4.96383529 5.24334749,4.8668605 4.56621094,4.67719622 L4.56621094,6.77149192 C4.56621094,7.02083299 4.37586127,7.22292994 4.14101363,7.22292994 Z M4.14101363,14.7898089 C3.90616599,14.7898089 3.71581633,14.5876591 3.7157665,14.3384767 L3.7157665,11.6297428 C3.7157665,11.4802863 3.7854285,11.3406172 3.90178098,11.2565512 C4.01813346,11.1724853 4.16612783,11.1550266 4.2970306,11.2098362 C5.05065583,11.4880633 5.84294895,11.6300073 6.640823,11.6296899 C6.87567064,11.6296899 7.0660203,11.8317869 7.0660203,12.0811279 C7.0660203,12.330469 6.87567064,12.5325659 6.640823,12.5325659 C5.94051561,12.5307143 5.24334749,12.4337395 4.56621094,12.2440752 L4.56621094,14.3383709 C4.56621094,14.5876591 4.37586127,14.7898089 4.14101363,14.7898089 Z" />
+		</svg>
+	)
+}
+
+export function InjuryIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="36" height="36" viewBox="0 0 36 36">
+			<path
+				id="clarityFirstAidKitSolid0"
+				fill="currentColor"
+				d="M32 6h-8.09V4.5a2.5 2.5 0 0 0-2.5-2.5h-7a2.5 2.5 0 0 0-2.5 2.5V6H4a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h28a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2ZM13.91 4.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5V6h-8Zm10.73 15.4a.5.5 0 0 1-.5.5h-3.5v3.5a.5.5 0 0 1-.5.5h-3.4a.5.5 0 0 1-.5-.5v-3.5h-3.5a.5.5 0 0 1-.5-.5v-3.4a.5.5 0 0 1 .5-.5h3.5v-3.5a.5.5 0 0 1 .5-.5h3.4a.5.5 0 0 1 .5.5V16h3.5a.5.5 0 0 1 .5.5Z"
+			/>
+		</svg>
+	)
+}
+
+export function TimeIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+			<g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+				<g id="ic_timer_black_24dp">
+					<polygon id="Shape" points="0 0 24 0 24 24 0 24" />
+					<path
+						d="M15,1 L9,1 L9,3 L15,3 L15,1 Z M11,14 L13,14 L13,8 L11,8 L11,14 Z M19.03,7.39 L20.45,5.97 C20.02,5.46 19.55,4.98 19.04,4.56 L17.62,5.98 C16.07,4.74 14.12,4 12,4 C7.03,4 3,8.03 3,13 C3,17.97 7.02,22 12,22 C16.98,22 21,17.97 21,13 C21,10.88 20.26,8.93 19.03,7.39 Z M12,20 C8.13,20 5,16.87 5,13 C5,9.13 8.13,6 12,6 C15.87,6 19,9.13 19,13 C19,16.87 15.87,20 12,20 Z"
+						id="Shape"
+						fill="#80868B"
+						fillRule="nonzero"
+					/>
+				</g>
+			</g>
+		</svg>
+	)
+}
+
+export function ChangeTwoIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="36" height="31" viewBox="0 0 36 31">
+			<path d="M13.3836898,0.0509682 C17.1916514,0.0509682 20.2897036,2.772323 20.2897716,6.1174012 C20.2897716,6.3298279 20.1612781,6.5263091 19.9523573,6.6333287 L16.5391221,8.3813548 L16.5391221,15.428283 C16.5391221,15.758061 16.234681,16.0254904 15.8592625,16.0254904 L5.3954075,16.0254904 C5.019989,16.0254904 4.7155479,15.758061 4.7155479,15.428283 L4.7155479,8.3813548 L1.3023808,6.6333884 C1.0933919,6.5263688 0.9648985,6.3299473 0.9648985,6.1174609 C0.9648985,2.772323 4.0629507,0.0509682 7.8709803,0.0509682 L13.3836898,0.0509682 Z M12.5889339,1.245383 L8.6657361,1.245383 C8.9479458,1.9586278 9.7204023,2.4721665 10.627335,2.4721665 C11.5342677,2.4721665 12.3067242,1.9586278 12.5889339,1.245383 Z M16.539938,6.9982821 L18.9168631,5.7809942 C18.7330971,3.4276387 16.6383816,1.5280413 13.9891728,1.2742281 C13.6601207,2.6392651 12.2777622,3.6666411 10.627267,3.6666411 C8.9767719,3.6666411 7.5944134,2.6392651 7.2653613,1.2742281 C4.6161524,1.5280413 2.521369,3.4276984 2.337671,5.781054 L4.7155479,6.9987599 L4.7155479,5.8438802 C4.7155479,5.5140425 5.019989,5.2466728 5.3954075,5.2466728 C5.770826,5.2466728 6.0752671,5.5140425 6.0752671,5.8438802 L6.0752671,12.4280921 L8.9646024,12.4280921 C9.3400209,12.4280921 9.644462,12.6954618 9.644462,13.0252995 C9.644462,13.3551372 9.3400209,13.6225069 8.9646024,13.6225069 L6.0752671,13.6225069 L6.0752671,14.8310756 L15.1794029,14.8310756 L15.1802188,5.8438802 C15.1802188,5.5140425 15.4846599,5.2466728 15.8600784,5.2466728 C16.2354968,5.2466728 16.539938,5.5140425 16.539938,5.8438802 L16.539938,6.9982821 Z M12.5359645,4.0445987 C13.6541589,4.0445987 14.5638832,4.8460783 14.5638832,5.8312229 C14.5638832,6.8163675 13.6541589,7.6178471 12.5359645,7.6178471 C11.4177701,7.6178471 10.5080457,6.8163675 10.5080457,5.8312229 C10.5080457,4.8460783 11.4177701,4.0445987 12.5359645,4.0445987 Z M12.5359645,6.4267643 C12.9086959,6.4267643 13.2119374,6.1596045 13.2119374,5.8312229 C13.2119374,5.5028414 12.9086959,5.2356815 12.5359645,5.2356815 C12.163233,5.2356815 11.8599915,5.5028414 11.8599915,5.8312229 C11.8599915,6.1596045 12.163233,6.4267643 12.5359645,6.4267643 Z M28.068153,18.7579745 C29.1727972,18.7579745 30.0714975,19.5594541 30.0714975,20.5445987 C30.0714975,21.5297433 29.1727972,22.3312229 28.068153,22.3312229 C28.0598725,22.3312229 28.0517924,22.3307465 28.0435787,22.3306869 C28.035365,22.3307465 28.027218,22.3312229 28.0190043,22.3312229 C26.9143602,22.3312229 26.0156599,21.5297433 26.0156599,20.5445987 C26.0156599,19.5594541 26.9143602,18.7579745 28.0190043,18.7579745 C28.0272848,18.7579745 28.035365,18.758451 28.0435787,18.7585105 C28.0517924,18.758451 28.0599393,18.7579745 28.068153,18.7579745 Z M28.0435787,21.138949 C28.4003075,21.1273955 28.6867858,20.8654764 28.6867858,20.5445392 C28.6867858,20.2236019 28.4003743,19.9618019 28.0435787,19.9501293 C27.6868498,19.9617424 27.4003716,20.2235424 27.4003716,20.5445392 C27.4003716,20.8654764 27.686783,21.1272764 28.0435787,21.138949 Z M30.4892249,4.7477529 C30.8237559,5.127462 30.8810807,5.6303442 30.6386788,6.0601687 C30.3962769,6.4899932 29.9048534,6.7570171 29.3561735,6.7570171 L28.6411152,6.7570171 L28.6411152,11.0155752 C28.6411152,11.3446921 28.3355196,11.6114777 27.9586775,11.6114777 L24.0725357,11.6114777 C23.6956935,11.6114777 23.3900979,11.3446921 23.3900979,11.0155752 L23.3900979,6.7570171 L22.6750396,6.7570171 C22.1264279,6.7570171 21.6350045,6.4900528 21.3926708,6.0602283 C21.150269,5.6304634 21.2075255,5.1275812 21.5419882,4.7478125 L25.4747405,0.2835489 C25.603926,0.1368973 25.803812,0.0509682 26.0156407,0.0509682 C26.2274694,0.0509682 26.4273554,0.1368973 26.5564726,0.2835489 L30.4892249,4.7477529 Z M29.4141125,5.5336888 C29.4318558,5.5022251 29.4158868,5.4841097 29.4073563,5.4743965 L26.0155724,1.6242105 L22.6237886,5.4743965 C22.6152581,5.4841097 22.5993573,5.5022251 22.6170324,5.5337484 C22.634844,5.565212 22.6609814,5.565212 22.6750396,5.565212 L24.0725357,5.565212 C24.4493778,5.565212 24.7549734,5.8319976 24.7549734,6.1611146 L24.7549734,10.4196726 L27.2761715,10.4196726 L27.2761715,6.161055 C27.2761715,5.831938 27.5817671,5.5651524 27.9586092,5.5651524 L29.3561052,5.5651524 C29.3701635,5.5651524 29.3963691,5.5651524 29.4141125,5.5336888 Z M15.3696134,24.7295751 C15.6120153,25.1594019 15.5547588,25.6623462 15.220296,26.0420573 L11.2875437,30.5062843 C11.1583583,30.6529367 10.9585405,30.7388662 10.7466436,30.7388662 C10.5347467,30.7388662 10.3349289,30.6529367 10.2057434,30.5062843 L6.2730594,26.0420573 L6.2730594,26.0421169 C5.9385284,25.6623462 5.8812036,25.1594615 6.1236055,24.7296347 C6.3660074,24.299808 6.8574308,24.0328423 7.4061108,24.0328423 L8.1211008,24.0328423 L8.1211008,19.7742623 C8.1211008,19.4452032 8.4266964,19.1783567 8.8035386,19.1783567 L12.6896804,19.1783567 C13.0665225,19.1783567 13.3721181,19.4452032 13.3721181,19.7742623 L13.3721181,24.0328423 L14.0871764,24.0328423 C14.6357881,24.0328423 15.1272115,24.2998676 15.3696134,24.7295751 Z M14.1384275,25.3155291 C14.1469579,25.3058755 14.162927,25.2877599 14.1451836,25.2561769 C14.127372,25.2247131 14.1012346,25.2247131 14.0871764,25.2247131 L12.6896804,25.2247131 C12.3128382,25.2247131 12.0072426,24.9578666 12.0072426,24.6288075 L12.0072426,20.3702275 L9.4859763,20.3702275 L9.4859763,24.6288075 C9.4859763,24.9578666 9.1803807,25.2247131 8.8035386,25.2247131 L7.4061108,25.2247131 C7.3920526,25.2247131 7.3658469,25.2247131 7.3481036,25.2561769 C7.3303602,25.2876408 7.3463292,25.3057563 7.3548597,25.3154695 L7.3548597,25.3155291 L10.7466436,29.1656754 L14.1384275,25.3155291 Z M28.891236,14.7643439 C32.6992656,14.7643439 35.7973178,17.485808 35.7973858,20.8307543 C35.7973858,21.0432399 35.6688923,21.2397204 35.4599035,21.3466799 L32.0467364,23.0946995 L32.0467364,27.7167691 C32.0469403,27.7222036 32.0476882,27.7274591 32.0476882,27.7329533 C32.0476882,27.7384476 32.0468723,27.743703 32.0467364,27.7491376 L32.0467364,30.141661 C32.0467364,30.4714378 31.7422952,30.7388662 31.3668768,30.7388662 L20.9030897,30.7388662 C20.5276712,30.7388662 20.2232301,30.4714378 20.2232301,30.141661 L20.2232301,23.0947592 L16.809995,21.3467993 C16.6010741,21.2398399 16.4725127,21.0433594 16.4725127,20.8308738 C16.4725127,17.4857483 19.5705649,14.7643439 23.3785945,14.7643439 L28.891236,14.7643439 Z M28.0964802,15.9587543 L24.1732824,15.9587543 C24.4555601,16.6720562 25.2280165,17.185593 26.1348813,17.185593 C27.041814,17.185593 27.8142704,16.6720562 28.0964802,15.9587543 Z M32.0476202,21.7116917 L34.4244093,20.4944681 C34.2407113,18.1411213 32.1459959,16.2414713 29.496719,15.9876591 C29.1676669,17.352691 27.7853084,18.3800631 26.1348133,18.3800631 C24.4843861,18.3800631 23.1019596,17.3526313 22.7729755,15.9876591 C20.1237666,16.2414713 18.0289153,18.1411213 17.8452172,20.4945278 L20.2231621,21.7122889 L20.2231621,20.5573538 C20.2231621,20.2275771 20.5276032,19.9601486 20.9030217,19.9601486 C21.2784402,19.9601486 21.5828813,20.2275771 21.5828813,20.5573538 L21.5828813,29.5444559 L30.6869492,29.5444559 L30.6869492,28.3301585 L27.7986337,28.3301585 C27.4232152,28.3301585 27.1187741,28.06273 27.1187741,27.7329533 C27.1187741,27.4031766 27.4232152,27.1357481 27.7986337,27.1357481 L30.6869492,27.1357481 L30.687901,20.5572941 C30.687901,20.2275173 30.9923421,19.9600889 31.3677606,19.9600889 C31.743179,19.9600889 32.0476202,20.2275173 32.0476202,20.5572941 L32.0476202,21.7116917 Z M11.9683142,12.637 C12.1015127,12.7542236 12.1780964,12.9169745 12.1780964,13.0828153 C12.1780964,13.2486561 12.1014411,13.4113439 11.9683142,13.5286306 C11.8352589,13.6459172 11.650599,13.7133885 11.4623604,13.7133885 C11.2741218,13.7133885 11.0895335,13.6459172 10.956335,13.5286306 C10.8231365,13.4113439 10.7466244,13.2486561 10.7466244,13.0828153 C10.7466244,12.9169745 10.8232081,12.7542866 10.956335,12.637 C11.0894619,12.5197134 11.2733345,12.452242 11.4623604,12.452242 C11.650599,12.452242 11.8352589,12.5197134 11.9683142,12.637 Z M25.806054,27.3503758 C25.939186,27.4677255 26.0156599,27.6303503 26.0156599,27.7961911 C26.0156599,27.9620318 25.9391144,28.1247197 25.806054,28.2420064 C25.6722783,28.359293 25.4884261,28.4267643 25.3002815,28.4267643 C25.1114217,28.4267643 24.9275694,28.3592299 24.7937937,28.2420064 C24.6607333,28.1247197 24.5841878,27.9620318 24.5841878,27.7961911 C24.5841878,27.6303503 24.6608048,27.4676624 24.7937937,27.3503758 C24.9275694,27.2324586 25.1114217,27.1656178 25.3002815,27.1656178 C25.4883545,27.1656178 25.6722783,27.2323955 25.806054,27.3503758 Z" />
+		</svg>
+	)
+}
+
+export function RefereeIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="512" height="512" viewBox="0 0 512 512">
+			<path
+				fill="currentColor"
+				d="M93.75 81.443c-5.38 0-12.368 2.49-22.358 8.967c3.966 4.682 8.167 9.687 16.47 19.256c5.782 6.663 11.618 13.29 16.026 18.088c.038.042.055.055.092.096l30.894-17.932l-14.652-14.148c-11.292-9.404-18.644-13.866-25.418-14.293a16.554 16.554 0 0 0-1.055-.034zm120.08 15.082a89.446 89.446 0 0 0-2.643.01c-10.46.193-20.2 2.23-26.742 5.424l-67.262 39.038c2.45.544 4.885 1.196 7.287 2.02c17.275 5.923 33.093 18.223 49.568 34.7l216.44 213.5l80.978-44.433L258.54 111.38c-8.656-7.84-22.49-12.908-36.693-14.394a86.624 86.624 0 0 0-8.018-.46zM58.192 102.74c-17.543 20.723-20.57 37.186-15.326 57.004c.692 2.618 3.057 6.357 6.373 10.47a182.968 182.968 0 0 1 7.086-9.478c3.99-4.995 8.385-9.183 13.085-12.558l-.106-.2l2.768-1.61a56.414 56.414 0 0 1 4.13-2.393l11.868-6.89a1048.196 1048.196 0 0 1-13.803-15.622a2604.997 2604.997 0 0 1-16.074-18.723zm184.093 13.438l58.415 61.67c-46.086-5.037-56.79 13.2-69.027 34.2l-57.334-59.304l67.946-36.566zM103.702 157.23a45.332 45.332 0 0 0-2.15.002c-6.976.18-14.207 2.058-22.252 5.885c-3.035 2.29-5.99 5.196-8.91 8.852c-25.77 32.264-30.45 59.135-25.484 83.477c4.965 24.343 20.536 46.656 37.916 66.455c13.314 15.168 28.86 23.992 48.472 27.93c19.614 3.94 43.438 2.708 71.98-3.475c33.246-7.2 66.01 8.42 95.81 27.665c26.118 16.868 50.676 37.09 70.98 49.95l8.79-18.935l-217.52-214.57l-.022-.022c-15.524-15.524-29.565-25.905-42.682-30.402c-5.02-1.722-9.925-2.695-14.928-2.813zm367.08 210.456l-73.45 40.304l-10.48 22.567l70.833-38.41l13.096-24.46z"
+			/>
+		</svg>
+	)
+}
+
+export function MatchEndIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="31" height="29" viewBox="0 0 31 29">
+			<path
+				stroke="var(--foreground-second-color)"
+				strokeWidth={1}
+				d="M11.9950266,5.2085152 L12.5756291,5.9420037 L8.3236511,9.1973885 L7.7430486,8.4639 L11.9950266,5.2085152 Z M24.8571231,5.2072372 L29.1093395,8.4603901 L28.5290205,9.1940645 L24.2768041,5.9409116 L24.8571231,5.2072372 Z M19.4479354,18.8584128 C19.1655732,19.0226967 18.8409752,19.1230406 18.4898021,19.1230406 C17.4429263,19.1230406 16.5915686,18.2857525 16.5915686,17.2561775 C16.5915686,16.9108078 16.6935986,16.5915742 16.8606432,16.3138784 L15.7814975,15.2525667 L16.452523,14.5926306 L17.5316687,15.6539422 C17.8140309,15.4896583 18.1386289,15.3893144 18.4898021,15.3893144 C19.5366778,15.3893144 20.3880355,16.2266025 20.3880355,17.2561775 C20.3880355,17.6015472 20.2860055,17.9207808 20.1189609,18.1984767 L24.0454569,22.060083 L23.3744313,22.7200191 L19.4479354,18.8584128 Z M17.5406853,17.2561775 C17.5406853,17.770965 17.9663642,18.1896091 18.4898021,18.1896091 C19.0132399,18.1896091 19.4389188,17.770965 19.4389188,17.2561775 C19.4389188,16.74139 19.0132399,16.322746 18.4898021,16.322746 C17.9663642,16.322746 17.5406853,16.74139 17.5406853,17.2561775 Z M21.2645497,5.9180972 C26.4136992,7.1706326 30.2434264,11.7508689 30.2434264,17.1964933 C30.2434264,23.603247 24.9435263,28.8155605 18.429115,28.8155605 C16.3313658,28.8155605 14.2832368,28.2638872 12.4808454,27.2279312 C11.323988,27.9353 9.9643971,28.3507978 8.5050933,28.3507978 C4.3360591,28.3507978 0.943934,25.0147313 0.943934,20.9145948 C0.943934,17.2508706 3.6546096,14.2052807 7.2050465,13.5964415 C8.476739,9.7644732 11.7081895,6.8815502 15.5936802,5.9227448 L15.5936802,4.6479008 L13.2308179,4.6479008 L13.2308179,0.0002739 L23.627412,0.0002739 L23.627412,4.6479008 L21.2645497,4.6479008 L21.2645497,5.9180972 Z M14.1759628,3.7183754 L22.6822671,3.7183754 L22.6822671,0.9297993 L21.7371222,0.9297993 L21.7371222,2.78885 L20.7919772,2.78885 L20.7919772,0.9297993 L19.8468323,0.9297993 L19.8468323,2.78885 L18.9016874,2.78885 L18.9016874,0.9297993 L17.9565425,0.9297993 L17.9565425,2.78885 L17.0113976,2.78885 L17.0113976,0.9297993 L16.0662527,0.9297993 L16.0662527,2.78885 L15.1211077,2.78885 L15.1211077,0.9297993 L14.1759628,0.9297993 L14.1759628,3.7183754 Z M20.3194048,4.6479008 L16.5388251,4.6479008 L16.5388251,5.7303331 C17.1574225,5.6304091 17.7892518,5.5774261 18.429115,5.5774261 C19.0727586,5.5774261 19.7036429,5.6299443 20.3194048,5.7280092 L20.3194048,4.6479008 Z M8.5050933,14.4079172 C8.020234,14.4079172 7.5486067,14.4627592 7.0930468,14.5608241 L8.5050933,15.6720717 L9.9171398,14.5608241 C9.46158,14.4627592 8.9899527,14.4079172 8.5050933,14.4079172 Z M15.0870825,21.5764169 L13.1504806,20.0529248 L11.2408153,20.8039813 L10.3641934,23.1975091 L11.128343,24.2000023 L13.9543263,24.5969096 C14.5686705,23.7203672 14.9722474,22.6899883 15.0870825,21.5764169 Z M13.8489427,19.4110875 L15.0941711,20.3908073 C15.0327367,19.6411451 14.8432351,18.9277343 14.5445693,18.2705599 L13.8489427,19.4110875 Z M16.0662527,20.9145948 C16.0662527,22.5166318 15.543115,23.9982953 14.663185,25.2136497 C15.8375276,25.7471972 17.1285955,26.0269844 18.429115,26.0269844 C23.3802566,26.0269844 27.4079916,22.065812 27.4079916,17.1964933 C27.4079916,12.3271746 23.3802566,8.3660023 18.429115,8.3660023 C14.8593026,8.3660023 11.6264344,10.4792782 10.2091896,13.675916 C13.5592558,14.4390563 16.0662527,17.3912289 16.0662527,20.9145948 Z M11.0064194,14.894059 L8.9776658,16.490054 L8.9776658,18.3676953 L10.9482929,19.9172141 L12.9075784,19.1466376 L14.0185962,17.3256973 C13.2889443,16.2455889 12.2407786,15.3922846 11.0064194,14.894059 Z M10.3084298,20.6050629 L8.5050933,19.1856776 L6.6946682,20.6101753 L7.4252653,22.7657446 L9.5239596,22.7188036 L9.5381367,22.7085788 L10.3084298,20.6050629 Z M6.0037673,14.8945237 C4.7514503,15.399256 3.692888,16.2711508 2.962291,17.3735679 L3.8979844,19.4045809 L6.0311765,19.9418465 L8.0325209,18.3672305 L8.0325209,16.490054 L6.0037673,14.8945237 Z M2.4013475,18.4081296 C2.1324537,19.0383479 1.967526,19.7201547 1.9141253,20.4321712 L2.9745779,19.6513698 L2.4013475,18.4081296 Z M3.7585756,25.4372005 C4.4026918,26.0906569 5.1833815,26.6102616 6.0566954,26.9541859 L5.7518862,25.1569486 L3.7585756,25.4372005 Z M5.8662487,24.2018613 L6.565656,23.1686939 L5.7750422,20.8365147 L3.6626434,20.3043614 L1.9240493,21.5857121 C2.0403021,22.6955654 2.4434064,23.7222262 3.0558603,24.5964448 L5.8662487,24.2018613 Z M10.0111818,27.2446626 L10.3726997,24.7572527 L9.5272676,23.6487937 L7.3439828,23.6975938 L6.6389047,24.7372679 L7.0665828,27.2618588 C7.5306489,27.3636419 8.0107825,27.4212724 8.5050933,27.4212724 C9.0239779,27.4212724 9.5263224,27.3562057 10.0111818,27.2446626 Z M11.0111451,26.9332716 C11.8613029,26.5893472 12.621672,26.076714 13.2511385,25.4372005 L11.2686971,25.1588077 L11.0111451,26.9332716 Z M18.429115,27.8860351 C24.4227514,27.8860351 29.2982815,23.0910785 29.2982815,17.1964933 C29.2982815,11.3019082 24.4227514,6.5069515 18.429115,6.5069515 C13.8914742,6.5069515 9.8018322,9.3480458 8.2404528,13.4914052 C8.3288238,13.4886166 8.4157771,13.4783918 8.5050933,13.4783918 C8.7583922,13.4783918 9.0088556,13.4918699 9.2555384,13.5155728 C10.7710783,9.8662562 14.4051605,7.4364769 18.429115,7.4364769 C23.9010314,7.4364769 28.3531366,11.8150062 28.3531366,17.1964933 C28.3531366,22.5779805 23.9010314,26.9565098 18.429115,26.9565098 C16.9112122,26.9565098 15.4070141,26.607473 14.0516763,25.9512281 C13.8243689,26.1929047 13.5871375,26.4243565 13.3295856,26.634894 C14.894273,27.4542706 16.6427911,27.8860351 18.429115,27.8860351 Z"
+			/>
+		</svg>
+	)
+}
+
+export function PenaltyIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="45" height="32" viewBox="0 0 45 32">
+			<path d="M43.9044465,23.0258493 L40.921012,23.0258493 L40.921012,1.04044839 C40.921012,0.750952878 40.68304,0.516 40.3886361,0.516 L4.83018621,0.516 C4.53631472,0.516 4.29781033,0.750952878 4.29781033,1.04044839 L4.29781033,23.0258493 L1.31437588,23.0258493 C1.0205044,23.0258493 0.782,23.2602777 0.782,23.5502977 C0.782,23.8403176 1.0205044,24.074746 1.31437588,24.074746 L14.5843771,24.074746 C14.8596155,28.2047771 18.3482746,31.4841529 22.6083464,31.4841529 C26.8689506,31.4841529 30.3581421,28.2047771 30.6333805,24.074746 L43.9044465,24.074746 C44.1988503,24.074746 44.4368223,23.8403176 44.4368223,23.5502977 C44.4368223,23.2602777 44.1988503,23.0258493 43.9044465,23.0258493 Z M12.1322538,23.038293 L7.98504569,23.038293 L7.98504569,17.6242803 L12.1322538,18.9759384 L12.1322538,23.038293 Z M12.1322538,17.8408408 L7.98504569,16.4781828 L7.98504569,11.127465 L12.1322538,13.8527809 L12.1322538,17.8408408 Z M12.1322538,12.6433885 L7.98504569,9.94849116 L7.98504569,4.84721019 L12.1322538,8.8906073 L12.1322538,12.6433885 Z M8.63986802,4.19752866 L14.6494458,4.19752866 L16.7160102,8.31217834 L12.7724597,8.31217834 L8.63986802,4.19752866 Z M17.1525584,13.0765096 L13.2236244,13.0765096 L13.2236244,9.17842038 L17.1525584,9.17842038 L17.1525584,13.0765096 Z M17.1525584,14.1593121 L17.1525584,17.7707925 C17.0524039,17.8642291 16.9543803,17.9587155 16.8590204,18.0574013 L13.2236244,18.0574013 L13.2236244,14.1593121 L17.1525584,14.1593121 Z M18.8987513,17.8408408 L18.8843701,17.9534015 L16.8305268,19.9921776 L16.7160102,20.0064459 C17.2731471,19.1334396 18.0188371,18.3930753 18.8987513,17.8408408 Z M19.40911,18.7070828 L21.2997665,19.5862386 L20.9684087,21.8621217 L18.5311487,22.172051 L17.5891066,20.4076022 L19.40911,18.7070828 Z M19.9901218,17.7161644 L20.0702443,17.055919 C20.8598722,16.7274468 21.7180259,16.5414777 22.6183493,16.5414777 C23.4601622,16.5414777 24.2634953,16.7070893 25.0104264,16.9953965 L25.0056823,17.7920926 C24.3035565,17.8531653 23.0189616,18.0550904 21.8967201,18.7070828 L19.9901218,17.7161644 Z M22.5256416,19.68104 C23.6050075,19.08326 24.9277959,18.951811 25.4330422,18.9236433 L27.4114416,20.8865109 C27.3841026,21.3862258 27.2542422,22.6949781 26.6485775,23.7700432 L24.0492667,24.1210955 L22.1728629,22.2589012 L22.5256416,19.68104 Z M26.101797,18.1894307 L26.105042,17.6242803 C27.1910492,18.2457848 28.0947933,19.142619 28.7210863,20.2203228 L28.1504998,20.2230064 L26.101797,18.1894307 Z M26.9748934,9.17842038 L26.9748934,13.0765096 L23.0459594,13.0765096 L23.0459594,9.17842038 L26.9748934,9.17842038 Z M23.2642335,8.31217834 L23.2642335,4.19752866 L29.3759086,4.19752866 L27.3500961,8.31217834 L23.2642335,8.31217834 Z M26.9748934,14.1593121 L26.9748934,16.9745987 C25.8359021,16.2121809 24.4918071,15.7402079 23.0459594,15.6451727 L23.0459594,14.1593121 L26.9748934,14.1593121 Z M18.2439289,16.9745987 L18.2439289,14.1593121 L22.1728629,14.1593121 L22.1728629,15.6454545 C20.7270152,15.7405078 19.3829202,16.2120363 18.2439289,16.9745987 Z M18.2439289,13.0765096 L18.2439289,9.17842038 L22.1728629,9.17842038 L22.1728629,13.0765096 L18.2439289,13.0765096 Z M21.9545888,8.31217834 L17.8694304,8.31217834 L15.8429137,4.19752866 L21.9545888,4.19752866 L21.9545888,8.31217834 Z M13.2236244,19.1402038 L16.0611878,19.1402038 C15.2708836,20.2677416 14.7824013,21.6026245 14.684159,23.038293 L13.2236244,23.038293 L13.2236244,19.1402038 Z M15.6246396,23.4803312 C15.6246396,22.5867006 15.8119375,21.7349263 16.1422025,20.9511683 L16.8082738,20.8726879 L17.8073807,22.7645896 C17.1512839,23.8784886 16.9484701,25.1524877 16.8864069,25.8499172 L16.0818017,25.8535796 C15.7914345,25.1127243 15.6246396,24.3158863 15.6246396,23.4803312 Z M19.113779,29.5351083 C18.0278642,28.9136038 17.1237467,28.0167695 16.497736,26.9390657 L17.0680172,26.9363822 L19.1170254,28.9688844 L19.113779,29.5351083 Z M17.8073807,26.2744425 C17.8347225,25.7757708 17.9651217,24.4654537 18.571373,23.3898669 L21.1693673,23.038293 L23.0459594,24.901009 L22.6931453,27.4778269 C21.6136711,28.0761286 20.2912757,28.2075776 19.7859787,28.2357452 L17.8073807,26.2744425 Z M25.1501347,29.8869091 C24.3597307,30.2153812 23.5013066,30.4013503 22.6001722,30.4013503 C21.7586213,30.4013503 20.9550351,30.2357387 20.2083959,29.9474316 L20.212087,29.1507354 C20.9149612,29.0891125 22.1999609,28.8871874 23.3225561,28.2357452 L25.2287005,29.2261134 L25.1501347,29.8869091 Z M23.9190558,27.3568414 L24.249866,25.0807978 L26.6876737,24.7707771 L27.6297157,26.5352352 L25.8080693,28.2357452 L23.9190558,27.3568414 Z M26.3200711,29.3185478 L26.3344452,29.2044574 L28.3888837,27.167204 L28.5028122,27.1529427 C27.9464794,28.0260513 27.2006208,28.7660544 26.3200711,29.3185478 Z M29.0762244,25.9911282 L28.4102004,26.0701401 L27.4114416,24.1796094 C28.0685927,23.0655934 28.2715609,21.790414 28.3331169,21.0929112 L29.1372258,21.0892484 C29.4272596,21.8296583 29.5941815,22.62658 29.5941815,23.4611764 C29.5947361,24.3549008 29.4072955,25.2072879 29.0762244,25.9911282 Z M31.995198,23.038293 L30.5341338,23.038293 C30.4353837,21.6031495 29.9476349,20.2682665 29.1576345,19.1402038 L31.995198,19.1402038 L31.995198,23.038293 Z M31.995198,18.0574013 L28.3587365,18.0574013 C28.2633766,17.9592404 28.1664185,17.8652789 28.066264,17.7718424 L28.066264,14.1593121 L31.995198,14.1593121 L31.995198,18.0574013 Z M31.995198,13.0765096 L28.066264,13.0765096 L28.066264,9.17842038 L31.995198,9.17842038 L31.995198,13.0765096 Z M28.5028122,8.31217834 L30.5687146,4.19752866 L36.5789543,4.19752866 L32.4471495,8.31217834 L28.5028122,8.31217834 Z M37.2337766,23.038293 L33.0865685,23.038293 L33.0865685,18.9764655 L37.2337766,17.6242803 L37.2337766,23.038293 Z M37.2337766,16.4778671 L33.0865685,17.8408408 L33.0865685,13.8534122 L37.2337766,11.127465 L37.2337766,16.4778671 Z M37.2337766,9.94798519 L33.0865685,12.6433885 L33.0865685,8.89084064 L37.2337766,4.84721019 L37.2337766,9.94798519 Z M38.2818077,23.038293 L38.2818077,3.66934985 C38.2818077,3.38014385 38.0438834,3.14542594 37.7495386,3.14542594 L7.46875143,3.14542594 C7.1749389,3.14542594 6.93648236,3.38014385 6.93648236,3.66934985 L6.93648236,23.038293 L5.36575635,23.038293 L5.36575635,1.59880255 L39.853066,1.59880255 L39.853066,23.038293 L38.2818077,23.038293 Z" />
+		</svg>
+	)
+}
+
+export function ShotIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="41" height="33" viewBox="0 0 41 33">
+			<path d="M36.5370636,25.035265 C36.5029243,25.511118 36.4034425,25.9795634 36.2407714,26.4264986 L34.7209132,30.6022746 C34.5606344,31.0426371 34.1930081,31.3718037 33.7369618,31.4827061 L32.8624644,31.6953685 C32.6859303,31.7382985 32.5054106,31.7430577 32.328679,31.7169415 L31.9987119,32.6235187 L31.1216375,32.3042897 L31.4406004,31.4279463 L30.5635259,31.1087173 L30.244563,31.9850607 L29.3674885,31.6658317 L29.6864514,30.7894883 L28.809377,30.4702593 L28.4904141,31.3466027 L27.6133396,31.0273737 L27.9323025,30.1510303 L14.7761856,25.3625954 L14.4572227,26.2389387 L13.5801483,25.9197097 L13.8991112,25.0433664 L13.0220367,24.7241374 L12.7030738,25.6004807 L11.8259993,25.2812517 L12.1449622,24.4049084 L11.2678878,24.0856794 L10.9489249,24.9620227 L10.0718504,24.6427937 L10.3908133,23.7664504 L9.07520162,23.2876069 C7.86615447,22.8475497 7.24023235,21.5067153 7.6799227,20.298676 L7.72553439,20.1733589 C8.33890004,18.4881507 9.95583252,17.3791036 11.7501043,17.4133811 L14.4660703,17.4655482 L14.5047423,17.4438959 L14.5174195,17.4663739 L23.5472242,17.6381925 L24.6026724,14.7383724 L26.3892563,14.5331556 L26.794972,18.0481606 L26.8194887,18.1131566 L32.234596,1.95674842 L33.119804,2.25363066 L32.3749811,4.47603359 L39.3350055,7.00927529 L40.1324127,4.81841693 L41.0094872,5.13764592 L35.1086736,21.3499978 L35.7625326,21.587983 C36.3466642,21.8005896 36.724472,22.3822156 36.6806809,23.0019324 L36.5370636,25.035265 Z M39.0978744,8.00190889 L32.0577857,5.43952614 L31.7566414,6.33752945 L36.9939868,8.24376729 L36.6701469,9.13351009 L31.4559421,7.23569474 L31.1547978,8.13369806 L38.1263547,10.6711373 L38.4501946,9.78139447 L37.5601708,9.45745228 L37.8840107,8.56770949 L38.7740345,8.89165168 L39.0978744,8.00190889 Z M37.6186331,11.3107506 L30.8213061,8.83672589 L27.233967,19.5258374 L27.477519,20.188095 C27.8673385,21.2489581 28.6950726,22.0777914 29.7480815,22.4610553 C31.1210415,22.9607719 32.6380114,22.6354678 33.7066366,21.6119086 L33.9566222,21.372043 L37.6186331,11.3107506 Z M25.2805641,15.7510466 L24.5298088,17.8137297 L25.8857427,17.8650332 L25.5833537,15.723962 L25.2805641,15.7510466 Z M22.0322003,18.5534924 L20.1489483,18.5199411 L24.2761596,25.965498 L26.4926816,26.772246 L22.0322003,18.5534924 Z M19.0414034,18.5641432 L17.9405174,18.5448331 L21.4494028,24.9366426 L22.8512564,25.4468756 L19.0414034,18.5641432 Z M16.986225,18.6405283 L15.1676763,18.6097487 L18.0162391,23.6870732 L20.1808779,24.4749373 L16.986225,18.6405283 Z M11.7924815,18.3186477 C10.529202,18.2854757 9.39364571,18.984933 8.85939886,20.079453 L16.6277727,22.9069098 L13.9946162,18.3760807 L11.7924815,18.3186477 Z M33.4283111,30.5398173 C33.5719881,30.4970296 33.6899336,30.3849694 33.7533338,30.2393162 L8.50611898,21.0500815 C8.48185456,21.6793424 8.81407879,22.2613815 9.38272746,22.4683527 L32.2662506,30.797274 C32.3527271,30.8287489 32.4463915,30.8309628 32.5383224,30.8039663 L33.4283111,30.5398173 Z M34.2610554,29.5997028 L35.4904176,26.2220579 C35.6254857,25.8509613 35.7088831,25.4625681 35.7371689,25.0677051 L35.887093,23.0068941 C35.902772,22.7976908 35.7762395,22.6016527 35.580323,22.5303449 L34.9224138,22.2908856 L34.753855,22.2295352 L34.6320948,22.3457715 C33.2917766,23.6215062 31.3855338,24.0233793 29.6571435,23.3942967 C28.3316177,22.9118448 27.2882722,21.8737789 26.7941506,20.5459012 L26.0919297,18.6570982 L23.1409407,18.6082525 L27.8090454,27.2513632 L34.2610554,29.5997028 Z M7.60398778,0.006 C11.7910339,0.006 15.1978173,3.45625332 15.1978173,7.6970828 C15.1978173,11.9380726 11.7910339,15.3881656 7.60398778,15.3881656 C3.41678335,15.3881656 0.01,11.9380726 0.01,7.6970828 C0.01,3.45625332 3.41678335,0.006 7.60398778,0.006 Z M12.7554967,3.64718896 L12.6292893,5.81656511 L14.1704061,7.02829299 C14.0241883,5.75773725 13.517468,4.59568974 12.7554967,3.64718896 Z M11.858731,2.4786939 C11.4576456,2.12375052 11.0166441,1.81678154 10.5434211,1.56650955 L8.00593909,2.95239905 L8.00593909,4.37921773 L10.46423,6.24803822 L11.6809517,5.67351976 L11.858731,2.4786939 Z M7.62074404,5.20769851 L5.18055838,6.9958425 L6.11254101,9.88922718 L9.1286105,9.88922718 L10.0607614,6.9958425 L7.62074404,5.20769851 Z M7.62166559,1.0463397 C6.95372094,1.0463397 6.30689575,1.12266228 5.69426396,1.26518581 L7.61747522,2.08667941 L9.54705584,1.26477548 C8.93509451,1.12252551 8.28893977,1.0463397 7.62166559,1.0463397 Z M4.41925933,1.56650955 C3.9547406,1.81187234 3.52105063,2.11177884 3.12573604,2.45817336 L3.30540989,5.67541317 L4.51913166,6.24803822 L6.97852792,4.38046156 L6.97852792,2.96668857 L4.41925933,1.56650955 Z M2.4859785,3.38710403 C1.7206852,4.40479542 1.21276087,5.65753183 1.07091371,7.02829299 L2.61203046,5.71980872 L2.4859785,3.38710403 Z M0.814060914,8.25001106 C0.870206821,9.05769113 1.06218447,9.82718339 1.36661299,10.5343951 L4.31626131,11.1896518 L5.18055838,10.1200658 L4.22655511,7.09421565 L2.96605562,6.50812314 L0.814060914,8.25001106 Z M2.09832487,11.4497367 C2.79807083,12.599213 3.77765414,13.5096149 4.92370558,14.050586 L4.16048507,11.958075 L2.09832487,11.4497367 Z M8.9875954,14.4226495 L10.0607614,11.7787316 L9.16193932,10.669482 L6.07938048,10.669482 L5.18055838,11.7787316 L6.25594331,14.428678 C6.69275406,14.5217129 7.14493876,14.5707558 7.60837658,14.5707558 C8.08100707,14.5707558 8.54254295,14.5194319 8.9875954,14.4226495 Z M10.3176142,14.050586 C11.4623672,13.5050197 12.4412028,12.5955667 13.1429949,11.4497367 L11.0850016,11.9552034 L10.3176142,14.050586 Z M10.9343164,11.1896518 L13.8686308,10.5404593 C14.1779683,9.82603612 14.372482,9.04802125 14.4272589,8.23099912 L12.2896841,6.50812314 L11.0151243,7.09831306 L10.0607614,10.113346 L10.9343164,11.1896518 Z" />
+		</svg>
+	)
+}
+
+export function ShotOutIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="25" height="24" viewBox="0 0 25 24">
+			<path d="M13.5640607,1.64451456 C19.7439673,1.64451456 24.7722383,6.6588835 24.7722383,12.8222233 C24.7722383,18.9857961 19.7439673,23.999932 13.5640607,23.999932 C7.38392056,23.999932 2.35564953,18.9857961 2.35564953,12.8222233 C2.35564953,6.6588835 7.38392056,1.64451456 13.5640607,1.64451456 Z M21.2114907,6.70129126 L21.0243411,9.90633981 L23.3096215,11.6965534 C23.0927991,9.81942718 22.3413972,8.10261165 21.2114907,6.70129126 Z M19.8906963,5.351 C19.3061168,4.85795146 18.6633598,4.43154369 17.9736402,4.0838932 L14.2752757,6.00901942 L14.2752757,7.991 L17.8582196,10.5869612 L19.6315841,9.78890291 L19.8906963,5.351 Z M13.5766776,9.20731068 L10.1888271,11.661835 L11.4827523,15.6334854 L15.6701355,15.6334854 L16.9642944,11.661835 L13.5766776,9.20731068 Z M13.5640607,3.03814563 C12.632986,3.03814563 11.7313505,3.16816505 10.8773785,3.41096117 L13.5582196,4.81041748 L16.2479393,3.41026214 C15.3949019,3.16793204 14.4942009,3.03814563 13.5640607,3.03814563 Z M9.15354673,4.08412621 C8.47761215,4.42478641 7.84653738,4.84117476 7.27130374,5.3221068 L7.53275234,9.78890291 L9.29887383,10.583932 L12.8776121,7.991 L12.8776121,6.02812621 L9.15354673,4.08412621 Z M5.94980841,6.65958252 C4.79513551,8.07604854 4.02878037,9.81966019 3.81476168,11.7275437 L6.13999533,9.90633981 L5.94980841,6.65958252 Z M3.77901402,13.5277767 C3.86149065,14.6760485 4.1435,15.7700291 4.59069626,16.775466 L8.92364019,17.7070388 L10.1932664,16.1864175 L8.79186449,11.8845922 L6.94022897,11.0513495 L3.77901402,13.5277767 Z M5.5070514,18.3981456 C6.57854673,19.9329806 8.07854673,21.1485922 9.83345327,21.8709223 L8.66476168,19.0769029 L5.5070514,18.3981456 Z M15.5972383,22.3944951 L17.1792477,18.6134466 L15.8542477,17.0271165 L11.3100888,17.0271165 L9.98508879,18.6134466 L11.5703692,22.4031165 C12.2142944,22.536165 12.8808832,22.606301 13.5640607,22.606301 C14.2607897,22.606301 14.9411636,22.5329029 15.5972383,22.3944951 Z M17.3376589,21.8529806 C19.0706028,21.1301845 20.5523785,19.9252913 21.6147617,18.407233 L18.4993411,19.0769029 L17.3376589,21.8529806 Z M18.2406963,17.7070388 L22.5336869,16.7840874 C22.986257,15.7683981 23.2708364,14.662301 23.3509766,13.5007476 L20.2236402,11.0513495 L18.3589206,11.8904175 L16.9626589,16.1768641 L18.2406963,17.7070388 Z M23.9195093,3.03867961 C23.9578271,3.0768932 23.9758178,3.13398058 23.9608645,3.19036893 C23.9547897,3.21343689 23.9438084,3.23370874 23.9293224,3.25118447 L23.9232477,3.25887379 L23.0720794,4.23914563 C21.3316589,2.29631068 19.0022196,0.890563107 16.3636682,0.298485437 L16.3636682,0 C17.3103972,0.044038835 18.2669393,0.198058252 19.2176402,0.47231068 C21.0033879,0.987961165 22.5968458,1.88504854 23.909229,3.03005825 L23.909229,3.02982524 C23.9127336,3.03262136 23.915771,3.03518447 23.9195093,3.03867961 Z M0.00901869159,17.0313087 C-0.00897196262,16.9802796 -0.000327102804,16.9210951 0.0375233645,16.8768233 C0.0529439252,16.8584155 0.071635514,16.844901 0.0924299065,16.8355806 L0.101308411,16.8311534 L1.29429907,16.3152699 C2.01929907,18.8182602 3.50831776,21.0915029 5.62957944,22.7647456 L5.49990654,23.0336388 C4.66556075,22.5850951 3.87023364,22.0328621 3.13261682,21.3753087 C1.7471028,20.1391922 0.700373832,18.6423379 0.0143925234,17.0434252 L0.0143925234,17.0438913 C0.0125233645,17.0396971 0.0106542056,17.0359689 0.00901869159,17.0313087 Z" />
+		</svg>
+	)
+}
+
+export function CornerIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="35" height="34" viewBox="0 0 35 34">
+			<path d="M34.5269355,21.0735256 C34.7078791,21.3214904 34.6559052,21.6673083 34.4099445,21.8523252 L17.9415542,33.6765137 C17.9183955,33.6907661 17.8941056,33.702973 17.8688839,33.7131344 C17.8493189,33.7246155 17.8290218,33.7347769 17.8081258,33.7435526 C17.681086,33.7967351 17.537742,33.7967351 17.4106356,33.7435526 C17.3897396,33.7347769 17.3694425,33.7246155 17.3498775,33.7131344 C17.3246558,33.702973 17.3003659,33.6907001 17.2772072,33.6765137 L9.95501675,28.4203584 L9.94363707,28.4124404 L0.808816947,21.8522592 C0.56285619,21.6673083 0.51088234,21.3214904 0.691825872,21.0735256 C0.872769405,20.8256267 1.22028214,20.7663078 1.47436173,20.9401076 L10.299069,27.275616 C12.3471448,26.0814521 14.667002,25.4212243 17.0420272,25.3566927 L17.0420272,0.563045381 C17.0420272,0.252066584 17.2962399,1.07797881e-05 17.6098798,1.07797881e-05 C17.9235197,1.07797881e-05 18.1777324,0.252066584 18.1777324,0.563045381 L18.1777324,2.84005945 C19.8983929,2.88789727 25.4465515,2.81524977 28.5976575,0.135672228 C28.7660235,-0.00751130442 29.0030669,-0.0403709354 29.2045737,0.0514776717 C29.4060805,0.143392262 29.5352498,0.343123393 29.5352498,0.563045381 L29.5352498,8.9739892 C29.5352498,9.13828736 29.4628458,9.29440359 29.3370704,9.40136235 C26.2205693,12.0493999 21.2346067,12.390599 18.875686,12.390599 C18.6059676,12.390599 18.3719855,12.3861122 18.1777989,12.3799097 L18.1777989,25.3566927 C20.5528908,25.4212902 22.8726814,26.0814521 24.9207572,27.275616 L33.745531,20.9401076 L33.7443997,20.9401076 C33.9984793,20.7663078 34.345992,20.8255607 34.5269355,21.0735256 Z M18.1777989,3.96896593 L18.1777989,11.2504094 C19.8621244,11.2987751 25.2194238,11.2289649 28.3995447,8.70873676 L28.3995447,1.68911458 C24.9019907,3.95543937 19.9092402,4.02188445 18.1777989,3.96896593 Z M17.0420938,32.1173308 L17.0420938,26.4828279 C15.0361427,26.5431365 13.0709855,27.0599829 11.2986173,27.9935131 L17.0420938,32.1173308 Z M18.1777989,32.1173308 L23.9212754,27.9935131 C22.1489072,27.0599829 20.1838165,26.5431365 18.1777989,26.4828279 L18.1777989,32.1173308 Z M19.9095363,6.92808012 C19.7157646,6.9326492 19.5344533,6.82077817 19.4340709,6.63458824 C19.3336249,6.4483983 19.3293019,6.21616063 19.4226913,6.02540162 C19.516017,5.83464261 19.6929418,5.71427595 19.886777,5.70970687 C20.2150065,5.69385788 20.5708268,5.67015579 20.9467998,5.63296064 C21.2459127,5.60340442 21.5098058,5.85170526 21.5361888,6.18767528 C21.5625082,6.52357392 21.3413999,6.81992147 21.0422235,6.84954909 C20.6483863,6.88852904 20.2757191,6.91408732 19.9322956,6.92993631 L19.9095363,6.92993631 L19.9095363,6.92808012 Z M19.909612,9.7433668 C19.7158361,9.74793573 19.5345208,9.63606847 19.4340726,9.4498134 C19.3336245,9.26362973 19.3293014,9.03139986 19.4226927,8.84064726 C19.5160205,8.64989466 19.6929491,8.52953205 19.8867887,8.52496313 C20.2150253,8.50911467 20.5708534,8.48541337 20.9468346,8.44821947 C21.1403563,8.4290871 21.3282834,8.52731898 21.4397935,8.70593537 C21.5513037,8.88462316 21.5694861,9.11642469 21.4875382,9.31424484 C21.4055903,9.512065 21.2358456,9.64570604 21.042324,9.66483841 C20.6484782,9.70381705 20.2758028,9.72937447 19.9323718,9.74522293 L19.909612,9.74522293 L19.909612,9.7433668 Z" />
+		</svg>
+	)
+}
+
+export function FinishedIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="48" height="48" viewBox="0 0 48 48">
+			<mask id="ipTCheckOne0">
+				<g fill="none" stroke="#fff" strokeLinejoin="round" strokeWidth="4">
+					<path
+						fill="#555"
+						d="M24 44a19.937 19.937 0 0 0 14.142-5.858A19.937 19.937 0 0 0 44 24a19.938 19.938 0 0 0-5.858-14.142A19.937 19.937 0 0 0 24 4A19.938 19.938 0 0 0 9.858 9.858A19.938 19.938 0 0 0 4 24a19.937 19.937 0 0 0 5.858 14.142A19.938 19.938 0 0 0 24 44Z"
+					/>
+					<path strokeLinecap="round" d="m16 24l6 6l12-12" />
+				</g>
+			</mask>
+			<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipTCheckOne0)" />
+		</svg>
+	)
+}
+
+export function UnstartedIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="256" height="256" viewBox="0 0 256 256">
+			<g fill="currentColor">
+				<path d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96Z" opacity=".2" />
+				<path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88Zm64-88a8 8 0 0 1-8 8h-56a8 8 0 0 1-8-8V72a8 8 0 0 1 16 0v48h48a8 8 0 0 1 8 8Z" />
+			</g>
+		</svg>
+	)
+}
+
+export function RefreshIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<g fill="none" stroke="currentColor" strokeWidth="1.5">
+				<circle cx="12" cy="12" r="10" />
+				<path strokeLinecap="round" strokeLinejoin="round" d="M16.583 9.667C15.81 8.097 14.043 7 11.988 7C9.388 7 7.25 8.754 7 11" />
+				<path
+					strokeLinecap="round"
+					strokeLinejoin="round"
+					d="M14.494 9.722H16.4a.6.6 0 0 0 .6-.6V7.5m-9.583 6.167C8.191 15.629 9.957 17 12.012 17c2.6 0 4.736-2.193 4.988-5"
+				/>
+				<path strokeLinecap="round" strokeLinejoin="round" d="M9.506 13.622H7.6a.6.6 0 0 0-.6.6V16.4" />
+			</g>
+		</svg>
+	)
+}
+
+export function VARIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} height="79.375mm" viewBox="0 0 120.96611 79.375" width="120.96611mm">
+			<g fill="currentColor" strokeWidth="1.074449">
+				<path d="m.00000079.00000429v3.46467871 69.507335h37.24751221v5.864406c0 .298289.239731.538579.538019.538579h49.415527c.298289 0 .538579-.24029.538579-.538579v-5.864406h33.226472v-72.97201371zm6.93158141 6.92935731h107.1029578v59.1110744h-107.1029578z" />
+				<path d="m80.720338 19.085171v33.813917h8.327989v-11.528374h2.013292l7.441837 11.88262 9.135334-1.464721-8.343003-12.369013c3.317273-1.712026 6.336373-4.617293 6.336373-8.977063 0-8.488028-5.48859-11.357366-12.404001-11.357366zm11.328495 6.495689c1.015204.02278 5.184173.28345 5.184173 4.720903 0 5.071377-5.412375 4.720902-5.412375 4.720902h-2.772304v-9.441247z" />
+				<path d="m55.748556 19.116814-12.379006 34.13652h8.435155l2.170419-6.952125h11.63222l2.318113 7.274159 8.7422-1.401414-11.869298-33.05714zm3.983272 8.747207 3.770617 11.832648h-7.465164z" />
+				<path d="m23.623114 19.116814-9.279682 1.487478 11.838213 32.971076h9.049804l12.379005-34.13652h-9.003721l-7.364111 23.58757z" />
+			</g>
+		</svg>
+	)
+}
+
+export function NotFoundIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="16" height="16" viewBox="0 0 16 16">
+			<path
+				fill="currentColor"
+				fillRule="evenodd"
+				d="m7.493.015l-.386.04c-1.873.187-3.76 1.153-5.036 2.579C.66 4.211-.057 6.168.009 8.253c.115 3.601 2.59 6.65 6.101 7.518a8.034 8.034 0 0 0 6.117-.98a8 8 0 0 0 3.544-4.904c.172-.701.212-1.058.212-1.887s-.04-1.186-.212-1.887C14.979 2.878 12.315.498 9 .064C8.716.027 7.683-.006 7.493.015m1.36 1.548a6.34 6.34 0 0 1 1.987.597c.698.34 1.18.686 1.747 1.253A5.956 5.956 0 0 1 13.84 5.16c.445.915.646 1.798.646 2.84a6.188 6.188 0 0 1-.66 2.867c-.172.351-.519.914-.681 1.105l-.055.065l-4.563-4.564L3.963 2.91l.065-.055c.191-.162.754-.509 1.105-.681a6.436 6.436 0 0 1 3.72-.611M7.48 8.534l4.56 4.561l-.067.053a7.66 7.66 0 0 1-1.106.68a6.76 6.76 0 0 1-1.987.616c-.424.065-1.336.065-1.76 0c-1.948-.296-3.592-1.359-4.627-2.993a7.502 7.502 0 0 1-.634-1.332a6.62 6.62 0 0 1-.189-3.584a6.767 6.767 0 0 1 1.096-2.388c.07-.095.133-.173.141-.173c.007 0 2.065 2.052 4.573 4.56"
+			/>
+		</svg>
+	)
+}
+
+export function ViewIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="32" height="32" viewBox="0 0 32 32">
+			<circle cx="16" cy="16" r="4" fill="currentColor" />
+			<path
+				fill="currentColor"
+				d="M30.94 15.66A16.69 16.69 0 0 0 16 5A16.69 16.69 0 0 0 1.06 15.66a1 1 0 0 0 0 .68A16.69 16.69 0 0 0 16 27a16.69 16.69 0 0 0 14.94-10.66a1 1 0 0 0 0-.68ZM16 22.5a6.5 6.5 0 1 1 6.5-6.5a6.51 6.51 0 0 1-6.5 6.5Z"
+			/>
+		</svg>
+	)
+}
+
+export function LoseIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="48" height="48" viewBox="0 0 48 48">
+			<mask id="ipTCloseOne0">
+				<g fill="none" stroke="#fff" strokeLinejoin="round" strokeWidth="4">
+					<path fill="#555" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z" />
+					<path strokeLinecap="round" d="M29.657 18.343L18.343 29.657m0-11.314l11.314 11.314" />
+				</g>
+			</mask>
+			<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipTCloseOne0)" />
+		</svg>
+	)
+}
+
+export function FacebookIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="128" height="128" viewBox="0 0 128 128">
+			<rect width="118.35" height="118.35" x="4.83" y="4.83" fill="#3d5a98" rx="6.53" ry="6.53" />
+			<path
+				fill="#fff"
+				d="M86.48 123.17V77.34h15.38l2.3-17.86H86.48v-11.4c0-5.17 1.44-8.7 8.85-8.7h9.46v-16A126.56 126.56 0 0 0 91 22.7c-13.62 0-23 8.3-23 23.61v13.17H52.62v17.86H68v45.83z"
+			/>
+		</svg>
+	)
+}
+
+export function LoadingIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
+			<g fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2">
+				<path
+					strokeDasharray="60"
+					strokeDashoffset="60"
+					strokeOpacity=".3"
+					d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"
+				>
+					<animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0" />
+				</path>
+				<path strokeDasharray="15" strokeDashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12">
+					<animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0" />
+					<animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12" />
+				</path>
+			</g>
+		</svg>
+	)
+}
+
+export function ShirtIcon(props: IProps) {
+	const { className, color, color2 } = props
+	return (
+		<svg className={className} width="128" height="128" viewBox="0 0 128 128">
+			<path
+				fill={color}
+				style={{ boxShadow: "var(--box-shadow)" }}
+				d="M122.9 34.04s-16.33-14.01-25.99-18.59c-6.68-3.16-16.63-4.73-17.18-4.73c0 0-4.86 2.44-15.73 2.44s-15.73-2.44-15.73-2.44c-.55 0-10.5 1.56-17.18 4.73C21.42 20.02 5.1 34.04 5.1 34.04c-.56.44-.78 1.17-.56 1.85c1.05 3.26 4.55 13.43 14.75 21.3c.62.48 1.5.45 2.11-.05c2.54-2.14 10.42-7.01 10.42-7.01l-.71 61.01c-.09.75.29 1.49.96 1.83c2.89 1.49 13.06 5.01 31.94 5.01s29.05-3.53 31.94-5.01c.67-.35 1.05-1.08.96-1.83l-.71-61.01s7.88 4.88 10.42 7.01c.6.51 1.48.54 2.11.05c10.2-7.88 13.7-18.04 14.75-21.3c.2-.68-.02-1.41-.58-1.85z"
+			/>
+			<path
+				fill={color2 || color}
+				style={{ filter: "bright(150%)" }}
+				d="M63.59 16.73c-4.92 0-10.11-.97-13.47-1.75l-2.09-4.84c.09.03 8.29 2.28 15.62 2.28c7.37 0 16.27-2.27 16.37-2.31l-1.61 4.72c-3.55.78-9.54 1.9-14.82 1.9z"
+			/>
+			<path
+				fill={color2 || color}
+				style={{ filter: "bright(150%)" }}
+				d="M63.45 28.24c-11.86 0-18.23-9.92-19.84-16.37c0 0-.24-.52.45-.75c.51-.17 2.6-.87 3.52-1.06c.33-.07.65.12.76.45c.87 2.51 4.99 12.76 15.97 12.76c11.11 0 14.64-10.09 15.35-12.73c.09-.36.43-.57.78-.5c.95.2 2.98.94 3.47 1.12c.61.23.47.67.47.67c-.95 6.27-6.01 16.4-20.92 16.41h-.01zm57.07 3.68c-.12-.1-.3-.04-.34.11c-.32 1.31-1.81 6.49-6.29 12.95c-3.88 5.6-8.2 9.64-9.14 10.49c-.1.09-.09.24.02.32c.46.36 1.56 1.22 1.87 1.44c.4.27.63.37 1.02.37c.36 0 .76-.12 1.06-.35c10.2-7.88 13.76-18.06 14.81-21.32c.1-.31.19-.94-.18-1.5c-.35-.51-2.15-1.96-2.83-2.51zm-113.04 0c.12-.1.3-.04.34.11c.32 1.31 1.81 6.49 6.29 12.95c3.88 5.6 8.2 9.64 9.14 10.49c.1.09.09.24-.02.32c-.46.36-1.56 1.22-1.87 1.44c-.4.27-.63.37-1.02.37c-.36 0-.76-.12-1.06-.35C9.08 49.38 5.52 39.19 4.47 35.93c-.1-.31-.19-.94.18-1.5c.35-.51 2.15-1.96 2.83-2.51z"
 			/>
 		</svg>
 	)

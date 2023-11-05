@@ -1,4 +1,8 @@
-import { IStatusResponse, IUserInfo } from "../types/types"
+import { NextResponse } from "next/server"
+import { IStatusResponse, IUserInfo, LeagueMX, ResponseStatsLeagueMX, StatsLeagueMX } from "../types/types"
+import axios from "axios"
+import { ResponseDataResults, Results } from "../types/ResultsTypes"
+import { DetailsData, ResponseDetailsMatch } from "../types/DetailsMatch"
 
 export const IsLoggedUser = async (): Promise<{ isLogged: boolean, userInfo: IUserInfo }> => {
     try {
@@ -10,7 +14,6 @@ export const IsLoggedUser = async (): Promise<{ isLogged: boolean, userInfo: IUs
             const responseData = await response.json()
             const userInfo = responseData.userInfo
             const isLogged = responseData.isLogged
-            console.log(userInfo, isLogged)
             return { isLogged, userInfo }
         }
     } catch (error) {
@@ -18,4 +21,73 @@ export const IsLoggedUser = async (): Promise<{ isLogged: boolean, userInfo: IUs
         return { isLogged: false, userInfo: { uid: "", name: "", photo: "" } }
     }
     return { isLogged: false, userInfo: { uid: "", name: "", photo: "" } }
+}
+
+
+
+export const GetStats = async (tournamentId: string): Promise<LeagueMX[]> => {
+    try {
+        //const response = await axios.get<ResponseStatsLeagueMX>(`http://localhost:3000/api/teams/stats/${tournamentId}`, { method: "GET" })
+        const response = await axios.get<ResponseStatsLeagueMX>(`/api/teams/stats/${tournamentId}`, { method: "GET" })
+
+        return response.data.data.data
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            console.log(error.code)
+        }
+        return {} as LeagueMX[]
+    }
+}
+
+
+export const GetResults = async (date: string): Promise<Results[]> => {
+    try {
+        const response = await axios.get<ResponseDataResults>(`/api/matches/${date}`, { method: "GET" })
+
+        if (response.status === 200) {
+            return response.data.data.data
+        } else if (response.status === 204) {
+            return {} as Results[]
+        }
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            console.error(error)
+        }
+        return {} as Results[]
+    }
+    return {} as Results[]
+}
+
+
+export const GetMatchDetails = async (id: string): Promise<DetailsData> => {
+    try {
+        const response = await axios.get<ResponseDetailsMatch>(`/api/matches/details/${id}`, { method: "GET" })
+
+        if (response.status === 200) {
+            return response.data.data.data
+        } else if (response.status === 204) {
+            return {} as DetailsData
+        }
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            console.error(error)
+        }
+        return {} as DetailsData
+    }
+    return {} as DetailsData
+}
+
+
+export const GetMatchDay = async (tournamentId: string): Promise<number> => {
+    try {
+        //const response = await axios.get<ResponseStatsLeagueMX>(`http://localhost:3000/api/teams/stats/${tournamentId}`, { method: "GET" })
+        const response = await axios.get<ResponseStatsLeagueMX>(`/api/teams/stats/${tournamentId}`, { method: "GET" })
+
+        return response.data.data.data[0].classificationHead.matchDay
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            console.log(error.code)
+        }
+        return 0
+    }
 }

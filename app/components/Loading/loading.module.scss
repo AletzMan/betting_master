@@ -1,0 +1,16 @@
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto 0;
+    color: #f5b067;
+
+    &_icon {
+        width: 8em;
+        height: 8em;
+    }
+
+    &_text {
+        font-size: 2em;
+    }
+}

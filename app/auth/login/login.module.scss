@@ -1,22 +1,27 @@
 .main {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     row-gap: 1em;
     margin: 0 auto;
-    height: calc(100svh - 7em);
+    height: 100svh;
     width: 100%;
+    padding: 7.5em 0 1em 0;
     background: linear-gradient(-30deg, var(--background-start-color), var(--background-end-color));
     max-width: var(--max-width);
 
+    &_landscape {
+        padding: 3.9em 0.5em 0.5em 0.5em;
 
+    }
 
     &_message {
-        margin: 2em 0 0.5em 0;
+        margin: 1.5em 0 0.5em 0;
         text-align: center;
         text-wrap: balance;
         font-weight: 500;
+        color: var(--foreground-color);
 
         &Down {
             padding: 0 0 1.5em 0;
@@ -33,16 +38,19 @@
         flex-direction: column;
         max-width: 27em;
         width: 90%;
+        padding: 2em 0 0 0;
         border-radius: var(--border-radius);
         box-shadow: var(--box-shadowTwo);
-        background: linear-gradient(-30deg, var(--foreground-second-color), var(--foreground-color));
+        background: linear-gradient(-30deg, var(--background-start-color), var(--header-color));
         color: var(--background-start-color);
 
         &Ball {
             position: absolute;
+            top: 1.5em;
             opacity: 0.05;
-            width: 60%;
-            height: 60%;
+            width: 45%;
+            height: 45%;
+            z-index: 0;
         }
 
     }
@@ -93,10 +101,9 @@
     font-family: var(--font-montserrat);
     color: var(--background-start-color);
     border-radius: var(--border-radius);
-    //background: linear-gradient(to right, var(--foreground-color), var(--foreground-second-color));
     box-shadow: var(--box-shadow);
-    border: 0.05em solid var(--border-color);
-    border: 0.05em solid var(--border-color);
+    //border: 0.05em solid var(--border-color);
+    border: none;
     cursor: pointer;
     transition: all 0.35s ease-in-out;
 
@@ -106,7 +113,12 @@
     }
 
     &_twitter {
-        background: linear-gradient(to right, var(--twitter-color), var(--twitterTwo-color));
+        background: linear-gradient(to right, #F8F8F8, #CCCCCC);
+        background-size: 200% 200%;
+    }
+
+    &_facebook {
+        background: linear-gradient(to right, var(--facebook-color), var(--facebookTwo-color));
         background-size: 200% 200%;
     }
 
@@ -119,7 +131,7 @@
         height: 2.5em;
 
         &Twitter {
-            filter: invert(1);
+            //filter: invert(1);
         }
     }
 
@@ -132,6 +144,10 @@
         }
 
         &Twitter {
+            color: var(--background-start-color);
+        }
+
+        &Facebook {
             color: var(--foreground-color);
         }
     }
