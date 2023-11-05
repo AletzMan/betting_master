@@ -36,5 +36,10 @@ Para instalar Betting Master en tu entorno local, sigue estos pasos:
 
 1. Clona el repositorio:
 
+  ```bash
+  git clone https://github.com/tu-usuario/betting-master.git
+
+2. Entra en el directorio del proyecto:
+
 ```bash
-git clone https://github.com/tu-usuario/betting-master.git
+cd betting-master
