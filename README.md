@@ -19,14 +19,14 @@ Betting Master es una aplicación construida con Next.js que te permite disfruta
 ## Capturas de Pantalla
 
 <div class="slider-container">
-  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/Home.png" alt="Home Page" width="450" height="300">
-  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/Bet.png" alt="Bet Page" width="450" height="300">
-  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/Positions.png" alt="Position Page" width="450" height="300">
-  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/Results.png" alt="Results Page" width="450" height="300">
-  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/ResultsPlayers.png" alt="Results Player View" width="450" height="300">
-  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/ResultsStats.png" alt="Results Statistics View" width="450" height="300">
-  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/Profile.png" alt="Profile Page" width="450" height="300">
-  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/CreateBet.png" alt="Create Bet View" width="450" height="300">
+  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/Home.png" alt="Home Page" width="400" height="290">
+  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/Bet.png" alt="Bet Page" width="400" height="290">
+  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/Positions.png" alt="Position Page" width="400" height="290">
+  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/Results.png" alt="Results Page" width="400" height="290">
+  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/ResultsPlayers.png" alt="Results Player View" width="400" height="290">
+  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/ResultsStats.png" alt="Results Statistics View" width="400" height="290">
+  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/Profile.png" alt="Profile Page" width="400" height="290">
+  <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/CreateBet.png" alt="Create Bet View" width="400" height="290">
 </div>
 
 
