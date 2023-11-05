@@ -1,5 +1,6 @@
 import { Rank } from "@/app/types/types"
 import styles from "./teamdescription.module.scss"
+import Image from "next/image"
 
 interface PropsTeam {
 	team: Rank
@@ -14,7 +15,7 @@ export function TeamDescription(props: PropsTeam) {
 				className={`${styles.description} ${position < 7 && styles.description_qualifiers} ${position > 6 && position < 11 && styles.description_playoff}`}
 			>
 				<p className={styles.description_position}>{position}</p>
-				<img
+				<Image
 					className={styles.description_logo}
 					src={team.images.urlLogo[0]}
 					alt={`Imagen del logo del equipo ${team.fullName}`}
