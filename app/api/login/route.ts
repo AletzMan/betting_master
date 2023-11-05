@@ -11,7 +11,6 @@ export async function POST(request: NextRequest) {
     if (authorization?.startsWith("Bearer ")) {
         const idToken = authorization.split("Bearer ")[1]
         const decodedToken = await auth().verifyIdToken(idToken)
-        console.log("1")
 
         if (decodedToken) {
             //Generar session cookie
@@ -19,8 +18,6 @@ export async function POST(request: NextRequest) {
             const sessionCookie = await auth().createSessionCookie(idToken, {
                 expiresIn
             })
-            console.log("2")
-
             const options = {
                 name: "session-soccer",
                 value: sessionCookie,
@@ -29,7 +26,6 @@ export async function POST(request: NextRequest) {
                 secure: true
             }
 
-            console.log("3")
             cookies().set(options)
         }
     }
