@@ -1,8 +1,7 @@
 "use client"
-import { useRouter } from "next/navigation"
 import { Loading } from "../components/Loading/Loading"
 import { GetCurrentDays } from "../functions/functions"
-import { GetResults } from "../services/fetch_utils"
+import { GetResultsByTournament } from "../services/fetch_utils"
 import { NotFoundIcon, RefreshIcon } from "../svg"
 import { Results } from "../types/ResultsTypes"
 import { MatchDay } from "../types/types"
@@ -10,6 +9,7 @@ import { Match } from "./components/Match/Match"
 import styles from "./results.module.scss"
 import { useEffect, useState } from "react"
 import { useOrientation } from "../hooks/useOrientation"
+import { ComboBox } from "../components/ComboBox/ComboBox"
 
 const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "2-digit", day: "2-digit" }
 
@@ -19,10 +19,11 @@ export default function ResultsPage() {
 	const [results, setResults] = useState<Results[]>()
 	const [loading, setLoading] = useState(true)
 	const [update, setUpdate] = useState(true)
+	const [tournament, setTournament] = useState({ id: "74_183a06e3", name: "Liga MX" })
 
 	const GetMatchesbyDay = async (date: string) => {
 		setLoading(true)
-		const response = await GetResults(date)
+		const response = await GetResultsByTournament(date, tournament.id)
 		if (response.length > 0) {
 			setResults(
 				response.sort(function (a, b) {
@@ -59,10 +60,16 @@ export default function ResultsPage() {
 		setUpdate(true)
 	}
 
+	const HandleSelectTournament = (tournament: any) => {
+		setTournament(tournament)
+		setUpdate(true)
+	}
+
 	const HandleRefresh = () => {
 		setUpdate(true)
 	}
 
+	console.log(tournament)
 	return (
 		<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
 			<section className={styles.section}>
@@ -77,6 +84,12 @@ export default function ResultsPage() {
 						))}
 					</div>
 				</header>
+				<ComboBox
+					options={Torunaments}
+					selectOption={tournament}
+					setSelectOption={HandleSelectTournament}
+					className={styles.tournaments}
+				/>
 				<article className={styles.matches}>
 					{loading && <Loading />}
 					{!loading && results && results?.length > 0 && (
@@ -85,6 +98,7 @@ export default function ResultsPage() {
 								<RefreshIcon className={styles.matches_refreshIcon} />
 							</button>
 							<h2 className={styles.section_title}>{results[0]?.tournament.alternateNames.esES}</h2>
+
 							{results.map((event) => (
 								<Match key={event.id} eventData={event} />
 							))}
@@ -101,3 +115,30 @@ export default function ResultsPage() {
 		</main>
 	)
 }
+
+const Torunaments = [
+	{
+		id: "74_183a06e3",
+		name: "Liga MX",
+	},
+	{
+		id: "34_45d657ef",
+		name: "Todos los torneos",
+	},
+	{
+		id: "182_835e556b",
+		name: "La Liga",
+	},
+	{
+		id: "183_4ff455f5",
+		name: "Premier League",
+	},
+	{
+		id: "185_899b5c72",
+		name: "Champions League",
+	},
+	{
+		id: "1184_45315cec",
+		name: "Ligue 1",
+	}
+]
