@@ -294,7 +294,7 @@ export const LinksPage = [
 		id: 3,
 		text: "Estadísticas",
 		pathname: "/statistics",
-		href: "/statistics?tournament=0159&type=goals",
+		href: `/statistics?tournament=${new Date().getMonth() < 9 ? "0168" : "0159"}&type=goals`,
 		title: "Ir a página de estadística",
 		icon: <StatsIcon className="" />,
 	},
@@ -323,7 +323,7 @@ export const LinksProfile = [
 
 export const Tournaments = [
 	{
-		id: "0159",
+		id: new Date().getMonth() < 9 ? "0168" : "0159",
 		name: "Liga MX",
 	},
 	{
@@ -356,6 +356,41 @@ export const Tournaments = [
 	},
 ]
 
+
+export const TournamentsInitYear = [
+	{
+		id: "0168",
+		name: "Liga MX",
+	},
+	{
+		id: "0106",
+		name: "Premier League",
+	},
+	{
+		id: "0101",
+		name: "La Liga",
+	},
+	{
+		id: "0108",
+		name: "Bundesliga",
+	},
+	{
+		id: "0146",
+		name: "Liga Holandesa",
+	},
+	{
+		id: "0107",
+		name: "Serie A",
+	},
+	{
+		id: "0109",
+		name: "League 1",
+	},
+	{
+		id: "0103",
+		name: "Champions League",
+	},
+]
 export const STATISTICS_OPTIONS: IOptions[] = [
 	{
 		type: "goals",
