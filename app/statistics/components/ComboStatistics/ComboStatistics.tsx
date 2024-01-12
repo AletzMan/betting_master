@@ -3,7 +3,7 @@ import { ChangeEvent, useEffect, useState } from "react"
 import styles from "../../statistics.module.scss"
 import { useRouter, useSearchParams } from "next/navigation"
 import { ComboBox } from "@/app/components/ComboBox/ComboBox"
-import { Tournaments } from "@/app/constants/constants"
+import { Tournaments, TournamentsInitYear } from "@/app/constants/constants"
 
 export function ComboStatistics() {
 	const params = useSearchParams()
@@ -14,6 +14,8 @@ export function ComboStatistics() {
 	useEffect(() => {
 		router.push(`/statistics?tournament=${selectedTournament.id}&type=${selectedValue.id}`)
 	}, [selectedTournament, selectedValue])
+
+	const SelectTournament = new Date().getMonth() < 9 ? Tournaments : TournamentsInitYear
 
 	return (
 		<header className={styles.header}>

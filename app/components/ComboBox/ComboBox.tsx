@@ -24,10 +24,11 @@ interface props {
 	loading?: boolean
 	plaaceholder?: string
 	onChange?: () => void
+	className?: string
 }
 
 export function ComboBox(props: props) {
-	const { options, name, error, selectOption, setSelectOption, loading, plaaceholder } = props
+	const { options, name, error, selectOption, setSelectOption, loading, plaaceholder, className } = props
 	const [viewOptions, setViewOptions] = useState(false)
 	const inputRef = useRef<HTMLInputElement>(null)
 
@@ -74,10 +75,10 @@ export function ComboBox(props: props) {
 	}
 
 	return (
-		<div className={`${styles.combobox} ${!options && styles.comboboxDisabled} ${viewOptions && styles.combobox_active}`} onBlur={HandleOnBlur}>
+		<div className={`${styles.combobox} ${!options && styles.comboboxDisabled} ${viewOptions && styles.combobox_active} `} onBlur={HandleOnBlur}>
 			<input
 				type="text"
-				className={`${styles.combobox__input} ${error && styles.combobox__inputError} `}
+				className={`${styles.combobox__input} ${error && styles.combobox__inputError}`}
 				name={name}
 				placeholder={plaaceholder}
 				value={selectOption?.name}
