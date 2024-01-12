@@ -9,6 +9,7 @@ import { auth } from "@/app/config/firebase"
 import { usePathname, useRouter } from "next/navigation"
 import { useOrientation } from "@/app/hooks/useOrientation"
 import { useLoggedUser } from "@/app/hooks/useLoggedUser"
+import axios from "axios"
 
 export function Header() {
 	const router = useRouter()
@@ -28,9 +29,7 @@ export function Header() {
 	const HandleSignOut = async () => {
 		try {
 			await signOut(auth)
-			const response = await fetch("/api/logout", {
-				method: "POST",
-			})
+			const response = await axios.post("/api/logout")
 
 			if (response.status === 200) {
 				setUser({ uid: "", name: "", photo: "" })
