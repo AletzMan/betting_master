@@ -8,6 +8,7 @@ import { useState } from "react"
 import { auth, FacebookProvider, GoogleProvider, TwitterProvider } from "@/app/config/firebase"
 import { useRouter } from "next/navigation"
 import { useOrientation } from "@/app/hooks/useOrientation"
+import axios from "axios"
 
 export default function LoginPage() {
 	const { isLandscape } = useOrientation()
@@ -38,11 +39,10 @@ export default function LoginPage() {
 				userInfo = result.user
 			}
 
-			const response = await fetch("/api/login", {
-				method: "POST",
+			const response = await axios.post("/api/login", {
 				headers: {
 					Authorization: `Bearer ${await userInfo.getIdToken()}`,
-				},
+				}
 			})
 
 			if (response.status === 200) {
@@ -75,10 +75,10 @@ export default function LoginPage() {
 						<TwitterLogo className={`${styles.button_icon} ${styles.button_iconTwitter}`} />
 						<span className={`${styles.button_text} ${styles.button_textTwitter}`}>Iniciar con X</span>
 					</button>
-					<button className={`${styles.button} ${styles.button_facebook}`} onClick={() => HandleSignInWithGoogle(FacebookProvider)}>
+					{/*<button className={`${styles.button} ${styles.button_facebook}`} onClick={() => HandleSignInWithGoogle(FacebookProvider)}>
 						<FacebookIcon className={`${styles.button_icon} ${styles.button_iconFacebook}`} />
 						<span className={`${styles.button_text} ${styles.button_textFacebook}`}>Iniciar con Facebook</span>
-					</button>
+					</button>*/}
 				</article>
 			</section>
 		</main>
