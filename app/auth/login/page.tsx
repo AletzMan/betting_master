@@ -1,7 +1,7 @@
 "use client"
 import { BallIcon, FacebookIcon, GoogleLogo, LogInIcon, TwitterLogo } from "@/app/svg"
 import styles from "./login.module.scss"
-import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User, signInWithPopup } from "firebase/auth"
+import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User, getRedirectResult, signInWithPopup, signInWithRedirect } from "firebase/auth"
 import { FirebaseError } from "firebase/app"
 import { useUser } from "@/app/config/zustand-store"
 import { useState } from "react"
@@ -22,13 +22,25 @@ export default function LoginPage() {
 			let token: string | undefined = ""
 			//User info
 			let userInfo = {} as User
-			const result = await signInWithPopup(auth, provider)
+			const result = await signInWithRedirect(auth, provider)
 			if (provider.providerId === "google.com") {
-				const credential = GoogleAuthProvider.credentialFromResult(result)
-				token = credential?.accessToken
-				userInfo = result.user
+				//const credential = GoogleAuthProvider.credentialFromResult(result)
+				const result = await getRedirectResult(auth)
+				if (result) {
+					const credentials = GoogleAuthProvider.credentialFromResult(result)
+					token = credentials?.accessToken
+					userInfo = result.user
+				}
 			}
 			if (provider.providerId === "twitter.com") {
+				const result = await getRedirectResult(auth)
+				if (result) {
+					const credentials = TwitterAuthProvider.credentialFromResult(result)
+					token = credentials?.accessToken
+					userInfo = result.user
+				}
+			}
+			/*if (provider.providerId === "twitter.com") {
 				const credential = TwitterAuthProvider.credentialFromResult(result)
 				token = credential?.accessToken
 				userInfo = result.user
@@ -37,7 +49,7 @@ export default function LoginPage() {
 				const credential = FacebookAuthProvider.credentialFromResult(result)
 				token = credential?.accessToken
 				userInfo = result.user
-			}
+			}*/
 
 			const response = await axios.post("/api/login", {
 				headers: {
