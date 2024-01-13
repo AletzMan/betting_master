@@ -22,7 +22,7 @@ export default function LoginPage() {
 			let token: string | undefined = ""
 			//User info
 			let userInfo = {} as User
-			const result = await signInWithRedirect(auth, provider)
+			/*await signInWithRedirect(auth, provider)
 			if (provider.providerId === "google.com") {
 				//const credential = GoogleAuthProvider.credentialFromResult(result)
 				const result = await getRedirectResult(auth)
@@ -39,6 +39,17 @@ export default function LoginPage() {
 					token = credentials?.accessToken
 					userInfo = result.user
 				}
+			}*/
+			const result = await signInWithPopup(auth, provider)
+			if (provider.providerId === "twitter.com") {
+				const credential = TwitterAuthProvider.credentialFromResult(result)
+				token = credential?.accessToken
+				userInfo = result.user
+			}
+			if (provider.providerId === "google.com") {
+				const credential = GoogleAuthProvider.credentialFromResult(result)
+				token = credential?.accessToken
+				userInfo = result.user
 			}
 			/*if (provider.providerId === "twitter.com") {
 				const credential = TwitterAuthProvider.credentialFromResult(result)
@@ -51,7 +62,9 @@ export default function LoginPage() {
 				userInfo = result.user
 			}*/
 
-			const response = await axios.post("/api/login", {
+			console.log(userInfo)
+
+			const response = await axios.post("/api/login", {}, {
 				headers: {
 					Authorization: `Bearer ${await userInfo.getIdToken()}`,
 				}
@@ -63,11 +76,9 @@ export default function LoginPage() {
 				router.push("/")
 			}
 		} catch (error) {
-			console.log(error)
+			console.log("ERROR FIREBASE OK:", error)
 			if (error as FirebaseError) {
 				const credential = GoogleAuthProvider.credentialFromError(error as FirebaseError)
-			} else {
-				console.log(error)
 			}
 		}
 	}

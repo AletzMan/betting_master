@@ -6,31 +6,34 @@ import { InitApp } from "@/app/config/firebase-admin"
 InitApp()
 
 export async function POST(request: NextRequest) {
-  const authorization = headers().get("Authorization")
+  const authorization = request.headers.get("Authorization")
 
   if (authorization?.startsWith("Bearer ")) {
     const idToken = authorization.split("Bearer ")[1]
     const decodedToken = await auth().verifyIdToken(idToken)
 
-    if (decodedToken) {
-      //Generar session cookie
-      const expiresIn = 60 * 60 * 24 * 5 * 1000
-      const sessionCookie = await auth().createSessionCookie(idToken, {
-        expiresIn,
-      })
-      const options = {
-        name: "session-soccer",
-        value: sessionCookie,
-        maxAge: expiresIn,
-        httpOnly: true,
-        secure: true,
-      }
+    try {
+      if (decodedToken) {
+        //Generar session cookie
+        const expiresIn = 60 * 60 * 24 * 5 * 1000
+        const sessionCookie = await auth().createSessionCookie(idToken, {
+          expiresIn,
+        })
+        const options = {
+          name: "session-soccer",
+          value: sessionCookie,
+          maxAge: expiresIn,
+          httpOnly: true,
+          secure: true,
+        }
 
-      cookies().set(options)
-      console.log("POST", options)
+        cookies().set(options)
+      }
+      return NextResponse.json({}, { status: 200 })
+    } catch (error) {
+      return NextResponse.json({ error }, { status: 401 })
     }
   }
-  return NextResponse.json({}, { status: 200 })
 }
 
 export async function GET(request: NextRequest) {
