@@ -54,7 +54,6 @@ export default function BetsPage() {
 		setSelectRanges(null)
 	}
 
-	console.log(matches)
 
 	return (
 		<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>

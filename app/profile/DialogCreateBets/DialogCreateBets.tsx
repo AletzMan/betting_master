@@ -7,6 +7,7 @@ import { ICurrentMatch, IMatchDay, IErrorMatches, Team, Teams } from "@/app/type
 import { useOrientation } from "@/app/hooks/useOrientation"
 import { ValidateNewBet } from "@/app/functions/functions"
 import { TeamsNames } from "@/app/constants/constants"
+import { useSnackbar } from "notistack"
 interface Props {
 	setView: Dispatch<SetStateAction<boolean>>
 }
@@ -29,6 +30,7 @@ const initError: IErrorEmpty = {
 }
 
 export function DialogCreatBets(props: Props) {
+	const { enqueueSnackbar } = useSnackbar()
 	const { setView } = props
 	const { selectedTeams, selectedDates, clearTeams, clearDates } = useNewBet()
 	const [matchDay, setMatchDay] = useState(0)
@@ -69,8 +71,17 @@ export function DialogCreatBets(props: Props) {
 				matches: newMatches,
 				results: ["-", "-", "-", "-", "-", "-", "-", "-", "-"],
 			}
-			await AddMatchDay(newMatchDay, "0159")
+			const response = await AddMatchDay(newMatchDay, new Date().getMonth() < 8 ? "0168" : "0159")
+			if (response === "OK") {
+				enqueueSnackbar("Quiniela creada correctamente", { variant: "success" })
+				setView(false)
+			} else {
+				enqueueSnackbar("Ocurrió un error al crear la quiniela", { variant: "error" })
+			}
+		} else {
+			enqueueSnackbar(error.errorMatchDay ? "Elija un número de jornada" : "Existen campos vacíos", { variant: "error" })
 		}
+
 	}
 
 	const HandleCrearTeams = () => {
@@ -112,14 +123,16 @@ export function DialogCreatBets(props: Props) {
 						/>
 					</div>
 					{Matches.map((match, index) => (
-						<NewMatch
-							key={match.id}
-							matchNumber={index}
-							hasError={{ home: error.errorMatches?.home[index], away: error.errorMatches?.away[index], date: error?.errorDates[index] }}
-							teams={teams}
-							setTeams={setTeams}
-							clear={clear}
-						/>
+						<section key={match.id}>
+							{<NewMatch
+								key={match.id}
+								matchNumber={index}
+								hasError={{ home: error.errorMatches?.home[index], away: error.errorMatches?.away[index], date: error?.errorDates[index] }}
+								teams={teams}
+								setTeams={setTeams}
+								clear={clear}
+							/>}
+						</section>
 					))}
 				</article>
 			</section>
