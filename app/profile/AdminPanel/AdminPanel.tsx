@@ -20,7 +20,7 @@ export function AdminPanel() {
 	const [numberCorrectPicks, setNumberCorrectPicks] = useState(results.winner_correct_pick | 0)
 
 	const GetDay = async () => {
-		const response = await GetCurrentMatchDay("0159")
+		const response = await GetCurrentMatchDay(new Date().getMonth() < 8 ? "0168" : "0159")
 		const result = await GetResultsByDay(response.day.toString())
 		setMatches(response.matches)
 		setMatchDay(response.day)
@@ -31,6 +31,8 @@ export function AdminPanel() {
 			setNumberCorrectPicks(result.winner_correct_pick)
 		}
 	}
+
+	console.log(matches)
 
 	const HandleUpdate = async () => {
 		if (matchDay) {
@@ -43,7 +45,7 @@ export function AdminPanel() {
 			}
 			const result = await AddResults(newResults)
 			const update = UpdateStatusMatches(matches, resultsByMatch)
-			await UpdateResultsMatchDay(resultsByMatch, update, "0159")
+			await UpdateResultsMatchDay(resultsByMatch, update, new Date().getMonth() < 8 ? "0168" : "0159")
 			if (result === "OK") {
 				setSending(false)
 			}
@@ -61,7 +63,7 @@ export function AdminPanel() {
 
 	useEffect(() => {
 		GetDay()
-	}, [])
+	}, [matchDay])
 
 	return (
 		<>
@@ -69,16 +71,19 @@ export function AdminPanel() {
 			<div className={styles.admin}>
 				<h2 className={styles.admin_title}>Panel de administrador</h2>
 				<section className={styles.admin_section}>
-					<h3 className={styles.admin_sectionTitle}>{`Jornada ${matchDay}`}</h3>
-					<div className={`${styles.admin_status} ${statusGame && styles.admin_statusActive}`}>
-						<input className={styles.admin_statusInput} type="checkbox" checked={statusGame} onChange={() => setStatusGame((prev) => !prev)} />
-						<div className={`${styles.admin_statusButton} ${statusGame && styles.admin_statusButtonActive}`}></div>
-						<span className={styles.admin_statusText}>{statusGame ? "Finalizada" : "En juego"}</span>
-					</div>
-					<div className={`${styles.admin_corrects}`}>
-						<input className={styles.admin_correctsInput} type="number" value={numberCorrectPicks} onChange={HandleSetCorrects} />
-						<span className={styles.admin_correctsText}>{"Aciertos"}</span>
-					</div>
+					{matchDay && <>
+						<h3 className={styles.admin_sectionTitle}>{`Jornada ${matchDay}`}</h3>
+						<div className={`${styles.admin_status} ${statusGame && styles.admin_statusActive}`}>
+							<input className={styles.admin_statusInput} type="checkbox" checked={statusGame} onChange={() => setStatusGame((prev) => !prev)} />
+							<div className={`${styles.admin_statusButton} ${statusGame && styles.admin_statusButtonActive}`}></div>
+							<span className={styles.admin_statusText}>{statusGame ? "Finalizada" : "En juego"}</span>
+						</div>
+
+						<div className={`${styles.admin_corrects}`}>
+							<input className={styles.admin_correctsInput} type="number" value={numberCorrectPicks} onChange={HandleSetCorrects} />
+							<span className={styles.admin_correctsText}>{"Aciertos"}</span>
+						</div>
+					</>}
 					<article className={styles.admin_results}>
 						{matches.map((match, index) => (
 							<div key={match.teams.away} className={styles.admin_resultsMatch}>
@@ -97,10 +102,12 @@ export function AdminPanel() {
 						<button className={styles.admin_create} onClick={HandleCreate}>
 							Crear nueva quiniela
 						</button>
-						<button className={styles.admin_update} onClick={HandleUpdate}>
-							{!sending && "Actualizar"}
-							{sending && <LoadingIcon className={styles.admin_updateIcon} />}
-						</button>
+						{matchDay &&
+							<button className={styles.admin_update} onClick={HandleUpdate}>
+								{!sending && "Actualizar"}
+								{sending && <LoadingIcon className={styles.admin_updateIcon} />}
+							</button>
+						}
 					</footer>
 				</section>
 			</div>
