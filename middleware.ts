@@ -12,8 +12,8 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
   //Call the authentication endpoint
 
-  //const responseAPI = await fetch(`${"https://betting-master.vercel.app"}/api/login`, {
-  const responseAPI = await fetch(`${"http://localhost:3001/"}/api/login`, {
+  const responseAPI = await fetch(`${"https://betting-master.vercel.app"}/api/login`, {
+    //const responseAPI = await fetch(`${"http://localhost:3001/"}/api/login`, {
     headers: {
       Cookie: `session-soccer=${session?.value}`,
     },
