@@ -29,7 +29,7 @@ export function useMatches() {
     const currentMonth = new Date().getMonth() + 1
     const tournament = currentMonth < 8 ? "0168" : "0159"
     const result = await GetCurrentMatchDay(tournament)
-    console.log(result)
+
     if (result === undefined) {
       const emptyMatches: IMatchDay = {
         day: 0,
