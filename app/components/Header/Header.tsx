@@ -47,10 +47,10 @@ export function Header() {
 		<header className={`${styles.header} ${isLandscape && styles.header_active}`}>
 			<section className={styles.header_section}>
 				<div className={styles.header_session}>
-					<Link href={`/lives`} className={styles.header_live} title="Ir a partidos en vivo">
+					{/*<Link href={`/lives`} className={styles.header_live} title="Ir a partidos en vivo">
 						<LiveIcon className={styles.header_liveIcon} />
 						<span className={styles.header_liveText}>En vivo</span>
-					</Link>
+	</Link>*/}
 					<Link href={"/"} title="Ir a inicio">
 						<AppLogo className={styles.header_logo} />
 					</Link>
