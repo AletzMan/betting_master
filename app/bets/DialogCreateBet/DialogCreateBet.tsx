@@ -40,7 +40,7 @@ export function DialogCreateBet(props: DialogProps) {
 			setError(true)
 		} else {
 			const response = AbbNameMatches(matches)
-			const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), matches: response })
+			const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), tournamen: matches.tournament, matches: response })
 			if (result === "OK") {
 				setBetSentSuccessfully(true)
 				setBets(["", "", "", "", "", "", "", "", ""])
