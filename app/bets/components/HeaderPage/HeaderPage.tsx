@@ -15,17 +15,17 @@ export function HeaderPage(props: Props) {
 
 	return (
 		<header className={styles.header}>
-			{isInTime.available && (
+			{(
 				<button className={`${styles.headerButton}  `} onClick={() => setOpenDialog(true)}>
 					Crear quiniela
 				</button>
 			)}
 			{!isInTime.available && <p className={styles.headerTime}>Tiempo agotado para enviar</p>}
-			{isInTime.available && (
+			{ /*isInTime.available && (
 				<p className={styles.headerTimeRemainig}>
 					Se cierra en <span className={styles.headerTimeRemainigClock}>{isInTime.time}</span>
 				</p>
-			)}
+			)*/}
 			<div className={styles.headerOptions}>
 				<div className={styles.headerOptionsOption}>
 					<WinnerIcon className={`${styles.headerOptionsIcon} ${styles.headerOptionsIconWin}`} />
