@@ -23,7 +23,7 @@ export default function ProfilePage() {
 		const bets = await GetBetsByUser(user.uid)
 		const result = GroupObjectByProperty(bets, "")
 		const arrayDays = Object.entries(result)
-		setMyBets(arrayDays.reverse())
+		setMyBets(arrayDays)
 		SetArrayOpenBets(arrayDays.length)
 	}
 
