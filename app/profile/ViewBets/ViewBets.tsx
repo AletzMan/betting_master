@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import styles from "./viewbets.module.scss"
-import { IBet, IBetDocument, IResultsMatches } from "@/app/types/types"
+import { IBet, IResultsMatches } from "@/app/types/types"
 import { GetResultsByDay } from "@/app/config/firebase"
-import { CheckIcon, FinishedIcon, LiveIcon, LoseIcon, WinnerIcon } from "@/app/svg"
+import { FinishedIcon, LiveIcon, LoseIcon, WinnerIcon } from "@/app/svg"
 import { Loading } from "@/app/components/Loading/Loading"
 
 interface PropsViewBets {
@@ -21,7 +21,7 @@ export function ViewBets(props: PropsViewBets) {
 	}, [])
 
 	const GetResults = async () => {
-		const result = await GetResultsByDay(bet.day)
+		const result = await GetResultsByDay(bet.day, new Date().getMonth() < 8 ? "0168" : "0159")
 		if (result) {
 			ValidateWinner(result)
 			setResults(result)
