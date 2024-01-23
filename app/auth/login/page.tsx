@@ -71,7 +71,7 @@ export default function LoginPage() {
 			})
 
 			if (response.status === 200) {
-				setUser({ uid: userInfo.uid, name: userInfo.displayName, photo: userInfo.photoURL })
+				setUser({ uid: userInfo.uid, name: userInfo.displayName, photo: userInfo.photoURL, email: userInfo.email })
 				setIsLogged(true)
 				router.push("/")
 			}
