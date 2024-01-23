@@ -42,6 +42,7 @@ export default function ResultsPage() {
 		setLoading(false)
 	}
 
+
 	useEffect(() => {
 		if (update) {
 			const formatDate = new Date().toLocaleString("es-MX", options).split("/")
@@ -54,6 +55,7 @@ export default function ResultsPage() {
 			setUpdate(false)
 		}
 	}, [currentDay, update])
+
 
 	const HandleSelectDate = (date: MatchDay) => {
 		setCurrentDay(date)
@@ -69,7 +71,7 @@ export default function ResultsPage() {
 		setUpdate(true)
 	}
 
-	console.log(tournament)
+
 	return (
 		<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
 			<section className={styles.section}>
