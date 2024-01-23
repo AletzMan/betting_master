@@ -70,8 +70,9 @@ export function DialogCreatBets(props: Props) {
 				tournament: "Liga BBVA Bancomer MX",
 				matches: newMatches,
 				results: ["-", "-", "-", "-", "-", "-", "-", "-", "-"],
+				isAvailable: false,
 			}
-			const response = await AddMatchDay(newMatchDay, new Date().getMonth() < 8 ? "0168" : "0159")
+			const response = await AddMatchDay(newMatchDay, new Date().getMonth() < 8 ? "0168" : "0159", matchDay)
 			if (response === "OK") {
 				enqueueSnackbar("Quiniela creada correctamente", { variant: "success" })
 				setView(false)

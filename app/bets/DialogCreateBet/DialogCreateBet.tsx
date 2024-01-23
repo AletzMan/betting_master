@@ -2,11 +2,14 @@ import { Dispatch, SetStateAction, MouseEvent, useState, ChangeEvent } from "rea
 import styles from "./dialodcreatebet.module.scss"
 import { MatchBet } from "./MatchCalendar/MatchBet"
 import { useBet, useUser } from "@/app/config/zustand-store"
-import { AddBet } from "@/app/config/firebase"
+import { AddBet, GetResultsByDay } from "@/app/config/firebase"
 import { FinishedIcon } from "@/app/svg"
 import { Loading } from "@/app/components/Loading/Loading"
 import { AbbNameMatches } from "@/app/functions/functions"
 import { IMatchDay } from "@/app/types/types"
+import axios from "axios"
+import { useSnackbar } from "notistack"
+import { useRouter } from "next/navigation"
 
 interface DialogProps {
 	matches: IMatchDay
@@ -14,6 +17,8 @@ interface DialogProps {
 	setOpen: Dispatch<SetStateAction<boolean>>
 }
 export function DialogCreateBet(props: DialogProps) {
+	const router = useRouter()
+	const { enqueueSnackbar } = useSnackbar()
 	const { open, setOpen, matches } = props
 	const { user } = useUser()
 	const { bets, setBets, setIsEmpty, error, typeError, setTypeError, setError } = useBet()
@@ -21,13 +26,29 @@ export function DialogCreateBet(props: DialogProps) {
 	const [betSentSuccessfully, setBetSentSuccessfully] = useState(false)
 	const [loading, setLoading] = useState(false)
 
+
 	const HandleStatusDialog = (status: boolean) => {
 		setOpen(status)
+		setBets(["", "", "", "", "", "", "", "", ""])
+		setError(false)
+		setIsEmpty(false)
+		setName("")
 	}
 
 	const HandleSendBet = async (e: MouseEvent<HTMLButtonElement>) => {
-		setLoading(true)
 		e.preventDefault()
+		const results = await GetResultsByDay(matches.day.toString(), new Date().getMonth() < 8 ? "0168" : "0159")
+		if (results.isAvailable === false) {
+			enqueueSnackbar("Tiempo agotado para enviar", { variant: "error" })
+			setOpen(false)
+			router.push("/bets")
+			router.refresh()
+			router.replace("/bets")
+			return
+		}
+		const response = await axios.get("/api/login")
+		const userInfo = response.data.userInfo
+		setLoading(true)
 		if (bets.includes("")) {
 			setIsEmpty(true)
 			setTypeError("empty")
@@ -40,7 +61,7 @@ export function DialogCreateBet(props: DialogProps) {
 			setError(true)
 		} else {
 			const response = AbbNameMatches(matches)
-			const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), tournamen: matches.tournament, matches: response })
+			const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), tournamen: matches.tournament, matches: response, userInfo, season: new Date().getMonth() < 8 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}` })
 			if (result === "OK") {
 				setBetSentSuccessfully(true)
 				setBets(["", "", "", "", "", "", "", "", ""])
