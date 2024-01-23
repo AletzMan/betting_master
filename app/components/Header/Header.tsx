@@ -32,7 +32,7 @@ export function Header() {
 			const response = await axios.post("/api/logout")
 
 			if (response.status === 200) {
-				setUser({ uid: "", name: "", photo: "" })
+				setUser({ uid: "", name: "", photo: "", email: "" })
 				setIsLogged(false)
 				setViewMenuProfile(false)
 				router.push("/")
