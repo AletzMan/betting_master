@@ -1,7 +1,7 @@
 "use client"
 
 import { ChangeEvent, useEffect, useState } from "react"
-import { InTimeToBet, TimeRemainig } from "../functions/functions"
+import { ConvertToPrice, InTimeToBet, TimeRemainig } from "../functions/functions"
 import styles from "./bets.module.scss"
 import { Loading } from "../components/Loading/Loading"
 import { DialogCreateBet } from "./DialogCreateBet/DialogCreateBet"
@@ -16,6 +16,8 @@ import { useOrientation } from "../hooks/useOrientation"
 import { IBetDocument } from "../types/types"
 import { GetBetsByDay } from "../config/firebase"
 import { ComboBox } from "../components/ComboBox/ComboBox"
+import Image from "next/image"
+import { SnackbarProvider } from "notistack"
 
 const Orders = [
 	{ id: "name", name: "Por nombre" },
@@ -32,6 +34,8 @@ export default function BetsPage() {
 	const { isLandscape } = useOrientation()
 	const [selectRanges, setSelectRanges] = useState<{ row: number; column: number } | null>(null)
 	const [openDialog, setOpenDialog] = useState(false)
+
+
 
 	useEffect(() => {
 		if (!openDialog) {
@@ -56,74 +60,81 @@ export default function BetsPage() {
 
 
 	return (
-		<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
-			{openDialog && <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matches} />}
-			{matches?.results?.length > 0 && <HeaderPage isInTime={isInTime} setOpenDialog={setOpenDialog} />}
-			{loading && <Loading />}
-			{!loading && (
-				<>
-					{matches?.results?.length > 0 && <>
-						<section className={`${styles.main_table} scrollbar`}>
-							<div className={styles.namesTable}>
-								<div className={styles.namesTable_header}>
-									{matches.matches.length > 0 && <h1 className={styles.namesTable_headerTitle}>{matches.tournament}</h1>}
-									{matches.matches.length > 0 && <p className={styles.namesTable_headerDay}>{`Jornada ${matches.day}`}</p>}
-									<div className={styles.namesTable_headerSelect}>
-										<ComboBox options={Orders} selectOption={orderBets} setSelectOption={setOrderBets} />
-									</div>
-								</div>
-								{bets?.map((bet, index) => (
-									<div
-										className={`${styles.namesTable_name} ${selectRanges?.row === index && styles.namesTable_nameSelect} 
-									${user.uid === bet.uid && styles.namesTable_nameCurrent}`}
-										key={bet.id}
-										onClick={() => HandleSelectRow(index, -1)}
-										onMouseLeave={HandleUnselectRow}
-									>
-										{bet.name}
-										<div className={styles.namesTable_hits}>
-											{user.uid === bet.uid && <StarIcon className={styles.namesTable_hitsIcon} />}
-											{winner?.includes(bet.id) && <WinnerIcon className={styles.namesTable_winIcon} />}
+		<SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }}>
+			<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
+				{openDialog && <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matches} />}
+				{matches?.results?.length > 0 && <HeaderPage isInTime={matches?.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />}
+				{loading && <Loading />}
+				{!loading && (
+					<>
+						{matches?.results?.length > 0 && <>
+							<section className={`${styles.main_table} scrollbar`}>
+								<div className={styles.namesTable}>
+									<div className={styles.namesTable_header}>
+										<span className={styles.namesTable_headerAmount}>Gana: {ConvertToPrice(bets.length * 10.5)}</span>
+										{matches.matches.length > 0 && <h1 className={styles.namesTable_headerTitle}>{matches.tournament}</h1>}
+										{matches.matches.length > 0 && <p className={styles.namesTable_headerDay}>{`Jornada ${matches.day}`}</p>}
+										<div className={styles.namesTable_headerSelect}>
+											<ComboBox options={Orders} selectOption={orderBets} setSelectOption={setOrderBets} />
 										</div>
 									</div>
-								))}
-							</div>
-							<div className={styles.betsTable}>
-								<ul className={styles.matches}>
-									{matches.matches.length > 0 && matches.matches?.map((match, index) => <HeaderMatches key={match.id} match={match} index={index} />)}
-								</ul>
-								<div className={styles.betsTable_container}>
-									{bets !== undefined &&
-										bets?.map((bet, indexOne) => (
-											<ul className={styles.betsTable_bets} key={bet.id}>
-												{bet?.bets?.map((betInfo, index) => (
-													<li
-														key={`${bets[index]?.id}${indexOne}${index}`}
-														className={`${styles.betsTable_betsBet} ${selectRanges?.column === index && styles.betsTable_betsBetSelectColumn} 
+									{bets?.map((bet, index) => (
+										<div
+											className={`${styles.namesTable_name} ${selectRanges?.row === index && styles.namesTable_nameSelect} 
+									${user.uid === bet.uid && styles.namesTable_nameCurrent}`}
+											key={bet.id}
+											onClick={() => HandleSelectRow(index, -1)}
+											onMouseLeave={HandleUnselectRow}
+										>
+											<picture className={styles.namesTable_photo}>
+												<Image className={styles.namesTable_photoImage} src={bet.userInfo?.photo || "/user-icon.png"} width={22} height={22} alt={`Foto de perfil de ${bet.userInfo?.name}`} />
+											</picture>
+											{bet.name}
+											<div className={styles.namesTable_hits}>
+												{user.uid === bet.uid && <StarIcon className={styles.namesTable_hitsIcon} />}
+												{winner?.includes(bet.id) && <WinnerIcon className={styles.namesTable_winIcon} />}
+											</div>
+										</div>
+									))}
+								</div>
+								<div className={styles.betsTable}>
+									<ul className={styles.matches}>
+										{matches.matches.length > 0 && matches.matches?.map((match, index) => <HeaderMatches key={match.id} match={match} index={index} />)}
+									</ul>
+									<div className={styles.betsTable_container}>
+										{bets !== undefined &&
+											bets?.map((bet, indexOne) => (
+												<ul className={styles.betsTable_bets} key={bet.id}>
+													{bet?.bets?.map((betInfo, index) => (
+														<li
+															key={`${bets[index]?.id}${indexOne}${index}`}
+															className={`${styles.betsTable_betsBet} ${selectRanges?.column === index && styles.betsTable_betsBetSelectColumn} 
 													${selectRanges?.row === indexOne && styles.betsTable_betsBetSelectRow}`}
-														onClick={() => HandleSelectRow(indexOne, index)}
-														onMouseLeave={HandleUnselectRow}
-													>
-														<span
-															className={`${matches.results[index] === betInfo && styles.betsTable_betsBetWin} 
+															onClick={() => HandleSelectRow(indexOne, index)}
+															onMouseLeave={HandleUnselectRow}
+														>
+															<span
+																className={`${matches.results[index] === betInfo && styles.betsTable_betsBetWin} 
 														${matches.results[index] === betInfo && matches.matches[index].status === "En juego" && styles.betsTable_betsBetPreWin}
 														`}
-														>
-															{betInfo}
-														</span>
-													</li>
-												))}
-											</ul>
-										))
-									}
+															>
+																{betInfo}
+															</span>
+														</li>
+													))}
+												</ul>
+											))
+										}
+									</div>
 								</div>
-							</div>
-						</section>
+							</section>
+							{bets.length === 0 && <div className={styles.betsTable_empty}>¡Esperamos tu quiniela! Por ahora, está vacío. </div>}
+						</>
+						}
+						{matches.results.length === 0 && <div className={styles.betsTable_empty}>No se ha creado la quiniela de la semana <NotFoundIcon className={styles.betsTable_emptyIcon} /></div>}
 					</>
-					}
-					{matches.results.length === 0 && <div className={styles.betsTable_empty}>No se ha creado la quiniela de la semana <NotFoundIcon className={styles.betsTable_emptyIcon} /></div>}
-				</>
-			)}
-		</main>
+				)}
+			</main>
+		</SnackbarProvider>
 	)
 }
