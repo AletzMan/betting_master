@@ -31,10 +31,6 @@ export function MatchBet(props: PropsMatch) {
 	return (
 		<section className={styles.match}>
 			<div className={`${styles.match_header}`}>
-				<div className={styles.match_team}>
-					{TeamsLogos[matchData.teams.home].logo}
-					<span className={styles.match_teamName}>{TeamsLogos[matchData.teams.home].abbName}</span>
-				</div>
 				<div className={`${styles.predictions} ${isEmpty && bets[numberMatch] === "" && styles.predictionsEmpty}`}>
 					<div className={styles.predictions_prediction}>
 						<input
@@ -67,6 +63,11 @@ export function MatchBet(props: PropsMatch) {
 						{bets[numberMatch] === "P" && <span className={`${styles.predictions_predictionLetter}`}>P</span>}
 					</div>
 				</div>
+				<div className={styles.match_team}>
+					{TeamsLogos[matchData.teams.home].logo}
+					<span className={styles.match_teamName}>{TeamsLogos[matchData.teams.home].abbName}</span>
+				</div>
+
 				<div className={`${styles.match_team} ${styles.match_teamAway}`}>
 					{TeamsLogos[matchData.teams.away].logo}
 					<span className={styles.match_teamName}>{TeamsLogos[matchData.teams.away].abbName}</span>
