@@ -3,27 +3,27 @@ import styles from "./headerpage.module.scss"
 import { StarIcon, WinnerIcon } from "@/app/svg"
 
 interface Props {
-	isInTime: {
-		time: string
-		available: boolean
-	}
+	isInTime: boolean
 	setOpenDialog: Dispatch<SetStateAction<boolean>>
+	timeFirstMatch: string
 }
 
-export function HeaderPage(props: Props) {
-	const { setOpenDialog, isInTime } = props
+export function HeaderPage({ isInTime, setOpenDialog, timeFirstMatch }: Props) {
 
 	return (
 		<header className={styles.header}>
-			{/*<button className={`${styles.headerButton}  `} onClick={() => setOpenDialog(true)}>
+			{isInTime &&
+				<button className={`${styles.headerButton}  `} onClick={() => setOpenDialog(true)}>
 					Crear quiniela
-	</button>*/}
-			{<p className={styles.headerTime}>Tiempo agotado para enviar</p>}
-			{/*
+				</button>}
+			{!isInTime && <p className={styles.headerTime}>Tiempo agotado para enviar</p>}
+			{isInTime &&
 				<p className={styles.headerTimeRemainig}>
-					Se cierra en <span className={styles.headerTimeRemainigClock}>{isInTime.time}</span>
+					{!timeFirstMatch.includes("-") ? "Se cierra en" : ""}
+					{!timeFirstMatch.includes("-") && <span className={styles.headerTimeRemainigClock}>{` ${(timeFirstMatch)}`}</span>}
+					{timeFirstMatch.includes("-") && <span className={styles.headerTimeRemainigClock}>{`Esta por comenzar`}</span>}
 				</p>
-*/}
+			}
 			<div className={styles.headerOptions}>
 				<div className={styles.headerOptionsOption}>
 					<WinnerIcon className={`${styles.headerOptionsIcon} ${styles.headerOptionsIconWin}`} />

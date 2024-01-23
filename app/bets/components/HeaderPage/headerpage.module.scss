@@ -1,8 +1,6 @@
 .header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     width: 100%;
     padding: 0.35em 0;
 
@@ -13,6 +11,7 @@
         background-color: var(--highlight-color);
         cursor: pointer;
         transition: all 0.3s ease-in-out;
+        max-width: 8em;
 
         &:hover {
             background-color: var(--highlighthover-color);
@@ -20,6 +19,8 @@
     }
 
     &Time {
+        grid-column: 1 / span 2;
+        max-width: max-content;
         font-size: 0.8em;
         padding: 0.1em 0.5em;
         border-radius: 0.2em;
@@ -27,6 +28,8 @@
         background-color: #4a0606;
 
         &Remainig {
+            text-align: center;
+            grid-column: 2 / 3;
             font-size: 0.85em;
 
             &Clock {
@@ -39,11 +42,11 @@
         position: relative;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-end;
         justify-content: flex-start;
         overflow: hidden;
-        height: 1.4em;
-        column-gap: 0.25em;
+        height: 1.6em;
+        row-gap: 0.3em;
         font-size: 0.85em;
         color: #c61bff;
 
@@ -52,7 +55,8 @@
             display: flex;
             align-items: center;
             column-gap: 0.25em;
-            animation: animateOptions 4s infinite alternate;
+            padding: 0.2em 0 0 0;
+            animation: animateOptions 3s infinite alternate;
 
             @keyframes animateOptions {
                 0% {
