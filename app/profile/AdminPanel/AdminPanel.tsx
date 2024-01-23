@@ -18,10 +18,11 @@ export function AdminPanel() {
 	const [sending, setSending] = useState(false)
 	const [viewCreateBets, setViewCreateBets] = useState(false)
 	const [numberCorrectPicks, setNumberCorrectPicks] = useState(results.winner_correct_pick | 0)
+	const [isAvailable, setIsAvailable] = useState(true)
 
 	const GetDay = async () => {
 		const response = await GetCurrentMatchDay(new Date().getMonth() < 8 ? "0168" : "0159")
-		const result = await GetResultsByDay(response.day.toString())
+		const result = await GetResultsByDay(response.day.toString(), new Date().getMonth() < 8 ? "0168" : "0159")
 		setMatches(response.matches)
 		setMatchDay(response.day)
 		if (result) {
@@ -29,10 +30,10 @@ export function AdminPanel() {
 			setResultByMatch(result.results)
 			setStatusGame(result.status === "finished")
 			setNumberCorrectPicks(result.winner_correct_pick)
+			setIsAvailable(result.isAvailable)
 		}
 	}
 
-	console.log(matches)
 
 	const HandleUpdate = async () => {
 		if (matchDay) {
@@ -42,10 +43,11 @@ export function AdminPanel() {
 				results: resultsByMatch,
 				status: statusGame ? "finished" : "in game",
 				winner_correct_pick: numberCorrectPicks,
+				isAvailable
 			}
-			const result = await AddResults(newResults)
+			const result = await AddResults(newResults, new Date().getMonth() < 8 ? "0168" : "0159")
 			const update = UpdateStatusMatches(matches, resultsByMatch)
-			await UpdateResultsMatchDay(resultsByMatch, update, new Date().getMonth() < 8 ? "0168" : "0159")
+			await UpdateResultsMatchDay(resultsByMatch, update, new Date().getMonth() < 8 ? "0168" : "0159", isAvailable)
 			if (result === "OK") {
 				setSending(false)
 			}
@@ -77,6 +79,11 @@ export function AdminPanel() {
 							<input className={styles.admin_statusInput} type="checkbox" checked={statusGame} onChange={() => setStatusGame((prev) => !prev)} />
 							<div className={`${styles.admin_statusButton} ${statusGame && styles.admin_statusButtonActive}`}></div>
 							<span className={styles.admin_statusText}>{statusGame ? "Finalizada" : "En juego"}</span>
+						</div>
+						<div className={`${styles.admin_isAvailable} ${isAvailable && styles.admin_isAvailableActive}`}>
+							<input className={styles.admin_isAvailableInput} type="checkbox" checked={isAvailable} onChange={() => setIsAvailable((prev) => !prev)} />
+							<div className={`${styles.admin_isAvailableButton} ${isAvailable && styles.admin_isAvailableButtonActive}`}></div>
+							<span className={styles.admin_isAvailableText}>{isAvailable ? "Abierta" : "Cerrada"}</span>
 						</div>
 
 						<div className={`${styles.admin_corrects}`}>
