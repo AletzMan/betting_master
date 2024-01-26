@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, MouseEvent, useState, ChangeEvent } from "rea
 import styles from "./dialodcreatebet.module.scss"
 import { MatchBet } from "./MatchCalendar/MatchBet"
 import { useBet, useUser } from "@/app/config/zustand-store"
-import { AddBet, GetResultsByDay } from "@/app/config/firebase"
+import { AddBet, GetResultsByDay, auth } from "@/app/config/firebase"
 import { FinishedIcon } from "@/app/svg"
 import { Loading } from "@/app/components/Loading/Loading"
 import { AbbNameMatches } from "@/app/functions/functions"
@@ -10,6 +10,7 @@ import { IMatchDay } from "@/app/types/types"
 import axios from "axios"
 import { useSnackbar } from "notistack"
 import { useRouter } from "next/navigation"
+import { signOut } from "firebase/auth"
 
 interface DialogProps {
 	matches: IMatchDay
@@ -46,31 +47,42 @@ export function DialogCreateBet(props: DialogProps) {
 			router.replace("/bets")
 			return
 		}
-		const response = await axios.get("/api/login")
-		const userInfo = response.data.userInfo
-		setLoading(true)
-		if (bets.includes("")) {
-			setIsEmpty(true)
-			setTypeError("empty")
-			setError(true)
-		} else if (name === "") {
-			setTypeError("name_empty")
-			setError(true)
-		} else if (name.length < 5) {
-			setTypeError("name_short")
-			setError(true)
-		} else {
-			const response = AbbNameMatches(matches)
-			const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), tournamen: matches.tournament, matches: response, userInfo, season: new Date().getMonth() < 8 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}` })
-			if (result === "OK") {
-				setBetSentSuccessfully(true)
-				setBets(["", "", "", "", "", "", "", "", ""])
-				setError(false)
-				setName("")
-				setTimeout(() => {
-					setOpen(false)
-				}, 2000)
+		try {
+
+
+			const response = await axios.get("/api/login")
+			if (response.status === 200) {
+				const userInfo = response.data.userInfo
+				setLoading(true)
+				if (bets.includes("")) {
+					setIsEmpty(true)
+					setTypeError("empty")
+					setError(true)
+				} else if (name === "") {
+					setTypeError("name_empty")
+					setError(true)
+				} else if (name.length < 5) {
+					setTypeError("name_short")
+					setError(true)
+				} else {
+					const response = AbbNameMatches(matches)
+					const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), tournamen: matches.tournament, matches: response, userInfo, season: new Date().getMonth() < 8 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}` })
+					if (result === "OK") {
+						setBetSentSuccessfully(true)
+						setBets(["", "", "", "", "", "", "", "", ""])
+						setError(false)
+						setName("")
+						setTimeout(() => {
+							setOpen(false)
+						}, 2000)
+					}
+				}
 			}
+		} catch (error) {
+			console.error(error)
+			await signOut(auth)
+			router.push("/auth/login")
+			router.refresh()
 		}
 		setLoading(false)
 	}
