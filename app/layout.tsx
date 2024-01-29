@@ -2,6 +2,7 @@ import "./globals.css"
 import type { Metadata } from "next"
 import { Montserrat } from "next/font/google"
 import { Header } from "./components/Header/Header"
+import MaintenancePage from "./maintenance/page"
 
 const montserrat = Montserrat({ subsets: ["latin"] })
 
@@ -14,8 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<body className={montserrat.className}>
-				<Header />
-				{children}
+				{/*<Header />*/}
+				{/*children*/}
+				<MaintenancePage />
 			</body>
 		</html>
 	)
