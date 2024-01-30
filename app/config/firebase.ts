@@ -17,7 +17,15 @@ import {
 	setDoc,
 	updateDoc,
 } from "firebase/firestore"
-import { IBetDocument, ICurrentMatch, IMatchDay, IResultsMatches } from "../types/types"
+import {
+	IBetData,
+	IBetDataDocument,
+	IBetDocument,
+	ICurrentMatch,
+	IMatchDay,
+	IResultsMatches,
+	IUserSettings,
+} from "../types/types"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -144,6 +152,7 @@ export const AddMatchDay = async (data: IMatchDay, tournament: string, matchDay:
 		return "FAIL"
 	}
 }
+
 export const UpdateResultsMatchDay = async (
 	data: string[],
 	matches: ICurrentMatch[],
@@ -176,5 +185,65 @@ export const GetCurrentMatchDay = async (tournament: string) => {
 	} catch (error) {
 		console.error(error)
 		return {} as IMatchDay
+	}
+}
+
+export const GetInfoUser = async (id: string) => {
+	try {
+		const querySnapshot = await getDoc(doc(db, `users`, `${id}`))
+		const documents = querySnapshot.data() as IUserSettings
+		if (documents) {
+			return documents as IUserSettings
+		} else {
+			return { uid: "", account: "" } as IUserSettings
+		}
+		return documents
+	} catch (error) {
+		console.error(error)
+		return { uid: "", account: "" } as IUserSettings
+	}
+}
+
+export const SaveInfouser = async (id: string, data: IUserSettings) => {
+	try {
+		const docRef = await setDoc(doc(db, `users`, `${id}`), data)
+		return "OK"
+	} catch (e) {
+		console.error("Error adding document: ", e)
+		return "FAIL"
+	}
+}
+
+export const UpdateBetByUser = async (betId: string, paid: boolean) => {
+	const year = new Date().getFullYear()
+	try {
+		const docRef = await updateDoc(doc(db, `bets`, `${betId}`), {
+			paid,
+		})
+		return "OK"
+	} catch (e) {
+		console.log(e)
+		console.error("Error adding document: ", e)
+		return "FAIL"
+	}
+}
+
+export const GetBetsByIDGroup = async (day: string) => {
+	try {
+		let response: IBetDataDocument[] | DocumentData = []
+		const querySnapshot = await getDocs(collection(db, `bets`))
+		querySnapshot.forEach((doc) => {
+			const id = doc.id
+			const data = doc.data() as IBetData
+			response.push({ id, data } as IBetDataDocument)
+		})
+		const documents = response as IBetDataDocument[]
+
+		const filterByDay = documents.filter((document) => document.data.day === day)
+
+		return filterByDay
+	} catch (error) {
+		console.error(error)
+		return [] as IBetDataDocument[]
 	}
 }
