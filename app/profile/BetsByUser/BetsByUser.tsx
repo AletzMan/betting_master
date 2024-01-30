@@ -89,7 +89,7 @@ export function BetsByUser() {
                     {betsByID.map((bet, index) => (
                         <details key={bet.uid} className={styles.bets_bet}>
                             <summary className={styles.bets_betSummary}>
-                                <h3 className={styles.bets_betTitle}>{bets[index]?.data.userInfo?.name}</h3>
+                                <h3 className={styles.bets_betTitle}>{bet?.bets[0]?.data.userInfo?.name}</h3>
                             </summary>
                             <div className={styles.bets_betContent}>
                                 {bet.bets.map((bet, index) => (
