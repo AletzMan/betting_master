@@ -1,0 +1,100 @@
+.settingsProfile {
+    position: relative;
+    padding: 0.5em;
+    background-color: var(--background-start-color);
+    border: 1px solid var(--subtitleBack-color);
+    border-radius: var(--border-radius);
+
+    &_title {
+        font-size: 1em;
+    }
+
+    &_picture {
+        position: absolute;
+        top: 0.25em;
+        right: 0.25em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.2em;
+        height: 3.2em;
+        border-radius: 50%;
+        overflow: hidden;
+        padding: 0.5em;
+        border: 1px solid var(--facebookTwo-color);
+    }
+
+    &_info {
+        display: flex;
+        flex-direction: column;
+
+        &__item {
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.2em;
+            padding: 0.25em 0 0.75em 0;
+            margin: 0.25em 0;
+            border-bottom: 1px solid var(--subtitleBack-color);
+        }
+    }
+
+    &_input {
+        padding: 0.35em 0.5em;
+        font-size: 0.85em;
+        color: var(--foreground-color);
+        border-radius: var(--border-radius);
+        border: 1px solid var(--subtitleBack-color);
+        background-color: var(--twitter-color);
+        outline: none;
+
+        &:focus {
+            border: 1px solid var(--twitter-color);
+        }
+
+        &Error {
+            border: 1px dashed var(--error-color);
+        }
+    }
+
+    &_image {
+        width: 2.8em;
+        height: 2.8em;
+        border-radius: 50%;
+    }
+
+    &_label {
+        font-size: 0.75em;
+        color: var(--foreground-second-color);
+    }
+
+    &_text {
+        font-size: 0.85em;
+        font-weight: 400;
+        color: var(--foreground-color);
+    }
+
+    &_button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 1em;
+        font-size: 1em;
+        font-weight: 500;
+        margin: 1em 0 0.5em 0;
+        padding: 0.35em 0.5em;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--hover-link);
+        color: var(--font-color);
+        background-color: var(--highlight-color);
+
+    }
+
+    &_error {
+        display: flex;
+        align-items: center;
+        column-gap: 0.5em;
+        font-size: 0.75em;
+        font-weight: 300;
+        color: var(--error-color);
+    }
+}
