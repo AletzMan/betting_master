@@ -28,6 +28,10 @@
         background-color: #4a0606;
 
         &Remainig {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
             text-align: center;
             grid-column: 2 / 3;
             font-size: 0.85em;
