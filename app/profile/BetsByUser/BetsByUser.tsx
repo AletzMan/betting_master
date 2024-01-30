@@ -41,8 +41,7 @@ export function BetsByUser() {
                             group.bets.push({ id: betID, data: bet.data })
                         }
                     })
-                }
-                if (!found) {
+                } else {
                     newGroup.push({ uid: userID, bets: [{ id: betID, data: bet.data }] })
                 }
             })
