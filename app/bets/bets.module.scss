@@ -172,18 +172,110 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        row-gap: 1.5em;
+        row-gap: 0.5em;
         padding: 1em 2em;
-        margin: 2em 0 0 0;
+        margin: 1em 0 0 0;
         border-radius: var(--border-radius);
         color: var(--foreground-color);
         background-color: var(--background-start-color);
+
+        &Bets {
+            text-wrap: balance;
+            font-size: 1.1em;
+        }
 
         &Icon {
             width: 4em;
             height: 4em;
             margin-bottom: 1em;
             color: var(--highlight-color);
+        }
+
+        &Data {
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            align-items: start;
+            align-self: self-start;
+            margin: 0.5em 0;
+
+            &Account {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                margin: 0.25em 0;
+            }
+        }
+
+        &Title {
+            font-size: 1em;
+            font-weight: 600;
+            text-align: center;
+            text-wrap: balance;
+            color: var(--foreground-color);
+        }
+
+        &Label {
+            font-size: 0.8em;
+            font-weight: 300;
+            text-align: center;
+            color: var(--foreground-second-color);
+        }
+
+        &Text {
+            font-size: 0.85em;
+            font-weight: 300;
+            text-align: center;
+            color: var(--foreground-color);
+
+            &Light {
+                text-align: center;
+                color: var(--highlight-color);
+                margin: 0em 0 0 0;
+                font-size: 0.8em;
+            }
+
+            &Name {
+                font-size: 0.8em;
+                font-weight: 600;
+                text-align: center;
+                padding: 0.5em 1em;
+                border-radius: var(--border-radius);
+                background-color: var(--subtitleBack-color);
+                color: var(--subtitle-color);
+            }
+
+            &Account {
+                font-size: 0.8em;
+                font-weight: 300;
+                text-align: center;
+                color: #0deba1;
+                padding: 0.5em 1em;
+                border-radius: var(--border-radius);
+                background-color: var(--subtitleBack-color);
+            }
+
+            &Info {
+                font-size: 0.8em;
+                font-weight: 600;
+                text-align: center;
+                text-wrap: balance;
+                color: var(--subtitle-color);
+            }
+
+            &InfoTwo {
+                font-size: 1.1em;
+                font-weight: 600;
+                text-align: center;
+                text-wrap: balance;
+                color: var(--subtitle-color);
+            }
+        }
+
+        &Price {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--subtitle-color);
         }
     }
 
