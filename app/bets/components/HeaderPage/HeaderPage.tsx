@@ -19,7 +19,7 @@ export function HeaderPage({ isInTime, setOpenDialog, timeFirstMatch }: Props) {
 			{!isInTime && <p className={styles.headerTime}>Tiempo agotado para enviar</p>}
 			{isInTime &&
 				<p className={styles.headerTimeRemainig}>
-					{!timeFirstMatch.includes("-") ? "Se cierra en" : ""}
+					<span>{!timeFirstMatch.includes("-") ? "Se cierra en" : ""}</span>
 					{!timeFirstMatch.includes("-") && <span className={styles.headerTimeRemainigClock}>{` ${(timeFirstMatch)}`}</span>}
 					{timeFirstMatch.includes("-") && <span className={styles.headerTimeRemainigClock}>{`Esta por comenzar`}</span>}
 				</p>
