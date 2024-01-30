@@ -47,12 +47,22 @@
         font-size: 1.2em;
         color: #05af27;
     }
+
+    &_matches {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.25em;
+        padding: 0.5em 0;
+        width: 100%;
+        height: calc(100svh - 7em);
+    }
 }
 
 .form {
     display: flex;
     flex-flow: row wrap;
     align-items: flex-end;
+    justify-content: space-between;
     width: 100%;
 
     &_name {
@@ -90,7 +100,15 @@
         padding: 0 0.5em;
         font-size: 0.9em;
         font-weight: 500;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        color: var(--foreground-color);
         font-family: var(--font-montserrat);
+        background-color: var(--background-textTwo);
+
+        &Error {
+            border: 1px dashed var(--error-color);
+        }
     }
 
     &_buttons {
@@ -122,4 +140,6 @@
         }
 
     }
+
+
 }
