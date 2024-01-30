@@ -1,0 +1,82 @@
+.section {
+    position: relative;
+    padding: 0.5em;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--subtitleBack-color);
+    background-color: var(--background-text);
+
+    &_subtitle {
+        font-size: 1em;
+        font-weight: 600;
+        color: var(--foreground-color);
+    }
+
+    &_select {
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        max-width: 8em;
+    }
+}
+
+
+.bets {
+    padding: 1.5em 0 0.5em 0;
+    display: flex;
+    flex-direction: column;
+
+    &_bet {
+        display: flex;
+        flex-direction: row;
+        row-gap: 0.2em;
+        padding: 0.25em 0.25em 0.75em 0.25em;
+        margin: 0.25em 0;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--subtitleBack-color);
+        background-color: var(--hover-link);
+
+        &Summary {
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.2em;
+            color: transparent;
+        }
+
+        &Content {
+            display: flex;
+            flex-direction: column;
+            margin: 0.25em 0 0 0;
+            row-gap: 0.25em;
+            color: red
+        }
+
+        &Title {
+            font-size: 0.9em;
+            color: var(--foreground-color);
+        }
+
+        &Match {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            font-size: 0.85em;
+            font-weight: 300;
+            padding: 0.25em 0.5em;
+            color: var(--foreground-color);
+            background-color: var(--subtitleBack-color);
+
+            &Check {
+                width: 1.5em;
+                height: 1.5em;
+                border-radius: 50%;
+            }
+
+        }
+    }
+
+    &_name {
+        font-size: 0.85em;
+        font-weight: 300;
+        color: var(--foreground-color);
+    }
+}
