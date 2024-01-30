@@ -33,6 +33,7 @@ export function DialogCreateBet(props: DialogProps) {
 		setBets(["", "", "", "", "", "", "", "", ""])
 		setError(false)
 		setIsEmpty(false)
+		setTypeError("")
 		setName("")
 	}
 
@@ -58,15 +59,18 @@ export function DialogCreateBet(props: DialogProps) {
 					setIsEmpty(true)
 					setTypeError("empty")
 					setError(true)
+					enqueueSnackbar(Object.entries(Errors).find((error) => error[0] === "empty")?.[1], { variant: "error" })
 				} else if (name === "") {
 					setTypeError("name_empty")
 					setError(true)
+					enqueueSnackbar(Object.entries(Errors).find((error) => error[0] === "name_empty")?.[1], { variant: "error" })
 				} else if (name.length < 5) {
 					setTypeError("name_short")
 					setError(true)
+					enqueueSnackbar(Object.entries(Errors).find((error) => error[0] === "name_short")?.[1], { variant: "error" })
 				} else {
 					const response = AbbNameMatches(matches)
-					const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), tournamen: matches.tournament, matches: response, userInfo, season: new Date().getMonth() < 8 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}` })
+					const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), matches: response, userInfo, seasson: new Date().getMonth() < 8 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, season: new Date().getMonth() < 8 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, paid: false, tournament: matches.tournament })
 					if (result === "OK") {
 						setBetSentSuccessfully(true)
 						setBets(["", "", "", "", "", "", "", "", ""])
@@ -91,6 +95,7 @@ export function DialogCreateBet(props: DialogProps) {
 		if (e.currentTarget.value.length < 11) {
 			setName(e.currentTarget.value)
 		}
+		setTypeError("")
 		setError(false)
 	}
 
@@ -102,9 +107,9 @@ export function DialogCreateBet(props: DialogProps) {
 					<form className={styles.form}>
 						<div className={styles.form_name}>
 							<label className={styles.form_label}>
-								Nombre{error && <span className={styles.form_labelError}>{Object.entries(Errors).find((error) => error[0] === typeError)?.[1]}</span>}
+								Nombre de la quiniela
 							</label>
-							<input className={styles.form_input} type="text" value={name} onChange={HandleChangeName} />
+							<input className={`${styles.form_input} ${typeError === "name_empty" || typeError === "name_short" || typeError === "empty" && styles.form_inputError}`} type="text" value={name} onChange={HandleChangeName} />
 						</div>
 						<div className={styles.form_buttons}>
 							<button className={`${styles.form_button} ${styles.form_buttonSend}`} type="submit" onClick={HandleSendBet}>
@@ -117,7 +122,13 @@ export function DialogCreateBet(props: DialogProps) {
 					</form>
 				</header>
 				{loading && <Loading />}
-				{!betSentSuccessfully && !loading && matches.matches.map((match, index) => <MatchBet key={match.id} matchData={match} numberMatch={index} />)}
+				{!betSentSuccessfully && !loading &&
+					<div className={`${styles.dialog_matches} scrollbar`}>
+						{matches.matches.map((match, index) =>
+							<MatchBet key={match.id} matchData={match} numberMatch={index} />
+						)}
+					</div>
+				}
 				{betSentSuccessfully && (
 					<article className={styles.dialog_successfully}>
 						<FinishedIcon className={styles.dialog_successfullyIcon} /> Quiniela enviada correctamente
