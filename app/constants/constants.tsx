@@ -1,19 +1,25 @@
 import {
 	AmericaLogo,
 	AtlasLogo,
+	AtleticoMardidLogo,
+	BarcelonaLogo,
 	BetsIcon,
 	ChivasLogo,
 	CruzAzulLogo,
+	GetafeLogo,
 	JuarezLogo,
 	LeonLogo,
 	MazatlanLogo,
 	MonterreyLogo,
 	NecaxaLogo,
+	OsasunaLogo,
 	PachucaLogo,
 	PositionsIcon,
 	PueblaLogo,
 	PumasLogo,
 	QueretaroLogo,
+	RayoLogo,
+	RealMadridLogo,
 	ResultsIcon,
 	SanLuisLogo,
 	SantosLogo,
@@ -188,6 +194,61 @@ export const TeamsLogos = [
 		color_two: "#FFFFFF",
 		color_three: "#000000",
 	},
+	{
+		id: 18,
+		logo: <BarcelonaLogo className="logo__team_slided" />,
+		name: "barcelona",
+		abbName: "BAR",
+		color_one: "#142055",
+		color_two: "#FFFFFF",
+		color_three: "#000000",
+	},
+	{
+		id: 19,
+		logo: <OsasunaLogo className="logo__team_slided" />,
+		name: "Osasuna",
+		abbName: "OSA",
+		color_one: "#142055",
+		color_two: "#FFFFFF",
+		color_three: "#000000",
+	},
+	{
+		id: 20,
+		logo: <AtleticoMardidLogo className="logo__team_slided" />,
+		name: "Atlético de Madrid",
+		abbName: "ATM",
+		color_one: "#142055",
+		color_two: "#FFFFFF",
+		color_three: "#000000",
+	},
+	{
+		id: 21,
+		logo: <RayoLogo className="logo__team_slided" />,
+		name: "Rayo Vallecano",
+		abbName: "RAY",
+		color_one: "#142055",
+		color_two: "#FFFFFF",
+		color_three: "#000000",
+	},
+	{
+		id: 22,
+		logo: <RealMadridLogo className="logo__team_slided" />,
+		name: "Real Madrid",
+		abbName: "RMD",
+		color_one: "#142055",
+		color_two: "#FFFFFF",
+		color_three: "#000000",
+	},
+	{
+		id: 23,
+		logo: <GetafeLogo className="logo__team_slided" />,
+		name: "Getafe",
+		abbName: "GET",
+		color_one: "#142055",
+		color_two: "#FFFFFF",
+		color_three: "#000000",
+	},
+
 ]
 
 export const TeamsNames: Team[] = [
@@ -262,6 +323,30 @@ export const TeamsNames: Team[] = [
 	{
 		id: "17",
 		name: "Queretaro",
+	},
+	{
+		id: "18",
+		name: "Barcelona",
+	},
+	{
+		id: "19",
+		name: "Osasuna",
+	},
+	{
+		id: "20",
+		name: "Atlético de Madrid",
+	},
+	{
+		id: "21",
+		name: "Rayo Vallecano",
+	},
+	{
+		id: "22",
+		name: "Real Madrid",
+	},
+	{
+		id: "23",
+		name: "Getafe",
 	},
 ]
 
