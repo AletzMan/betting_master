@@ -24,7 +24,7 @@ export function BettingDay(props: Props) {
 	return (
 		<div key={bet[0]} className={styles.bets}>
 			<header key={bet[0]} className={styles.betsHeader}>
-				<span className={styles.betsHeaderDay}>{`Jornada ${bet[0]} ${bet[1].bets[0].season}`}</span>
+				<span className={styles.betsHeaderDay}>{`Jornada ${bet[0]} ${bet[1].bets[0].seasson || bet[1].bets[0].season}`}</span>
 				<button className={styles.betsHeaderButton} onClick={HandleOpen}>
 					<ArrowIcon key={bet[0]} className={`${styles.betsHeaderIcon} ${open[index] && styles.betsHeaderIconOpen}`} />
 				</button>

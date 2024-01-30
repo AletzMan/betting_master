@@ -1,6 +1,11 @@
 .admin {
     padding: 0 0 1em 0;
 
+    &_title {
+        color: var(--font-color);
+        font-size: 1em;
+    }
+
 
     &_section {
         position: relative;
@@ -16,6 +21,7 @@
             padding: 0 0 1.5em 0;
             border-bottom: 1px solid var(--hover-link);
             margin: 0 0 1em 0;
+            font-size: 1em;
         }
 
 
