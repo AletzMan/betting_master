@@ -299,6 +299,7 @@ export const GroupObjectByProperty = (objects: IBetDocument[], property: string)
 			matches: object.matches,
 			day: object.day,
 			season: object.season,
+			seasson: object.seasson,
 		})
 	})
 	return newObject
