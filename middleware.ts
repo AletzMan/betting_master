@@ -6,6 +6,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 	const { pathname } = request.nextUrl
 
 	//Return to / if have a session
+
 	if (pathname.endsWith("/bets")) {
 		if (!session) {
 			request.nextUrl.pathname = "/auth/login"
