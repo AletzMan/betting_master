@@ -270,6 +270,9 @@ export interface IHitsBet {
 	name: string
 	bets: string[]
 	matches: string[]
+	seasson: string
+	paid: boolean
+	tournament: string
 	hits: number
 }
 

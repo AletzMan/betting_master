@@ -327,6 +327,9 @@ export const SortByHits = (
 				matches: [],
 				hits,
 				day: betsArray[index].day,
+				seasson: betsArray[index].seasson,
+				paid: false,
+				tournament: betsArray[index].tournament,
 			})
 		}
 		orderBets.sort((a, b) => {
