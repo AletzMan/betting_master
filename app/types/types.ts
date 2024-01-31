@@ -274,6 +274,7 @@ export interface IHitsBet {
 	paid: boolean
 	tournament: string
 	hits: number
+	userInfo?: IUserInfo
 }
 
 export interface IBet {
