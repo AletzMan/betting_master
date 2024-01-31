@@ -18,6 +18,8 @@ import { GetBetsByDay } from "../config/firebase"
 import { ComboBox } from "../components/ComboBox/ComboBox"
 import Image from "next/image"
 import { SnackbarProvider } from "notistack"
+import { NoPaidMessage } from "./components/NoPaidMessage/NoPaidMessage"
+import { ConfirmedParticipationMessage } from "./components/ConfirmedParticipationMessage/ConfirmedParticipationMessage"
 
 const Orders = [
 	{ id: "name", name: "Por nombre" },
@@ -25,7 +27,7 @@ const Orders = [
 	{ id: "asc", name: "Por aciertos ↑" },
 ]
 
-interface IMyBets {
+export interface IMyBets {
 	bets: IBetDocument[]
 	hasBets: boolean
 	isNotBetsPaid: boolean
@@ -56,6 +58,8 @@ export default function BetsPage() {
 		}
 	}, [matches, openDialog])
 
+
+
 	const GetBets = async () => {
 		if (matches.day) {
 			const documents = await GetBetsByDay(matches.day.toString())
@@ -63,8 +67,8 @@ export default function BetsPage() {
 			const newIsBetsPaid = documents.some((bet) => bet.uid === user.uid && !bet.paid)
 			const newHasBets = documents.some((bet) => bet.uid === user.uid)
 			setMyBets({ bets: newMybets, hasBets: newHasBets, isNotBetsPaid: newIsBetsPaid })
-
 			setBets(documents)
+			setOrderBets("normal")
 		}
 	}
 
@@ -76,6 +80,13 @@ export default function BetsPage() {
 		setSelectRanges(null)
 	}
 
+	const HandleOrder = (e: ChangeEvent<HTMLSelectElement>) => {
+		const value = e.target.value
+		if (value === "name" || value === "des" || value === "asc" || value === "normal") {
+			setOrderBets(value)
+		}
+	}
+
 
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }}>
@@ -84,34 +95,7 @@ export default function BetsPage() {
 				{matches?.results?.length > 0 && <HeaderPage isInTime={matches?.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />}
 				{loading && <Loading />}
 				{myBets?.isNotBetsPaid && myBets.hasBets && bets.length > 0 &&
-					<>
-						<section className={styles.betsTable_empty}>
-							<h3 className={styles.betsTable_emptyTitle}>¡Paga tus quinielas para participar!</h3>
-							<h3 className={styles.betsTable_emptyTitle}>¡No te quedes fuera!</h3>
-							<p className={styles.betsTable_emptyText}>Deposita $12.00 por cada quiniela</p>
-							<p className={styles.betsTable_emptyText}>Tu tienes {myBets.bets.length} quiniela(s)</p>
-							<p className={styles.betsTable_emptyText}>Total a pagar: <span className={styles.betsTable_emptyPrice}>{ConvertToPrice(myBets.bets.length * 12)}</span></p>
-							<p className={styles.betsTable_emptyTextLight}>Tienes hasta el cominezo del primer partido para pagar</p>
-							<p className={styles.betsTable_emptyTextLight}>Quiniela no pagada no participa</p>
-							<div className={styles.betsTable_emptyData}>
-								<h4 className={styles.betsTable_emptyDataTitle}>Datos para deposito</h4>
-								<div className={styles.betsTable_emptyDataAccount}>
-									<label className={styles.betsTable_emptyLabel}>Numero de cuenta</label>
-									<p className={styles.betsTable_emptyText}>158 659 4088</p>
-								</div>
-								<div className={styles.betsTable_emptyDataAccount}>
-									<label className={styles.betsTable_emptyLabel}>Cuenta CLABE</label>
-									<p className={styles.betsTable_emptyText}>012 320 01586594088 0</p>
-								</div>
-								<div className={styles.betsTable_emptyDataAccount}>
-									<label className={styles.betsTable_emptyLabel}>Nombre</label>
-									<p className={styles.betsTable_emptyText}>Alejandro Garcia</p>
-								</div>
-							</div>
-							<p className={styles.betsTable_emptyTextAccount}>Agrega tu nombre en la referencia</p>
-							<p className={styles.betsTable_emptyText}>{user.name}</p>
-						</section>
-					</>
+					<NoPaidMessage myBets={myBets} user={user} />
 				}
 				{!myBets.hasBets && bets.length > 0 &&
 					<section className={styles.betsTable_empty}>
@@ -120,18 +104,9 @@ export default function BetsPage() {
 					</section>
 				}
 				{myBets.hasBets && bets.length === 0 && !myBets?.isNotBetsPaid && !isInTime.time.includes("-") &&
-					<section className={styles.betsTable_empty}>
-						<h2 className={styles.betsTable_emptyBets}>¡Ya estas participando!</h2>
-						<p className={styles.betsTable_emptyTextName}>{user.name}</p>
-						<p className={styles.betsTable_emptyText}>Las quinielas estaran visibles hasta el comienzo del primer partido</p>
-						<p className={styles.betsTable_emptyText}>Tu tienes <span className={styles.betsTable_emptyTextInfoTwo}>{myBets.bets.length}</span> quiniela(s)</p>
-						<p className={styles.betsTable_emptyText}>¡Suerte!</p>
-						<p className={styles.betsTable_emptyTextInfoTwo}>Monto acumulado: {ConvertToPrice(bets.length * 10.5)}</p>
-						<p className={styles.betsTable_emptyTextAccount}>Ingresa a tu Perfil y agrega tu cuenta de deposito para recibir tu pago en caso de ganar</p>
-						<p className={styles.betsTable_emptyTextAccount}>Tambien puedes ver tus quinielas en tu perfil</p>
-					</section>
+					<ConfirmedParticipationMessage user={user} bets={bets} myBets={myBets} />
 				}
-				{!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets.length > 0 && (
+				{!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets.length > 0 && isInTime.time == "" && (
 					<>
 						{matches?.results?.length > 0 && <>
 							<section className={`${styles.main_table} scrollbar`}>
@@ -140,28 +115,33 @@ export default function BetsPage() {
 										<span className={styles.namesTable_headerAmount}>Gana: {ConvertToPrice(bets.length * 10.5)}</span>
 										{matches.matches.length > 0 && <h1 className={styles.namesTable_headerTitle}>{matches.tournament}</h1>}
 										{matches.matches.length > 0 && <p className={styles.namesTable_headerDay}>{`Jornada ${matches.day}`}</p>}
-										<div className={styles.namesTable_headerSelect}>
-											<ComboBox options={Orders} selectOption={orderBets} setSelectOption={setOrderBets} />
-										</div>
+										<select className={styles.namesTable_headerSelect} onChange={HandleOrder}>
+											<option value="normal">Por participante</option>
+											<option value="name">Por nombre</option>
+											<option value="des">Por aciertos ↓</option>
+											<option value="asc">Por aciertos ↑</option>
+										</select>
 									</div>
 									{bets?.map((bet, index) => (
 										<>
-											{bet.paid && <div
-												className={`${styles.namesTable_name} ${selectRanges?.row === index && styles.namesTable_nameSelect} 
+											{bet.paid &&
+												<div
+													className={`${styles.namesTable_name} ${selectRanges?.row === index && styles.namesTable_nameSelect} 
 											${user.uid === bet.uid && styles.namesTable_nameCurrent}`}
-												key={bet.id}
-												onClick={() => HandleSelectRow(index, -1)}
-												onMouseLeave={HandleUnselectRow}
-											>
-												<picture className={styles.namesTable_photo}>
-													<Image className={styles.namesTable_photoImage} src={bet.userInfo?.photo || "/user-icon.png"} width={22} height={22} alt={`Foto de perfil de ${bet.userInfo?.name}`} />
-												</picture>
-												{bet.name}
-												<div className={styles.namesTable_hits}>
-													{user.uid === bet.uid && <StarIcon className={styles.namesTable_hitsIcon} />}
-													{winner?.includes(bet.id) && <WinnerIcon className={styles.namesTable_winIcon} />}
+													key={bet.id}
+													onClick={() => HandleSelectRow(index, -1)}
+													onMouseLeave={HandleUnselectRow}
+												>
+													<picture className={styles.namesTable_photo}>
+														<Image className={styles.namesTable_photoImage} src={bet.userInfo?.photo || "/user-icon.png"} width={22} height={22} alt={`Foto de perfil de ${bet.userInfo?.name}`} />
+													</picture>
+													{bet.name}
+													<div className={styles.namesTable_hits}>
+														{user.uid === bet.uid && <StarIcon className={styles.namesTable_hitsIcon} />}
+														{winner?.includes(bet.id) && <WinnerIcon className={styles.namesTable_winIcon} />}
+													</div>
 												</div>
-											</div>}
+											}
 										</>
 									))}
 								</div>

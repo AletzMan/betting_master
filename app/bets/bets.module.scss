@@ -152,11 +152,14 @@
         }
 
         &Select {
-            position: absolute;
-            bottom: 0;
+            //position: absolute;
+            //bottom: 0;
             width: 100%;
-            padding: 0.15em 0.1em;
+            background-color: var(--background-start-color);
+            margin: 0.5em 0 0 0;
+            padding: 0.25em 0.5em;
             font-weight: 500;
+            color: var(--foreground-color);
             font-family: var(--font-montserrat);
         }
     }
