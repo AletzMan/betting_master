@@ -119,7 +119,7 @@ export default function BetsPage() {
 						<p className={styles.betsTable_emptyText}>¡No te quedes fuera!</p>
 					</section>
 				}
-				{myBets.hasBets && bets.length = 0 && !myBets?.isNotBetsPaid && !isInTime.time.includes("-") &&
+				{myBets.hasBets && bets.length === 0 && !myBets?.isNotBetsPaid && !isInTime.time.includes("-") &&
 					<section className={styles.betsTable_empty}>
 						<h2 className={styles.betsTable_emptyBets}>¡Ya estas participando!</h2>
 						<p className={styles.betsTable_emptyTextName}>{user.name}</p>
