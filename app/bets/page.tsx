@@ -131,7 +131,7 @@ export default function BetsPage() {
 						<p className={styles.betsTable_emptyTextAccount}>Tambien puedes ver tus quinielas en tu perfil</p>
 					</section>
 				}
-				{!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets.length > 0 && isInTime.time.includes("-") && (
+				{!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets.length > 0 && (
 					<>
 						{matches?.results?.length > 0 && <>
 							<section className={`${styles.main_table} scrollbar`}>
