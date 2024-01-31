@@ -197,7 +197,7 @@ export const TeamsLogos = [
 	{
 		id: 18,
 		logo: <BarcelonaLogo className="logo__team_slided" />,
-		name: "barcelona",
+		name: "Barcelona",
 		abbName: "BAR",
 		color_one: "#142055",
 		color_two: "#FFFFFF",
