@@ -328,10 +328,12 @@ export const SortByHits = (
 				hits,
 				day: betsArray[index].day,
 				seasson: betsArray[index].seasson,
-				paid: false,
+				paid: betsArray[index].paid,
 				tournament: betsArray[index].tournament,
+				userInfo: betsArray[index].userInfo,
 			})
 		}
+		console.log(orderBets)
 		orderBets.sort((a, b) => {
 			if (a.hits > b.hits) {
 				if (order === "des") return -1
