@@ -108,6 +108,7 @@
             text-align: center;
             text-wrap: balance;
             padding: 0.25em 0.5em;
+            width: 100%;
             border-radius: var(--border-radius);
             color: var(--font-color);
             background-color: #0deba130;
@@ -130,10 +131,10 @@
     }
 
     &_container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 2em;
         column-gap: 1em;
+        width: 100%;
     }
 
     &_bets {
@@ -180,6 +181,18 @@
                 height: 1.3em;
                 color: var(--highlight-color);
             }
+
+            &View {
+                width: 1.3em;
+                height: 1.3em;
+                color: var(--borderTwo-color);
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: var(--highlight-color);
+                }
+
+            }
         }
     }
 
@@ -187,6 +200,96 @@
         font-size: 1.5em;
         font-weight: 600;
         color: var(--subtitle-color);
+    }
+
+    &_dialog {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--hover-linkTwo);
+        backdrop-filter: blur(5px);
+
+        &Container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            row-gap: 1em;
+            padding: 1em;
+            border-radius: var(--border-radius);
+            background-color: var(--background-start-color);
+            border: 1px solid var(--border-color);
+        }
+
+        &Title {
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--foreground-color);
+        }
+
+        &Text {
+            font-size: 1em;
+            font-weight: 400;
+            color: var(--foreground-color);
+            text-align: center;
+        }
+
+        &Header {
+            display: flex;
+            flex-direction: row;
+        }
+
+        &Match {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8em;
+            font-weight: 600;
+            padding: 0.5em 0;
+            width: 3em;
+            color: var(--foreground-color);
+            border-top: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+
+            &:first-child {
+                border-radius: var(--border-radius) 0 0 0;
+            }
+
+            &:nth-last-child(1) {
+                border-right: 1px solid var(--border-color);
+                border-radius: 0 var(--border-radius) 0 0;
+            }
+        }
+
+        &Main {
+            display: flex;
+            flex-direction: row;
+        }
+
+        &Result {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 3em;
+            font-size: 0.8em;
+            font-weight: 800;
+            padding: 0.5em 0;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+            background-color: var(--hover-link);
+
+            &:nth-last-child(1) {
+                border-right: 1px solid var(--border-color);
+            }
+        }
     }
 
 }
