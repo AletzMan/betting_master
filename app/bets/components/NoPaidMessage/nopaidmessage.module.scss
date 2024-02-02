@@ -148,6 +148,12 @@
         border-radius: var(--border-radius);
         background-color: var(--hover-link);
 
+        &Group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 0.5em;
+        }
+
         &Title {
             font-size: 0.85em;
             font-weight: 600;

@@ -12,7 +12,7 @@ interface props {
     myBets: IMyBets
 }
 
-interface IPreviewDialog {
+export interface IPreviewDialog {
     open: boolean
     bets: IBetData
 }
