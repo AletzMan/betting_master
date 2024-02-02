@@ -3743,3 +3743,4 @@ export function DeleteIcon({ className }: { className?: string }) {
 		</svg>
 	)
 }
+
