@@ -13,8 +13,8 @@ import { useSort } from "../hooks/useSort"
 import { HeaderMatches } from "./components/HeaderMatches/HeaderMatches"
 import { HeaderPage } from "./components/HeaderPage/HeaderPage"
 import { useOrientation } from "../hooks/useOrientation"
-import { IBetDocument } from "../types/types"
-import { GetBetsByDay } from "../config/firebase"
+import { IBetDataDocument, IBetDocument } from "../types/types"
+import { GetBetsByDay, GetBetsByIDGroup } from "../config/firebase"
 import { ComboBox } from "../components/ComboBox/ComboBox"
 import Image from "next/image"
 import { SnackbarProvider } from "notistack"
@@ -28,7 +28,7 @@ const Orders = [
 ]
 
 export interface IMyBets {
-	bets: IBetDocument[]
+	bets: IBetDataDocument[]
 	hasBets: boolean
 	isNotBetsPaid: boolean
 }
@@ -42,6 +42,7 @@ const EmptyMyBets: IMyBets = {
 export default function BetsPage() {
 	const { loading, matches, isInTime } = useMatches()
 	const [bets, setBets] = useState<IBetDocument[]>([])
+	const [groupBets, setGroupBets] = useState<IBetDataDocument[]>([])
 	const { winner } = useWinner(bets, matches.results)
 	const { orderBets, setOrderBets } = useSort(matches.results, bets, setBets)
 	const { user } = useUser()
@@ -62,12 +63,17 @@ export default function BetsPage() {
 
 	const GetBets = async () => {
 		if (matches.day) {
-			const documents = await GetBetsByDay(matches.day.toString())
-			const newMybets = documents.filter((bet) => bet.uid === user.uid)
-			const newIsBetsPaid = documents.some((bet) => bet.uid === user.uid && !bet.paid)
-			const newHasBets = documents.some((bet) => bet.uid === user.uid)
+			const documents = await GetBetsByIDGroup(matches.day.toString())
+			const newBets: IBetDocument[] = []
+			documents.forEach((bet) => {
+				newBets.push(bet.data)
+			})
+			const newMybets = documents.filter((bet) => bet.data.uid === user.uid)
+			const newIsBetsPaid = newBets.some((bet) => bet.uid === user.uid && !bet.paid)
+			const newHasBets = newBets.some((bet) => bet.uid === user.uid)
 			setMyBets({ bets: newMybets, hasBets: newHasBets, isNotBetsPaid: newIsBetsPaid })
-			setBets(documents)
+			setBets(newBets)
+			setGroupBets(documents)
 			setOrderBets("normal")
 		}
 	}
