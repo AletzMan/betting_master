@@ -10,6 +10,7 @@ import {
 import {
 	addDoc,
 	collection,
+	deleteDoc,
 	doc,
 	getDoc,
 	getDocs,
@@ -245,5 +246,15 @@ export const GetBetsByIDGroup = async (day: string) => {
 	} catch (error) {
 		console.error(error)
 		return [] as IBetDataDocument[]
+	}
+}
+
+export const DeleteBet = async (betId: string) => {
+	try {
+		await deleteDoc(doc(db, `bets`, `${betId}`))
+		return "OK"
+	} catch (e) {
+		console.error("Error deleting document: ", e)
+		return "FAIL"
 	}
 }

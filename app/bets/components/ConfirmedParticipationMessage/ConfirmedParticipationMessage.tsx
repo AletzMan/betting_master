@@ -16,6 +16,12 @@ export function ConfirmedParticipationMessage({ user, bets, myBets }: props) {
             <p className={styles.section_textName}>{user.name}</p>
             <p className={styles.section_text}>Las quinielas estaran visibles hasta el comienzo del primer partido</p>
             <p className={styles.section_text}>Tu tienes <span className={styles.section_textInfoTwo}>{myBets.bets.length}</span> quiniela(s)</p>
+            {
+                <div className={styles.section_bets}>
+                    {myBets.bets.map((bet, index) => (
+                        <p key={bet.id} className={styles.section_textPaid}>{`${bet.data.name}`}</p>
+                    ))}
+                </div>}
             <p className={styles.section_text}>¡Suerte!</p>
             <p className={styles.section_textInfoTwo}>Monto acumulado: {ConvertToPrice(bets.length * 10.5)}</p>
             <p className={styles.section_textAccount}>Ingresa a tu Perfil y agrega tu cuenta de deposito para recibir tu pago en caso de ganar</p>
