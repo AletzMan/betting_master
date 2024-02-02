@@ -87,7 +87,6 @@ export default function BetsPage() {
 		}
 	}
 
-
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }}>
 			<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
@@ -103,10 +102,10 @@ export default function BetsPage() {
 						<p className={styles.betsTable_emptyText}>¡No te quedes fuera!</p>
 					</section>
 				}
-				{myBets.hasBets && bets.length === 0 && !myBets?.isNotBetsPaid && !isInTime.time.includes("-") &&
+				{myBets.hasBets && bets.length > 0 && !myBets?.isNotBetsPaid && !isInTime.time.includes("-") &&
 					<ConfirmedParticipationMessage user={user} bets={bets} myBets={myBets} />
 				}
-				{!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets.length > 0 && isInTime.time == "" && (
+				{!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets.length > 0 && isInTime.time.includes("-") && (
 					<>
 						{matches?.results?.length > 0 && <>
 							<section className={`${styles.main_table} scrollbar`}>
