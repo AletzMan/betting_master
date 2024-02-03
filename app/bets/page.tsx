@@ -92,6 +92,7 @@ export default function BetsPage() {
 			setOrderBets(value)
 		}
 	}
+	console.log(isInTime.time)
 
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }}>
@@ -108,10 +109,10 @@ export default function BetsPage() {
 						<p className={styles.betsTable_emptyText}>¡No te quedes fuera!</p>
 					</section>
 				}
-				{myBets.hasBets && bets.length > 0 && !myBets?.isNotBetsPaid && !isInTime.time.includes("-") &&
+				{myBets.hasBets && bets.length > 0 && !myBets?.isNotBetsPaid && (!(isInTime.time === "")) &&
 					<ConfirmedParticipationMessage user={user} bets={bets} myBets={myBets} />
 				}
-				{!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets.length > 0 && isInTime.time.includes("-") && (
+				{!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets.length > 0 && (isInTime.time === "") && (
 					<>
 						{matches?.results?.length > 0 && <>
 							<section className={`${styles.main_table} scrollbar`}>

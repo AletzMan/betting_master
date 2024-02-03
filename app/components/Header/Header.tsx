@@ -1,7 +1,7 @@
 "use client"
 import { AppLogo, LiveIcon, LogInIcon, LogOutIcon, MenuIcon, ProfileIcon } from "@/app/svg"
 import styles from "./header.module.scss"
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 import Link from "next/link"
 import { LinksPage } from "@/app/constants/constants"
 import { signOut } from "firebase/auth"
@@ -21,6 +21,7 @@ export function Header() {
 	useEffect(() => {
 		setViewMenuProfile(false)
 	}, [pathname])
+
 
 	const HandleViewMenu = () => {
 		setViewMenuProfile((prev) => !prev)
@@ -43,6 +44,8 @@ export function Header() {
 		}
 	}
 
+
+
 	return (
 		<header className={`${styles.header} ${isLandscape && styles.header_active}`}>
 			<section className={styles.header_section}>
@@ -51,6 +54,7 @@ export function Header() {
 						<LiveIcon className={styles.header_liveIcon} />
 						<span className={styles.header_liveText}>En vivo</span>
 	</Link>*/}
+
 					<Link href={"/"} title="Ir a inicio">
 						<AppLogo className={styles.header_logo} />
 					</Link>
