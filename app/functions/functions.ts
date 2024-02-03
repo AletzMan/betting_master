@@ -403,3 +403,13 @@ export function ConvertToPrice(number: number) {
 
 	return numeroFormateado
 }
+
+export function askNotificationPermission() {
+	Notification.requestPermission().then((result) => {
+		if (result === "granted") {
+			console.log("Notification permission granted.")
+		} else {
+			console.log("Notification permission denied.")
+		}
+	})
+}
