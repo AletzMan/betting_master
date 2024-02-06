@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import styles from "./headerpage.module.scss"
-import { StarIcon, WinnerIcon } from "@/app/svg"
+import { AddIcon, StarIcon, WinnerIcon } from "@/app/svg"
+import { Button } from "@/app/components/Button/Button"
 
 interface Props {
 	isInTime: boolean
@@ -14,9 +15,12 @@ export function HeaderPage({ isInTime, setOpenDialog, timeFirstMatch }: Props) {
 	return (
 		<header className={styles.header}>
 			{isInTime &&
-				<button className={`${styles.headerButton}  `} onClick={() => setOpenDialog(true)}>
-					Crear quiniela
-				</button>}
+				<Button
+					onClick={() => setOpenDialog(true)}
+					icon={<AddIcon className={styles.headerButtonIcon} />}
+					text="Crear"
+				/>
+			}
 			{!isInTime && <p className={styles.headerTime}>Tiempo agotado para enviar</p>}
 			{isInTime &&
 				<p className={styles.headerTimeRemainig}>
