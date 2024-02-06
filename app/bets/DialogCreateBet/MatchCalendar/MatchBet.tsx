@@ -24,22 +24,22 @@ export function MatchBet(props: PropsMatch) {
 		Status === "Sin comenzar" ? styles.match_statusNotStarted : Status === "Finalizado" ? styles.match_statusEnded : styles.match_statusStarted
 
 	const HandleChangePrediction = (typePrediction: string) => {
-		const newBets = bets.map((bet, index) => (index === numberMatch ? typePrediction : bet))
+		const newBets = bets.map((bet, index) => (index === numberMatch ? { id: crypto.randomUUID(), prediction: typePrediction } : bet))
 		setBets(newBets)
 	}
 
 	return (
 		<section className={styles.match}>
-			<div className={`${styles.match_header} ${isEmpty && bets[numberMatch] === "" && styles.predictionsEmpty}`}>
+			<div className={`${styles.match_header} ${isEmpty && bets[numberMatch].prediction === "" && styles.predictionsEmpty}`}>
 				<div className={styles.predictions_prediction}>
 					<input
 						className={`${styles.predictions_predictionInput}`}
-						checked={bets[numberMatch] === "L"}
+						checked={bets[numberMatch].prediction === "L"}
 						name={`bet${matchData.startDate}`}
 						onChange={() => HandleChangePrediction("L")}
 						type="checkbox"
 					/>
-					{bets[numberMatch] === "L" && <span className={`${styles.predictions_predictionLetter}`}>L</span>}
+					{bets[numberMatch].prediction === "L" && <span className={`${styles.predictions_predictionLetter}`}>L</span>}
 				</div>
 				<div className={styles.match_team}>
 					{TeamsLogos[matchData.teams.home].logo}
@@ -48,12 +48,12 @@ export function MatchBet(props: PropsMatch) {
 				<div className={styles.predictions_prediction}>
 					<input
 						className={`${styles.predictions_predictionInput}`}
-						checked={bets[numberMatch] === "E"}
+						checked={bets[numberMatch].prediction === "E"}
 						name={`bet${matchData.startDate}`}
 						onChange={() => HandleChangePrediction("E")}
 						type="checkbox"
 					/>
-					{bets[numberMatch] === "E" && <span className={`${styles.predictions_predictionLetter}`}>E</span>}
+					{bets[numberMatch].prediction === "E" && <span className={`${styles.predictions_predictionLetter}`}>E</span>}
 				</div>
 
 
@@ -64,12 +64,12 @@ export function MatchBet(props: PropsMatch) {
 				<div className={styles.predictions_prediction}>
 					<input
 						className={`${styles.predictions_predictionInput}`}
-						checked={bets[numberMatch] === "V"}
+						checked={bets[numberMatch].prediction === "V"}
 						name={`bet${matchData.startDate}`}
 						onChange={() => HandleChangePrediction("V")}
 						type="checkbox"
 					/>
-					{bets[numberMatch] === "V" && <span className={`${styles.predictions_predictionLetter}`}>V</span>}
+					{bets[numberMatch].prediction === "V" && <span className={`${styles.predictions_predictionLetter}`}>V</span>}
 				</div>
 			</div>
 			{/*<span className={`${styles.match_status} ${StatusMatch}`}>{sportEvent.status.alternateNames.esES}</span>
