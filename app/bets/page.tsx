@@ -54,10 +54,11 @@ export default function BetsPage() {
 	useEffect(() => {
 		if (!openDialog) {
 			GetBets()
+			console.log("render")
 		}
 	}, [matches, openDialog])
 
-
+	console.log(isInTime.time)
 
 	const GetBets = async () => {
 		if (matches.day) {
@@ -156,21 +157,21 @@ export default function BetsPage() {
 											bets?.map((bet, indexOne) => (
 												<>
 													{bet.paid &&
-														<ul className={styles.betsTable_bets} key={bet.id}>
+														<ul className={styles.betsTable_bets} key={bet.name}>
 															{bet?.bets?.map((betInfo, index) => (
 																<li
-																	key={`${bets[index]?.id}${indexOne}${index}`}
+																	key={betInfo.id}
 																	className={`${styles.betsTable_betsBet} ${selectRanges?.column === index && styles.betsTable_betsBetSelectColumn} 
 													${selectRanges?.row === indexOne && styles.betsTable_betsBetSelectRow}`}
 																	onClick={() => HandleSelectRow(indexOne, index)}
 																	onMouseLeave={HandleUnselectRow}
 																>
 																	<span
-																		className={` ${matches.results[index] === betInfo ? styles.betsTable_betsBetWin : styles.betsTable_betsBetNoWin} 
-														${matches.results[index] === betInfo && matches.matches[index].status === "En juego" && styles.betsTable_betsBetPreWin}
+																		className={` ${matches.results[index] === betInfo.prediction ? styles.betsTable_betsBetWin : styles.betsTable_betsBetNoWin} 
+														${matches.results[index] === betInfo.prediction && matches.matches[index].status === "En juego" && styles.betsTable_betsBetPreWin}
 														`}
 																	>
-																		{betInfo}
+																		{betInfo.prediction}
 																	</span>
 																</li>
 															))}
@@ -187,12 +188,12 @@ export default function BetsPage() {
 					</>
 				)}
 				{matches?.results?.length === 0 && <div className={styles.betsTable_empty}>No se ha creado la quiniela de la semana <NotFoundIcon className={styles.betsTable_emptyIcon} /></div>}
-				{!loading && bets?.length === 0 && bets &&
+				{/*!loading && bets?.length === 0 && bets &&
 					<div className={styles.betsTable_empty}>
 						<h3 className={styles.betsTable_emptyTitle}>¡Esperamos tu quiniela!</h3>
 						<p className={styles.betsTable_emptyText}>¡No te quedes fuera!</p>
 					</div>
-				}
+					*/}
 			</main>
 		</SnackbarProvider>
 	)
