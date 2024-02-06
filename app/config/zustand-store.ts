@@ -1,7 +1,7 @@
 import { User } from "firebase/auth"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
-import { IUserInfo, Teams } from "../types/types"
+import { IPredictions, IUserInfo, Teams } from "../types/types"
 
 type IUser = {
 	user: IUserInfo
@@ -21,8 +21,8 @@ export const useUser = create(
 )
 
 interface BetState {
-	bets: string[]
-	setBets: (value: string[]) => void
+	bets: IPredictions[]
+	setBets: (value: IPredictions[]) => void
 	isEmpty: boolean
 	setIsEmpty: (value: boolean) => void
 	error: boolean
@@ -31,9 +31,21 @@ interface BetState {
 	setTypeError: (value: "empty" | "name_short" | "name_empty" | "") => void
 }
 
+const EmptyBets: IPredictions[] = [
+	{ id: crypto.randomUUID(), prediction: "" },
+	{ id: crypto.randomUUID(), prediction: "" },
+	{ id: crypto.randomUUID(), prediction: "" },
+	{ id: crypto.randomUUID(), prediction: "" },
+	{ id: crypto.randomUUID(), prediction: "" },
+	{ id: crypto.randomUUID(), prediction: "" },
+	{ id: crypto.randomUUID(), prediction: "" },
+	{ id: crypto.randomUUID(), prediction: "" },
+	{ id: crypto.randomUUID(), prediction: "" },
+]
+
 export const useBet = create<BetState>((set) => ({
-	bets: ["", "", "", "", "", "", "", "", ""],
-	setBets: (value: string[]) => set({ bets: value }),
+	bets: EmptyBets,
+	setBets: (value: IPredictions[]) => set({ bets: value }),
 	isEmpty: false,
 	setIsEmpty: (value: boolean) => set({ isEmpty: value }),
 	error: false,
