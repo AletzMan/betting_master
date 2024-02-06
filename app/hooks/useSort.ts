@@ -4,13 +4,13 @@ import { IBetDocument, IUserAndState } from "../types/types"
 
 export function useSort(
 	results: string[],
-	bets: IBetDocument[],
-	setBets: Dispatch<SetStateAction<IBetDocument[]>>
+	bets: IBetDocument[] | null,
+	setBets: Dispatch<SetStateAction<IBetDocument[] | null>>
 ) {
 	const [orderBets, setOrderBets] = useState<"name" | "asc" | "des" | "normal" | "">("")
 
 	useEffect(() => {
-		if (bets.length > 0) {
+		if (bets && setBets && bets.length > 0) {
 			if (orderBets === "asc") {
 				const newOrder = SortByHits("asc", bets, results)
 				setBets(newOrder)
@@ -26,33 +26,37 @@ export function useSort(
 	}, [orderBets])
 
 	const SortByName = () => {
-		let newOrder = [...bets]
-		newOrder?.sort((a, b) => {
-			if (a.name > b.name) {
-				return 1
-			}
-			if (a.name < b.name) {
-				return -1
-			}
-			// a must be equal to b
-			return 0
-		})
-		setBets(newOrder)
+		if (bets && setBets) {
+			let newOrder = [...bets]
+			newOrder?.sort((a, b) => {
+				if (a.name > b.name) {
+					return 1
+				}
+				if (a.name < b.name) {
+					return -1
+				}
+				// a must be equal to b
+				return 0
+			})
+			setBets(newOrder)
+		}
 	}
 
 	const SortNormal = () => {
-		let newOrder = [...bets]
-		newOrder?.sort((a, b) => {
-			if (a.uid > b.uid) {
-				return -1
-			}
-			if (a.uid < b.uid) {
-				return 1
-			}
-			// a must be equal to b
-			return 0
-		})
-		setBets(newOrder)
+		if (bets && setBets) {
+			let newOrder = [...bets]
+			newOrder?.sort((a, b) => {
+				if (a.uid > b.uid) {
+					return -1
+				}
+				if (a.uid < b.uid) {
+					return 1
+				}
+				// a must be equal to b
+				return 0
+			})
+			setBets(newOrder)
+		}
 	}
 
 	return {
