@@ -15,9 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<body className={montserrat.className}>
-				{/*<Header />*/}
-				{/*children*/}
-				{<MaintenancePage />}
+				{<Header />}
+				{children}
+				{/*<MaintenancePage />*/}
 			</body>
 		</html>
 	)
