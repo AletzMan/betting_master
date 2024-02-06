@@ -19,11 +19,11 @@ export default function ResultsPage() {
 	const [results, setResults] = useState<Results[]>()
 	const [loading, setLoading] = useState(true)
 	const [update, setUpdate] = useState(true)
-	const [tournament, setTournament] = useState({ id: "74_183a06e3", name: "Liga MX" })
+	const [tournament, setTournament] = useState("74_183a06e3")
 
 	const GetMatchesbyDay = async (date: string) => {
 		setLoading(true)
-		const response = await GetResultsByTournament(date, tournament.id)
+		const response = await GetResultsByTournament(date, tournament)
 		if (response.length > 0) {
 			setResults(
 				response.sort(function (a, b) {
@@ -62,7 +62,7 @@ export default function ResultsPage() {
 		setUpdate(true)
 	}
 
-	const HandleSelectTournament = (tournament: any) => {
+	const HandleSelectTournament = (tournament: string) => {
 		setTournament(tournament)
 		setUpdate(true)
 	}
@@ -86,12 +86,13 @@ export default function ResultsPage() {
 						))}
 					</div>
 				</header>
-				<ComboBox
-					options={Torunaments}
-					selectOption={tournament}
-					setSelectOption={HandleSelectTournament}
-					className={styles.tournaments}
-				/>
+				<select className={styles.tournaments} onChange={(e) => HandleSelectTournament(e.target.value)}>
+					{Torunaments.map((tournament) => (
+						<option key={tournament.id} value={tournament.id}>
+							{tournament.name}
+						</option>
+					))}
+				</select>
 				<article className={styles.matches}>
 					{loading && <Loading />}
 					{!loading && results && results?.length > 0 && (
@@ -99,10 +100,8 @@ export default function ResultsPage() {
 							<button className={styles.matches_refresh} onClick={HandleRefresh}>
 								<RefreshIcon className={styles.matches_refreshIcon} />
 							</button>
-							<h2 className={styles.section_title}>{results[0]?.tournament.alternateNames.esES}</h2>
-
 							{results.map((event) => (
-								<Match key={event.id} eventData={event} />
+								<Match key={event.id} props={{ eventData: event, isAllMatches: tournament === "34_45d657ef" }} />
 							))}
 						</>
 					)}
