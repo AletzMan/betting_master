@@ -1,6 +1,7 @@
 .team {
     display: flex;
     flex-direction: row;
+    background-color: var(--header-color);
 }
 
 .description {
@@ -9,9 +10,9 @@
     align-items: center;
     column-gap: 0.5em;
     min-width: 12em;
-    min-height: 1.9em;
-    background-color: #222222;
-    border-bottom: 1px solid #FFFFFF20;
+    height: 1.9em;
+    //background-color: #222222;
+    //border-bottom: 1px solid #FFFFFF20;
     padding: 0.15em 0.5em 0.15em 0.15em;
     border-left: 3px solid transparent;
 
