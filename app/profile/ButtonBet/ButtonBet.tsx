@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import styles from "./buttonbet.module.scss"
 
-const PREDICTIONS = ["-", "L", "G", "E", "P"]
+const PREDICTIONS = ["-", "LV", "L", "E", "V"]
 
 interface Props {
 	setResultMatch: Dispatch<SetStateAction<string[]>>
