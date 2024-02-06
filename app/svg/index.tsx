@@ -2531,6 +2531,32 @@ export function ExitLogo(props: IProps) {
 	)
 }
 
+export function CancelLogo(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="1em" height="1em" viewBox="0 0 24 24">
+			<path fill="currentColor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10s10-4.47 10-10S17.53 2 12 2m4.3 14.3a.996.996 0 0 1-1.41 0L12 13.41L9.11 16.3a.996.996 0 1 1-1.41-1.41L10.59 12L7.7 9.11A.996.996 0 1 1 9.11 7.7L12 10.59l2.89-2.89a.996.996 0 1 1 1.41 1.41L13.41 12l2.89 2.89c.38.38.38 1.02 0 1.41" />
+		</svg>
+	)
+}
+
+export function UpdateLogo(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="1em" height="1em" viewBox="0 0 48 48">
+			<defs>
+				<mask id="ipSUpdateRotation0">
+					<g fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+						<path fill="#fff" stroke="#fff" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20" />
+						<path stroke="#000" d="M33.542 27c-1.274 4.057-5.064 7-9.542 7c-4.477 0-8.268-2.943-9.542-7v6m19.084-18v6c-1.274-4.057-5.064-7-9.542-7c-4.477 0-8.268 2.943-9.542 7" />
+					</g>
+				</mask>
+			</defs>
+			<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSUpdateRotation0)" />
+		</svg>
+	)
+}
+
 export function UserLogo(props: IProps) {
 	const { className } = props
 	return (
@@ -3016,6 +3042,24 @@ export function FacebookIcon(props: IProps) {
 				fill="#fff"
 				d="M86.48 123.17V77.34h15.38l2.3-17.86H86.48v-11.4c0-5.17 1.44-8.7 8.85-8.7h9.46v-16A126.56 126.56 0 0 0 91 22.7c-13.62 0-23 8.3-23 23.61v13.17H52.62v17.86H68v45.83z"
 			/>
+		</svg>
+	)
+}
+
+export function AddIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="1em" height="1em" viewBox="0 0 24 24">
+			<path fill="currentColor" d="M3 6.25A3.25 3.25 0 0 1 6.25 3h11.5A3.25 3.25 0 0 1 21 6.25v11.5A3.25 3.25 0 0 1 17.75 21H6.25A3.25 3.25 0 0 1 3 17.75zm9.75 1.5a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5z" />
+		</svg>
+	)
+}
+
+export function SendIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="1em" height="1em" viewBox="0 0 32 32">
+			<path fill="currentColor" d="m27.45 15.11l-22-11a1 1 0 0 0-1.08.12a1 1 0 0 0-.33 1L6.69 15H18v2H6.69L4 26.74A1 1 0 0 0 5 28a1 1 0 0 0 .45-.11l22-11a1 1 0 0 0 0-1.78" />
 		</svg>
 	)
 }

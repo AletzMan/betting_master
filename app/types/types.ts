@@ -237,12 +237,17 @@ export interface IBetDocument extends DocumentData {
 	uid: string
 	day: string
 	name: string
-	bets: string[]
+	bets: IPredictions[]
 	matches: string[]
 	seasson: string
 	paid: boolean
 	tournament: string
 	userInfo?: IUserInfo
+}
+
+export interface IPredictions {
+	id: string
+	prediction: string
 }
 
 export interface IBetDataDocument extends DocumentData {
@@ -255,7 +260,7 @@ export interface IBetData {
 	uid: string
 	day: string
 	name: string
-	bets: string[]
+	bets: IPredictions[]
 	matches: string[]
 	seasson: string
 	paid: boolean
@@ -281,7 +286,7 @@ export interface IBet {
 	id: string
 	uid: string
 	name: string
-	bets: string[]
+	bets: IPredictions[]
 	matches: string[]
 	day: string
 	seasson: string
@@ -348,4 +353,7 @@ export interface IErrorMatches {
 export interface IUserSettings {
 	uid: string
 	account: string
+	name: string | null
+	email: string | null
+	photo: string | null
 }
