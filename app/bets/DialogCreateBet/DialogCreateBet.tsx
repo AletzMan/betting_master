@@ -3,20 +3,34 @@ import styles from "./dialodcreatebet.module.scss"
 import { MatchBet } from "./MatchCalendar/MatchBet"
 import { useBet, useUser } from "@/app/config/zustand-store"
 import { AddBet, GetResultsByDay, auth } from "@/app/config/firebase"
-import { FinishedIcon } from "@/app/svg"
+import { CancelLogo, ExitLogo, FinishedIcon, SendIcon } from "@/app/svg"
 import { Loading } from "@/app/components/Loading/Loading"
 import { AbbNameMatches } from "@/app/functions/functions"
-import { IMatchDay } from "@/app/types/types"
+import { IMatchDay, IPredictions } from "@/app/types/types"
 import axios from "axios"
 import { useSnackbar } from "notistack"
 import { useRouter } from "next/navigation"
 import { signOut } from "firebase/auth"
+import { Button } from "@/app/components/Button/Button"
 
 interface DialogProps {
 	matches: IMatchDay
 	open: boolean
 	setOpen: Dispatch<SetStateAction<boolean>>
 }
+
+const EmptyBetPredictions: IPredictions[] = [
+	{ id: "", prediction: "" },
+	{ id: "", prediction: "" },
+	{ id: "", prediction: "" },
+	{ id: "", prediction: "" },
+	{ id: "", prediction: "" },
+	{ id: "", prediction: "" },
+	{ id: "", prediction: "" },
+	{ id: "", prediction: "" },
+	{ id: "", prediction: "" },
+]
+
 export function DialogCreateBet(props: DialogProps) {
 	const router = useRouter()
 	const { enqueueSnackbar } = useSnackbar()
@@ -28,14 +42,17 @@ export function DialogCreateBet(props: DialogProps) {
 	const [loading, setLoading] = useState(false)
 
 
+
 	const HandleStatusDialog = (status: boolean) => {
 		setOpen(status)
-		setBets(["", "", "", "", "", "", "", "", ""])
+		setBets(EmptyBetPredictions)
 		setError(false)
 		setIsEmpty(false)
 		setTypeError("")
 		setName("")
 	}
+
+	console.log(bets)
 
 	const HandleSendBet = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
@@ -55,7 +72,7 @@ export function DialogCreateBet(props: DialogProps) {
 			if (response.status === 200) {
 				const userInfo = response.data.userInfo
 				setLoading(true)
-				if (bets.includes("")) {
+				if (bets.some((bet) => bet.prediction === "")) {
 					setIsEmpty(true)
 					setTypeError("empty")
 					setError(true)
@@ -73,7 +90,7 @@ export function DialogCreateBet(props: DialogProps) {
 					const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), matches: response, userInfo, seasson: new Date().getMonth() < 8 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, season: new Date().getMonth() < 8 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, paid: false, tournament: matches.tournament })
 					if (result === "OK") {
 						setBetSentSuccessfully(true)
-						setBets(["", "", "", "", "", "", "", "", ""])
+						setBets(EmptyBetPredictions)
 						setError(false)
 						setName("")
 						setTimeout(() => {
@@ -107,17 +124,22 @@ export function DialogCreateBet(props: DialogProps) {
 					<form className={styles.form}>
 						<div className={styles.form_name}>
 							<label className={styles.form_label}>
-								Nombre de la quiniela
+								Nombre
 							</label>
 							<input className={`${styles.form_input} ${typeError === "name_empty" || typeError === "name_short" || typeError === "empty" && styles.form_inputError}`} type="text" value={name} onChange={HandleChangeName} />
 						</div>
 						<div className={styles.form_buttons}>
-							<button className={`${styles.form_button} ${styles.form_buttonSend}`} type="submit" onClick={HandleSendBet}>
-								Enviar
-							</button>
-							<button className={`${styles.form_button} ${styles.form_buttonCancel}`} type="button" onClick={() => HandleStatusDialog(false)}>
-								Cancelar
-							</button>
+							<Button
+								text="Enviar"
+								onClick={HandleSendBet}
+								icon={<SendIcon className={styles.form_buttonIcon} />}
+							/>
+							<Button
+								text="Cancelar"
+								onClick={() => HandleStatusDialog(false)}
+								icon={<CancelLogo className={styles.form_buttonIcon} />}
+								type="secondary"
+							/>
 						</div>
 					</form>
 				</header>
