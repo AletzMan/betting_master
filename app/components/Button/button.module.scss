@@ -1,0 +1,32 @@
+.button {
+    display: grid;
+    grid-template-columns: 1.5em 1fr;
+    place-items: center;
+    border: none;
+    height: 2em;
+    font-weight: 600;
+    padding: 0.25em 0.6em 0.25em 0.25em;
+    min-width: 6em;
+    column-gap: 0.25em;
+    color: var(--background-start-color);
+    background-color: var(--highlight-color);
+    transition: all 0.3s ease-in-out;
+
+    &>svg {
+        width: 1.3em;
+        height: 1.3em;
+    }
+
+    &:hover {
+        background-color: var(--highlighthover-color);
+    }
+
+    &_secondary {
+        background-color: var(--headerhover-color);
+        color: var(--foreground-color);
+
+        &:hover {
+            background-color: var(--header-color);
+        }
+    }
+}
