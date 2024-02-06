@@ -74,19 +74,9 @@
     }
 
     &_button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        column-gap: 1em;
-        font-size: 1em;
-        font-weight: 500;
-        margin: 1em 0 0.5em 0;
-        padding: 0.35em 0.5em;
-        font-weight: 600;
-        background-color: var(--highlight-color);
-        border-radius: var(--border-radius);
-        border: 1px solid var(--hover-link);
-        color: var(--background-start-color);
+        align-self: flex-end;
+        width: 8em;
+        margin: 0.5em 0 0 0;
 
     }
 

@@ -1,3 +1,4 @@
+"use client"
 import { IUserInfo, IUserSettings } from "@/app/types/types"
 import styles from "./settings.module.scss"
 import Image from "next/image"
@@ -6,6 +7,8 @@ import { GetInfoUser, SaveInfouser } from "@/app/config/firebase"
 import { useSnackbar } from "notistack"
 import { profileSettingsSchema } from "@/app/validations/profileSettingsSchema"
 import { ZodError } from "zod"
+import { Button } from "@/app/components/Button/Button"
+import { SaveIcon } from "@/app/svg"
 
 interface ISettingsProfileProps {
     user: IUserInfo
@@ -14,7 +17,9 @@ interface ISettingsProfileProps {
 const EmptyUserSettings: IUserSettings = {
     uid: "",
     account: "",
-
+    name: "",
+    email: "",
+    photo: ""
 }
 
 const EmptyErrors = {
@@ -28,17 +33,15 @@ export const SettingsProfile = ({ user }: ISettingsProfileProps) => {
     const [errors, setErrors] = useState(EmptyErrors)
 
     useEffect(() => {
-        GetUserSettings()
+        if (user.uid)
+            GetUserSettings()
     }, [])
 
     const GetUserSettings = async () => {
         const response = await GetInfoUser(user.uid)
-        const newUserSettings = { ...response, uid: user.uid }
+        const newUserSettings = { ...response, uid: user.uid, name: user.name, email: user.email, photo: user.photo }
         setUserSettings(newUserSettings)
     }
-
-    console.log(userSettings)
-
 
     const HandleSave = async () => {
         try {
@@ -71,11 +74,11 @@ export const SettingsProfile = ({ user }: ISettingsProfileProps) => {
             <div className={styles.settingsProfile_info}>
                 <div className={styles.settingsProfile_info__item}>
                     <label className={styles.settingsProfile_label}>Nombre</label>
-                    <p className={styles.settingsProfile_text}>{user.name}</p>
+                    <p className={styles.settingsProfile_text}>{userSettings.name}</p>
                 </div>
                 <div className={styles.settingsProfile_info__item}>
                     <label className={styles.settingsProfile_label}>Email</label>
-                    <p className={styles.settingsProfile_text}>{user.email}</p>
+                    <p className={styles.settingsProfile_text}>{userSettings.email}</p>
                 </div>
                 <div className={styles.settingsProfile_info__item}>
                     <label className={styles.settingsProfile_label}>Cuenta de depósito</label>
@@ -88,11 +91,14 @@ export const SettingsProfile = ({ user }: ISettingsProfileProps) => {
                     />
                     {errors.account && <p className={styles.settingsProfile_error}>{errors.account}</p>}
                 </div>
-                <button className={styles.settingsProfile_button} onClick={HandleSave}>
-                    Guardar
-                </button>
+                <Button
+                    className={styles.settingsProfile_button}
+                    text="Guardar"
+                    onClick={HandleSave}
+                    icon={<SaveIcon />}
+                />
                 <picture className={styles.settingsProfile_picture}>
-                    <Image className={styles.settingsProfile_image} src={user.photo || "/user-icon.png"} alt={user.name || ""} width={100} height={100} />
+                    <Image className={styles.settingsProfile_image} src={userSettings.photo || "/user-icon.png"} alt={userSettings.name || ""} width={100} height={100} />
                 </picture>
             </div>
 
