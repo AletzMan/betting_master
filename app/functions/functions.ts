@@ -333,7 +333,7 @@ export const SortByHits = (
 				userInfo: betsArray[index].userInfo,
 			})
 		}
-		console.log(orderBets)
+
 		orderBets.sort((a, b) => {
 			if (a.hits > b.hits) {
 				if (order === "des") return -1

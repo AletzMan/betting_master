@@ -360,14 +360,6 @@ export const LinksPage = [
 		icon: <BetsIcon className="" />,
 	},
 	{
-		id: 1,
-		text: "Posiciones",
-		pathname: "/positions",
-		href: "/positions",
-		title: "Ir a página de posiciones",
-		icon: <PositionsIcon className="" />,
-	},
-	{
 		id: 2,
 		text: "Resultados",
 		pathname: "/results",
@@ -377,12 +369,20 @@ export const LinksPage = [
 	},
 	{
 		id: 3,
+		text: "Posiciones",
+		pathname: "/positions",
+		href: "/positions",
+		title: "Ir a página de posiciones",
+		icon: <PositionsIcon className="" />,
+	},
+	/*{
+		id: 3,
 		text: "Estadísticas",
 		pathname: "/statistics",
 		href: `/statistics?tournament=${new Date().getMonth() < 9 ? "0168" : "0159"}&type=goals`,
 		title: "Ir a página de estadística",
 		icon: <StatsIcon className="" />,
-	},
+	},*/
 ]
 
 export const LinksProfile = [
