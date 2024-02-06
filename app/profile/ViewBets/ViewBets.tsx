@@ -32,7 +32,7 @@ export function ViewBets(props: PropsViewBets) {
 	const ValidateWinner = (result: IResultsMatches) => {
 		let correctPicks = 0
 		result.results.forEach((pick, index) => {
-			if (pick === bet.bets[index]) {
+			if (pick === bet.bets[index].prediction) {
 				correctPicks++
 			}
 		})
@@ -91,9 +91,9 @@ export function ViewBets(props: PropsViewBets) {
 								</div>
 							))}
 							{bet.bets.map((bet, index) => (
-								<span className={`${styles.predictions_matchesBet} `} key={bet + index}>
-									<span className={`${styles.predictions_matchesBetLetter} ${results?.results[index] === bet && styles.predictions_matchesBetWin}`}>
-										{bet}
+								<span className={`${styles.predictions_matchesBet} `} key={bet.id}>
+									<span className={`${styles.predictions_matchesBetLetter} ${results?.results[index] === bet.prediction && styles.predictions_matchesBetWin}`}>
+										{bet.prediction}
 									</span>
 								</span>
 							))}
