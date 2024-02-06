@@ -49,6 +49,7 @@ export const FacebookProvider = new FacebookAuthProvider()
 const db = getFirestore(app)
 
 export const GetBetsByDay = async (day: string) => {
+	console.log("GetBetsByDay")
 	const year = new Date().getFullYear()
 
 	let documets: IBetDocument[] | DocumentData = []
@@ -61,9 +62,7 @@ export const GetBetsByDay = async (day: string) => {
 		})
 		const documents = documets as IBetDocument[]
 
-		const filterByDay = documents.filter((document) => document.day === day)
-
-		return filterByDay
+		return documents
 	} catch (error) {
 		console.error(error)
 		return [] as IBetDocument[]
@@ -71,6 +70,7 @@ export const GetBetsByDay = async (day: string) => {
 }
 
 export const AddBet = async (bet: IBetDocument) => {
+	console.log("AddBet")
 	const year = new Date().getFullYear()
 
 	try {
@@ -83,6 +83,7 @@ export const AddBet = async (bet: IBetDocument) => {
 }
 
 export const GetBetsByUser = async (uid: string) => {
+	console.log("GetBetsByUser")
 	const year = new Date().getFullYear()
 
 	let documets: IBetDocument[] | DocumentData = []
@@ -96,16 +97,6 @@ export const GetBetsByUser = async (uid: string) => {
 		const Bets = [...(documets as IBetDocument[])]
 
 		const filterByDay = Bets.filter((bet) => bet.uid === uid)
-		filterByDay.sort(function (a, b) {
-			if (a.day > b.day) {
-				return -1
-			}
-			if (a.day < b.day) {
-				return 1
-			}
-			// a must be equal to b
-			return 0
-		})
 
 		return filterByDay
 	} catch (error) {
@@ -115,6 +106,7 @@ export const GetBetsByUser = async (uid: string) => {
 }
 
 export const GetResultsByDay = async (day: string, tournament: string) => {
+	console.log("GetResultsByDay")
 	const year = new Date().getFullYear()
 
 	try {
@@ -129,6 +121,7 @@ export const GetResultsByDay = async (day: string, tournament: string) => {
 }
 
 export const AddResults = async (data: IResultsMatches, tournament: string) => {
+	console.log("AddResults")
 	const year = new Date().getFullYear()
 
 	try {
@@ -144,6 +137,7 @@ export const AddResults = async (data: IResultsMatches, tournament: string) => {
 }
 
 export const AddMatchDay = async (data: IMatchDay, tournament: string, matchDay: number) => {
+	console.log("AddMatchDay")
 	const year = new Date().getFullYear()
 	try {
 		const docRef = await setDoc(doc(db, `matchday`, `matchday${year}${tournament}`), data)
@@ -161,6 +155,7 @@ export const UpdateResultsMatchDay = async (
 	isAvailable: boolean
 ) => {
 	const year = new Date().getFullYear()
+	console.log("UpdateResultsMatchDay")
 	try {
 		const docRef = await updateDoc(doc(db, `matchday`, `matchday${year}${tournament}`), {
 			results: data,
@@ -175,6 +170,7 @@ export const UpdateResultsMatchDay = async (
 }
 
 export const GetCurrentMatchDay = async (tournament: string) => {
+	console.log("GetCurrentMatchDay")
 	const year = new Date().getFullYear()
 
 	//console.log(`matchDay${year}${tournament}`)
@@ -190,6 +186,7 @@ export const GetCurrentMatchDay = async (tournament: string) => {
 }
 
 export const GetInfoUser = async (id: string) => {
+	console.log("GetInfoUser")
 	try {
 		const querySnapshot = await getDoc(doc(db, `users`, `${id}`))
 		const documents = querySnapshot.data() as IUserSettings
@@ -206,6 +203,7 @@ export const GetInfoUser = async (id: string) => {
 }
 
 export const SaveInfouser = async (id: string, data: IUserSettings) => {
+	console.log("SaveInfouser")
 	try {
 		const docRef = await setDoc(doc(db, `users`, `${id}`), data)
 		return "OK"
@@ -216,6 +214,7 @@ export const SaveInfouser = async (id: string, data: IUserSettings) => {
 }
 
 export const UpdateBetByUser = async (betId: string, paid: boolean) => {
+	console.log("UpdateBetByUser")
 	const year = new Date().getFullYear()
 	try {
 		const docRef = await updateDoc(doc(db, `bets`, `${betId}`), {
@@ -230,6 +229,7 @@ export const UpdateBetByUser = async (betId: string, paid: boolean) => {
 }
 
 export const GetBetsByIDGroup = async (day: string) => {
+	console.log("GetBetsByIDGroup")
 	try {
 		let response: IBetDataDocument[] | DocumentData = []
 		const querySnapshot = await getDocs(collection(db, `bets`))
