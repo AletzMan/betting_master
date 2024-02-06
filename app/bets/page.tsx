@@ -1,7 +1,7 @@
 "use client"
 
 import { ChangeEvent, useEffect, useState } from "react"
-import { ConvertToPrice, InTimeToBet, TimeRemainig } from "../functions/functions"
+import { ConvertToPrice } from "../functions/functions"
 import styles from "./bets.module.scss"
 import { Loading } from "../components/Loading/Loading"
 import { DialogCreateBet } from "./DialogCreateBet/DialogCreateBet"
@@ -14,8 +14,7 @@ import { HeaderMatches } from "./components/HeaderMatches/HeaderMatches"
 import { HeaderPage } from "./components/HeaderPage/HeaderPage"
 import { useOrientation } from "../hooks/useOrientation"
 import { IBetDataDocument, IBetDocument } from "../types/types"
-import { GetBetsByDay, GetBetsByIDGroup } from "../config/firebase"
-import { ComboBox } from "../components/ComboBox/ComboBox"
+import { GetBetsByIDGroup } from "../config/firebase"
 import Image from "next/image"
 import { SnackbarProvider } from "notistack"
 import { NoPaidMessage } from "./components/NoPaidMessage/NoPaidMessage"
@@ -41,10 +40,9 @@ const EmptyMyBets: IMyBets = {
 
 export default function BetsPage() {
 	const { loading, matches, isInTime } = useMatches()
-	const [bets, setBets] = useState<IBetDocument[]>([])
-	const [groupBets, setGroupBets] = useState<IBetDataDocument[]>([])
+	const [bets, setBets] = useState<IBetDocument[] | null>(null)
 	const { winner } = useWinner(bets, matches.results)
-	const { orderBets, setOrderBets } = useSort(matches.results, bets, setBets)
+	const { setOrderBets } = useSort(matches.results, bets, setBets)
 	const { user } = useUser()
 	const { isLandscape } = useOrientation()
 	const [selectRanges, setSelectRanges] = useState<{ row: number; column: number } | null>(null)
@@ -73,7 +71,6 @@ export default function BetsPage() {
 			const newHasBets = newBets.some((bet) => bet.uid === user.uid)
 			setMyBets({ bets: newMybets, hasBets: newHasBets, isNotBetsPaid: newIsBetsPaid })
 			setBets(newBets)
-			setGroupBets(documents)
 			setOrderBets("normal")
 		}
 	}
@@ -92,34 +89,33 @@ export default function BetsPage() {
 			setOrderBets(value)
 		}
 	}
-	console.log(isInTime.time)
 
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }}>
 			<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
 				{openDialog && <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matches} />}
-				{matches?.results?.length > 0 && <HeaderPage isInTime={matches?.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />}
+				{matches?.results?.length > 0 && !isLandscape && <HeaderPage isInTime={matches?.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />}
 				{loading && <Loading />}
-				{myBets?.isNotBetsPaid && myBets.hasBets && bets.length > 0 &&
+				{myBets?.isNotBetsPaid && myBets.hasBets && bets && bets?.length > 0 &&
 					<NoPaidMessage myBets={myBets} user={user} />
 				}
-				{!myBets.hasBets && bets.length > 0 &&
+				{!myBets?.hasBets && !loading && matches.matches.length > 0 && bets &&
 					<section className={styles.betsTable_empty}>
 						<h2 className={styles.betsTable_emptyBets}>¡Esperamos tu quiniela!</h2>
 						<p className={styles.betsTable_emptyText}>¡No te quedes fuera!</p>
 					</section>
 				}
-				{myBets.hasBets && bets.length > 0 && !myBets?.isNotBetsPaid && (!(isInTime.time === "")) &&
+				{myBets.hasBets && bets && bets.length > 0 && !myBets?.isNotBetsPaid && matches?.matches[0]?.status === "Sin comenzar" &&
 					<ConfirmedParticipationMessage user={user} bets={bets} myBets={myBets} />
 				}
-				{!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets.length > 0 && (isInTime.time === "") && (
+				{!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets && bets.length > 0 && matches?.matches[0]?.status !== "Sin comenzar" && (
 					<>
 						{matches?.results?.length > 0 && <>
 							<section className={`${styles.main_table} scrollbar`}>
 								<div className={styles.namesTable}>
 									<div className={styles.namesTable_header}>
-										<span className={styles.namesTable_headerAmount}>Gana: {ConvertToPrice(bets.length * 10.5)}</span>
-										{matches.matches.length > 0 && <h1 className={styles.namesTable_headerTitle}>{matches.tournament}</h1>}
+										<span className={styles.namesTable_headerAmount}>Monto: {ConvertToPrice((bets?.length || 0) * 10.5)}</span>
+										{/*matches.matches.length > 0 && <h1 className={styles.namesTable_headerTitle}>{matches.tournament}</h1>*/}
 										{matches.matches.length > 0 && <p className={styles.namesTable_headerDay}>{`Jornada ${matches.day}`}</p>}
 										<select className={styles.namesTable_headerSelect} onChange={HandleOrder}>
 											<option value="normal">Por participante</option>
@@ -170,7 +166,7 @@ export default function BetsPage() {
 																	onMouseLeave={HandleUnselectRow}
 																>
 																	<span
-																		className={`${matches.results[index] === betInfo && styles.betsTable_betsBetWin} 
+																		className={` ${matches.results[index] === betInfo ? styles.betsTable_betsBetWin : styles.betsTable_betsBetNoWin} 
 														${matches.results[index] === betInfo && matches.matches[index].status === "En juego" && styles.betsTable_betsBetPreWin}
 														`}
 																	>
@@ -191,10 +187,12 @@ export default function BetsPage() {
 					</>
 				)}
 				{matches?.results?.length === 0 && <div className={styles.betsTable_empty}>No se ha creado la quiniela de la semana <NotFoundIcon className={styles.betsTable_emptyIcon} /></div>}
-				{!loading && bets?.length === 0 && <div className={styles.betsTable_empty}>
-					<h3 className={styles.betsTable_emptyTitle}>¡Esperamos tu quiniela!</h3>
-					<p className={styles.betsTable_emptyText}>¡No te quedes fuera!</p>
-				</div>}
+				{!loading && bets?.length === 0 && bets &&
+					<div className={styles.betsTable_empty}>
+						<h3 className={styles.betsTable_emptyTitle}>¡Esperamos tu quiniela!</h3>
+						<p className={styles.betsTable_emptyText}>¡No te quedes fuera!</p>
+					</div>
+				}
 			</main>
 		</SnackbarProvider>
 	)
