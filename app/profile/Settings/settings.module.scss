@@ -82,10 +82,11 @@
         font-weight: 500;
         margin: 1em 0 0.5em 0;
         padding: 0.35em 0.5em;
+        font-weight: 600;
+        background-color: var(--highlight-color);
         border-radius: var(--border-radius);
         border: 1px solid var(--hover-link);
-        color: var(--font-color);
-        background-color: var(--highlight-color);
+        color: var(--background-start-color);
 
     }
 
