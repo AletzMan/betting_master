@@ -45,6 +45,7 @@
             grid-row: 1 / 3;
             font-size: 0.8em;
             text-transform: uppercase;
+            text-align: center;
             font-weight: 700;
             color: var(--foreground-second-color);
 
@@ -62,10 +63,10 @@
         padding: 0.25em 0;
         text-align: center;
         border-radius: var(--border-radius);
-        background-color: #2b2b2b;
+        background-color: var(--headerhover-color);
         font-weight: 600;
         font-size: 1.2em;
-        color: #ffb24e;
+        color: #17d5cf;
 
         @media (max-width: 600px) {
             width: 2em;
@@ -80,20 +81,25 @@
     &_status {
         grid-column: 1 / span 3;
         text-align: center;
-        font-size: 0.85em;
+        font-size: 0.7em;
+        font-weight: 500;
+        padding: 0.25em 0.5em;
+        border-radius: var(--border-radius);
+        text-transform: uppercase;
+        background-color: var(--header-color);
 
 
         &NotStarted {
-            color: #808080;
+            color: #008000;
         }
 
         &Ended {
-            color: #008000;
+            color: #808080;
         }
 
         &Started {
             position: relative;
-            color: #FF0000;
+            color: #f52222;
 
 
 
@@ -157,16 +163,16 @@
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            background-color: #12b31a35;
-            border: 1px solid #12b31a;
+            //background-color: #12b31a35;
+            //border: 1px solid #12b31a;
             border-radius: 2em;
-            width: 2.5em;
-            height: 2.5em;
+            width: 2.2em;
+            height: 2.2em;
             padding: 0.2em;
 
             &::after {
                 position: absolute;
-                bottom: 0.25em;
+                bottom: 0.5em;
                 font-size: 0.7em;
                 content: "MIN";
             }
@@ -177,30 +183,21 @@
             font-weight: 600;
             padding: 0.2em 0.5em;
             border-radius: 2em;
-            border: 1px solid #fab700;
-            color: #fab700;
-            background-color: #fab70045;
+            //border: 1px solid #fab700;
+            color: #00edfa;
+            //background-color: #fab70045;
             text-transform: uppercase;
             font-size: 0.85em;
         }
 
-        &Time {
+        &Icon {
             position: absolute;
-            left: 0.1em;
-            width: 2.3em;
-            height: 2.3em;
-            //background-color: #3c90cc35;
+            left: -0.5em;
+            width: 3.2em;
+            height: 3.2em;
             animation: time 4s linear infinite;
 
-            &::before {
-                position: absolute;
-                left: 0.1em;
-                content: "";
-                width: 0.4em;
-                height: 0.4em;
-                border-radius: 1em;
-                background: radial-gradient(#12b31a, #12b31a05);
-            }
+
 
             @keyframes time {
                 0% {
@@ -212,6 +209,15 @@
                 }
             }
         }
+    }
+
+    &Time {
+        position: absolute;
+        left: 0.1em;
+        width: 2.3em;
+        height: 2.3em;
+        //background-color: #3c90cc35;
+
     }
 
     &_hour {
@@ -354,7 +360,8 @@
         width: 6em;
         font-family: var(--font-montserrat);
         padding: 0.25em 0.5em;
-        color: var(--foreground-color);
+        font-weight: 600;
+        color: var(--background-start-color);
         border: none;
         background-color: var(--highlight-color);
         cursor: pointer;
@@ -381,29 +388,30 @@
         top: 0;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 0.1em;
+        gap: 0.25em;
         width: 100%;
         z-index: 4;
-        background-color: var(--background-end-color);
+        padding: 0.25em;
+        background-color: var(--header-color);
 
         &Button {
             padding: 0.75em;
-            background-color: var(--background-start-color);
+            background-color: var(--headerhover-color);
             color: var(--foreground-color);
             border: none;
             font-size: 0.7em;
-            border-bottom: 2px solid transparent;
+            //border-bottom: 2px solid transparent;
             cursor: pointer;
             font-family: var(--font-montserrat);
             transition: background-color 0.3s ease-in-out;
 
-            &:hover {
-                background-color: var(--twitterTwo-color);
-            }
 
 
             &Active {
-                border-bottom: 2px solid var(--highlight-color);
+                //border-bottom: 2px solid var(--highlight-color);
+                color: var(--highlighthover-color);
+                background-color: var(--background-end-color);
+                font-weight: 600;
             }
         }
     }

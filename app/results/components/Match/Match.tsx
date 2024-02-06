@@ -3,7 +3,7 @@ import styles from "./match.module.scss"
 import Image from "next/image"
 import { FormattedCulbNames } from "@/app/functions/functions"
 import { Results } from "@/app/types/ResultsTypes"
-import { StadiumIcon } from "@/app/svg"
+import { LoadingTwoIcon, StadiumIcon } from "@/app/svg"
 import { ScoresAndStats } from "./ScoresAndStats"
 import { DialogDetails } from "./DialogDetails"
 import { GetMatchDetails } from "@/app/services/fetch_utils"
@@ -12,15 +12,19 @@ import { DetailsData } from "@/app/types/DetailsMatch"
 
 interface PropsMatch {
 	eventData: Results
+	isAllMatches?: boolean
 }
 
 const options: Intl.DateTimeFormatOptions = { hour: "numeric", minute: "numeric" }
 const optionsLive: Intl.DateTimeFormatOptions = { hour: "2-digit", minute: "2-digit", second: "2-digit" }
 
-export function Match(props: PropsMatch) {
+export function Match({ props }: { props: PropsMatch }) {
+	const { isAllMatches } = props
 	const { eventData } = props
 	const { sportEvent } = eventData
 	const { competitors } = sportEvent
+
+
 	const [details, setDetails] = useState<DetailsData>({} as DetailsData)
 	const [openDialog, setOpenDialog] = useState(false)
 
@@ -39,6 +43,7 @@ export function Match(props: PropsMatch) {
 
 	const currentTime = new Date().getTime()
 	const startTime = new Date(eventData.score.period.startTime as string).getTime()
+
 	const timeMatch =
 		startTime !== 0
 			? `${((currentTime - startTime) / 1000 / 60).toFixed(0)} - ${eventData.score.period.alternateNames.esES}`.split("-")
@@ -47,7 +52,8 @@ export function Match(props: PropsMatch) {
 	return (
 		<>
 			<div className={styles.match}>
-				<span className={styles.match_day}>{`Jornada ${sportEvent.matchDay}`}</span>
+				{isAllMatches && <span className={styles.match_day}>{`${eventData.tournament.name}`}</span>}
+				{sportEvent.matchDay && <span className={styles.match_day}>{`Jornada ${sportEvent.matchDay}`}</span>}
 				<div className={styles.match_header}>
 					<div className={styles.match_team}>
 						<img
@@ -75,11 +81,12 @@ export function Match(props: PropsMatch) {
 						<span className={styles.match_score}>{eventData.score.awayTeam.totalScore}</span>
 					</div>
 				</div>
-				{(Status === "2nd half" || Status === "1st half" || Status === "Descanso") && (
+				{(Status === "2nd half" || Status === "1st half" || Status === "Descanso" || Status === "1ª parte" || Status === "2ª parte") && (
 					<div className={styles.match_timeMatch}>
-						<span className={styles.match_timeMatchClock}>{`${Status === "Descanso" ? "0" : timeMatch[0]}`}</span>
+						{Status !== "Descanso" && <span className={styles.match_timeMatchClock}>{`${timeMatch[0]}`}</span>}
 						<span className={styles.match_timeMatchPeriod}>{`${Status === "Descanso" ? "Descanso" : timeMatch[1]}`}</span>
-						<span className={styles.match_timeMatchTime}></span>
+						{/*<span className={styles.match_timeMatchTime}></span>*/}
+						{Status !== "Descanso" && <LoadingTwoIcon className={styles.match_timeMatchIcon} />}
 					</div>
 				)}
 				<span className={`${styles.match_status} ${StatusMatch}`}>{eventData.sportEvent.status.name}</span>
