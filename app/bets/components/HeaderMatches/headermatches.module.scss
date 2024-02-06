@@ -3,12 +3,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 4em;
-    height: 8.75em;
+    flex-direction: column;
+    min-width: 2.5em;
+    height: 5.75em;
     box-sizing: border-box;
     overflow: hidden;
-    border-right: 1px solid var(--border-color);
-    //background-color: var(--twitterTwo-color);
+    width: 100%;
+    border-radius: var(--border-radius);
     background-color: var(--header-color);
 
     &End {
@@ -21,7 +22,6 @@
         color: #FF0000;
 
         &>svg {
-            //animation: liveanimate 0.8s ease-in-out alternate infinite;
 
             @keyframes liveanimate {
                 0% {
@@ -42,14 +42,15 @@
 
     &Status {
         position: absolute;
-        top: 14%;
-        width: 1.5em;
-        height: 1.5em;
+        top: 0em;
+        right: 0em;
+        width: 1em;
+        height: 1em;
 
         &Live {
-            position: relative;
-            top: -2em;
-            left: -0.5em;
+            position: absolute;
+            top: 0.5em;
+            right: 0.5em;
             background-color: #FF0000;
             width: 0.5em;
             height: 0.5em;
@@ -86,58 +87,47 @@
         }
     }
 
-    &:first-child {
-        border-left: 1px solid var(--hover-link);
-    }
 
     &>svg {
 
         &:nth-child(1),
         &:nth-child(4) {
             position: absolute;
-            width: 3em;
-            height: 3em;
-            opacity: 0.2;
+            width: 2em;
+            height: 2em;
+            opacity: 0.85;
         }
 
         &:nth-child(1) {
-            bottom: -1em;
-            left: -1em;
+            top: -0.75em;
+            left: -0.75em;
         }
 
         &:nth-child(4) {
-            top: -1em;
-            right: -1em;
+            bottom: -0.75em;
+            right: -0.75em;
         }
     }
 
     &VS {
         font-size: 0.8em;
         font-weight: 600;
-        transform: rotate(-90deg);
         color: var(--foreground-color);
     }
 
     &Name {
-        position: absolute;
-        transform: rotate(-90deg);
-        width: 6.7em;
         font-size: 0.85em;
-        font-weight: 600;
+        font-weight: 500;
         text-align: center;
-        background-color: #FFFFFF00;
         border-radius: 1em;
-        backdrop-filter: blur(2px);
-        color: #ffffff;
+        color: var(--foreground-color);
 
         &Home {
             left: -2.5em;
-            //bottom: 3.5em;
         }
 
         &Away {
             right: -2.5em;
-            //top: 2.8em;
         }
     }
 

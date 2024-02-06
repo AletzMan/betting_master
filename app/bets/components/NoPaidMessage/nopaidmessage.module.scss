@@ -5,7 +5,6 @@
     flex-direction: column;
     row-gap: 0.5em;
     padding: 1em 0.5em;
-    margin: 1em 0 0 0;
     border-radius: var(--border-radius);
     color: var(--foreground-color);
     background-color: var(--background-start-color);
@@ -149,8 +148,8 @@
         background-color: var(--hover-link);
 
         &Group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-flow: row;
             column-gap: 0.5em;
         }
 
@@ -185,7 +184,7 @@
             &Icon {
                 width: 1.3em;
                 height: 1.3em;
-                color: var(--highlight-color);
+                color: var(--error-color);
             }
 
             &View {

@@ -124,6 +124,11 @@ export function DialogCreateBet(props: DialogProps) {
 				{loading && <Loading />}
 				{!betSentSuccessfully && !loading &&
 					<div className={`${styles.dialog_matches} scrollbar`}>
+						<header className={styles.dialog_matchesHeader}>
+							<p className={styles.dialog_matchesHeaderTitle}>Local</p>
+							<p className={styles.dialog_matchesHeaderTitle}>Empate</p>
+							<p className={styles.dialog_matchesHeaderTitle}>Visitante</p>
+						</header>
 						{matches.matches.map((match, index) =>
 							<MatchBet key={match.id} matchData={match} numberMatch={index} />
 						)}
