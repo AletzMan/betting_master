@@ -5,11 +5,14 @@ import { ChangeEvent, useEffect, useState } from "react"
 import { AddResults, GetCurrentMatchDay, GetResultsByDay, UpdateResultsMatchDay } from "@/app/config/firebase"
 import { ICurrentMatch, IResultsMatches } from "@/app/types/types"
 import { ButtonBet } from "../ButtonBet/ButtonBet"
-import { LoadingIcon } from "@/app/svg"
+import { AddIcon, LoadingIcon, UpdateLogo } from "@/app/svg"
 import { TeamsLogos } from "@/app/constants/constants"
 import { DialogCreatBets } from "../DialogCreateBets/DialogCreateBets"
+import { Button } from "@/app/components/Button/Button"
+import { useSnackbar } from "notistack"
 
 export function AdminPanel() {
+	const { enqueueSnackbar } = useSnackbar()
 	const [matchDay, setMatchDay] = useState<number | undefined>(undefined)
 	const [results, setResults] = useState<IResultsMatches>({} as IResultsMatches)
 	const [matches, setMatches] = useState<ICurrentMatch[]>([])
@@ -50,6 +53,7 @@ export function AdminPanel() {
 			await UpdateResultsMatchDay(resultsByMatch, update, new Date().getMonth() < 8 ? "0168" : "0159", isAvailable)
 			if (result === "OK") {
 				setSending(false)
+				enqueueSnackbar("Quiniela actualizada", { variant: "success" })
 			}
 		}
 	}
@@ -64,8 +68,10 @@ export function AdminPanel() {
 	}
 
 	useEffect(() => {
+
 		GetDay()
-	}, [matchDay])
+
+	}, [])
 
 	return (
 		<>
@@ -106,14 +112,21 @@ export function AdminPanel() {
 						))}
 					</article>
 					<footer className={styles.admin_footer}>
-						<button className={styles.admin_create} onClick={HandleCreate}>
-							Crear nueva quiniela
-						</button>
+						<Button
+							onClick={HandleCreate}
+							text="Crear quiniela"
+							type="primary"
+							icon={<AddIcon className="" />}
+
+						/>
 						{matchDay &&
-							<button className={styles.admin_update} onClick={HandleUpdate}>
-								{!sending && "Actualizar"}
-								{sending && <LoadingIcon className={styles.admin_updateIcon} />}
-							</button>
+							<Button
+								onClick={HandleUpdate}
+								text={!sending ? "Actualizar" : "Sending..."}
+								icon={sending ? <LoadingIcon className={styles.admin_updateIcon} /> : <UpdateLogo className={styles.admin_updateIcon} />}
+								disabled={sending}
+								type="primary"
+							/>
 						}
 					</footer>
 				</section>
