@@ -22,10 +22,10 @@ export function HeaderMatches(props: PropsHeaderMatches) {
 			${match.status === "Sin comenzar" && styles.matchUnstarted}`}
 				>
 					{TeamsLogos[match.teams.home].logo}
-					<span className={`${styles.matchName} ${styles.matchNameHome}`}>{TeamsLogos[match.teams.home].name}</span>
+					<span className={`${styles.matchName} ${styles.matchNameHome}`}>{TeamsLogos[match.teams.home].abbName}</span>
 					<span className={styles.matchVS}>VS</span>
 					{TeamsLogos[match.teams.away].logo}
-					<span className={`${styles.matchName} ${styles.matchNameAway}`}>{TeamsLogos[match.teams.away].name}</span>
+					<span className={`${styles.matchName} ${styles.matchNameAway}`}>{TeamsLogos[match.teams.away].abbName}</span>
 					{match.status === "Finalizado" && <FinishedIcon className={styles.matchStatus} />}
 					{match.status === "En juego" && <div className={`${styles.matchStatus} ${styles.matchStatusLive}`}></div>}
 					{match.status === "Sin comenzar" && <UnstartedIcon className={styles.matchStatus} />}

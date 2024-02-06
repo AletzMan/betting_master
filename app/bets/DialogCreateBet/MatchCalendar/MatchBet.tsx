@@ -30,47 +30,46 @@ export function MatchBet(props: PropsMatch) {
 
 	return (
 		<section className={styles.match}>
-			<div className={`${styles.match_header}`}>
-				<div className={`${styles.predictions} ${isEmpty && bets[numberMatch] === "" && styles.predictionsEmpty}`}>
-					<div className={styles.predictions_prediction}>
-						<input
-							className={`${styles.predictions_predictionInput}`}
-							checked={bets[numberMatch] === "G"}
-							name={`bet${matchData.startDate}`}
-							onChange={() => HandleChangePrediction("G")}
-							type="checkbox"
-						/>
-						{bets[numberMatch] === "G" && <span className={`${styles.predictions_predictionLetter}`}>G</span>}
-					</div>
-					<div className={styles.predictions_prediction}>
-						<input
-							className={`${styles.predictions_predictionInput}`}
-							checked={bets[numberMatch] === "E"}
-							name={`bet${matchData.startDate}`}
-							onChange={() => HandleChangePrediction("E")}
-							type="checkbox"
-						/>
-						{bets[numberMatch] === "E" && <span className={`${styles.predictions_predictionLetter}`}>E</span>}
-					</div>
-					<div className={styles.predictions_prediction}>
-						<input
-							className={`${styles.predictions_predictionInput}`}
-							checked={bets[numberMatch] === "P"}
-							name={`bet${matchData.startDate}`}
-							onChange={() => HandleChangePrediction("P")}
-							type="checkbox"
-						/>
-						{bets[numberMatch] === "P" && <span className={`${styles.predictions_predictionLetter}`}>P</span>}
-					</div>
+			<div className={`${styles.match_header} ${isEmpty && bets[numberMatch] === "" && styles.predictionsEmpty}`}>
+				<div className={styles.predictions_prediction}>
+					<input
+						className={`${styles.predictions_predictionInput}`}
+						checked={bets[numberMatch] === "L"}
+						name={`bet${matchData.startDate}`}
+						onChange={() => HandleChangePrediction("L")}
+						type="checkbox"
+					/>
+					{bets[numberMatch] === "L" && <span className={`${styles.predictions_predictionLetter}`}>L</span>}
 				</div>
 				<div className={styles.match_team}>
 					{TeamsLogos[matchData.teams.home].logo}
 					<span className={styles.match_teamName}>{TeamsLogos[matchData.teams.home].abbName}</span>
 				</div>
+				<div className={styles.predictions_prediction}>
+					<input
+						className={`${styles.predictions_predictionInput}`}
+						checked={bets[numberMatch] === "E"}
+						name={`bet${matchData.startDate}`}
+						onChange={() => HandleChangePrediction("E")}
+						type="checkbox"
+					/>
+					{bets[numberMatch] === "E" && <span className={`${styles.predictions_predictionLetter}`}>E</span>}
+				</div>
+
 
 				<div className={`${styles.match_team} ${styles.match_teamAway}`}>
 					{TeamsLogos[matchData.teams.away].logo}
 					<span className={styles.match_teamName}>{TeamsLogos[matchData.teams.away].abbName}</span>
+				</div>
+				<div className={styles.predictions_prediction}>
+					<input
+						className={`${styles.predictions_predictionInput}`}
+						checked={bets[numberMatch] === "V"}
+						name={`bet${matchData.startDate}`}
+						onChange={() => HandleChangePrediction("V")}
+						type="checkbox"
+					/>
+					{bets[numberMatch] === "V" && <span className={`${styles.predictions_predictionLetter}`}>V</span>}
 				</div>
 			</div>
 			{/*<span className={`${styles.match_status} ${StatusMatch}`}>{sportEvent.status.alternateNames.esES}</span>

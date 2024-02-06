@@ -5,7 +5,7 @@
     width: 100%;
     background-color: var(--hover-link);
     border: 1px solid transparent;
-    border-bottom: 1px solid var(--hover-link);
+    border-radius: var(--border-radius);
     padding: 0.35em 0.35em;
 
     &:hover {
@@ -14,13 +14,13 @@
 
     &_header {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 2.5em 1fr 2.5em 1fr 2.5em;
         align-items: center;
         justify-content: center;
         width: 100%;
         column-gap: 0.5em;
         padding: 0.1em;
-
+        border: 1px solid transparent;
 
     }
 
@@ -131,9 +131,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: calc(100% / 3);
-        width: 2.5em;
-        height: 2.5em;
+        width: 2.3em;
+        height: 2.3em;
         border-radius: 0.1em;
         background-color: var(--hover-link);
         transition: background-color 0.25s ease-in-out;
@@ -144,8 +143,8 @@
         }
 
         &Input {
-            width: 2.7em;
-            height: 2.7em;
+            width: 2.3em;
+            height: 2.3em;
             opacity: 0.05;
             z-index: 2;
             opacity: 0;

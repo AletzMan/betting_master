@@ -7,11 +7,14 @@
     &Button {
         border: none;
         padding: 0.35em 0.6em;
-        color: var(--foreground-color);
-        background-color: var(--highlight-color);
         cursor: pointer;
         transition: all 0.3s ease-in-out;
         max-width: 8em;
+        font-weight: 600;
+        color: var(--background-start-color);
+        background-color: var(--highlight-color);
+        border-radius: var(--border-radius);
+        border: none;
 
         &:hover {
             background-color: var(--highlighthover-color);

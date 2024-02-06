@@ -10,6 +10,7 @@ interface Props {
 
 export function HeaderPage({ isInTime, setOpenDialog, timeFirstMatch }: Props) {
 
+
 	return (
 		<header className={styles.header}>
 			{isInTime &&
