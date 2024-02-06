@@ -27,6 +27,7 @@ export function Header() {
 		setViewMenuProfile((prev) => !prev)
 	}
 
+
 	const HandleSignOut = async () => {
 		try {
 			await signOut(auth)
@@ -61,14 +62,14 @@ export function Header() {
 					<button
 						className={`${styles.header_menu} ${viewMenuProfile && styles.header_menuActive}`}
 						onClick={HandleViewMenu}
-						onMouseLeave={() => setViewMenuProfile(false)}
+					//onMouseLeave={() => setViewMenuProfile(false)}
 					>
 						<MenuIcon className={styles.header_menuIcon} />
 						<span className={styles.header_menuName}>Menu</span>
 					</button>
 					<nav
 						className={`${styles.profile} ${viewMenuProfile && styles.profile_active}`}
-						onMouseOver={() => setViewMenuProfile(true)}
+						//onMouseOver={() => setViewMenuProfile(true)}
 						onMouseLeave={() => setViewMenuProfile(false)}
 					>
 						<div className={styles.profile_user}>
@@ -84,37 +85,40 @@ export function Header() {
 							</picture>
 							<span className={styles.profile_userName}>{userLocal.name || "Invitado"}</span>
 						</div>
-						<Link
-							href={`/profile`}
-							className={`${styles.profile_link} ${pathname === "/profile" && styles.profile_linkActive}`}
-							title="Ir a sesión de perfil"
-						>
-							<ProfileIcon className={styles.profile_icon} />
-							Perfil
-						</Link>
-						{LinksPage.map((link) => (
+						<div className={styles.profile_links}>
+
 							<Link
-								className={`${styles.profile_link} ${link.pathname === pathname && styles.profile_linkActive}`}
-								key={link.id}
-								href={link.href}
-								title={link.title}
+								href={`/profile`}
+								className={`${styles.profile_link} ${pathname === "/profile" && styles.profile_linkActive}`}
+								title="Ir a sesión de perfil"
 							>
-								{link.icon}
-								{link.text}
+								<ProfileIcon className={styles.profile_icon} />
+								Perfil
 							</Link>
-						))}
-						{!isLogged && (
-							<Link href={!isLogged ? "auth/login" : "/logout"} className={styles.profile_link} title={"Ir a sección iniciar sesión"}>
-								<LogInIcon className={styles.profile_icon} />
-								{"Iniciar sesión"}
-							</Link>
-						)}
-						{isLogged && (
-							<button onClick={HandleSignOut} className={styles.profile_link} title={"Cerrar sesión"}>
-								<LogOutIcon className={styles.profile_icon} />
-								{"Cerrar sesión"}
-							</button>
-						)}
+							{LinksPage.map((link) => (
+								<Link
+									className={`${styles.profile_link} ${link.pathname === pathname && styles.profile_linkActive}`}
+									key={link.id}
+									href={link.href}
+									title={link.title}
+								>
+									{link.icon}
+									{link.text}
+								</Link>
+							))}
+							{!isLogged && (
+								<Link href={!isLogged ? "auth/login" : "/logout"} className={styles.profile_link} title={"Ir a sección iniciar sesión"}>
+									<LogInIcon className={styles.profile_icon} />
+									{"Iniciar sesión"}
+								</Link>
+							)}
+							{isLogged && (
+								<button onClick={HandleSignOut} className={styles.profile_link} title={"Cerrar sesión"}>
+									<LogOutIcon className={styles.profile_icon} />
+									{"Cerrar sesión"}
+								</button>
+							)}
+						</div>
 					</nav>
 				</div>
 				{!isLandscape && (
