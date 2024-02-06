@@ -46,8 +46,9 @@
         font-family: var(--font-montserat);
         border: none;
         min-width: 5em;
+        font-weight: 600;
         border-radius: var(--border-radius);
-        color: var(--foreground-color);
+        color: var(--background-start-color);
         background-color: var(--highlight-color);
         transition: background-color 0.25s ease-in-out;
         cursor: pointer;
@@ -137,7 +138,9 @@
             border-radius: 2em;
             width: 1em;
             height: 1em;
-            background-color: var(--borderTwo-color);
+            font-weight: 600;
+            background-color: var(--highlight-color);
+            color: var(--background-start-color);
             transition: transform 0.3s ease-in-out;
             box-shadow: var(--box-shadow);
             cursor: pointer;

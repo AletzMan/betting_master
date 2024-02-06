@@ -125,9 +125,9 @@ export function AdminPanel() {
 const GetFinishAndLiveMatches = (results: string[]): number[][] => {
 	let arrayIndex: number[][] = [[], []]
 	for (let index = 0; index < results.length; index++) {
-		if (results[index] !== "-" && results[index] !== "L") {
+		if (results[index] !== "-" && results[index] !== "LV") {
 			arrayIndex[0].push(index)
-		} else if (results[index] === "L") {
+		} else if (results[index] === "LV") {
 			arrayIndex[1].push(index)
 		}
 	}
