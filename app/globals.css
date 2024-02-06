@@ -10,12 +10,12 @@
 
 	--foreground-color: #ffffff;
 	--foreground-second-color: #c8c7c7;
-	--background-start-color: #181818;
-	--background-end-color: #000000;
-	--header-color: #202130;
-	--headerhover-color: #3a3b51;
-	--highlight-color: #c81944;
-	--highlighthover-color: #f41e47;
+	--background-start-color: #1f252b;
+	--background-end-color: #191f25;
+	--header-color: #242c36;
+	--headerhover-color: #353e49;
+	--highlight-color: #eab436;
+	--highlighthover-color: #f4c24d;
 	--screen-color: #191f24;
 	--border-color: #fff9f960;
 	--borderTwo-color: #9a9a9acd;
@@ -33,8 +33,8 @@
 	--background-text: #191e24;
 	--background-textTwo: #34383c;
 
-	--hover-link: #ffffff10;
-	--hover-linkTwo: #34383c20;
+	--hover-link: #b5b5b515;
+	--hover-linkTwo: #b5b5b505;
 
 	--box-shadow: 0 0 3px 1px #31222260 inset;
 	--box-shadowTwo: 0 0 4px 2px #4e4e4e90;
