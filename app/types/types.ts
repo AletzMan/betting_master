@@ -273,7 +273,7 @@ export interface IHitsBet {
 	uid: string
 	day: string
 	name: string
-	bets: string[]
+	bets: IPredictions[]
 	matches: string[]
 	seasson: string
 	paid: boolean
