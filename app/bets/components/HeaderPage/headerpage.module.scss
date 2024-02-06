@@ -1,12 +1,15 @@
 .header {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 0.8fr 1fr 1fr;
     width: 100%;
     padding: 0.35em 0;
 
     &Button {
+        display: grid;
+        grid-template-columns: 1.5em 1fr;
+        column-gap: 0.35em;
         border: none;
-        padding: 0.35em 0.6em;
+        padding: 0.25em 0.6em;
         cursor: pointer;
         transition: all 0.3s ease-in-out;
         max-width: 8em;
@@ -18,6 +21,11 @@
 
         &:hover {
             background-color: var(--highlighthover-color);
+        }
+
+        &Icon {
+            width: 1.3em;
+            height: 1.3em;
         }
     }
 
