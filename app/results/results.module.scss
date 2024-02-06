@@ -5,7 +5,7 @@
     flex-direction: column;
     margin: 0 auto;
     min-height: 100svh;
-    padding: 7em 0 1em 0;
+    padding: 5em 0 1em 0;
     width: 100%;
     background: linear-gradient(-30deg, var(--background-start-color), var(--background-end-color));
     max-width: var(--max-width);
@@ -21,6 +21,10 @@
 
 .section {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     padding: 0.25em 0 0.25em 0;
     width: 100%;
 
@@ -35,6 +39,8 @@
 }
 
 .header {
+    width: 100%;
+    background-color: var(--background-end-color);
 
     &_days {
         display: grid;
@@ -53,11 +59,12 @@
         align-items: center;
         justify-content: flex-start;
         row-gap: 0.35em;
-        color: var(--foreground-color);
+        color: var(--foreground-light-color);
         border: none;
         cursor: pointer;
         height: 100%;
         background-color: transparent;
+        background-color: var(--hover-linkTwo);
         transition: background-color 0.3s ease-in-out;
 
         @media (pointer: fine) {
@@ -72,7 +79,7 @@
             text-align: center;
             padding: 0.1em 0;
             width: 100%;
-            background-color: var(--background-start-color);
+            background-color: var(--headerhover-color);
         }
 
         &Number {
@@ -104,10 +111,12 @@
     flex-direction: column;
     row-gap: 0.5em;
     padding: 0.5em;
+    width: 100%;
 
     &_refresh {
         position: absolute;
         right: 0.5em;
+        top: -2.2em;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -132,6 +141,21 @@
     }
 
 
+}
+
+.tournaments {
+    align-self: center;
+    justify-self: center;
+    padding: 0.25em 1em;
+    margin: 0.25em 0 0 0;
+    text-align: center;
+    padding: 0.25em 0.5em;
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--highlight-color);
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    background-color: var(--headerhover-color);
 }
 
 .notfound {
