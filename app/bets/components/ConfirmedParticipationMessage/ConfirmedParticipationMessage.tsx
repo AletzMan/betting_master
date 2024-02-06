@@ -58,7 +58,7 @@ export function ConfirmedParticipationMessage({ user, bets, myBets }: props) {
                             <main className={styles.section_dialogMain}>
                                 {dialog.bets.bets.map((result, index) => (
                                     <div key={index} className={styles.section_dialogResult} >
-                                        <p className={styles.section_dialogText}>{result}</p>
+                                        <p className={styles.section_dialogText}>{result.prediction}</p>
                                     </div>
                                 ))}
                             </main>
