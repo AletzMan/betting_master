@@ -1,6 +1,7 @@
 .team {
     display: flex;
     flex-direction: row;
+    background-color: var(--headerhover-color);
 }
 
 
@@ -12,9 +13,9 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    min-height: 1.9em;
-    background-color: #FFFFFF15;
-    border-bottom: 1px solid #FFFFFF20;
+    height: 1.9em;
+    //background-color: #FFFFFF15;
+    //border-bottom: 1px solid #FFFFFF20;
     padding: 0.15em 0.5em 0.15em 0.15em;
 
     /*
@@ -46,15 +47,15 @@
         color: #ffcaff;
 
         &Neg {
-            color: #ca1a1a;
+            color: #ff0606;
         }
 
         &Pos {
-            color: #30cd04;
+            color: #1fc779;
         }
     }
 
     &_points {
-        color: #2286ea;
+        font-weight: 700;
     }
 }

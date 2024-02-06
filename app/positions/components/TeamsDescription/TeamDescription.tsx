@@ -12,7 +12,7 @@ export function TeamDescription(props: PropsTeam) {
 	return (
 		<article className={styles.team}>
 			<div
-				className={`${styles.description} ${position < 7 && styles.description_qualifiers} ${position > 6 && position < 11 && styles.description_playoff}`}
+				className={`${styles.description} ${position < 5 && styles.description_qualifiers} ${position > 4 && position < 13 && styles.description_playoff}`}
 			>
 				<p className={styles.description_position}>{position}</p>
 				<Image

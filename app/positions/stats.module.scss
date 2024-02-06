@@ -5,7 +5,7 @@
     flex-direction: column;
     margin: 0 auto;
     height: 100svh;
-    padding: 7em 0 1em 0;
+    padding: 5em 0.25em 1em 0.25em;
     width: 100%;
     background: linear-gradient(-30deg, var(--background-start-color), var(--background-end-color));
     max-width: var(--max-width);
@@ -25,6 +25,16 @@
         }
     }
 
+    &_select {
+        text-align: center;
+        padding: 0.25em 0.5em;
+        font-size: 1em;
+        color: var(--font-color);
+        border: 1px solid transparent;
+        border-radius: var(--border-radius);
+        background-color: var(--headerhover-color);
+    }
+
     &_combobox {
         padding: 0.5em 0;
     }
@@ -33,7 +43,6 @@
         display: flex;
         flex-direction: row;
         column-gap: 1em;
-        background-color: red;
         width: 100%;
         overflow: hidden;
     }
@@ -99,16 +108,20 @@
     margin: 0 auto;
     overflow-x: auto;
     overflow-y: auto;
-    box-shadow: var(--box-shadowTwo);
+    //box-shadow: var(--box-shadowTwo);
 
 
     @media (max-width: 540px) {
-        width: 90%;
+        //width: 90%;
     }
 
     &_description {
         position: sticky;
         left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25em;
         height: 100%;
         z-index: 2;
     }
@@ -118,6 +131,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        gap: 0.25em;
         height: 100%;
         max-width: 17em;
 
@@ -128,27 +142,47 @@
         position: sticky;
         top: 0;
         display: grid;
-        align-items: center;
-        justify-content: center;
-        height: 1.5em;
+        place-items: center center;
+        height: 1.95em;
         text-align: center;
         grid-template-columns: repeat(8, 2em);
-        background-color: #212121;
+        background-color: var(--header-color);
         padding: 0.3em 0.2em;
-        border-bottom: 1px solid #FFFFFF35;
 
-        &Text {
-            width: 2em;
-            font-size: 0.9em;
-            font-weight: 500;
-            color: rgb(159, 58, 30);
-            text-align: center;
-        }
 
         &Club {
-            color: rgb(34, 72, 185);
-            padding: 0 0 0 8em;
+            position: sticky;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            width: 100%;
+            max-width: 12em;
+            padding: 0.3em 0.2em;
+            background-color: var(--header-color);
         }
+
+        &Text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2em;
+            height: 1.5em;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--highlight-color);
+            text-align: center;
+            border-radius: var(--border-radius);
+            background-color: var(--hover-link);
+
+            &Club {
+                width: 100%;
+            }
+        }
+
+
 
     }
 

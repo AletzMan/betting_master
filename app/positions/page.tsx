@@ -14,7 +14,7 @@ import { Tournaments } from "../constants/constants"
 export default function PositionsPage() {
 	const [leagues, setLeagues] = useState<LeagueMX[]>([])
 	const { isLandscape } = useOrientation()
-	const [selectedLeague, setSelectLeague] = useState({ id: "0159", name: "Liga MX" })
+	const [selectedLeague, setSelectLeague] = useState({ id: new Date().getMonth() < 7 ? "0168" : "0159", name: "Liga MX" })
 	const [selectedGroup, setSelectedGruop] = useState(0)
 	const [numberGroups, setNumberGoups] = useState(0)
 	const [loading, setLoading] = useState(true)
@@ -47,7 +47,13 @@ export default function PositionsPage() {
 				{!loading && leagues.length > 0 && (
 					<>
 						<div className={styles.main_combobox}>
-							<ComboBox options={Tournaments} selectOption={selectedLeague} setSelectOption={setSelectLeague} />
+							<select className={styles.main_select} value={selectedLeague.id} onChange={(e) => setSelectLeague({ id: e.target.value, name: e.target.options[e.target.selectedIndex].text })}>
+								{Tournaments.map((tournament) => (
+									<option key={tournament.id} value={tournament.id}>
+										{tournament.name}
+									</option>
+								))}
+							</select>
 						</div>
 						{numberGroups > 1 && (
 							<div className={styles.group}>
@@ -70,8 +76,8 @@ export default function PositionsPage() {
 						)}
 						<div key={leagues[selectedGroup]?.id} className={`${styles.table} scrollbar`}>
 							<section className={styles.table_description}>
-								<div className={styles.table_titles}>
-									<span className={`${styles.table_titlesText} ${styles.table_titlesClub}`}>Club</span>
+								<div className={` ${styles.table_titlesClub}`}>
+									<span className={`${styles.table_titlesText} ${styles.table_titlesTextClub}`}>Club</span>
 								</div>
 								{leagues[selectedGroup]?.rank.map((team, index) => (
 									<TeamDescription key={team._id} team={team} position={index + 1} />
