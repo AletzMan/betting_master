@@ -38,9 +38,9 @@ export function ConfirmedParticipationMessage({ user, bets, myBets }: props) {
                     ))}
                 </div>}
             <p className={styles.section_text}>¡Suerte!</p>
-            <p className={styles.section_textInfoTwo}>Monto acumulado: {ConvertToPrice(bets.length * 10.5)}</p>
+            {/*<p className={styles.section_textInfoTwo}>Monto acumulado: {ConvertToPrice(bets.length * 10.5)}</p>*/}
             <p className={styles.section_textAccount}>Ingresa a tu Perfil y agrega tu cuenta de deposito para recibir tu pago en caso de ganar</p>
-            <p className={styles.section_textAccount}>Tambien puedes ver tus quinielas en tu perfil</p>
+            {/*<p className={styles.section_textAccount}>Tambien puedes ver tus quinielas en tu perfil</p>*/}
             {dialog.open &&
                 <dialog className={styles.section_dialog} open onClick={() => setDialog({ open: false, bets: {} as IBetData })}>
                     <section className={styles.section_dialogContainer}>
