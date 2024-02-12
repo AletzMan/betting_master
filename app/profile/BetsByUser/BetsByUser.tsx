@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
 import styles from "./betsbyuser.module.scss"
-import { GetBetsByDay, GetBetsByIDGroup, UpdateBetByUser } from "@/app/config/firebase"
+import { DeleteBet, GetBetsByDay, GetBetsByIDGroup, UpdateBetByUser } from "@/app/config/firebase"
 import { IBetDataDocument, IBetDocument } from "@/app/types/types"
 import { useSnackbar } from "notistack"
+import Image from "next/image"
+import { DeleteIcon } from "@/app/svg"
 
 interface IBetsByUser {
     uid: string,
@@ -58,44 +60,65 @@ export function BetsByUser() {
         }
     }
 
+    const HandleDelete = async (id: string, name: string) => {
+        const deleted = confirm(`¿Estás seguro de eliminar esta quiniela? \n ${name}`)
+        if (!deleted) return
+        const response = await DeleteBet(id)
+        if (response === "OK") {
+            GetBets()
+            enqueueSnackbar("Quiniela eliminida", { variant: "success" })
+        }
+    }
+
 
     return (
-        <>
-            <h2 className={styles.section_subtitle}>Quinielas Pagadas</h2>
+        <details className={styles.details}>
+            <summary className={styles.details_summary}>
+                Quinielas Pagadas
+            </summary>
             <section className={styles.section}>
-                <select className={styles.section_select} onChange={(e) => setMatchDay(parseInt(e.target.value))}>
-                    <option value="0">Selecciona una jornada</option>
-                    <option value="1">Jornada 1</option>
-                    <option value="2">Jornada 2</option>
-                    <option value="3">Jornada 3</option>
-                    <option value="4">Jornada 4</option>
-                    <option value="5">Jornada 5</option>
-                    <option value="6">Jornada 6</option>
-                    <option value="7">Jornada 7</option>
-                    <option value="8">Jornada 8</option>
-                    <option value="9">Jornada 9</option>
-                    <option value="10">Jornada 10</option>
-                    <option value="11">Jornada 11</option>
-                    <option value="12">Jornada 12</option>
-                    <option value="13">Jornada 13</option>
-                    <option value="14">Jornada 14</option>
-                    <option value="15">Jornada 15</option>
-                    <option value="16">Jornada 16</option>
-                    <option value="17">Jornada 17</option>
-                </select>
-
-
+                <header className={styles.header}>
+                    <select className={styles.section_select} onChange={(e) => setMatchDay(parseInt(e.target.value))}>
+                        <option className={styles.section_selectOption} value="0">-- Selecciona una jornada --</option>
+                        {MatchDays.map((day) => (
+                            <option className={styles.section_selectOption} key={day.id} value={day.id}>{day.name}</option>
+                        ))}
+                    </select>
+                    <div className={styles.description}>
+                        <div className={styles.description_total}>
+                            <h2 className={styles.description_title}>Total</h2>
+                            <p className={styles.description_totalValue}>{bets.length}</p>
+                        </div>
+                        <div className={styles.description_total}>
+                            <h2 className={styles.description_title}>Pagadas</h2>
+                            <p className={styles.description_totalValue}>{bets.filter((bet) => bet.data.paid).length}</p>
+                        </div>
+                        <div className={styles.description_total}>
+                            <h2 className={styles.description_title}>Monto</h2>
+                            <p className={styles.description_totalValue}>$ {bets.filter((bet) => bet.data.paid).length * 10.5}</p>
+                        </div>
+                        <div className={styles.description_total}>
+                            <h2 className={styles.description_title}>Ganancia</h2>
+                            <p className={styles.description_totalValue}>$ {bets.filter((bet) => bet.data.paid).length * 1.5}</p>
+                        </div>
+                    </div>
+                </header>
                 <div className={styles.bets}>
                     {betsByID.map((bet, index) => (
-                        <details key={bet.uid} className={styles.bets_bet}>
-                            <summary className={styles.bets_betSummary}>
-                                <h3 className={styles.bets_betTitle}>{bet?.bets[0]?.data.userInfo?.name}</h3>
+                        <details key={bet.uid} className={`${styles.bets_bet} ${betsByID[index].bets.find(betdata => !betdata.data.paid)?.data ? styles.bets_betNoPaid : styles.bets_betPaid}`}>
+                            <summary className={`${styles.bets_betSummary} `}>
+                                <Image className={styles.bets_betSummaryImage} src={bet?.bets[0]?.data.userInfo?.photo || "/user_icon.png"} alt="user" width={30} height={30} />
+                                {bet?.bets[0]?.data.userInfo?.name}
+                                <span className={styles.bets_betSummaryCount}>{bet.bets.length}</span>
                             </summary>
                             <div className={styles.bets_betContent}>
                                 {bet.bets.map((bet, index) => (
                                     <div key={index} className={styles.bets_betMatch}>
                                         <p className={styles.bet_match_title}>{bet.data.name}</p>
                                         <input className={styles.bets_betMatchCheck} type="checkbox" defaultChecked={bet.data.paid} onChange={(e) => HandleCheck(e, bet.id)} />
+                                        <button className={styles.bets_betMatchButton} onClick={() => HandleDelete(bet.id, bet.data.name)}>
+                                            <DeleteIcon />
+                                        </button>
                                     </div>
                                 ))}
                             </div>
@@ -103,6 +126,27 @@ export function BetsByUser() {
                     ))}
                 </div>
             </section>
-        </>
+        </details>
     )
 }
+
+
+const MatchDays = [
+    { id: 1, name: "Jornada 1" },
+    { id: 2, name: "Jornada 2" },
+    { id: 3, name: "Jornada 3" },
+    { id: 4, name: "Jornada 4" },
+    { id: 5, name: "Jornada 5" },
+    { id: 6, name: "Jornada 6" },
+    { id: 7, name: "Jornada 7" },
+    { id: 8, name: "Jornada 8" },
+    { id: 9, name: "Jornada 9" },
+    { id: 10, name: "Jornada 10" },
+    { id: 11, name: "Jornada 11" },
+    { id: 12, name: "Jornada 12" },
+    { id: 13, name: "Jornada 13" },
+    { id: 14, name: "Jornada 14" },
+    { id: 15, name: "Jornada 15" },
+    { id: 16, name: "Jornada 16" },
+    { id: 17, name: "Jornada 17" }
+]
