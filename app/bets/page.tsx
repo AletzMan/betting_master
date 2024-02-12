@@ -41,24 +41,27 @@ const EmptyMyBets: IMyBets = {
 export default function BetsPage() {
 	const { loading, matches, isInTime } = useMatches()
 	const [bets, setBets] = useState<IBetDocument[] | null>(null)
+	const [filterBets, setFilterBets] = useState<IBetDocument[] | null>(null)
 	const { winner } = useWinner(bets, matches.results)
-	const { setOrderBets } = useSort(matches.results, bets, setBets)
+	const { setOrderBets, setUser } = useSort(matches.results, bets, setFilterBets)
 	const { user } = useUser()
 	const { isLandscape } = useOrientation()
 	const [selectRanges, setSelectRanges] = useState<{ row: number; column: number } | null>(null)
 	const [openDialog, setOpenDialog] = useState(false)
 	const [myBets, setMyBets] = useState<IMyBets>(EmptyMyBets)
 
-
+	useEffect(() => {
+		if (user) {
+			setUser(user.uid)
+		}
+	}, [user])
 
 	useEffect(() => {
 		if (!openDialog) {
 			GetBets()
-			console.log("render")
 		}
 	}, [matches, openDialog])
 
-	console.log(isInTime.time)
 
 	const GetBets = async () => {
 		if (matches.day) {
@@ -72,6 +75,7 @@ export default function BetsPage() {
 			const newHasBets = newBets.some((bet) => bet.uid === user.uid)
 			setMyBets({ bets: newMybets, hasBets: newHasBets, isNotBetsPaid: newIsBetsPaid })
 			setBets(newBets)
+			setFilterBets(newBets)
 			setOrderBets("normal")
 		}
 	}
@@ -86,7 +90,7 @@ export default function BetsPage() {
 
 	const HandleOrder = (e: ChangeEvent<HTMLSelectElement>) => {
 		const value = e.target.value
-		if (value === "name" || value === "des" || value === "asc" || value === "normal") {
+		if (value === "name" || value === "des" || value === "asc" || value === "normal" || value === "myBets") {
 			setOrderBets(value)
 		}
 	}
@@ -120,12 +124,13 @@ export default function BetsPage() {
 										{matches.matches.length > 0 && <p className={styles.namesTable_headerDay}>{`Jornada ${matches.day}`}</p>}
 										<select className={styles.namesTable_headerSelect} onChange={HandleOrder}>
 											<option value="normal">Por participante</option>
+											<option value="myBets">Mis quinielas</option>
 											<option value="name">Por nombre</option>
 											<option value="des">Por aciertos ↓</option>
 											<option value="asc">Por aciertos ↑</option>
 										</select>
 									</div>
-									{bets?.map((bet, index) => (
+									{filterBets?.map((bet, index) => (
 										<>
 											{bet.paid &&
 												<div
@@ -154,7 +159,7 @@ export default function BetsPage() {
 									</ul>
 									<div className={styles.betsTable_container}>
 										{bets !== undefined &&
-											bets?.map((bet, indexOne) => (
+											filterBets?.map((bet, indexOne) => (
 												<>
 													{bet.paid &&
 														<ul className={styles.betsTable_bets} key={bet.name}>
