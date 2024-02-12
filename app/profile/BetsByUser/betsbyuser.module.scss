@@ -1,9 +1,26 @@
+.details {
+    border: 1px solid var(--twitterTwo-color);
+    border-radius: var(--border-radius);
+    background-color: var(--header-color);
+
+    &_summary {
+        position: relative;
+        color: var(--highlight-color);
+        padding: 0.5em 0.5em;
+        font-size: 1em;
+        font-weight: 600;
+
+
+    }
+}
+
 .section {
+    display: flex;
+    flex-direction: column;
     position: relative;
     padding: 0.5em;
     border-radius: var(--border-radius);
-    border: 1px solid var(--subtitleBack-color);
-    background-color: var(--background-text);
+    background-color: var(--header-color);
 
     &_subtitle {
         font-size: 1em;
@@ -12,16 +29,62 @@
     }
 
     &_select {
-        position: absolute;
-        top: 0.5em;
-        right: 0.5em;
-        max-width: 8em;
+        //position: absolute;
+        //top: 0.5em;
+        //right: 0.5em;
+        max-width: 15em;
+        padding: 0.25em 0.5em;
+        background-color: var(--subtitleBack-color);
+        color: var(--foreground-color);
+
+        &Option {
+            padding: 0.25em 0.5em;
+            background-color: var(--header-color);
+            color: var(--foreground-color);
+        }
+    }
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+}
+
+.description {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    padding: 0.5em 0 0 0;
+
+    &_title {
+        font-size: 0.75em;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: var(--highlight-color);
+    }
+
+    &_total {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--headerhover-color);
+        padding: 0.25em 0.5em;
+        border-radius: var(--border-radius);
+
+        &Value {
+            font-size: 0.8em;
+            font-weight: 500;
+            color: var(--foreground-color);
+
+        }
     }
 }
 
 
 .bets {
-    padding: 1.5em 0 0.5em 0;
+    padding: 0.5em 0 0.5em 0;
     display: flex;
     flex-direction: column;
 
@@ -35,11 +98,34 @@
         border: 1px solid var(--subtitleBack-color);
         background-color: var(--hover-link);
 
+        &Paid {
+            background-color: #67f57a15;
+        }
+
+        &NoPaid {
+            background-color: #f5676715;
+        }
+
+
         &Summary {
-            display: flex;
-            flex-direction: column;
-            row-gap: 0.2em;
-            color: transparent;
+            display: grid;
+            grid-template-columns: 3em 1fr 2em;
+            place-items: center start;
+            gap: 1em;
+            padding: 0.25em 0.25em 0 0.25em;
+            font-size: 0.75em;
+            font-weight: 600;
+
+
+            &Image {
+                border-radius: 50%;
+            }
+
+            &Count {
+                font-size: 1.3em;
+                font-weight: 600;
+                color: var(--highlight-color);
+            }
         }
 
         &Content {
@@ -47,18 +133,13 @@
             flex-direction: column;
             margin: 0.25em 0 0 0;
             row-gap: 0.25em;
-            color: red
         }
 
-        &Title {
-            font-size: 0.9em;
-            color: var(--foreground-color);
-        }
 
         &Match {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr 2em 2em;
+            place-items: center start;
             font-size: 0.85em;
             font-weight: 300;
             padding: 0.25em 0.5em;
@@ -69,6 +150,18 @@
                 width: 1.5em;
                 height: 1.5em;
                 border-radius: 50%;
+            }
+
+            &Button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 1.5em;
+                height: 1.5em;
+                padding: 0.1em;
+                background-color: var(--hover-link);
+                border: none;
+                color: var(--border-color);
             }
 
         }
