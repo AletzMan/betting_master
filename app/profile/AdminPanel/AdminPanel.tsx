@@ -5,7 +5,7 @@ import { ChangeEvent, useEffect, useState } from "react"
 import { AddResults, GetCurrentMatchDay, GetResultsByDay, UpdateResultsMatchDay } from "@/app/config/firebase"
 import { ICurrentMatch, IResultsMatches } from "@/app/types/types"
 import { ButtonBet } from "../ButtonBet/ButtonBet"
-import { AddIcon, LoadingIcon, UpdateLogo } from "@/app/svg"
+import { AddIcon, ArrowUpIcon, LoadingIcon, UpdateLogo } from "@/app/svg"
 import { TeamsLogos } from "@/app/constants/constants"
 import { DialogCreatBets } from "../DialogCreateBets/DialogCreateBets"
 import { Button } from "@/app/components/Button/Button"
@@ -76,27 +76,33 @@ export function AdminPanel() {
 	return (
 		<>
 			{viewCreateBets && <DialogCreatBets setView={setViewCreateBets} />}
-			<div className={styles.admin}>
-				<h2 className={styles.admin_title}>Panel de administrador</h2>
+			<details className={styles.admin}>
+				<summary className={styles.admin_summary}>
+					Panel de administrador
+				</summary>
 				<section className={styles.admin_section}>
-					{matchDay && <>
-						<h3 className={styles.admin_sectionTitle}>{`Jornada ${matchDay}`}</h3>
-						<div className={`${styles.admin_status} ${statusGame && styles.admin_statusActive}`}>
-							<input className={styles.admin_statusInput} type="checkbox" checked={statusGame} onChange={() => setStatusGame((prev) => !prev)} />
-							<div className={`${styles.admin_statusButton} ${statusGame && styles.admin_statusButtonActive}`}></div>
-							<span className={styles.admin_statusText}>{statusGame ? "Finalizada" : "En juego"}</span>
-						</div>
-						<div className={`${styles.admin_isAvailable} ${isAvailable && styles.admin_isAvailableActive}`}>
-							<input className={styles.admin_isAvailableInput} type="checkbox" checked={isAvailable} onChange={() => setIsAvailable((prev) => !prev)} />
-							<div className={`${styles.admin_isAvailableButton} ${isAvailable && styles.admin_isAvailableButtonActive}`}></div>
-							<span className={styles.admin_isAvailableText}>{isAvailable ? "Abierta" : "Cerrada"}</span>
-						</div>
-
-						<div className={`${styles.admin_corrects}`}>
-							<input className={styles.admin_correctsInput} type="number" value={numberCorrectPicks} onChange={HandleSetCorrects} />
-							<span className={styles.admin_correctsText}>{"Aciertos"}</span>
-						</div>
-					</>}
+					{matchDay &&
+						<header className={styles.admin_header}>
+							<h3 className={styles.admin_sectionTitle}>{`Jornada ${matchDay}`}</h3>
+							<div className={styles.admin_subSection}>
+								<div className={styles.admin_subSectionButtons}>
+									<div className={`${styles.admin_status} ${statusGame && styles.admin_statusActive}`}>
+										<input className={styles.admin_statusInput} type="checkbox" checked={statusGame} onChange={() => setStatusGame((prev) => !prev)} />
+										<div className={`${styles.admin_statusButton} ${statusGame && styles.admin_statusButtonActive}`}></div>
+										<span className={styles.admin_statusText}>{statusGame ? "Finalizada" : "En juego"}</span>
+									</div>
+									<div className={`${styles.admin_isAvailable} ${isAvailable && styles.admin_isAvailableActive}`}>
+										<input className={styles.admin_isAvailableInput} type="checkbox" checked={isAvailable} onChange={() => setIsAvailable((prev) => !prev)} />
+										<div className={`${styles.admin_isAvailableButton} ${isAvailable && styles.admin_isAvailableButtonActive}`}></div>
+										<span className={styles.admin_isAvailableText}>{isAvailable ? "Abierta" : "Cerrada"}</span>
+									</div>
+								</div>
+								<div className={`${styles.admin_corrects}`}>
+									<input className={styles.admin_correctsInput} type="number" value={numberCorrectPicks} onChange={HandleSetCorrects} />
+									<span className={styles.admin_correctsText}>{"Aciertos"}</span>
+								</div>
+							</div>
+						</header>}
 					<article className={styles.admin_results}>
 						{matches.map((match, index) => (
 							<div key={match.teams.away} className={styles.admin_resultsMatch}>
@@ -130,7 +136,7 @@ export function AdminPanel() {
 						}
 					</footer>
 				</section>
-			</div>
+			</details>
 		</>
 	)
 }
