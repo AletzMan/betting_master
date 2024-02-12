@@ -9,7 +9,8 @@
     padding: 0.35em 0.35em;
 
     &:hover {
-        border: 1px solid var(--hover-link);
+        border: 1px solid #f7f1e240;
+        background-color: #f6ebd218;
     }
 
     &_header {
@@ -26,13 +27,11 @@
 
     &_team {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
+        row-gap: 0.25em;
         justify-content: space-between;
 
-        &Away {
-            flex-direction: row-reverse;
-        }
 
         &>svg {
             width: 2.2em;
