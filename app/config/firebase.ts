@@ -6,6 +6,7 @@ import {
 	GoogleAuthProvider,
 	TwitterAuthProvider,
 	getAuth,
+	updateProfile,
 } from "firebase/auth"
 import {
 	addDoc,
@@ -255,6 +256,18 @@ export const DeleteBet = async (betId: string) => {
 		return "OK"
 	} catch (e) {
 		console.error("Error deleting document: ", e)
+		return "FAIL"
+	}
+}
+
+export const UpdatePhotoUser = async (id: string, photo: string) => {
+	console.log("UpdatePhotoUser")
+	try {
+		if (!auth.currentUser) return "FAIL"
+		const docRef = await updateProfile(auth.currentUser, { photoURL: photo })
+		return "OK"
+	} catch (e) {
+		console.error("Error adding document: ", e)
 		return "FAIL"
 	}
 }
