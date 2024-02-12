@@ -1,16 +1,20 @@
 .button {
-    display: grid;
-    grid-template-columns: 1.5em 1fr;
-    place-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     border: none;
     height: 2em;
     font-weight: 600;
     padding: 0.25em 0.6em 0.25em 0.25em;
     min-width: 6em;
-    column-gap: 0.25em;
+    width: 100%;
+    column-gap: 1em;
+    border-radius: var(--border-radius);
     color: var(--background-start-color);
     background-color: var(--highlight-color);
     transition: all 0.3s ease-in-out;
+    font-family: var(--font-montserrat);
 
     &>svg {
         width: 1.3em;
