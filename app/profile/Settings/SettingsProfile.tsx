@@ -56,7 +56,7 @@ export const SettingsProfile = ({ user }: ISettingsProfileProps) => {
             }
         } catch (error) {
             if (error instanceof ZodError) {
-                enqueueSnackbar("Error en los datos", { variant: "error" })
+                enqueueSnackbar("Error al actualizar perfil", { variant: "error" })
                 setErrors({ ...errors, [error.issues[0].path[0]]: error.issues[0].message })
             }
         }
