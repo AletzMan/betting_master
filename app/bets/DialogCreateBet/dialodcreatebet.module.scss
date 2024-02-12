@@ -15,6 +15,7 @@
         background-color: var(--background-end-color);
         width: 100%;
         max-width: 35em;
+        overflow: hidden;
 
         &Header {
             display: flex;
@@ -52,11 +53,14 @@
     &_matches {
         display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
         row-gap: 0.25em;
-        padding: 0.5em 0;
+        padding: 0 0 0.5em 0;
         width: 100%;
-        height: calc(100svh - 7em);
+        height: calc(100svh - 9.5em);
         border: none;
+
 
         &Header {
             position: sticky;
@@ -65,8 +69,8 @@
             flex-direction: row;
             justify-content: space-between;
             width: 100%;
-            padding: 0.25em 0;
-            background-color: var(--header-color);
+            padding: 0.5em 0;
+            background-color: var(--headerhover-color);
             border: none;
             border-radius: var(--border-radius);
             z-index: 2;
@@ -86,13 +90,13 @@
 }
 
 .form {
-    display: grid;
-    grid-template-columns: 8em 1fr;
-    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
     width: 100%;
 
     &_name {
-        flex: 0 1 45%;
+        width: 100%;
     }
 
     &_label {
@@ -141,9 +145,9 @@
         display: flex;
         flex-direction: row;
         align-items: flex-end;
+        justify-content: space-between;
         column-gap: 0.5em;
-        flex-direction: row;
-        padding: 0 0.4em;
+        padding: 0.25em 0;
         width: 100%;
     }
 

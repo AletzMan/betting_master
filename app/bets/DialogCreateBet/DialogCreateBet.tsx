@@ -52,8 +52,6 @@ export function DialogCreateBet(props: DialogProps) {
 		setName("")
 	}
 
-	console.log(bets)
-
 	const HandleSendBet = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 		const results = await GetResultsByDay(matches.day.toString(), new Date().getMonth() < 8 ? "0168" : "0159")
