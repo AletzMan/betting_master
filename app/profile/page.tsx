@@ -51,10 +51,10 @@ export default function ProfilePage() {
 					<SettingsProfile user={user} />
 					{!loading && user.uid === ADMIN_UID && <AdminPanel />}
 					{!loading && user.uid === ADMIN_UID && <BetsByUser />}
-					<h2 className={styles.main_subtitle}>Mis quinielas</h2>
-					{myBets?.map((myBet, index) => (
+					{/*<h2 className={styles.main_subtitle}>Mis quinielas</h2>*/}
+					{/*myBets?.map((myBet, index) => (
 						<BettingDay key={myBet[0]} bet={myBet} open={open} setOpen={setOpen} index={index} numberDays={open.length} />
-					))}
+					))*/}
 				</section>
 			</main>
 		</SnackbarProvider>
