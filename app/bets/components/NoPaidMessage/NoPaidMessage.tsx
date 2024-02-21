@@ -47,7 +47,7 @@ export const NoPaidMessage = ({ myBets, user }: Props) => {
         <section className={`${styles.section} scrollbar`}>
             <h3 className={styles.section_title}>¡Paga tus quinielas para participar!</h3>
             <h3 className={styles.section_title}>¡No te quedes fuera!</h3>
-            <p className={styles.section_text}>Deposita $12.00 por cada quiniela</p>
+            <p className={styles.section_text}>Deposita $15.50 por cada quiniela</p>
             <p className={styles.section_text}>Tu tienes <span className={styles.section_price}>{myBets.bets.length}</span> quiniela(s)</p>
             <div className={styles.section_betsGroup}>
                 {bets.betsPaid.length > 0 &&
