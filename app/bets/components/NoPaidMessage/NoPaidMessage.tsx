@@ -76,7 +76,7 @@ export const NoPaidMessage = ({ myBets, user }: Props) => {
                         ))}
                     </div>}
             </div>
-            <p className={styles.section_text}>Total a pagar: <span className={styles.section_price}>{ConvertToPrice(bets.betsNotPaid.filter(betPaid => !betPaid.data.paid).length * 12)}</span></p>
+            <p className={styles.section_text}>Total a pagar: <span className={styles.section_price}>{ConvertToPrice(bets.betsNotPaid.filter(betPaid => !betPaid.data.paid).length * 15.5)}</span></p>
             <p className={styles.section_textLight}>Tienes hasta el cominezo del primer partido para pagar</p>
             <p className={styles.section_textLight}>Quiniela no pagada no participa</p>
             <div className={styles.section_data}>

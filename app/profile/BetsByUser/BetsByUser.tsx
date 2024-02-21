@@ -95,7 +95,7 @@ export function BetsByUser() {
                         </div>
                         <div className={styles.description_total}>
                             <h2 className={styles.description_title}>Monto</h2>
-                            <p className={styles.description_totalValue}>$ {bets.filter((bet) => bet.data.paid).length * 10.5}</p>
+                            <p className={styles.description_totalValue}>$ {bets.filter((bet) => bet.data.paid).length * 14}</p>
                         </div>
                         <div className={styles.description_total}>
                             <h2 className={styles.description_title}>Ganancia</h2>
