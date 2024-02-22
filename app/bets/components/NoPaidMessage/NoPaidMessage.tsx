@@ -47,7 +47,7 @@ export const NoPaidMessage = ({ myBets, user }: Props) => {
         <section className={`${styles.section} scrollbar`}>
             <h3 className={styles.section_title}>¡Paga tus quinielas para participar!</h3>
             <h3 className={styles.section_title}>¡No te quedes fuera!</h3>
-            <p className={styles.section_text}>Deposita $15.50 por cada quiniela</p>
+            <p className={styles.section_text}>Deposita $15.00 por cada quiniela</p>
             <p className={styles.section_text}>Tu tienes <span className={styles.section_price}>{myBets.bets.length}</span> quiniela(s)</p>
             <div className={styles.section_betsGroup}>
                 {bets.betsPaid.length > 0 &&
@@ -76,7 +76,7 @@ export const NoPaidMessage = ({ myBets, user }: Props) => {
                         ))}
                     </div>}
             </div>
-            <p className={styles.section_text}>Total a pagar: <span className={styles.section_price}>{ConvertToPrice(bets.betsNotPaid.filter(betPaid => !betPaid.data.paid).length * 15.5)}</span></p>
+            <p className={styles.section_text}>Total a pagar: <span className={styles.section_price}>{ConvertToPrice(bets.betsNotPaid.filter(betPaid => !betPaid.data.paid).length * 15)}</span></p>
             <p className={styles.section_textLight}>Tienes hasta el cominezo del primer partido para pagar</p>
             <p className={styles.section_textLight}>Quiniela no pagada no participa</p>
             <div className={styles.section_data}>

@@ -119,7 +119,7 @@ export default function BetsPage() {
 							<section className={`${styles.main_table} scrollbar`}>
 								<div className={styles.namesTable}>
 									<div className={styles.namesTable_header}>
-										<span className={styles.namesTable_headerAmount}>Monto: {ConvertToPrice((bets?.length || 0) * 14)}</span>
+										<span className={styles.namesTable_headerAmount}>Monto: {ConvertToPrice((bets?.length || 0) * 13.5)}</span>
 										{/*matches.matches.length > 0 && <h1 className={styles.namesTable_headerTitle}>{matches.tournament}</h1>*/}
 										{matches.matches.length > 0 && <p className={styles.namesTable_headerDay}>{`Jornada ${matches.day}`}</p>}
 										<select className={styles.namesTable_headerSelect} onChange={HandleOrder}>
