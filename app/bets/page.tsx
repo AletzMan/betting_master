@@ -5,7 +5,7 @@ import { ConvertToPrice } from "../functions/functions"
 import styles from "./bets.module.scss"
 import { Loading } from "../components/Loading/Loading"
 import { DialogCreateBet } from "./DialogCreateBet/DialogCreateBet"
-import { NotFoundIcon, StarIcon, WinnerIcon } from "../svg"
+import { ArrowIcon, NotFoundIcon, StarIcon, WinnerIcon } from "../svg"
 import { useUser } from "../config/zustand-store"
 import { useMatches } from "../hooks/useMatches"
 import { useWinner } from "../hooks/useWinner"
@@ -49,6 +49,7 @@ export default function BetsPage() {
 	const [selectRanges, setSelectRanges] = useState<{ row: number; column: number } | null>(null)
 	const [openDialog, setOpenDialog] = useState(false)
 	const [myBets, setMyBets] = useState<IMyBets>(EmptyMyBets)
+	const [hiddenNames, setHiddenNames] = useState(false)
 
 	useEffect(() => {
 		if (user) {
@@ -95,10 +96,15 @@ export default function BetsPage() {
 		}
 	}
 
+
+	const HandleSetVisibilityNames = () => {
+		setHiddenNames(prev => !prev)
+	}
+
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }}>
 			<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
-				{openDialog && <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matches} />}
+				{openDialog && <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matches} myBets={myBets} />}
 				{matches?.results?.length > 0 && !isLandscape && <HeaderPage isInTime={matches?.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />}
 				{loading && <Loading />}
 				{myBets?.isNotBetsPaid && myBets.hasBets && bets && bets?.length > 0 &&
@@ -116,12 +122,16 @@ export default function BetsPage() {
 				{!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets && bets.length > 0 && matches?.matches[0]?.status !== "Sin comenzar" && (
 					<>
 						{matches?.results?.length > 0 && <>
-							<section className={`${styles.main_table} scrollbar`}>
+							<section className={`${styles.main_table} ${hiddenNames && styles.main_tableHidden} scrollbar`}>
+
 								<div className={styles.namesTable}>
-									<div className={styles.namesTable_header}>
-										<span className={styles.namesTable_headerAmount}>Monto: {ConvertToPrice((bets?.length || 0) * 13.5)}</span>
+									<div className={`${styles.namesTable_header} ${hiddenNames && styles.namesTable_headerHidden}`}>
+										<button className={styles.namesTable_headerResize} onClick={HandleSetVisibilityNames}>
+											<ArrowIcon className={`${styles.namesTable_headerResizeArrow} ${hiddenNames && styles.namesTable_headerResizeArrowHidden}`} />
+										</button>
+										{!hiddenNames && <span className={styles.namesTable_headerAmount}>Monto: {ConvertToPrice((bets?.length || 0) * 13.5)}</span>}
 										{/*matches.matches.length > 0 && <h1 className={styles.namesTable_headerTitle}>{matches.tournament}</h1>*/}
-										{matches.matches.length > 0 && <p className={styles.namesTable_headerDay}>{`Jornada ${matches.day}`}</p>}
+										{matches.matches.length > 0 && <p className={`${styles.namesTable_headerDay} ${hiddenNames && styles.namesTable_headerDayHidden}`}>{`Jornada ${matches.day}`}</p>}
 										<select className={styles.namesTable_headerSelect} onChange={HandleOrder}>
 											<option value="normal">Por participante</option>
 											<option value="myBets">Mis quinielas</option>
@@ -143,7 +153,7 @@ export default function BetsPage() {
 													<picture className={styles.namesTable_photo}>
 														<Image className={styles.namesTable_photoImage} src={bet.userInfo?.photo || "/user-icon.png"} width={22} height={22} alt={`Foto de perfil de ${bet.userInfo?.name}`} />
 													</picture>
-													{bet.name}
+													{!hiddenNames && bet.name}
 													<div className={styles.namesTable_hits}>
 														{user.uid === bet.uid && <StarIcon className={styles.namesTable_hitsIcon} />}
 														{winner?.includes(bet.id) && <WinnerIcon className={styles.namesTable_winIcon} />}
