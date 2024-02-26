@@ -12,11 +12,13 @@ import { useSnackbar } from "notistack"
 import { useRouter } from "next/navigation"
 import { signOut } from "firebase/auth"
 import { Button } from "@/app/components/Button/Button"
+import { IMyBets } from "../page"
 
 interface DialogProps {
 	matches: IMatchDay
 	open: boolean
 	setOpen: Dispatch<SetStateAction<boolean>>
+	myBets: IMyBets
 }
 
 const EmptyBetPredictions: IPredictions[] = [
@@ -31,10 +33,9 @@ const EmptyBetPredictions: IPredictions[] = [
 	{ id: "", prediction: "" },
 ]
 
-export function DialogCreateBet(props: DialogProps) {
+export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps) {
 	const router = useRouter()
 	const { enqueueSnackbar } = useSnackbar()
-	const { open, setOpen, matches } = props
 	const { user } = useUser()
 	const { bets, setBets, setIsEmpty, error, typeError, setTypeError, setError } = useBet()
 	const [name, setName] = useState("")
@@ -118,6 +119,10 @@ export function DialogCreateBet(props: DialogProps) {
 		<dialog className={styles.dialog} open={open}>
 			<main className={styles.dialog_main}>
 				<header className={styles.dialog_mainHeader}>
+					{/*<Button
+						onClick={() => { }}
+						text="Ver mis quinielas"
+	/>*/}
 					<h2 className={styles.dialog_mainHeaderTitle}>CREAR QUINIELA</h2>
 					<form className={styles.form}>
 						<div className={styles.form_name}>
