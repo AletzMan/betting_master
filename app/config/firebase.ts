@@ -153,7 +153,8 @@ export const UpdateResultsMatchDay = async (
 	data: string[],
 	matches: ICurrentMatch[],
 	tournament: string,
-	isAvailable: boolean
+	isAvailable: boolean,
+	isFinishGame: boolean
 ) => {
 	const year = new Date().getFullYear()
 	console.log("UpdateResultsMatchDay")
@@ -162,6 +163,7 @@ export const UpdateResultsMatchDay = async (
 			results: data,
 			matches,
 			isAvailable,
+			isFinishGame,
 		})
 		return "OK"
 	} catch (e) {
