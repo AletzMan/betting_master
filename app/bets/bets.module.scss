@@ -413,6 +413,10 @@
     display: flex;
     flex-flow: row wrap;
     padding: 0.5em;
+
+    &_title{
+        text-align: center;
+    }
 }
 
 .winner {
@@ -459,6 +463,11 @@
     &_name {
         font-size: 0.8em;
         font-weight: 700;
+        text-align: center;
+    }
+
+    &_bet{
+        text-align: center;
     }
 
     &_icon {
