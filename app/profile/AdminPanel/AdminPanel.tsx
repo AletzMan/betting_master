@@ -50,7 +50,7 @@ export function AdminPanel() {
 			}
 			const result = await AddResults(newResults, new Date().getMonth() < 8 ? "0168" : "0159")
 			const update = UpdateStatusMatches(matches, resultsByMatch)
-			await UpdateResultsMatchDay(resultsByMatch, update, new Date().getMonth() < 8 ? "0168" : "0159", isAvailable)
+			await UpdateResultsMatchDay(resultsByMatch, update, new Date().getMonth() < 8 ? "0168" : "0159", isAvailable, statusGame)
 			if (result === "OK") {
 				setSending(false)
 				enqueueSnackbar("Quiniela actualizada", { variant: "success" })

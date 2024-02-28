@@ -311,6 +311,7 @@ export interface IMatchDay {
 	day: number
 	tournament: string
 	isAvailable: boolean
+	isFinishGame: boolean
 }
 
 export interface Teams {

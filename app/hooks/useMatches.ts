@@ -38,6 +38,7 @@ export function useMatches() {
 				tournament: "",
 				results: [],
 				isAvailable: false,
+				isFinishGame: false,
 			}
 			setMatches(emptyMatches)
 			setIsInTime({ available: false, time: "" })
