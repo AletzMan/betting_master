@@ -13,7 +13,7 @@ import { useSort } from "../hooks/useSort"
 import { HeaderMatches } from "./components/HeaderMatches/HeaderMatches"
 import { HeaderPage } from "./components/HeaderPage/HeaderPage"
 import { useOrientation } from "../hooks/useOrientation"
-import { IBetDataDocument, IBetDocument } from "../types/types"
+import { IBetDataDocument, IBetDocument, IPredictions } from "../types/types"
 import { GetBetsByIDGroup } from "../config/firebase"
 import Image from "next/image"
 import { SnackbarProvider } from "notistack"
@@ -53,6 +53,8 @@ export default function BetsPage() {
 	const [hiddenNames, setHiddenNames] = useState(false)
 	const [winners, setWinners] = useState<IBetDocument[] | undefined>(undefined)
 	const [viewBets, setViewBets] = useState(false)
+
+
 
 	useEffect(() => {
 		if (user) {
@@ -102,7 +104,6 @@ export default function BetsPage() {
 		}
 	}
 
-
 	const HandleSetVisibilityNames = () => {
 		setHiddenNames(prev => !prev)
 	}
@@ -110,7 +111,7 @@ export default function BetsPage() {
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }}>
 			<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
-				{openDialog && <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matches} myBets={myBets} />}
+				{openDialog && matches && <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matches} myBets={myBets} />}
 				{matches?.results?.length > 0 && !isLandscape && !matches.isFinishGame && <HeaderPage isInTime={matches?.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />}
 				{loading && <Loading />}
 				{matches.isFinishGame && <Button className={styles.buttonViewWinners} onClick={() => setViewBets(prev => !prev)} text={viewBets ? 'Ver ganadores' : 'Ver quinielas'} />}

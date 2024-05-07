@@ -32,7 +32,7 @@ export function AdminPanel() {
 			setResults(result)
 			setResultByMatch(result.results)
 			setStatusGame(result.status === "finished")
-			setNumberCorrectPicks(result.winner_correct_pick)
+			//setNumberCorrectPicks(result.winner_correct_pick)
 			setIsAvailable(result.isAvailable)
 		}
 	}
@@ -45,7 +45,7 @@ export function AdminPanel() {
 				day: matchDay.toString(),
 				results: resultsByMatch,
 				status: statusGame ? "finished" : "in game",
-				winner_correct_pick: numberCorrectPicks,
+				winner_correct_pick: 0,
 				isAvailable
 			}
 			const result = await AddResults(newResults, new Date().getMonth() < 8 ? "0168" : "0159")
@@ -75,7 +75,7 @@ export function AdminPanel() {
 
 	return (
 		<>
-			{viewCreateBets && <DialogCreatBets setView={setViewCreateBets} />}
+			{viewCreateBets && <DialogCreatBets setView={setViewCreateBets} numberMatches={numberCorrectPicks} />}
 			<details className={styles.admin}>
 				<summary className={styles.admin_summary}>
 					Panel de administrador

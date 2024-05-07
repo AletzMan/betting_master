@@ -352,13 +352,21 @@ export const SortByHits = (
 
 import { Teams } from "../types/types"
 
-export function ValidateNewBet(dataMatches: Teams[], dataDates: string[], matchDay: number) {
+export function ValidateNewBet(
+	dataMatches: Teams[],
+	dataDates: string[],
+	matchDay: number,
+	numberMatches: number
+) {
 	let errorMatches: IErrorMatches = { home: [], away: [] }
 	let errorDates: boolean[] = []
 	let errorMatchDay: boolean = false
 	let hasErrors: boolean = false
 	let totalTeams: number[] = []
-	const idTeams = Array.from({ length: 18 }, (_, index) => index)
+	const idTeams = Array.from({ length: numberMatches }, (_, index) => index)
+	console.log(numberMatches)
+
+	console.log(dataMatches)
 
 	for (let index = 0; index < Object.entries(dataMatches).length; index++) {
 		errorMatches.home.push(Number.isNaN(dataMatches[index].home))

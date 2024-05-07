@@ -50,40 +50,45 @@ export function NewMatch(props: Props) {
 		let newSetTeams: Team[] = []
 
 		// Recorre la respuesta y filtra los equipos originales en newArrayTeams
-		for (let index = 0; index < Object.entries(newTeams).length; index++) {
+		/*for (let index = 0; index < Object.entries(newTeams).length; index++) {
 			orginalTeams.forEach((origTeam) => {
 				if (origTeam.id === newTeams[index].home.toString() || origTeam.id === newTeams[index].away.toString()) {
 					newArrayTeams.push(origTeam)
 				}
 			})
-		}
+		}*/
 
 		// Convierte la respuesta en un array de objetos
 		const arrayObject = Object.entries(newTeams)
 
 		// Filtra los elementos no NaN del array de objetos
-		const arrayTeamsNotNaN = arrayObject.filter((idEx) => !Number.isNaN(idEx[1].home) || !Number.isNaN(idEx[1].away))
+		//const arrayTeamsNotNaN = arrayObject.filter((idEx) => !Number.isNaN(idEx[1].home) || !Number.isNaN(idEx[1].away))
 
 		// Crea un array de IDs a excluir
-		let idsAExcluir: string[] = []
+		/*let idsAExcluir: string[] = []
 		for (let index = 0; index < arrayTeamsNotNaN.length; index++) {
 			idsAExcluir.push(arrayTeamsNotNaN[index][1].home.toString())
 			idsAExcluir.push(arrayTeamsNotNaN[index][1].away.toString())
-		}
+		}*/
 
 		// Si newArrayTeams contiene elementos, filtra orginalTeams para excluir ciertos IDs
-		if (newArrayTeams.length > 0) {
+		/*if (newArrayTeams.length > 0) {
 			newSetTeams = orginalTeams.filter((team) => !idsAExcluir.includes(team.id))
 		} else {
 			// Si newArrayTeams está vacío, asigna una copia de TeamsNames a newSetTeams
 			newSetTeams = [...TeamsNames]
-		}
+		}*/
+		newSetTeams = [...TeamsNames]
 
 		// Actualiza el estado con el nuevo conjunto de equipos
 		setTeams(newSetTeams)
 	}
+	console.log(selectedTeams)
+
+
 
 	const HandleSelectionTeam = (team: string, teamid: string) => {
+		console.log(team)
 		// Copia del arreglo de selectedTeams
 		let newTeams: Teams[] = { ...selectedTeams }
 		// Obten una copia del partido actual
@@ -98,6 +103,7 @@ export function NewMatch(props: Props) {
 		// Actualiza el arreglo de selectedTeams con la nueva información
 		newTeams[matchNumber] = newMatch
 
+		console.log(newTeams)
 		// Actualiza el estado con el nuevo arreglo
 		return newTeams
 	}
@@ -114,7 +120,7 @@ export function NewMatch(props: Props) {
 	return (
 		<div className={styles.match}>
 			<div className={`${styles.match_logo} ${styles.match_logoHome}`}>
-				{selectedTeams[matchNumber].home >= 0 && TeamsLogos[selectedTeams[matchNumber].home].logo}
+				{selectedTeams?.[matchNumber]?.home >= 0 && TeamsLogos[selectedTeams[matchNumber].home].logo}
 			</div>
 			<div className={`${styles.match_home} ${hasError.home && styles.match_error}`}>
 				<ComboBox options={teams} selectOption={homeTeam} setSelectOption={setHomeTeam} plaaceholder="Local" />
@@ -129,7 +135,7 @@ export function NewMatch(props: Props) {
 				<ComboBox options={teams} selectOption={awayTeam} setSelectOption={setAwayTeam} plaaceholder="Visita" />
 			</div>
 			<div className={`${styles.match_logo} ${styles.match_logoAway}`}>
-				{selectedTeams[matchNumber].away >= 0 && TeamsLogos[selectedTeams[matchNumber].away].logo}
+				{selectedTeams?.[matchNumber]?.away >= 0 && TeamsLogos[selectedTeams[matchNumber].away].logo}
 			</div>
 		</div>
 	)
