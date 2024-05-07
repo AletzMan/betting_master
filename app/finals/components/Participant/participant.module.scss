@@ -1,0 +1,28 @@
+.participant {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+
+    &_picture {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2em;
+        height: 2em;
+        padding: 0.5em;
+        border-radius: 0.5em;
+        overflow: hidden;
+        border: 1px solid var(--highlighthover-color);
+    }
+
+    &_image {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 0.25em;
+    }
+
+    &_name {
+        font-size: 0.85em;
+    }
+
+}

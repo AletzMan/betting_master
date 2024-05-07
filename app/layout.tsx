@@ -1,10 +1,10 @@
 import "./globals.css"
 import type { Metadata } from "next"
-import { Montserrat } from "next/font/google"
+import { Jost } from "next/font/google"
 import { Header } from "./components/Header/Header"
 import MaintenancePage from "./maintenance/page"
 
-const montserrat = Montserrat({ subsets: ["latin"] })
+const montserrat = Jost({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
 	title: "Quiniela y Resultados",

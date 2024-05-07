@@ -1,0 +1,45 @@
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin: 0 auto;
+    height: 100svh;
+    padding: 5em 0.5em 1em 0.5em;
+    width: 100%;
+    max-width: var(--max-width);
+    overflow: hidden;
+    box-sizing: border-box;
+
+    &_landscape {
+        padding: 2.5em 0.5em 0.5em 0.5em;
+    }
+
+    &_message {
+        text-align: center;
+        text-wrap: balance;
+        padding: 0.5em;
+        margin: 0 0 1em 0;
+        background-color: var(--background-start-color);
+    }
+
+}
+
+.participants {
+    //background-color: red;
+    height: 100%;
+    width: 100%;
+
+    &_title {
+        text-align: center;
+        margin: 0 0 0.5em 0;
+    }
+
+    &_container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 0.5em;
+        row-gap: 1em;
+        width: 100%;
+    }
+}
