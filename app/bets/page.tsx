@@ -225,7 +225,7 @@ export default function BetsPage() {
 											<Image className={styles.winner_image} src={win.userInfo?.photo || "/user-icon.png"} alt="Winner" width={100} height={100} />
 										</picture>
 										<span className={styles.winner_name}>{win.userInfo?.name}</span>
-										<span>{win.name}</span>
+										<span className={styles.winner_bet}>{win.name}</span>
 										<WinnerIcon className={styles.winner_icon} />
 									</div>
 								))
