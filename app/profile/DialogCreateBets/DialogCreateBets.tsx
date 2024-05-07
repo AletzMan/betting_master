@@ -71,6 +71,7 @@ export function DialogCreatBets(props: Props) {
 				matches: newMatches,
 				results: ["-", "-", "-", "-", "-", "-", "-", "-", "-"],
 				isAvailable: false,
+				isFinishGame: false
 			}
 			const response = await AddMatchDay(newMatchDay, new Date().getMonth() < 8 ? "0168" : "0159", matchDay)
 			if (response === "OK") {
