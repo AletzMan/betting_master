@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, MouseEvent, useState, ChangeEvent } from "react"
+import { Dispatch, SetStateAction, MouseEvent, useState, ChangeEvent, useEffect } from "react"
 import styles from "./dialodcreatebet.module.scss"
 import { MatchBet } from "./MatchCalendar/MatchBet"
 import { useBet, useUser } from "@/app/config/zustand-store"
@@ -42,6 +42,15 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 	const [betSentSuccessfully, setBetSentSuccessfully] = useState(false)
 	const [loading, setLoading] = useState(false)
 
+	console.log(matches)
+
+	useEffect(() => {
+		let newBets: IPredictions[] = []
+		for (let index = 0; index < matches.matches.length; index++) {
+			newBets.push({ id: crypto.randomUUID(), prediction: "" })
+		}
+		setBets(newBets)
+	}, [])
 
 
 	const HandleStatusDialog = (status: boolean) => {
@@ -114,7 +123,8 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 		setTypeError("")
 		setError(false)
 	}
-
+	console.log(matches)
+	console.log(bets)
 	return (
 		<dialog className={styles.dialog} open={open}>
 			<main className={styles.dialog_main}>
@@ -154,7 +164,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 							<p className={styles.dialog_matchesHeaderTitle}>Empate</p>
 							<p className={styles.dialog_matchesHeaderTitle}>Visitante</p>
 						</header>
-						{matches.matches.map((match, index) =>
+						{bets.length > 0 && matches?.matches?.map((match, index) =>
 							<MatchBet key={match.id} matchData={match} numberMatch={index} />
 						)}
 					</div>

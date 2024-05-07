@@ -31,17 +31,7 @@ interface BetState {
 	setTypeError: (value: "empty" | "name_short" | "name_empty" | "") => void
 }
 
-const EmptyBets: IPredictions[] = [
-	{ id: crypto.randomUUID(), prediction: "" },
-	{ id: crypto.randomUUID(), prediction: "" },
-	{ id: crypto.randomUUID(), prediction: "" },
-	{ id: crypto.randomUUID(), prediction: "" },
-	{ id: crypto.randomUUID(), prediction: "" },
-	{ id: crypto.randomUUID(), prediction: "" },
-	{ id: crypto.randomUUID(), prediction: "" },
-	{ id: crypto.randomUUID(), prediction: "" },
-	{ id: crypto.randomUUID(), prediction: "" },
-]
+const EmptyBets: IPredictions[] = []
 
 export const useBet = create<BetState>((set) => ({
 	bets: EmptyBets,
@@ -64,33 +54,13 @@ interface INewBet {
 }
 
 export const useNewBet = create<INewBet>((set) => ({
-	selectedTeams: [
-		{ home: NaN, away: NaN },
-		{ home: NaN, away: NaN },
-		{ home: NaN, away: NaN },
-		{ home: NaN, away: NaN },
-		{ home: NaN, away: NaN },
-		{ home: NaN, away: NaN },
-		{ home: NaN, away: NaN },
-		{ home: NaN, away: NaN },
-		{ home: NaN, away: NaN },
-	],
+	selectedTeams: [],
 	setSelectedTeams: (value: Teams[]) => set({ selectedTeams: value }),
-	selectedDates: ["", "", "", "", "", "", "", "", ""],
+	selectedDates: [],
 	setSelectedDates: (value: string[]) => set({ selectedDates: value }),
 	clearTeams: () =>
 		set({
-			selectedTeams: [
-				{ home: NaN, away: NaN },
-				{ home: NaN, away: NaN },
-				{ home: NaN, away: NaN },
-				{ home: NaN, away: NaN },
-				{ home: NaN, away: NaN },
-				{ home: NaN, away: NaN },
-				{ home: NaN, away: NaN },
-				{ home: NaN, away: NaN },
-				{ home: NaN, away: NaN },
-			],
+			selectedTeams: [],
 		}),
-	clearDates: () => set({ selectedDates: ["", "", "", "", "", "", "", "", ""] }),
+	clearDates: () => set({ selectedDates: [] }),
 }))

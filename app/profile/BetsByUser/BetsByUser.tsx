@@ -148,5 +148,8 @@ const MatchDays = [
     { id: 14, name: "Jornada 14" },
     { id: 15, name: "Jornada 15" },
     { id: 16, name: "Jornada 16" },
-    { id: 17, name: "Jornada 17" }
+    { id: 17, name: "Jornada 17" },
+    { id: 18, name: "Cuartos" },
+    { id: 19, name: "Semi-Final" },
+    { id: 20, name: "Final" },
 ]

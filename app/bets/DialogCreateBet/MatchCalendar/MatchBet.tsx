@@ -3,7 +3,7 @@ import styles from "./matchbet.module.scss"
 import { StadiumIcon } from "@/app/svg"
 import { Results } from "@/app/types/ResultsTypes"
 import { FormattedCulbNames } from "@/app/functions/functions"
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { useBet } from "@/app/config/zustand-store"
 import { ICurrentMatch } from "@/app/types/types"
 import { TeamsLogos } from "@/app/constants/constants"
@@ -19,6 +19,7 @@ export function MatchBet(props: PropsMatch) {
 	const { matchData, numberMatch } = props
 	const { setBets, bets, isEmpty } = useBet()
 
+
 	const Status = matchData.status
 	const StatusMatch =
 		Status === "Sin comenzar" ? styles.match_statusNotStarted : Status === "Finalizado" ? styles.match_statusEnded : styles.match_statusStarted
@@ -27,14 +28,14 @@ export function MatchBet(props: PropsMatch) {
 		const newBets = bets.map((bet, index) => (index === numberMatch ? { id: crypto.randomUUID(), prediction: typePrediction } : bet))
 		setBets(newBets)
 	}
-
+	console.log(bets)
 	return (
 		<section className={styles.match}>
 			<div className={`${styles.match_header} ${isEmpty && bets[numberMatch].prediction === "" && styles.predictionsEmpty}`}>
 				<div className={styles.predictions_prediction}>
 					<input
 						className={`${styles.predictions_predictionInput}`}
-						checked={bets[numberMatch].prediction === "L"}
+						checked={bets?.[numberMatch]?.prediction === "L"}
 						name={`bet${matchData.startDate}`}
 						onChange={() => HandleChangePrediction("L")}
 						type="checkbox"

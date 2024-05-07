@@ -10,6 +10,7 @@ import { TeamsNames } from "@/app/constants/constants"
 import { useSnackbar } from "notistack"
 interface Props {
 	setView: Dispatch<SetStateAction<boolean>>
+	numberMatches: number
 }
 
 interface IErrorEmpty {
@@ -26,25 +27,36 @@ const initError: IErrorEmpty = {
 	},
 	errorDates: [false, false, false, false, false, false, false, false, false],
 	errorMatchDay: false,
-	hasError: false,
+	hasError: false
 }
 
-export function DialogCreatBets(props: Props) {
+export function DialogCreatBets({ numberMatches, setView }: Props) {
 	const { enqueueSnackbar } = useSnackbar()
-	const { setView } = props
-	const { selectedTeams, selectedDates, clearTeams, clearDates } = useNewBet()
+	const { selectedTeams, selectedDates, clearTeams, clearDates, setSelectedTeams } = useNewBet()
 	const [matchDay, setMatchDay] = useState(0)
 	const { isLandscape } = useOrientation()
 	const [error, setError] = useState<IErrorEmpty>(initError)
 	const [teams, setTeams] = useState<Team[]>(TeamsNames)
 	const [clear, setClear] = useState<boolean>(false)
+	const [matches, setMatches] = useState<ICurrentMatches[]>([])
+
+
+	useEffect(() => {
+		const newMatches = Matches.filter((match, index) => index < numberMatches)
+		setMatches(newMatches)
+		let newMatchesTeams: Teams[] = []
+		for (let index = 0; index < numberMatches; index++) {
+			newMatchesTeams.push({ home: NaN, away: NaN })
+		}
+		setSelectedTeams(newMatchesTeams)
+	}, [])
 
 	const HandleChangeDay = (e: ChangeEvent<HTMLInputElement>) => {
 		setMatchDay(parseInt(e.currentTarget.value))
 	}
 
 	const HandleCreateMatchDay = async () => {
-		const respErrors = ValidateNewBet(selectedTeams, selectedDates, matchDay)
+		const respErrors = ValidateNewBet(selectedTeams, selectedDates, matchDay, numberMatches * 2)
 		setError({
 			errorMatches: respErrors.errorMatches,
 			errorDates: respErrors.errorDates,
@@ -54,7 +66,7 @@ export function DialogCreatBets(props: Props) {
 
 		if (!respErrors.hasErrors) {
 			const newMatches: ICurrentMatch[] = []
-			for (let index = 0; index < 9; index++) {
+			for (let index = 0; index < 8; index++) {
 				newMatches.push({
 					id: crypto.randomUUID(),
 					status: "Sin comenzar",
@@ -65,11 +77,15 @@ export function DialogCreatBets(props: Props) {
 					},
 				})
 			}
+			const newArrayResults: string[] = []
+			for (let index = 0; index < numberMatches; index++) {
+				newArrayResults.push("-")
+			}
 			const newMatchDay: IMatchDay = {
 				day: matchDay,
 				tournament: "Liga BBVA Bancomer MX",
 				matches: newMatches,
-				results: ["-", "-", "-", "-", "-", "-", "-", "-", "-"],
+				results: newArrayResults,
 				isAvailable: false,
 				isFinishGame: false
 			}
@@ -124,7 +140,7 @@ export function DialogCreatBets(props: Props) {
 							onChange={HandleChangeDay}
 						/>
 					</div>
-					{Matches.map((match, index) => (
+					{matches?.map((match, index) => (
 						<section key={match.id}>
 							{<NewMatch
 								key={match.id}
@@ -142,7 +158,11 @@ export function DialogCreatBets(props: Props) {
 	)
 }
 
-const Matches = [
+interface ICurrentMatches {
+	id: string
+}
+
+const Matches: ICurrentMatches[] = [
 	{
 		id: crypto.randomUUID(),
 	},
