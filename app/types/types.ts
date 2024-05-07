@@ -358,3 +358,17 @@ export interface IUserSettings {
 	email: string | null
 	photo: string | null
 }
+
+export interface IFinalsParticipants extends DocumentData {
+	id: string
+	uid: string
+	team: string
+	userInfo?: IUserInfo
+}
+
+export interface IParticipants {
+	id: string
+	uid: string
+	team: string
+	userInfo?: IUserInfo
+}

@@ -1,0 +1,52 @@
+.title {
+    font-size: 1em;
+    color: var(--subtitle-color);
+}
+
+.matches {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5em;
+    width: 100%;
+    max-width: var(--max-width);
+    padding: 0.5em 0;
+    //height: calc(100svh - 9em);
+    //background-color: var(--background-start-color);
+
+    &_container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+    }
+
+    &_match {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5em;
+        padding: 0.5em;
+        border-radius: 0.25em;
+        background-color: var(--background-textTwo);
+    }
+}
+
+
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    &_name {
+        font-size: 0.8em;
+    }
+}
+
+.logo {
+    width: 2em;
+    height: 2em;
+}
+
+.button {
+    position: fixed;
+    bottom: 1em;
+}

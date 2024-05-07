@@ -11,6 +11,7 @@ import { useOrientation } from "../hooks/useOrientation"
 import { SnackbarProvider } from "notistack"
 import { SettingsProfile } from "./Settings/SettingsProfile"
 import { BetsByUser } from "./BetsByUser/BetsByUser"
+import AdminFinals from "./AdminFinals/AdminFinals"
 
 const ADMIN_UID = process.env.NEXT_PUBLIC_ADMIN_UID
 
@@ -48,9 +49,10 @@ export default function ProfilePage() {
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }}>
 			<main className={`${styles.main} ${isLandscape && styles.main_landscape} scrollbar`}>
 				<section className={styles.section}>
-					<SettingsProfile user={user} />
-					{!loading && user.uid === ADMIN_UID && <AdminPanel />}
-					{!loading && user.uid === ADMIN_UID && <BetsByUser />}
+					{/*<SettingsProfile user={user} />*/}
+					{/*!loading && user.uid === ADMIN_UID && <AdminPanel />*/}
+					{/*!loading && user.uid === ADMIN_UID && <BetsByUser />*/}
+					{!loading && user.uid === ADMIN_UID && <AdminFinals />}
 					{/*<h2 className={styles.main_subtitle}>Mis quinielas</h2>*/}
 					{/*myBets?.map((myBet, index) => (
 						<BettingDay key={myBet[0]} bet={myBet} open={open} setOpen={setOpen} index={index} numberDays={open.length} />

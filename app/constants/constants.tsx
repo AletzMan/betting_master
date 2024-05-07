@@ -9,6 +9,7 @@ import {
 	GetafeLogo,
 	JuarezLogo,
 	LeonLogo,
+	LuckIcon,
 	MazatlanLogo,
 	MonterreyLogo,
 	NecaxaLogo,
@@ -351,13 +352,21 @@ export const TeamsNames: Team[] = [
 ]
 
 export const LinksPage = [
-	{
+	/*{
 		id: 0,
 		text: "Quinielas",
 		pathname: "/bets",
 		href: "/bets",
 		title: "Ir a página de quinielas",
 		icon: <BetsIcon className="" />,
+	},*/
+	{
+		id: 1,
+		text: "Finales",
+		pathname: "/finals",
+		href: "/finals",
+		title: "Ir a enfrentamientos finales",
+		icon: <LuckIcon className="" />,
 	},
 	{
 		id: 2,
@@ -366,7 +375,7 @@ export const LinksPage = [
 		href: "/results",
 		title: "Ir a página de resultados",
 		icon: <ResultsIcon className="" />,
-	},
+	}/*,
 	{
 		id: 3,
 		text: "Posiciones",
@@ -374,9 +383,9 @@ export const LinksPage = [
 		href: "/positions",
 		title: "Ir a página de posiciones",
 		icon: <PositionsIcon className="" />,
-	},
+	},*/
 	/*{
-		id: 3,
+		id: 4,
 		text: "Estadísticas",
 		pathname: "/statistics",
 		href: `/statistics?tournament=${new Date().getMonth() < 9 ? "0168" : "0159"}&type=goals`,
