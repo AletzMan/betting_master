@@ -7,15 +7,13 @@ interface Props {
 }
 
 
-export default function Quarters({ participants }: Props) {
+export default function Semis({ participants }: Props) {
 
     return (
         <section className={`${styles.quarters} `}>
-            <h2 className={styles.quarters_title}>Cuartos de Final</h2>
+            <h2 className={styles.quarters_title}>Semi - Finales</h2>
             <MatchFinals participants={participants} index={[0, 5]} />
             <MatchFinals participants={participants} index={[1, 3]} />
-            <MatchFinals participants={participants} index={[2, 5]} />
-            <MatchFinals participants={participants} index={[3, 4]} />
         </section>
     )
 }
