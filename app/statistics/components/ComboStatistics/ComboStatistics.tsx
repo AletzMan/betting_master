@@ -13,9 +13,10 @@ export function ComboStatistics() {
 
 	useEffect(() => {
 		router.push(`/statistics?tournament=${selectedTournament.id}&type=${selectedValue.id}`)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedTournament, selectedValue])
 
-	const SelectTournament = new Date().getMonth() < 9 ? Tournaments : TournamentsInitYear
+	const SelectTournament = new Date().getMonth() < 6 ? Tournaments : TournamentsInitYear
 
 	return (
 		<header className={styles.header}>

@@ -70,11 +70,14 @@ $base-color: rgb(30, 30, 30);
         &Day {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             column-gap: 0.5em;
             width: 100%;
 
             &Text {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
                 color: var(--subtitle-color);
             }
 

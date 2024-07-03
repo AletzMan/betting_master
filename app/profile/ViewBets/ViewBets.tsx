@@ -18,10 +18,11 @@ export function ViewBets(props: PropsViewBets) {
 
 	useEffect(() => {
 		GetResults()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const GetResults = async () => {
-		const result = await GetResultsByDay(bet.day, new Date().getMonth() < 8 ? "0168" : "0159")
+		const result = await GetResultsByDay(bet.day, new Date().getMonth() < 6 ? "0168" : "0159")
 		if (result) {
 			ValidateWinner(result)
 			setResults(result)

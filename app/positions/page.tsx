@@ -14,7 +14,7 @@ import { Tournaments } from "../constants/constants"
 export default function PositionsPage() {
 	const [leagues, setLeagues] = useState<LeagueMX[]>([])
 	const { isLandscape } = useOrientation()
-	const [selectedLeague, setSelectLeague] = useState({ id: new Date().getMonth() < 7 ? "0168" : "0159", name: "Liga MX" })
+	const [selectedLeague, setSelectLeague] = useState({ id: new Date().getMonth() < 6 ? "0168" : "0159", name: "Liga MX" })
 	const [selectedGroup, setSelectedGruop] = useState(0)
 	const [numberGroups, setNumberGoups] = useState(0)
 	const [loading, setLoading] = useState(true)

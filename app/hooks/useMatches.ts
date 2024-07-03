@@ -11,6 +11,7 @@ export function useMatches() {
 
 	useEffect(() => {
 		GetMatches()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	useEffect(() => {
@@ -28,7 +29,7 @@ export function useMatches() {
 
 	const GetMatches = async () => {
 		const currentMonth = new Date().getMonth() + 1
-		const tournament = currentMonth < 8 ? "0168" : "0159"
+		const tournament = currentMonth < 7 ? "0168" : "0159"
 		const result = await GetCurrentMatchDay(tournament)
 
 		if (result === undefined) {

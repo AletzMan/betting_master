@@ -192,7 +192,7 @@ export const AddMatchDay = async (data: IMatchDay, tournament: string, matchDay:
 	console.log("AddMatchDay")
 	const year = new Date().getFullYear()
 	try {
-		const docRef = await setDoc(doc(db, `matchday`, `matchday${year}${tournament}`), data)
+		const docRef = await setDoc(doc(db, `matchday`, `matchday${tournament}`), data)
 		return "OK"
 	} catch (e) {
 		console.error("Error adding document: ", e)
@@ -210,7 +210,7 @@ export const UpdateResultsMatchDay = async (
 	const year = new Date().getFullYear()
 	console.log("UpdateResultsMatchDay")
 	try {
-		const docRef = await updateDoc(doc(db, `matchday`, `matchday${year}${tournament}`), {
+		const docRef = await updateDoc(doc(db, `matchday`, `matchday${tournament}`), {
 			results: data,
 			matches,
 			isAvailable,
@@ -229,7 +229,7 @@ export const GetCurrentMatchDay = async (tournament: string) => {
 
 	//console.log(`matchDay${year}${tournament}`)
 	try {
-		const querySnapshot = await getDoc(doc(db, `matchday`, `matchday${year}${tournament}`))
+		const querySnapshot = await getDoc(doc(db, `matchday`, `matchday${tournament}`))
 		const documents = querySnapshot.data() as IMatchDay
 
 		return documents

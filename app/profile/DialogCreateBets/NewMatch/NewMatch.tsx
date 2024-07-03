@@ -32,12 +32,14 @@ export function NewMatch(props: Props) {
 		// Llama a la función HandleSelectionTeam para obtener una respuesta
 		const response = HandleSelectionTeam("home", homeTeam.id)
 		UpdateListTeams(response)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [homeTeam])
 
 	useEffect(() => {
 		// Llama a la función HandleSelectionTeam para obtener una respuesta
 		const response = HandleSelectionTeam("away", awayTeam.id)
 		UpdateListTeams(response)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [awayTeam])
 
 	const UpdateListTeams = (newTeams: Teams[]) => {

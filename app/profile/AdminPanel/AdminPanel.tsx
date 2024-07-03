@@ -2,18 +2,19 @@
 
 import styles from "./adminpanel.module.scss"
 import { ChangeEvent, useEffect, useState } from "react"
-import { AddResults, GetCurrentMatchDay, GetResultsByDay, UpdateResultsMatchDay } from "@/app/config/firebase"
-import { ICurrentMatch, IResultsMatches } from "@/app/types/types"
+import { AddMatchDay, AddResults, GetCurrentMatchDay, GetResultsByDay, UpdateResultsMatchDay } from "@/app/config/firebase"
+import { ICurrentMatch, IMatchDay, IResultsMatches } from "@/app/types/types"
 import { ButtonBet } from "../ButtonBet/ButtonBet"
 import { AddIcon, ArrowUpIcon, LoadingIcon, UpdateLogo } from "@/app/svg"
 import { TeamsLogos } from "@/app/constants/constants"
 import { DialogCreatBets } from "../DialogCreateBets/DialogCreateBets"
 import { Button } from "@/app/components/Button/Button"
 import { useSnackbar } from "notistack"
+import { undefined } from "zod"
 
 export function AdminPanel() {
 	const { enqueueSnackbar } = useSnackbar()
-	const [matchDay, setMatchDay] = useState<number | undefined>(undefined)
+	const [matchDay, setMatchDay] = useState<number | undefined>(0)
 	const [results, setResults] = useState<IResultsMatches>({} as IResultsMatches)
 	const [matches, setMatches] = useState<ICurrentMatch[]>([])
 	const [resultsByMatch, setResultByMatch] = useState<string[]>(["-", "-", "-", "-", "-", "-", "-", "-", "-"])
@@ -24,8 +25,36 @@ export function AdminPanel() {
 	const [isAvailable, setIsAvailable] = useState(true)
 
 	const GetDay = async () => {
-		const response = await GetCurrentMatchDay(new Date().getMonth() < 8 ? "0168" : "0159")
-		const result = await GetResultsByDay(response.day.toString(), new Date().getMonth() < 8 ? "0168" : "0159")
+		const response = await GetCurrentMatchDay(new Date().getMonth() < 6 ? "0168" : "0159")
+		/*if (!response) {
+			const newMatches: ICurrentMatch[] = []
+			for (let index = 0; index < 8; index++) {
+				newMatches.push({
+					id: crypto.randomUUID(),
+					status: "Sin comenzar",
+					startDate: "",
+					teams: {
+						home: index,
+						away: index + 8,
+					},
+				})
+			}
+			const newArrayResults: string[] = []
+			for (let index = 0; index < numberCorrectPicks; index++) {
+				newArrayResults.push("-")
+			}
+			const newMatchDay: IMatchDay = {
+				day: 0,
+				tournament: "Liga BBVA Bancomer MX",
+				matches: newMatches,
+				results: newArrayResults,
+				isAvailable: false,
+				isFinishGame: false
+			}
+			const response = await AddMatchDay(newMatchDay, new Date().getMonth() < 6 ? "0168" : "0159", 0)
+		}
+		console.log(response)*/
+		const result = await GetResultsByDay(response.day.toString(), new Date().getMonth() < 6 ? "0168" : "0159")
 		setMatches(response.matches)
 		setMatchDay(response.day)
 		if (result) {
@@ -48,9 +77,9 @@ export function AdminPanel() {
 				winner_correct_pick: 0,
 				isAvailable
 			}
-			const result = await AddResults(newResults, new Date().getMonth() < 8 ? "0168" : "0159")
+			const result = await AddResults(newResults, new Date().getMonth() < 6 ? "0168" : "0159")
 			const update = UpdateStatusMatches(matches, resultsByMatch)
-			await UpdateResultsMatchDay(resultsByMatch, update, new Date().getMonth() < 8 ? "0168" : "0159", isAvailable, statusGame)
+			await UpdateResultsMatchDay(resultsByMatch, update, new Date().getMonth() < 6 ? "0168" : "0159", isAvailable, statusGame)
 			if (result === "OK") {
 				setSending(false)
 				enqueueSnackbar("Quiniela actualizada", { variant: "success" })
@@ -71,6 +100,7 @@ export function AdminPanel() {
 
 		GetDay()
 
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return (
@@ -81,7 +111,7 @@ export function AdminPanel() {
 					Panel de administrador
 				</summary>
 				<section className={styles.admin_section}>
-					{matchDay &&
+					{matchDay !== 0 &&
 						<header className={styles.admin_header}>
 							<h3 className={styles.admin_sectionTitle}>{`Jornada ${matchDay}`}</h3>
 							<div className={styles.admin_subSection}>
@@ -125,7 +155,7 @@ export function AdminPanel() {
 							icon={<AddIcon className="" />}
 
 						/>
-						{matchDay &&
+						{matchDay !== 0 &&
 							<Button
 								onClick={HandleUpdate}
 								text={!sending ? "Actualizar" : "Sending..."}
