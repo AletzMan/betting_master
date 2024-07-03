@@ -50,6 +50,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 			newBets.push({ id: crypto.randomUUID(), prediction: "" })
 		}
 		setBets(newBets)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 
@@ -64,7 +65,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 
 	const HandleSendBet = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
-		const results = await GetResultsByDay(matches.day.toString(), new Date().getMonth() < 8 ? "0168" : "0159")
+		const results = await GetResultsByDay(matches.day.toString(), new Date().getMonth() < 6 ? "0168" : "0159")
 		if (results.isAvailable === false) {
 			enqueueSnackbar("Tiempo agotado para enviar", { variant: "error" })
 			setOpen(false)
@@ -95,7 +96,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 					enqueueSnackbar(Object.entries(Errors).find((error) => error[0] === "name_short")?.[1], { variant: "error" })
 				} else {
 					const response = AbbNameMatches(matches)
-					const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), matches: response, userInfo, seasson: new Date().getMonth() < 8 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, season: new Date().getMonth() < 8 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, paid: false, tournament: matches.tournament })
+					const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), matches: response, userInfo, seasson: new Date().getMonth() < 6 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, season: new Date().getMonth() < 6 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, paid: false, tournament: matches.tournament })
 					if (result === "OK") {
 						setBetSentSuccessfully(true)
 						setBets(EmptyBetPredictions)

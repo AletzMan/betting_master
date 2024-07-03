@@ -62,12 +62,14 @@ export default function BetsPage() {
 			setWinners(newWinners)
 			setUser(user.uid)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user, bets, matches, winner])
 
 	useEffect(() => {
 		if (!openDialog) {
 			GetBets()
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [matches, openDialog])
 
 

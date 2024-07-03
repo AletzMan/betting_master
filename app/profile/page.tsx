@@ -42,6 +42,7 @@ export default function ProfilePage() {
 
 	useEffect(() => {
 		GetBets()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 
@@ -52,7 +53,7 @@ export default function ProfilePage() {
 					{<SettingsProfile user={user} />}
 					{!loading && user.uid === ADMIN_UID && <AdminPanel />}
 					{!loading && user.uid === ADMIN_UID && <BetsByUser />}
-					{!loading && user.uid === ADMIN_UID && <AdminFinals />}
+					{/*!loading && user.uid === ADMIN_UID && <AdminFinals />*/}
 					{/*<h2 className={styles.main_subtitle}>Mis quinielas</h2>*/}
 					{/*myBets?.map((myBet, index) => (
 						<BettingDay key={myBet[0]} bet={myBet} open={open} setOpen={setOpen} index={index} numberDays={open.length} />

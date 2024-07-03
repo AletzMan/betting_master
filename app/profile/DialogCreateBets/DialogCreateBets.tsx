@@ -8,6 +8,7 @@ import { useOrientation } from "@/app/hooks/useOrientation"
 import { ValidateNewBet } from "@/app/functions/functions"
 import { TeamsNames } from "@/app/constants/constants"
 import { useSnackbar } from "notistack"
+import { Button } from "@/app/components/Button/Button"
 interface Props {
 	setView: Dispatch<SetStateAction<boolean>>
 	numberMatches: number
@@ -39,17 +40,19 @@ export function DialogCreatBets({ numberMatches, setView }: Props) {
 	const [teams, setTeams] = useState<Team[]>(TeamsNames)
 	const [clear, setClear] = useState<boolean>(false)
 	const [matches, setMatches] = useState<ICurrentMatches[]>([])
+	const [currentMatches, setCurrentMatches] = useState(numberMatches)
 
 
 	useEffect(() => {
-		const newMatches = Matches.filter((match, index) => index < numberMatches)
+		const newMatches = Matches.filter((match, index) => index < currentMatches)
 		setMatches(newMatches)
 		let newMatchesTeams: Teams[] = []
 		for (let index = 0; index < numberMatches; index++) {
 			newMatchesTeams.push({ home: NaN, away: NaN })
 		}
 		setSelectedTeams(newMatchesTeams)
-	}, [])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentMatches])
 
 	const HandleChangeDay = (e: ChangeEvent<HTMLInputElement>) => {
 		setMatchDay(parseInt(e.currentTarget.value))
@@ -66,7 +69,7 @@ export function DialogCreatBets({ numberMatches, setView }: Props) {
 
 		if (!respErrors.hasErrors) {
 			const newMatches: ICurrentMatch[] = []
-			for (let index = 0; index < 8; index++) {
+			for (let index = 0; index < currentMatches; index++) {
 				newMatches.push({
 					id: crypto.randomUUID(),
 					status: "Sin comenzar",
@@ -89,7 +92,7 @@ export function DialogCreatBets({ numberMatches, setView }: Props) {
 				isAvailable: false,
 				isFinishGame: false
 			}
-			const response = await AddMatchDay(newMatchDay, new Date().getMonth() < 8 ? "0168" : "0159", matchDay)
+			const response = await AddMatchDay(newMatchDay, new Date().getMonth() < 6 ? "0168" : "0159", matchDay)
 			if (response === "OK") {
 				enqueueSnackbar("Quiniela creada correctamente", { variant: "success" })
 				setView(false)
@@ -117,28 +120,33 @@ export function DialogCreatBets({ numberMatches, setView }: Props) {
 		<dialog className={`${styles.dialog} ${isLandscape && styles.dialog_landscape}`} open>
 			<section className={`${styles.dialog_section} scrollbar`}>
 				<header className={styles.dialog_header}>
-					<button className={styles.dialog_headerButton} onClick={HandleCreateMatchDay}>
-						Crear Quiniela
-					</button>
-					<button className={styles.dialog_headerButton} onClick={HandleCrearTeams}>
-						Limpiar
-					</button>
-					<button className={styles.dialog_headerButton} onClick={() => setView(false)}>
-						Cerrar
-					</button>
+					<Button onClick={HandleCreateMatchDay} text="Crear Quiniela" type="primary" />
+					<Button onClick={HandleCrearTeams} text="Limpiar" type="secondary" />
+					<Button onClick={() => setView(false)} text="Cerrar" type="secondary" />
 				</header>
 				<article className={styles.dialog_matches}>
 					{error.hasError && (
 						<span className={styles.dialog_errorText}>{error.errorMatchDay ? "Elija un número de jornada" : "Existen campos vacíos"}</span>
 					)}
 					<div className={styles.dialog_matchesDay}>
-						<span className={styles.dialog_matchesDayText}>Jornada: </span>
-						<input
-							className={`${styles.dialog_matchesDayNumber} ${error.errorMatchDay && styles.dialog_matchesDayNumberError}`}
-							type="number"
-							value={matchDay}
-							onChange={HandleChangeDay}
-						/>
+						<label className={styles.dialog_matchesDayText}>
+							Jornada:
+							<input
+								className={`${styles.dialog_matchesDayNumber} ${error.errorMatchDay && styles.dialog_matchesDayNumberError}`}
+								type="number"
+								value={matchDay}
+								onChange={HandleChangeDay}
+							/>
+						</label>
+						<label className={styles.dialog_matchesDayText}>
+							Numero de partidos:
+							<input
+								className={`${styles.dialog_matchesDayNumber} ${error.errorMatchDay && styles.dialog_matchesDayNumberError}`}
+								type="number"
+								value={currentMatches}
+								onChange={(e) => setCurrentMatches(Number(e.currentTarget.value))}
+							/>
+						</label>
 					</div>
 					{matches?.map((match, index) => (
 						<section key={match.id}>
