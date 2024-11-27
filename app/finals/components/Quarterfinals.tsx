@@ -1,4 +1,4 @@
-import { AmericaLogo, ChivasLogo, CruzAzulLogo, MonterreyLogo, NecaxaLogo, PachucaLogo, PumasLogo, TigresLogo, TolucaLogo } from "../../svg"
+import { AmericaLogo, ChivasLogo, CruzAzulLogo, MonterreyLogo, NecaxaLogo, PachucaLogo, PumasLogo, SanLuisLogo, TigresLogo, TijuanaLogo, TolucaLogo } from "../../svg"
 import styles from "./quarters.module.scss"
 
 export default function QuarterFinals() {
@@ -76,15 +76,6 @@ export default function QuarterFinals() {
 export const QualifiedTeams = [
     {
         id: 1,
-        logo: <AmericaLogo className={styles.logo} />,
-        name: "América",
-        abbName: "AME",
-        color_one: "#d6bf25",
-        color_two: "#00225d",
-        color_three: "#e4503a",
-    },
-    {
-        id: 2,
         logo: <CruzAzulLogo className={styles.logo} />,
         name: "Cruz Azul",
         abbName: "CRZ",
@@ -93,7 +84,7 @@ export const QualifiedTeams = [
         color_three: "#de1d33",
     },
     {
-        id: 3,
+        id: 2,
         logo: <TolucaLogo className={styles.logo} />,
         name: "Toluca",
         abbName: "TOL",
@@ -102,16 +93,7 @@ export const QualifiedTeams = [
         color_three: "#111c4e",
     },
     {
-        id: 4,
-        logo: <MonterreyLogo className={styles.logo} />,
-        name: "Monterrey",
-        abbName: "MTY",
-        color_one: "#0a2240",
-        color_two: "#FFFFFF",
-        color_three: "#FFFFFF",
-    },
-    {
-        id: 5,
+        id: 3,
         logo: <TigresLogo className={styles.logo} />,
         name: "Tigres",
         abbName: "TIG",
@@ -120,16 +102,7 @@ export const QualifiedTeams = [
         color_three: "#00369c",
     },
     {
-        id: 6,
-        logo: <ChivasLogo className={styles.logo} />,
-        name: "Guadalajara",
-        abbName: "GUA",
-        color_one: "#CE0E2D",
-        color_two: "#FFFFFF",
-        color_three: "#002856",
-    },
-    {
-        id: 7,
+        id: 4,
         logo: <PumasLogo className={styles.logo} />,
         name: "Pumas",
         abbName: "PUM",
@@ -138,12 +111,39 @@ export const QualifiedTeams = [
         color_three: "#766910",
     },
     {
-        id: 8,
-        logo: <PachucaLogo className={styles.logo} />,
-        name: "Pachuca",
-        abbName: "PCH",
-        color_one: "#002577",
+        id: 5,
+        logo: <MonterreyLogo className={styles.logo} />,
+        name: "Monterrey",
+        abbName: "MTY",
+        color_one: "#0a2240",
         color_two: "#FFFFFF",
         color_three: "#FFFFFF",
-    }
+    },
+    {
+        id: 6,
+        logo: <SanLuisLogo className={styles.logo} />,
+        name: "San Luis",
+        abbName: "SLUIS",
+        color_one: "#CE0E2D",
+        color_two: "#FFFFFF",
+        color_three: "#002856",
+    },
+    {
+        id: 7,
+        logo: <AmericaLogo className={styles.logo} />,
+        name: "América",
+        abbName: "AME",
+        color_one: "#d6bf25",
+        color_two: "#00225d",
+        color_three: "#e4503a",
+    },
+    {
+        id: 8,
+        logo: <TijuanaLogo className={styles.logo} />,
+        name: "Tijuana",
+        abbName: "TIJ",
+        color_one: "#CE0E2D",
+        color_two: "#111c4e",
+        color_three: "#FFFFFF",
+    },
 ]

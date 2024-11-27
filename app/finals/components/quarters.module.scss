@@ -5,6 +5,8 @@
 
 .matches {
     display: grid;
+    align-items: center;
+    justify-content: center;
     grid-template-columns: 1fr 1fr;
     gap: 0.5em;
     width: 100%;
