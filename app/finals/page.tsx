@@ -106,7 +106,7 @@ export default function Page() {
                     <>
                         <QuarterFinals />
                         {participants !== undefined && userLogin !== undefined &&
-                            <div>
+                            <div className={styles.finals}>
                                 <article>
                                     {participants?.length === 8 && <p className={styles.main_message}>Participación cerrada. Se ha alcanzado el limite de jugadores.</p>}
                                     {participants?.length < 8 && <p className={styles.main_message}>Limitado a 8 participantes, una participación por cuenta.</p>}

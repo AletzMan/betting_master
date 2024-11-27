@@ -352,22 +352,22 @@ export const TeamsNames: Team[] = [
 ]
 
 export const LinksPage = [
-	{
+	/*{
 		id: 0,
 		text: "Quinielas",
 		pathname: "/bets",
 		href: "/bets",
 		title: "Ir a página de quinielas",
 		icon: <BetsIcon className="" />,
-	},
-	/*{
+	},*/
+	{
 		id: 1,
 		text: "Finales",
 		pathname: "/finals",
 		href: "/finals",
 		title: "Ir a enfrentamientos finales",
 		icon: <LuckIcon className="" />,
-	},*/
+	},
 	{
 		id: 2,
 		text: "Resultados",
