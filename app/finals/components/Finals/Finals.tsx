@@ -16,8 +16,8 @@ export default function Finals({ participants }: Props) {
     return (
         <div className={`${styles.finals} scrollbar`}>
             <>
-                <h3 className={styles.winners_title}>GANADOR</h3>
-                <section className={styles.winners}>
+                {/*} <h3 className={styles.winners_title}>GANADOR</h3>*/}
+                {/*<section className={styles.winners}>
                     <ConfettiExplosion />
                     <div className={styles.winner}   >
                         <picture className={styles.winner_picture}>
@@ -31,10 +31,10 @@ export default function Finals({ participants }: Props) {
                         <WinnerIcon className={styles.winner_icon} />
                     </div>
 
-                </section>
+    </section>*/}
             </>
-            <Final participants={participants} />
-            <Semis participants={participants} />
+            {/*<Final participants={participants} />*/}
+            {/*<Semis participants={participants} />*/}
             <Quarters participants={participants} />
         </div>
     )
