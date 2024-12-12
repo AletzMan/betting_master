@@ -7,7 +7,7 @@
     min-height: 100svh;
     padding: 5em 0 1em 0;
     width: 100%;
-    background: linear-gradient(-30deg, var(--tertiaryColor), var(--backgroundColor));
+    background: var(--tertiaryColor);
     max-width: var(--max-width);
 
     &_landscape {
@@ -64,13 +64,18 @@
         cursor: pointer;
         height: 100%;
         background-color: transparent;
-        background-color: var(--hover-linkTwo);
+        background-color: var(--secondaryColor);
         transition: background-color 0.3s ease-in-out;
+        font-family: var(--font-family);
 
         @media (pointer: fine) {
             &:hover {
-                background-color: var(--hover-link);
+                background-color: var(--fourthColor);
             }
+        }
+
+        &Current {
+            background-color: var(--fourthColor);
         }
 
 
@@ -79,23 +84,32 @@
             text-align: center;
             padding: 0.1em 0;
             width: 100%;
-            background-color: var(--headerhover-color);
+            font-weight: 500;
+            background-color: var(--foregrounColor);
+            color: var(--secondaryColor);
         }
 
         &Number {
             text-align: center;
             padding: 0.35em 0;
-            width: 100%;
-            font-size: 1.5em;
+            //width: 100%;
+            font-size: 1.3em;
+            font-weight: 600;
+            font-family: var(--font-family);
 
             &Current {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 width: max-content;
-                width: 1.7em;
-                height: 1.7em;
-                padding: 0.3em 0.3em;
+                width: 2em;
+                height: 2em;
+                text-align: center;
                 border-radius: 3em;
                 background-color: var(--foregroundSecondColor);
                 color: var(--backgroundColor);
+
+
 
             }
         }
@@ -152,10 +166,10 @@
     padding: 0.25em 0.5em;
     font-size: 1em;
     font-weight: 700;
-    color: var(--primaryColor);
+    color: var(--primaryHoverColor);
     border: 1px solid transparent;
     border-radius: var(--borderRadius);
-    background-color: var(--headerhover-color);
+    background-color: var(--fourthColor);
 }
 
 .notfound {
