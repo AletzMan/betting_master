@@ -10,9 +10,9 @@
     min-width: 6em;
     width: max-content;
     column-gap: 1em;
-    border-radius: var(--border-radius);
-    color: var(--background-start-color);
-    background-color: var(--highlight-color);
+    border-radius: var(--borderRadius);
+    color: var(--tertiaryColor);
+    background-color: var(--primaryColor);
     transition: all 0.3s ease-in-out;
     font-family: var(--font-montserrat);
 
@@ -22,11 +22,11 @@
     }
 
     &:hover {
-        background-color: var(--highlighthover-color);
+        background-color: var(--primaryHoverColor);
     }
 
     &_secondary {
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
         background-color: var(--headerhover-color);
 
         &:hover {

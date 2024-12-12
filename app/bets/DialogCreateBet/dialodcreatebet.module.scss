@@ -12,7 +12,7 @@
 
     &_main {
         max-height: 100svh;
-        background-color: var(--background-end-color);
+        background-color: var(--backgroundColor);
         width: 100%;
         max-width: 35em;
         overflow: hidden;
@@ -22,11 +22,11 @@
             flex-direction: column;
             padding: 0.5em;
             align-items: center;
-            background-color: var(--background-end-color);
+            background-color: var(--backgroundColor);
 
 
             &Title {
-                color: var(--foreground-color);
+                color: var(--foregrounColor);
                 width: 100%;
                 text-align: center;
                 padding: 0 0 0.5em 0;
@@ -72,7 +72,7 @@
             padding: 0.5em 0;
             background-color: var(--headerhover-color);
             border: none;
-            border-radius: var(--border-radius);
+            border-radius: var(--borderRadius);
             z-index: 2;
 
             &Title {
@@ -81,7 +81,7 @@
                 text-align: center;
                 text-transform: uppercase;
                 width: 100%;
-                color: var(--highlighthover-color);
+                color: var(--primaryHoverColor);
             }
         }
     }
@@ -101,7 +101,7 @@
 
     &_label {
         position: relative;
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
         font-size: 0.85em;
 
         &Error {
@@ -130,9 +130,9 @@
         padding: 0 0.5em;
         font-size: 0.9em;
         font-weight: 500;
-        border: 1px solid var(--border-color);
-        border-radius: var(--border-radius);
-        color: var(--foreground-color);
+        border: 1px solid var(--borderColor);
+        border-radius: var(--borderRadius);
+        color: var(--foregrounColor);
         font-family: var(--font-montserrat);
         background-color: var(--background-textTwo);
 
@@ -157,19 +157,19 @@
         min-width: 6em;
         height: 2.1em;
         font-weight: 600;
-        border-radius: var(--border-radius);
-        color: var(--background-end-color);
-        background-color: var(--highlight-color);
+        border-radius: var(--borderRadius);
+        color: var(--backgroundColor);
+        background-color: var(--primaryColor);
         transition: all 0.3s ease-in-out;
         cursor: pointer;
 
         &:nth-child(2) {
             background-color: var(--headerhover-color);
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
         }
 
         &:hover {
-            background-color: var(--highlighthover-color);
+            background-color: var(--primaryHoverColor);
         }
 
         &Cancel {

@@ -4,6 +4,8 @@ import type { NextRequest } from "next/server"
 export async function middleware(request: NextRequest, response: NextResponse) {
 	const session = request.cookies.get("session-soccer")
 	const { pathname } = request.nextUrl
+	console.log(pathname)
+	console.log(session)
 
 	//Return to / if have a session
 
@@ -38,6 +40,6 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
 /*
 export const config = {
-    matcher: ["/protected/:path*", "/profile"],
+	matcher: ["/protected/:path*", "/profile"],
 };
 */

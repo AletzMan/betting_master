@@ -6,7 +6,7 @@
     background-color: var(--hover-linkTwo);
     border: 1px solid var(--background-textTwo);
     padding: 0.5em 0.25em;
-    border-radius: var(--border-radius);
+    border-radius: var(--borderRadius);
     transition: background-color 0.25s ease-in-out;
 
     &:hover {
@@ -15,7 +15,7 @@
 
     &_day {
         font-size: 0.8em;
-        color: var(--highlighthover-color);
+        color: var(--primaryHoverColor);
     }
 
     &_header {
@@ -47,7 +47,7 @@
             text-transform: uppercase;
             text-align: center;
             font-weight: 700;
-            color: var(--foreground-second-color);
+            color: var(--foregroundSecondColor);
 
             @media (max-width: 600px) {
                 font-size: 0.7em;
@@ -62,7 +62,7 @@
         width: 2.5em;
         padding: 0.25em 0;
         text-align: center;
-        border-radius: var(--border-radius);
+        border-radius: var(--borderRadius);
         background-color: var(--headerhover-color);
         font-weight: 600;
         font-size: 1.2em;
@@ -84,9 +84,9 @@
         font-size: 0.7em;
         font-weight: 500;
         padding: 0.25em 0.5em;
-        border-radius: var(--border-radius);
+        border-radius: var(--borderRadius);
         text-transform: uppercase;
-        background-color: var(--header-color);
+        background-color: var(--secondaryColor);
 
 
         &NotStarted {
@@ -119,7 +119,7 @@
         &Icon {
             width: 1.3em;
             height: 1.3em;
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
         }
 
     }
@@ -231,8 +231,8 @@
         font-size: 0.8em;
         max-width: 10em;
         font-family: var(--font-montserrat);
-        border-radius: var(--border-radius);
-        color: var(--foreground-color);
+        border-radius: var(--borderRadius);
+        color: var(--foregrounColor);
         border: none;
         background-color: #17749835;
         cursor: pointer;
@@ -361,19 +361,19 @@
         font-family: var(--font-montserrat);
         padding: 0.25em 0.5em;
         font-weight: 600;
-        color: var(--background-start-color);
+        color: var(--tertiaryColor);
         border: none;
-        background-color: var(--highlight-color);
+        background-color: var(--primaryColor);
         cursor: pointer;
 
         &:hover {
-            background-color: var(--highlighthover-color);
+            background-color: var(--primaryHoverColor);
         }
     }
 
     &_section {
         position: relative;
-        background: linear-gradient(30deg, var(--background-start-color), var(--background-end-color));
+        background: linear-gradient(30deg, var(--tertiaryColor), var(--backgroundColor));
         width: 95%;
         max-width: 40em;
         //min-height: 60svh;
@@ -392,12 +392,12 @@
         width: 100%;
         z-index: 4;
         padding: 0.25em;
-        background-color: var(--header-color);
+        background-color: var(--secondaryColor);
 
         &Button {
             padding: 0.75em;
             background-color: var(--headerhover-color);
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
             border: none;
             font-size: 0.7em;
             //border-bottom: 2px solid transparent;
@@ -408,9 +408,9 @@
 
 
             &Active {
-                //border-bottom: 2px solid var(--highlight-color);
-                color: var(--highlighthover-color);
-                background-color: var(--background-end-color);
+                //border-bottom: 2px solid var(--primaryColor);
+                color: var(--primaryHoverColor);
+                background-color: var(--backgroundColor);
                 font-weight: 600;
             }
         }
@@ -419,7 +419,7 @@
     &_posession {
         position: relative;
         top: 1em;
-        color: var(--foreground-second-color);
+        color: var(--foregroundSecondColor);
         text-transform: uppercase;
         font-weight: 600;
     }
@@ -434,7 +434,7 @@
 
         &Text {
             font-weight: 500;
-            color: var(--highlight-color);
+            color: var(--primaryColor);
         }
 
         &Logo {
@@ -446,14 +446,14 @@
             padding: 0.25em;
             font-size: 1.8em;
             font-weight: 600;
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
         }
 
         &Possession {
             padding: 0.25em;
             font-size: 1.4em;
             font-weight: 400;
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
         }
 
         &Bar {
@@ -469,7 +469,7 @@
                 //width: 74%;
                 height: 1em;
                 border-radius: 1em 0 0 1em;
-                border-right: 1px solid var(--background-end-color);
+                border-right: 1px solid var(--backgroundColor);
                 //background-color: gold;
             }
 
@@ -486,7 +486,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         width: 100%;
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
         padding: 0.5em;
 
         @media (max-width: 600px) {
@@ -529,7 +529,7 @@
     overflow-y: auto;
 
     &_title {
-        color: var(--highlight-color);
+        color: var(--primaryColor);
         margin: 2.5em 0 0 0;
         text-align: center;
     }
@@ -665,8 +665,8 @@
         border: 1px solid var(--twitterTwo-color);
 
         &Icon {
-            background-color: var(--foreground-color);
-            color: var(--background-end-color);
+            background-color: var(--foregrounColor);
+            color: var(--backgroundColor);
             border-radius: 2em;
             width: 1.5em;
             height: 1.5em;
@@ -680,7 +680,7 @@
 
         &Name {
             font-size: 0.8em;
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
             padding: 0 0.3em 0 0;
         }
 
@@ -689,7 +689,7 @@
             border-radius: 2em;
             font-size: 0.8em;
             background-color: var(--twitterTwo-color);
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
         }
 
         &Home {
@@ -747,19 +747,19 @@
         padding: 0.15em 0 0 0;
         text-align: center;
         border-radius: 1em;
-        background-color: var(--foreground-color);
-        color: var(--background-start-color);
+        background-color: var(--foregrounColor);
+        color: var(--tertiaryColor);
     }
 
     &_name {
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
         width: 7em;
         font-size: 0.65em;
         text-align: center;
         border-radius: 1em;
         padding: 0.25em;
         background-color: #034a03ee;
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
 
         &Substitute {
             width: 8em;
@@ -849,8 +849,8 @@
             text-align: center;
             padding: 0 0 0.4em 0;
             border-radius: 1em;
-            border: 1px solid var(--background-start-color);
-            background-color: var(--foreground-color);
+            border: 1px solid var(--tertiaryColor);
+            background-color: var(--foregrounColor);
             color: rgb(31, 70, 9);
 
             &Substitute {
@@ -937,7 +937,7 @@
     column-gap: 0.25em;
     width: 100%;
     margin: 1em 0 0 0;
-    background-color: var(--background-start-color);
+    background-color: var(--tertiaryColor);
 
     &_players {
         display: flex;
@@ -962,7 +962,7 @@
         display: grid;
         grid-template-columns: 3em 3em 1fr;
         column-gap: 0.25em;
-        color: var(--foreground-second-color);
+        color: var(--foregroundSecondColor);
 
 
         &Minute {
@@ -988,7 +988,7 @@
 
         &Commentary {
             background-color: var(--background-textTwo);
-            color: var(--foreground-second-color);
+            color: var(--foregroundSecondColor);
             padding: 0.5em;
             font-weight: 300;
             font-size: 0.85em;
@@ -1001,13 +1001,13 @@
 .icons_ball {
     width: 1.8em;
     height: 1.8em;
-    color: var(--foreground-second-color);
-    fill: var(--foreground-second-color);
+    color: var(--foregroundSecondColor);
+    fill: var(--foregroundSecondColor);
 }
 
 .icons_commentary {
     width: 1.8em;
     height: 1.8em;
     color: var(--hover-link);
-    fill: var(--foreground-second-color);
+    fill: var(--foregroundSecondColor);
 }

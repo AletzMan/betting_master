@@ -12,20 +12,20 @@
         width: 2.8em;
         height: 2.8em;
         left: calc(50% - 1.4em);
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
     }
 
     &_ball {
 
         width: 2.5em;
         height: 2.5em;
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
 
     }
 
     &_title {
         text-align: center;
         font-size: 1em;
-        color: var(--highlight-color);
+        color: var(--primaryColor);
     }
 }

@@ -4,11 +4,13 @@
     justify-content: flex-start;
     flex-direction: column;
     row-gap: 1em;
-    margin: 0 auto;
-    height: 100svh;
+    margin: 6em auto 0 auto;
+    height: calc(100svh - 10em);
     width: 100%;
     padding: 7.5em 0 1em 0;
-    background: linear-gradient(-30deg, var(--background-start-color), var(--background-end-color));
+    border: 1px solid var(--borderColor);
+    border-radius: var(--borderRadius);
+    background: var(--tertiaryColor);
     max-width: var(--max-width);
 
     &_landscape {
@@ -21,7 +23,7 @@
         text-align: center;
         text-wrap: balance;
         font-weight: 500;
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
 
         &Down {
             padding: 0 0 1.5em 0;
@@ -39,19 +41,10 @@
         max-width: 27em;
         width: 90%;
         padding: 2em 0 0 0;
-        border-radius: var(--border-radius);
-        box-shadow: var(--box-shadowTwo);
-        background: linear-gradient(-30deg, var(--background-start-color), var(--header-color));
-        color: var(--background-start-color);
-
-        &Ball {
-            position: absolute;
-            top: 1.5em;
-            opacity: 0.05;
-            width: 45%;
-            height: 45%;
-            z-index: 0;
-        }
+        border-radius: var(--borderRadius);
+        border: 1px solid var(--borderColor);
+        background: var(--secondaryColor);
+        color: var(--tertiaryColor);
 
     }
 
@@ -60,6 +53,7 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        width: 100%;
         row-gap: 1em;
         padding: 1em;
     }
@@ -75,11 +69,11 @@
     background-color: var(--screen-color);
 
     &_title {
-        color: var(--highlight-color);
+        color: var(--primaryColor);
     }
 
     &_icon {
-        color: var(--highlight-color);
+        color: var(--primaryColor);
         opacity: 0.6;
         width: 2.5em;
         height: 2.5em;
@@ -99,16 +93,14 @@
     font-weight: 500;
     text-decoration: none;
     font-family: var(--font-montserrat);
-    color: var(--background-start-color);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    //border: 0.05em solid var(--border-color);
+    color: var(--tertiaryColor);
+    border-radius: var(--borderRadius);
     border: none;
     cursor: pointer;
     transition: all 0.35s ease-in-out;
 
     &_google {
-        background: linear-gradient(to right, var(--highlight-color), var(--highlighthover-color));
+        background: linear-gradient(to right, #F8F8F8, #CCCCCC);
         background-size: 200% 200%;
     }
 
@@ -130,9 +122,6 @@
         width: 2.5em;
         height: 2.5em;
 
-        &Twitter {
-            //filter: invert(1);
-        }
     }
 
     &_text {
@@ -140,15 +129,21 @@
         width: 100%;
 
         &Google {
-            color: var(--foreground-color);
+            color: var(--tertiaryColor);
         }
 
         &Twitter {
-            color: var(--background-start-color);
+            color: var(--tertiaryColor);
         }
 
         &Facebook {
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
         }
     }
+}
+
+.icon {
+    color: var(--borderColor);
+    width: 4.5em;
+    height: 4.5em;
 }

@@ -5,9 +5,9 @@
     flex-direction: column;
     row-gap: 0.5em;
     padding: 1em 0.5em;
-    border-radius: var(--border-radius);
-    color: var(--foreground-color);
-    background-color: var(--background-start-color);
+    border-radius: var(--borderRadius);
+    color: var(--foregrounColor);
+    background-color: var(--tertiaryColor);
 
     &_bets {
         text-wrap: balance;
@@ -18,7 +18,7 @@
         width: 4em;
         height: 4em;
         margin-bottom: 1em;
-        color: var(--highlight-color);
+        color: var(--primaryColor);
     }
 
     &_data {
@@ -42,25 +42,25 @@
         font-weight: 600;
         text-align: center;
         text-wrap: balance;
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
     }
 
     &_label {
         font-size: 0.8em;
         font-weight: 300;
         text-align: center;
-        color: var(--foreground-second-color);
+        color: var(--foregroundSecondColor);
     }
 
     &_text {
         font-size: 0.85em;
         font-weight: 300;
         text-align: center;
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
 
         &Light {
             text-align: center;
-            color: var(--highlight-color);
+            color: var(--primaryColor);
             margin: 0em 0 0 0;
             font-size: 0.8em;
         }
@@ -70,7 +70,7 @@
             font-weight: 600;
             text-align: center;
             padding: 0.5em 1em;
-            border-radius: var(--border-radius);
+            border-radius: var(--borderRadius);
             background-color: var(--subtitleBack-color);
             color: var(--subtitle-color);
         }
@@ -81,7 +81,7 @@
             text-align: center;
             color: #0deba1;
             padding: 0.5em 1em;
-            border-radius: var(--border-radius);
+            border-radius: var(--borderRadius);
             background-color: var(--subtitleBack-color);
         }
 
@@ -108,7 +108,7 @@
             text-wrap: balance;
             padding: 0.25em 0.5em;
             width: 100%;
-            border-radius: var(--border-radius);
+            border-radius: var(--borderRadius);
             color: var(--font-color);
             background-color: #0deba130;
             border: 1px solid #0deba1AA;
@@ -121,7 +121,7 @@
             text-align: center;
             text-wrap: balance;
             padding: 0.25em 0.5em;
-            border-radius: var(--border-radius);
+            border-radius: var(--borderRadius);
             color: var(--font-color);
             background-color: #eb0d0d30;
             border: 1px solid #eb0d0dAA;
@@ -142,9 +142,9 @@
         justify-content: flex-start;
         align-items: center;
         row-gap: 0.5em;
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--borderColor);
         padding: 0.5em;
-        border-radius: var(--border-radius);
+        border-radius: var(--borderRadius);
         background-color: var(--hover-link);
 
         &Group {
@@ -156,7 +156,7 @@
         &Title {
             font-size: 0.85em;
             font-weight: 600;
-            color: var(--foreground-second-color);
+            color: var(--foregroundSecondColor);
         }
 
         &Bet {
@@ -178,7 +178,7 @@
             height: 2em;
             border: none;
             background-color: var(--twitterTwo-color);
-            border-radius: var(--border-radius);
+            border-radius: var(--borderRadius);
             cursor: pointer;
 
             &Icon {
@@ -194,7 +194,7 @@
                 transition: color 0.3s ease;
 
                 &:hover {
-                    color: var(--highlight-color);
+                    color: var(--primaryColor);
                 }
 
             }
@@ -226,21 +226,21 @@
             align-items: center;
             row-gap: 1em;
             padding: 1em;
-            border-radius: var(--border-radius);
-            background-color: var(--background-start-color);
-            border: 1px solid var(--border-color);
+            border-radius: var(--borderRadius);
+            background-color: var(--tertiaryColor);
+            border: 1px solid var(--borderColor);
         }
 
         &Title {
             font-size: 1em;
             font-weight: 600;
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
         }
 
         &Text {
             font-size: 1em;
             font-weight: 400;
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
             text-align: center;
         }
 
@@ -258,17 +258,17 @@
             font-weight: 600;
             padding: 0.5em 0;
             width: 3em;
-            color: var(--foreground-color);
-            border-top: 1px solid var(--border-color);
-            border-left: 1px solid var(--border-color);
+            color: var(--foregrounColor);
+            border-top: 1px solid var(--borderColor);
+            border-left: 1px solid var(--borderColor);
 
             &:first-child {
-                border-radius: var(--border-radius) 0 0 0;
+                border-radius: var(--borderRadius) 0 0 0;
             }
 
             &:nth-last-child(1) {
-                border-right: 1px solid var(--border-color);
-                border-radius: 0 var(--border-radius) 0 0;
+                border-right: 1px solid var(--borderColor);
+                border-radius: 0 var(--borderRadius) 0 0;
             }
         }
 
@@ -286,13 +286,13 @@
             font-weight: 800;
             padding: 0.5em 0;
             align-items: center;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            border-left: 1px solid var(--border-color);
+            border-top: 1px solid var(--borderColor);
+            border-bottom: 1px solid var(--borderColor);
+            border-left: 1px solid var(--borderColor);
             background-color: var(--hover-link);
 
             &:nth-last-child(1) {
-                border-right: 1px solid var(--border-color);
+                border-right: 1px solid var(--borderColor);
             }
         }
     }

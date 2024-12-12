@@ -7,7 +7,7 @@
     height: 100svh;
     padding: 5em 0.25em 1em 0.25em;
     width: 100%;
-    background: linear-gradient(-30deg, var(--background-start-color), var(--background-end-color));
+    background: linear-gradient(-30deg, var(--tertiaryColor), var(--backgroundColor));
     max-width: var(--max-width);
 
     &_landscape {
@@ -17,7 +17,7 @@
 
     &_title {
         font-size: 1.3em;
-        color: var(--highlight-color);
+        color: var(--primaryColor);
 
         &Two {
             font-size: 1em;
@@ -31,7 +31,7 @@
         font-size: 1em;
         color: var(--font-color);
         border: 1px solid transparent;
-        border-radius: var(--border-radius);
+        border-radius: var(--borderRadius);
         background-color: var(--headerhover-color);
     }
 
@@ -61,14 +61,14 @@
     &_text {
         padding: 0.5em 1em;
         margin: 0 0 0.5em 0;
-        border-radius: var(--border-radius);
+        border-radius: var(--borderRadius);
         background-color: var(--hover-link);
     }
 
     &_button {
         width: 2.5em;
         height: 2.5em;
-        border-radius: var(--border-radius);
+        border-radius: var(--borderRadius);
         border: none;
         background-color: var(--hover-link);
 
@@ -90,7 +90,7 @@
     }
 
     &_icon {
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
 
 
     }
@@ -146,7 +146,7 @@
         height: 1.95em;
         text-align: center;
         grid-template-columns: repeat(8, 2em);
-        background-color: var(--header-color);
+        background-color: var(--secondaryColor);
         padding: 0.3em 0.2em;
 
 
@@ -161,7 +161,7 @@
             width: 100%;
             max-width: 12em;
             padding: 0.3em 0.2em;
-            background-color: var(--header-color);
+            background-color: var(--secondaryColor);
         }
 
         &Text {
@@ -172,9 +172,9 @@
             height: 1.5em;
             font-size: 0.9em;
             font-weight: 500;
-            color: var(--highlight-color);
+            color: var(--primaryColor);
             text-align: center;
-            border-radius: var(--border-radius);
+            border-radius: var(--borderRadius);
             background-color: var(--hover-link);
 
             &Club {

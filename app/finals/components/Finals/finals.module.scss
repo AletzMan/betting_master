@@ -29,7 +29,7 @@
             grid-column: 3 / 4;
             text-align: center;
             font-weight: 600;
-            color: var(--highlight-color);
+            color: var(--primaryColor);
         }
     }
 
@@ -154,7 +154,7 @@
     }
 
     &_icon {
-        color: var(--highlight-color);
+        color: var(--primaryColor);
     }
 
     &_logo {
