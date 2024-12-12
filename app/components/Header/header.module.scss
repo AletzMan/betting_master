@@ -60,7 +60,7 @@
         height: 100%;
         font-family: var(--font-monsterrat);
         border-left: 1px solid var(--borderColor);
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         cursor: pointer;
         transition: all 0.3s ease-in-out;
         z-index: 20;
@@ -145,7 +145,7 @@
         padding: 0.25em 0;
         text-align: center;
         font-weight: 600;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         border: 1px solid var(--borderTwoColor);
         background-color: var(--backgroundColor);
         transition: all 0.3s ease-in-out;
@@ -266,12 +266,12 @@
 
         &Active {
             background-color: var(--headerhover-color);
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
         }
 
         &:hover {
             background-color: var(--backgroundColor);
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
         }
     }
 

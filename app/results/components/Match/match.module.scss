@@ -119,7 +119,7 @@
         &Icon {
             width: 1.3em;
             height: 1.3em;
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
         }
 
     }
@@ -232,7 +232,7 @@
         max-width: 10em;
         font-family: var(--font-montserrat);
         border-radius: var(--borderRadius);
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         border: none;
         background-color: #17749835;
         cursor: pointer;
@@ -397,7 +397,7 @@
         &Button {
             padding: 0.75em;
             background-color: var(--headerhover-color);
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
             border: none;
             font-size: 0.7em;
             //border-bottom: 2px solid transparent;
@@ -446,14 +446,14 @@
             padding: 0.25em;
             font-size: 1.8em;
             font-weight: 600;
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
         }
 
         &Possession {
             padding: 0.25em;
             font-size: 1.4em;
             font-weight: 400;
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
         }
 
         &Bar {
@@ -486,7 +486,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         width: 100%;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         padding: 0.5em;
 
         @media (max-width: 600px) {
@@ -665,7 +665,7 @@
         border: 1px solid var(--twitterTwo-color);
 
         &Icon {
-            background-color: var(--foregrounColor);
+            background-color: var(--foregroundColor);
             color: var(--backgroundColor);
             border-radius: 2em;
             width: 1.5em;
@@ -680,7 +680,7 @@
 
         &Name {
             font-size: 0.8em;
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
             padding: 0 0.3em 0 0;
         }
 
@@ -689,7 +689,7 @@
             border-radius: 2em;
             font-size: 0.8em;
             background-color: var(--twitterTwo-color);
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
         }
 
         &Home {
@@ -747,19 +747,19 @@
         padding: 0.15em 0 0 0;
         text-align: center;
         border-radius: 1em;
-        background-color: var(--foregrounColor);
+        background-color: var(--foregroundColor);
         color: var(--tertiaryColor);
     }
 
     &_name {
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         width: 7em;
         font-size: 0.65em;
         text-align: center;
         border-radius: 1em;
         padding: 0.25em;
         background-color: #034a03ee;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
 
         &Substitute {
             width: 8em;
@@ -850,7 +850,7 @@
             padding: 0 0 0.4em 0;
             border-radius: 1em;
             border: 1px solid var(--tertiaryColor);
-            background-color: var(--foregrounColor);
+            background-color: var(--foregroundColor);
             color: rgb(31, 70, 9);
 
             &Substitute {

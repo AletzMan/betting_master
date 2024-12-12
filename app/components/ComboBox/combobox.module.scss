@@ -29,12 +29,12 @@
         font-weight: 500;
         font-size: 0.9em;
         text-align: left;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         background-color: #101010AA;
         border: none;
         border-bottom: 2px solid var(--borderColor);
         outline: none;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         transition: 0.25s ease-in-out all;
 
         @media (width < 400px) {

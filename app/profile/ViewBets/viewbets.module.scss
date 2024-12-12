@@ -18,7 +18,7 @@
         flex-direction: column;
         position: relative;
         background: linear-gradient(-30deg, var(--secondaryColor), var(--secondaryColor));
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         padding: 0.5em;
         border-radius: 0.25em;
         border: 1px solid var(--borderColor);
@@ -90,7 +90,7 @@
         column-gap: 0.5em;
         font-size: 0.85em;
         border-radius: 1.5em;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         background-color: #ffffff32;
         padding: 0.15em 0.5em;
 
@@ -143,7 +143,7 @@
             justify-content: center;
             width: calc(100% / 9);
             font-size: 0.8em;
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
             padding: 0 0.5em;
             border-right: 1px solid var(--hover-link);
 

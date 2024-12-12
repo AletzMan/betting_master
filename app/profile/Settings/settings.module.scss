@@ -41,7 +41,7 @@
     &_input {
         padding: 0.35em 0.5em;
         font-size: 0.85em;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         border-radius: var(--borderRadius);
         border: 1px solid var(--subtitleBack-color);
         background-color: var(--twitter-color);
@@ -70,7 +70,7 @@
     &_text {
         font-size: 0.85em;
         font-weight: 400;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
     }
 
     &_button {

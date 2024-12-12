@@ -25,7 +25,7 @@
     &_subtitle {
         font-size: 1em;
         font-weight: 600;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
     }
 
     &_select {
@@ -35,12 +35,12 @@
         max-width: 15em;
         padding: 0.25em 0.5em;
         background-color: var(--subtitleBack-color);
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
 
         &Option {
             padding: 0.25em 0.5em;
             background-color: var(--secondaryColor);
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
         }
     }
 }
@@ -76,7 +76,7 @@
         &Value {
             font-size: 0.8em;
             font-weight: 500;
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
 
         }
     }
@@ -143,7 +143,7 @@
             font-size: 0.85em;
             font-weight: 300;
             padding: 0.25em 0.5em;
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
             background-color: var(--subtitleBack-color);
 
             &Check {
@@ -170,6 +170,6 @@
     &_name {
         font-size: 0.85em;
         font-weight: 300;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
     }
 }

@@ -6,7 +6,7 @@
     row-gap: 0.5em;
     padding: 1em 0.5em;
     border-radius: var(--borderRadius);
-    color: var(--foregrounColor);
+    color: var(--foregroundColor);
     background-color: var(--tertiaryColor);
 
     &_bets {
@@ -42,7 +42,7 @@
         font-weight: 600;
         text-align: center;
         text-wrap: balance;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
     }
 
     &_label {
@@ -56,7 +56,7 @@
         font-size: 0.85em;
         font-weight: 300;
         text-align: center;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
 
         &Light {
             text-align: center;
@@ -234,13 +234,13 @@
         &Title {
             font-size: 1em;
             font-weight: 600;
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
         }
 
         &Text {
             font-size: 1em;
             font-weight: 400;
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
             text-align: center;
         }
 
@@ -258,7 +258,7 @@
             font-weight: 600;
             padding: 0.5em 0;
             width: 3em;
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
             border-top: 1px solid var(--borderColor);
             border-left: 1px solid var(--borderColor);
 

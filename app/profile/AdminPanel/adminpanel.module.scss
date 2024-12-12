@@ -83,7 +83,7 @@
                 align-items: center;
                 justify-content: center;
                 font-size: 0.75em;
-                color: var(--foregrounColor);
+                color: var(--foregroundColor);
 
                 &VS {
                     color: #FFFF00;
@@ -241,7 +241,7 @@
             background-color: var(--secondaryColor);
             font-size: 1.3em;
             border: 1px solid var(--hover-link);
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
         }
 
         &Text {
