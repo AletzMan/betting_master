@@ -26,11 +26,11 @@
     }
 
     &_secondary {
-        color: var(--foregroundColor);
-        background-color: var(--foregroundColor);
+        color: var(--secondaryColor);
+        background-color: var(--foregroundSecondColor);
 
         &:hover {
-            background-color: var(--twitterTwo-color);
+            background-color: var(--foregroundColor);
         }
     }
 }
