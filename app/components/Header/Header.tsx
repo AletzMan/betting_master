@@ -55,23 +55,18 @@ export function Header() {
 						<LiveIcon className={styles.header_liveIcon} />
 						<span className={styles.header_liveText}>En vivo</span>
 	</Link>*/}
-
 					<Link href={"/"} title="Ir a inicio">
 						<AppLogo className={styles.header_logo} />
 					</Link>
 					<button
 						className={`${styles.header_menu} ${viewMenuProfile && styles.header_menuActive}`}
-						onClick={HandleViewMenu}
-					//onMouseLeave={() => setViewMenuProfile(false)}
-					>
+						onClick={HandleViewMenu}>
 						<MenuIcon className={styles.header_menuIcon} />
 						<span className={styles.header_menuName}>Menu</span>
 					</button>
 					<nav
 						className={`${styles.profile} ${viewMenuProfile && styles.profile_active}`}
-						//onMouseOver={() => setViewMenuProfile(true)}
-						onMouseLeave={() => setViewMenuProfile(false)}
-					>
+						onMouseLeave={() => setViewMenuProfile(false)}>
 						<div className={styles.profile_user}>
 							<picture className={styles.profile_userPicture}>
 								<img
@@ -86,12 +81,10 @@ export function Header() {
 							<span className={styles.profile_userName}>{userLocal.name || "Invitado"}</span>
 						</div>
 						<div className={styles.profile_links}>
-
 							<Link
 								href={`/profile`}
 								className={`${styles.profile_link} ${pathname === "/profile" && styles.profile_linkActive}`}
-								title="Ir a sesión de perfil"
-							>
+								title="Ir a sesión de perfil">
 								<ProfileIcon className={styles.profile_icon} />
 								Perfil
 							</Link>
@@ -100,8 +93,7 @@ export function Header() {
 									className={`${styles.profile_link} ${link.pathname === pathname && styles.profile_linkActive}`}
 									key={link.id}
 									href={link.href}
-									title={link.title}
-								>
+									title={link.title}>
 									{link.icon}
 									{link.text}
 								</Link>
@@ -128,8 +120,7 @@ export function Header() {
 								className={`${styles.nav_link} ${link.pathname === pathname && styles.nav_linkActive}`}
 								key={link.id}
 								href={link.href}
-								title={link.title}
-							>
+								title={link.title}>
 								{link.text}
 							</Link>
 						))}
