@@ -27,7 +27,7 @@
 
         &Down {
             padding: 0 0 1.5em 0;
-            border-bottom: 1px solid var(--borderTwo-color);
+            border-bottom: 1px solid var(--borderColor);
             font-weight: 400;
         }
     }
@@ -42,7 +42,7 @@
         width: 90%;
         padding: 2em 0 0 0;
         border-radius: var(--borderRadius);
-        border: 1px solid var(--borderColor);
+        border: 1px solid var(--borderTwoColor);
         background: var(--secondaryColor);
         color: var(--tertiaryColor);
 
