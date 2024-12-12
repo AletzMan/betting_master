@@ -29,10 +29,10 @@
         text-align: center;
         padding: 0.25em 0.5em;
         font-size: 1em;
-        color: var(--font-color);
+        color: var(--primaryHoverColor);
         border: 1px solid transparent;
         border-radius: var(--borderRadius);
-        background-color: var(--headerhover-color);
+        background-color: var(--fourthColor);
     }
 
     &_combobox {
@@ -108,12 +108,8 @@
     margin: 0 auto;
     overflow-x: auto;
     overflow-y: auto;
-    //box-shadow: var(--box-shadowTwo);
 
 
-    @media (max-width: 540px) {
-        //width: 90%;
-    }
 
     &_description {
         position: sticky;

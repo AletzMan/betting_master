@@ -1,20 +1,19 @@
 "use client"
 import styles from "./stats.module.scss"
-import { LeagueMX } from "../types/types"
+import { ITournament, LeagueMX } from "../types/types"
 import { TeamStatistics } from "./components/TeamStatistics/TeamStatistics"
 import { TeamDescription } from "./components/TeamsDescription/TeamDescription"
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { GetStats } from "../services/fetch_utils"
 import { ArrowIcon } from "../svg"
 import { Loading } from "../components/Loading/Loading"
 import { useOrientation } from "../hooks/useOrientation"
-import { ComboBox } from "../components/ComboBox/ComboBox"
 import { Tournaments } from "../constants/constants"
 
 export default function PositionsPage() {
 	const [leagues, setLeagues] = useState<LeagueMX[]>([])
 	const { isLandscape } = useOrientation()
-	const [selectedLeague, setSelectLeague] = useState({ id: new Date().getMonth() < 6 ? "0168" : "0159", name: "Liga MX" })
+	const [selectedLeague, setSelectLeague] = useState<ITournament>({ id: new Date().getMonth() < 6 ? "0168" : "0159", name: "Liga MX" })
 	const [selectedGroup, setSelectedGruop] = useState(0)
 	const [numberGroups, setNumberGoups] = useState(0)
 	const [loading, setLoading] = useState(true)
@@ -39,7 +38,17 @@ export default function PositionsPage() {
 		}
 	}
 
-	console.log(selectedGroup)
+
+
+	const HandleSelectTournament = (event: ChangeEvent<HTMLSelectElement>): void => {
+		const id = event.target.value
+		const name = event.target.options[event.target.selectedIndex].text
+		if (name === "Liga MX" || name === "Liga MX" || name === "Champions League" || name === "Premier League" || name === "La Liga" || name === "Bundesliga" || name === "Liga Holandesa" || name === "Serie A" || name === "League 1") {
+			const newValue: ITournament = { id, name }
+			setSelectLeague(newValue)
+		}
+	}
+
 	return (
 		<>
 			<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
@@ -47,7 +56,7 @@ export default function PositionsPage() {
 				{!loading && leagues.length > 0 && (
 					<>
 						<div className={styles.main_combobox}>
-							<select className={styles.main_select} value={selectedLeague.id} onChange={(e) => setSelectLeague({ id: e.target.value, name: e.target.options[e.target.selectedIndex].text })}>
+							<select className={styles.main_select} value={selectedLeague.id} onChange={HandleSelectTournament}>
 								{Tournaments.map((tournament) => (
 									<option key={tournament.id} value={tournament.id}>
 										{tournament.name}
@@ -80,7 +89,7 @@ export default function PositionsPage() {
 									<span className={`${styles.table_titlesText} ${styles.table_titlesTextClub}`}>Club</span>
 								</div>
 								{leagues[selectedGroup]?.rank.map((team, index) => (
-									<TeamDescription key={team._id} team={team} position={index + 1} />
+									<TeamDescription key={team._id} team={team} position={index + 1} selectedLeague={selectedLeague} />
 								))}
 							</section>
 							<section className={styles.table_statistics}>

@@ -79,7 +79,7 @@ export interface AlternateNames3 {
 	esES: string
 }
 
-export interface Subphase {}
+export interface Subphase { }
 
 export interface Season {
 	id: number
@@ -339,11 +339,11 @@ export interface IOptions {
 	statistic: "goals" | "cards" | "assists" | "passes" | "saves" | "successPasses"
 	totals: "games" | "yellowCards" | "passes"
 	average:
-		| "averageGoals"
-		| "redCards"
-		| "averageAssists"
-		| "averageSuccessPasses"
-		| "averageSaves"
+	| "averageGoals"
+	| "redCards"
+	| "averageAssists"
+	| "averageSuccessPasses"
+	| "averageSaves"
 }
 
 export interface IErrorMatches {
@@ -372,3 +372,10 @@ export interface IParticipants {
 	team: string
 	userInfo?: IUserInfo
 }
+
+
+export interface ITournament {
+	id: string
+	name: "Liga MX" | "Champions League" | "Premier League" | "La Liga" | "Bundesliga" | "Liga Holandesa" | "Serie A" | "League 1"
+}
+
