@@ -11,8 +11,6 @@
     column-gap: 0.5em;
     min-width: 12em;
     height: 1.9em;
-    //background-color: #222222;
-    //border-bottom: 1px solid #FFFFFF20;
     padding: 0.15em 0.5em 0.15em 0.15em;
     border-left: 3px solid transparent;
 
@@ -23,6 +21,10 @@
 
     &_playoff {
         border-left: 3px solid #d27219;
+    }
+
+    &_conference {
+        border-left: 3px solid #19d28e;
     }
 
     &_position {
