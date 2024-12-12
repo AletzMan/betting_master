@@ -13,7 +13,7 @@
     &_Styles {
         font-weight: 600;
         font-size: 2em;
-        color: var(--highlight-color);
+        color: var(--primaryColor);
     }
 
     &_active {
@@ -29,12 +29,12 @@
         font-weight: 500;
         font-size: 0.9em;
         text-align: left;
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
         background-color: #101010AA;
         border: none;
-        border-bottom: 2px solid var(--border-color);
+        border-bottom: 2px solid var(--borderColor);
         outline: none;
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
         transition: 0.25s ease-in-out all;
 
         @media (width < 400px) {
@@ -112,7 +112,7 @@
         gap: 0.1em;
         max-height: 0;
         width: 100%;
-        background-color: var(--background-start-color);
+        background-color: var(--tertiaryColor);
         border: 1px solid var(--hover-link);
         opacity: 0;
         transition: all 0.3s ease-in-out;
@@ -148,14 +148,14 @@
 
             &Select {
                 background-color: var(--hover-link);
-                color: var(--highlight-color);
+                color: var(--primaryColor);
             }
 
             &Icon {
                 position: absolute;
                 right: 0.5em;
                 top: 0;
-                color: var(--highlight-color);
+                color: var(--primaryColor);
 
             }
         }

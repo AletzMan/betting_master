@@ -1,6 +1,6 @@
 :root {
 	--max-width: 1000px;
-	--border-radius: 12px;
+	--borderRadius: 12px;
 	--font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono",
 		"Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono",
 		"Courier New", monospace;
@@ -8,16 +8,16 @@
 
 	--height-combo: 0;
 
-	--foreground-color: #ffffff;
-	--foreground-second-color: #c8c7c7;
-	--background-start-color: #1f252b;
-	--background-end-color: #191f25;
-	--header-color: #242c36;
+	--backgroundColor: #232323;
+	--primaryColor: #00ADB5;
+	--secondaryColor: #171717;
+	--tertiaryColor: #1b1b1b;
+	--foregrounColor: #ffffff;
+	--foregroundSecondColor: #c8c7c7;
 	--headerhover-color: #353e49;
-	--highlight-color: #d4a22d;
-	--highlighthover-color: #f4be3f;
+	--primaryHoverColor: #17ced8;
 	--screen-color: #191f24;
-	--border-color: #fff9f960;
+	--borderColor: #fff9f940;
 	--borderTwo-color: #9a9a9acd;
 	--subtitle-color: #2192e9;
 	--subtitleBack-color: #9dd1f920;
@@ -37,10 +37,10 @@
 	--hover-linkTwo: #b5b5b505;
 
 	--box-shadow: 0 0 3px 1px #31222260 inset;
-	--box-shadowTwo: 0 0 4px 2px #4e4e4e90;
+	--box-shadowTwo: 0 0 4px 2px #4e4e4e70;
 	--box-shadowLive: 0 0 4px 2px #2fed0d90 inset;
 
-	--border-radius: 0.25em;
+	--borderRadius: 0.25em;
 }
 
 * {
@@ -56,9 +56,8 @@ body {
 }
 
 body {
-	color: var(--foreground-color);
-	background: linear-gradient(to bottom, transparent, var(--background-end-color))
-		var(--background-start-color);
+	color: var(--foregrounColor);
+	background: var(--backgroundColor);
 	/*font-family: "Montserrat", "Roboto Mono", sans-serif;*/
 }
 
@@ -81,10 +80,10 @@ body {
 
 .scrollbar::-webkit-scrollbar-thumb {
 	border-radius: 1em;
-	background-color: var(--highlight-color);
+	background-color: var(--primaryColor);
 	cursor: pointer;
 }
 
 .scrollbar::-webkit-scrollbar-corner {
-	background-color: var(--highlight-color);
+	background-color: var(--primaryColor);
 }

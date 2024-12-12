@@ -6,7 +6,7 @@
     aspect-ratio: 1 / 1;
     height: 100%;
     font-size: 1.35em;
-    border-radius: var(--border-radius);
+    border-radius: var(--borderRadius);
     font-family: var(--font-monserrat);
     border: 1px solid #e9e9e970;
     background-color: #fcfbfb25;
@@ -18,7 +18,7 @@
         &:hover {
             border: 1px solid var(--headerhover-color);
             background-color: var(--headerhover-color);
-            color: var(--foreground-second-color);
+            color: var(--foregroundSecondColor);
         }
     }
 
@@ -26,7 +26,7 @@
 
     &Active {
         border: 1px solid var(--headerhover-color);
-        background-color: var(--header-color);
-        color: var(--foreground-second-colorr);
+        background-color: var(--secondaryColor);
+        color: var(--foregroundSecondColorr);
     }
 }

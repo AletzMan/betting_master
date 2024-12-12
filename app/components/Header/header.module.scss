@@ -3,8 +3,8 @@
     top: 0;
     display: flex;
     width: 100%;
-    background-color: var(--header-color);
-    border-bottom: 1px solid var(--border-color);
+    background-color: var(--secondaryColor);
+    border-bottom: 1px solid var(--borderColor);
     height: 5em;
     z-index: 5;
 
@@ -40,7 +40,7 @@
         justify-content: space-between;
         width: 100%;
         height: 100%;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--borderColor);
         grid-row: 1 / 2;
         grid-column: 1 / span 3;
     }
@@ -59,8 +59,8 @@
         border: none;
         height: 100%;
         font-family: var(--font-monsterrat);
-        border-left: 1px solid var(--border-color);
-        color: var(--foreground-color);
+        border-left: 1px solid var(--borderColor);
+        color: var(--foregrounColor);
         cursor: pointer;
         transition: all 0.3s ease-in-out;
         z-index: 20;
@@ -93,7 +93,7 @@
         gap: 0.5em;
         text-decoration: none;
         transition: all 0.3s ease-in-out;
-        color: var(--highlighthover-color);
+        color: var(--primaryHoverColor);
 
         &:hover {
             background-color: var(--hover-link);
@@ -131,20 +131,20 @@
     padding: 0.3em;
     width: 100%;
     height: 100%;
-    background-color: var(--header-color);
+    background-color: var(--secondaryColor);
 
     &_link {
         display: flex;
         align-items: center;
         justify-content: center;
         text-decoration: none;
-        border-radius: var(--border-radius);
+        border-radius: var(--borderRadius);
         height: 100%;
         width: 100%;
         font-size: 0.8em;
         padding: 0.25em 0;
         text-align: center;
-        color: var(--foreground-color);
+        color: var(--foregrounColor);
         background-color: var(--hover-link);
         transition: all 0.3s ease-in-out;
 
@@ -153,13 +153,13 @@
         }
 
         &:hover:not(&Active) {
-            background-color: var(--background-start-color);
+            background-color: var(--tertiaryColor);
         }
 
         &Active {
-            //border-bottom: 1px solid var(--highlighthover-color);
-            background-color: var(--background-end-color);
-            color: var(--highlighthover-color);
+            //border-bottom: 1px solid var(--primaryHoverColor);
+            background-color: var(--backgroundColor);
+            color: var(--primaryHoverColor);
             font-weight: 600;
         }
     }
@@ -176,8 +176,8 @@
     max-height: 0em;
     width: 10.88em;
     overflow: hidden;
-    border-radius: var(--border-radius);
-    background-color: var(--foreground-second-color);
+    border-radius: var(--borderRadius);
+    background-color: var(--foregroundSecondColor);
     transition: all 0.3s ease-in-out;
     transform-origin: top right;
     opacity: 1;
@@ -216,7 +216,7 @@
             background-color: #FFFFFF;
             overflow: hidden;
             padding: 0.15em;
-            border: 2px solid var(--highlighthover-color);
+            border: 2px solid var(--primaryHoverColor);
 
         }
 
@@ -230,7 +230,7 @@
         &Name {
             font-size: 0.8em;
             font-weight: 600;
-            color: var(--background-start-color);
+            color: var(--tertiaryColor);
         }
     }
 
@@ -257,7 +257,7 @@
         text-decoration: none;
         padding: 0.35em;
         border: none;
-        color: var(--header-color);
+        color: var(--secondaryColor);
         font-family: var(--font-monsterrat);
         transition: all 0.15s ease-in-out;
         background-color: transparent;
@@ -265,12 +265,12 @@
 
         &Active {
             background-color: var(--headerhover-color);
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
         }
 
         &:hover {
             background-color: var(--headerhover-color);
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
         }
     }
 

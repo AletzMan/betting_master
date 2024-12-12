@@ -4,7 +4,7 @@
     align-items: center;
     padding: 4em 0;
     margin: auto 0;
-    color: var(--highlighthover-color);
+    color: var(--primaryHoverColor);
 
     &_icon {
         width: 4em;
@@ -57,7 +57,7 @@ main-loader {
     &Text {
         font-size: 3em;
         padding: 6.5em 0 0 0;
-        color: var(--highlighthover-color);
+        color: var(--primaryHoverColor);
     }
 
     &Loader {
@@ -75,7 +75,7 @@ main-loader {
                 animation-duration: 1s;
                 animation-name: pulse;
                 animation-iteration-count: infinite;
-                color: var(--highlighthover-color);
+                color: var(--primaryHoverColor);
 
                 &.path_7 {
                     animation-delay: -1s

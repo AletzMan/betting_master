@@ -15,7 +15,7 @@
 
     &_name {
         padding: 0 0.5em;
-        color: var(--border-color);
+        color: var(--borderColor);
     }
 
     &_button {
@@ -23,12 +23,12 @@
         border-radius: 2em;
         background-color: transparent;
         border: none;
-        color: var(--border-color);
+        color: var(--borderColor);
         transition: all 0.3s ease-in-out;
         cursor: pointer;
 
         &:hover {
-            color: var(--highlighthover-color);
+            color: var(--primaryHoverColor);
         }
     }
 

@@ -14,13 +14,13 @@
         transition: all 0.3s ease-in-out;
         max-width: 8em;
         font-weight: 600;
-        color: var(--background-start-color);
-        background-color: var(--highlight-color);
-        border-radius: var(--border-radius);
+        color: var(--tertiaryColor);
+        background-color: var(--primaryColor);
+        border-radius: var(--borderRadius);
         border: none;
 
         &:hover {
-            background-color: var(--highlighthover-color);
+            background-color: var(--primaryHoverColor);
         }
 
         &Icon {

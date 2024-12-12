@@ -7,7 +7,7 @@
     min-height: 100svh;
     padding: 7.5em 0.5em 1em 0.5em;
     width: 100%;
-    background: linear-gradient(-30deg, var(--background-start-color), var(--background-end-color));
+    background: linear-gradient(-30deg, var(--tertiaryColor), var(--backgroundColor));
     max-width: var(--max-width);
 
     &_definitions {
@@ -144,8 +144,8 @@
         grid-template-columns: 2em 1fr 5em 3em 3em 2.5em;
         place-content: center center;
         padding: 0.5em 0.25em;
-        background-color: var(--header-color);
-        border-bottom: 1px solid var(--border-color);
+        background-color: var(--secondaryColor);
+        border-bottom: 1px solid var(--borderColor);
         text-align: center;
         font-weight: 600;
         z-index: 2;

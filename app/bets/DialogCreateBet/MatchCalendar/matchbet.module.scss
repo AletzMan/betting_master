@@ -5,7 +5,7 @@
     width: 100%;
     background-color: var(--hover-link);
     border: 1px solid transparent;
-    border-radius: var(--border-radius);
+    border-radius: var(--borderRadius);
     padding: 0.35em 0.35em;
 
     &:hover {
@@ -43,7 +43,7 @@
             text-transform: uppercase;
             font-weight: 700;
             text-align: center;
-            color: var(--foreground-second-color);
+            color: var(--foregroundSecondColor);
 
             @media (max-width: 600px) {
                 //font-size: 0.7em;
@@ -84,7 +84,7 @@
         &Icon {
             width: 1.3em;
             height: 1.3em;
-            color: var(--foreground-color);
+            color: var(--foregrounColor);
         }
 
     }
