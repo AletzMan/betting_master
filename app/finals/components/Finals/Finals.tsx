@@ -33,8 +33,8 @@ export default function Finals({ participants }: Props) {
 
     </section>*/}
             </>
-            {/*<Final participants={participants} />*/}
-            {/*<Semis participants={participants} />*/}
+            {<Final participants={participants} />}
+            {<Semis participants={participants} />}
             <Quarters participants={participants} />
         </div>
     )

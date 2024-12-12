@@ -13,7 +13,7 @@ export const Final = ({ participants }: Props) => {
     return (
         <div className={`${styles.quarters} `}>
             <h2 className={styles.quarters_title}>Final</h2>
-            <MatchFinals participants={participants} index={[0, 1]} />
+            <MatchFinals participants={participants} index={[4, 6]} />
         </div>
     );
 };
