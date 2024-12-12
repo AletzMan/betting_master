@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { Loading } from "../components/Loading/Loading"
 import { GetCurrentDays } from "../functions/functions"
@@ -78,7 +79,7 @@ export default function ResultsPage() {
 				<header className={styles.header}>
 					<div className={styles.header_days}>
 						{GetCurrentDays(currentDay?.currentDate || new Date()).map((day, index) => (
-							<button key={day.id} className={`${styles.header_day}`} onClick={() => HandleSelectDate(day)}>
+							<button key={day.id} className={`${styles.header_day} ${index === 2 && styles.header_dayCurrent}`} onClick={() => HandleSelectDate(day)}>
 								<span className={styles.header_dayText}>{day.day.short}</span>
 								<span className={`${styles.header_dayNumber} ${index === 2 && styles.header_dayNumberCurrent}`}>{day.date}</span>
 								{index === 2 && <span className={styles.header_dayFull}>{day.month}</span>}
