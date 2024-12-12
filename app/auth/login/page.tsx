@@ -1,11 +1,11 @@
 "use client"
-import { AppLogo, BallIcon, FacebookIcon, GoogleLogo, LogInIcon, LuckIcon, TwitterLogo } from "@/app/svg"
+import { AppLogo, GoogleLogo, TwitterLogo } from "@/app/svg"
 import styles from "./login.module.scss"
-import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User, getRedirectResult, signInWithPopup, signInWithRedirect } from "firebase/auth"
+import { AuthProvider, GoogleAuthProvider, TwitterAuthProvider, User, signInWithPopup, } from "firebase/auth"
 import { FirebaseError } from "firebase/app"
 import { useUser } from "@/app/config/zustand-store"
 import { useEffect, useState } from "react"
-import { auth, FacebookProvider, GoogleProvider, TwitterProvider } from "@/app/config/firebase"
+import { auth, GoogleProvider, TwitterProvider, } from "@/app/config/firebase"
 import { useRouter } from "next/navigation"
 import { useOrientation } from "@/app/hooks/useOrientation"
 import axios from "axios"
@@ -62,7 +62,6 @@ export default function LoginPage() {
 				<AppLogo className={styles.icon} />
 				<h1 className={styles.header_title}>Iniciar Sesión</h1>
 				<article className={styles.main_article}>
-					{/*<p className={styles.main_message}>Accede para llenar quinielas y mantenerte al tanto de los resultados.</p>*/}
 					<p className={`${styles.main_message} ${styles.main_messageDown}`}>Elige una opción para iniciar sesión.</p>
 					<button className={`${styles.button} ${styles.button_google}`} onClick={() => HandleSignInWithGoogle(GoogleProvider)}>
 						<GoogleLogo className={`${styles.button_icon} ${styles.button_iconGoogle}`} />
@@ -72,10 +71,6 @@ export default function LoginPage() {
 						<TwitterLogo className={`${styles.button_icon} ${styles.button_iconTwitter}`} />
 						<span className={`${styles.button_text} ${styles.button_textTwitter}`}>Continuar con X</span>
 					</button>
-					{/*<button className={`${styles.button} ${styles.button_facebook}`} onClick={() => HandleSignInWithGoogle(FacebookProvider)}>
-						<FacebookIcon className={`${styles.button_icon} ${styles.button_iconFacebook}`} />
-						<span className={`${styles.button_text} ${styles.button_textFacebook}`}>Iniciar con Facebook</span>
-					</button>*/}
 				</article>
 			</section>
 		</main>
