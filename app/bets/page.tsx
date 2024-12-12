@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import ConfettiExplosion from 'react-confetti-explosion';
 import { ChangeEvent, useEffect, useState } from "react"
@@ -5,7 +6,7 @@ import { ConvertToPrice } from "../functions/functions"
 import styles from "./bets.module.scss"
 import { Loading } from "../components/Loading/Loading"
 import { DialogCreateBet } from "./DialogCreateBet/DialogCreateBet"
-import { ArrowIcon, NotFoundIcon, StarIcon, WinnerIcon } from "../svg"
+import { ArrowIcon, NotFoundIcon, StarIcon, ViewIcon, WinnerIcon } from "../svg"
 import { useUser } from "../config/zustand-store"
 import { useMatches } from "../hooks/useMatches"
 import { useWinner } from "../hooks/useWinner"
@@ -20,6 +21,7 @@ import { SnackbarProvider } from "notistack"
 import { NoPaidMessage } from "./components/NoPaidMessage/NoPaidMessage"
 import { ConfirmedParticipationMessage } from "./components/ConfirmedParticipationMessage/ConfirmedParticipationMessage"
 import { Button } from '../components/Button/Button';
+import { WinningBets } from './components/WinningBets/WinningBets';
 
 const Orders = [
 	{ id: "name", name: "Por nombre" },
@@ -62,14 +64,12 @@ export default function BetsPage() {
 			setWinners(newWinners)
 			setUser(user.uid)
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user, bets, matches, winner])
 
 	useEffect(() => {
 		if (!openDialog) {
 			GetBets()
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [matches, openDialog])
 
 
@@ -116,7 +116,7 @@ export default function BetsPage() {
 				{openDialog && matches && <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matches} myBets={myBets} />}
 				{matches?.results?.length > 0 && !isLandscape && !matches.isFinishGame && <HeaderPage isInTime={matches?.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />}
 				{loading && <Loading />}
-				{matches.isFinishGame && <Button className={styles.buttonViewWinners} onClick={() => setViewBets(prev => !prev)} text={viewBets ? 'Ver ganadores' : 'Ver quinielas'} />}
+				{matches.isFinishGame && <Button props={{ onClick: () => setViewBets(prev => !prev), children: <ViewIcon className={''} /> }} text={viewBets ? 'Ver ganadores' : 'Ver quinielas'} />}
 				{(!matches.isFinishGame || viewBets) && <>
 					{myBets?.isNotBetsPaid && myBets.hasBets && bets && bets?.length > 0 &&
 						<NoPaidMessage myBets={myBets} user={user} />
@@ -217,24 +217,7 @@ export default function BetsPage() {
 
 				</>}
 				{matches.isFinishGame && !viewBets &&
-					<>
-						<ConfettiExplosion />
-						<h3 className={styles.winners_title}>GANADORES</h3>
-						<section className={styles.winners}>
-							{
-								winners?.map(win => (
-									<div className={styles.winner} key={win.id} >
-										<picture className={styles.winner_picture}>
-											<Image className={styles.winner_image} src={win.userInfo?.photo || "/user-icon.png"} alt="Winner" width={100} height={100} />
-										</picture>
-										<span className={styles.winner_name}>{win.userInfo?.name}</span>
-										<span className={styles.winner_bet}>{win.name}</span>
-										<WinnerIcon className={styles.winner_icon} />
-									</div>
-								))
-							}
-						</section>
-					</>
+					<WinningBets winners={winners} />
 				}
 			</main>
 		</SnackbarProvider>
