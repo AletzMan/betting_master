@@ -53,7 +53,7 @@ $base-color: rgb(30, 30, 30);
         flex-direction: column;
         position: relative;
         background: linear-gradient(-30deg, var(--secondaryColor), var(--secondaryColor));
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         padding: 0.5em;
         border-radius: 0.25em;
         border: 1px solid var(--borderColor);
@@ -86,7 +86,7 @@ $base-color: rgb(30, 30, 30);
                 font-size: 1.5em;
                 text-align: center;
                 font-family: var(--font-montserat);
-                color: var(--foregrounColor);
+                color: var(--foregroundColor);
                 border: 1px solid var(--borderColor);
                 background-color: var(--tertiaryColor);
 

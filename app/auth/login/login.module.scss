@@ -23,7 +23,7 @@
         text-align: center;
         text-wrap: balance;
         font-weight: 500;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
 
         &Down {
             padding: 0 0 1.5em 0;
@@ -137,7 +137,7 @@
         }
 
         &Facebook {
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
         }
     }
 }

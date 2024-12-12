@@ -352,14 +352,14 @@ export const TeamsNames: Team[] = [
 ]
 
 export const LinksPage = [
-	/*{
+	{
 		id: 0,
 		text: "Quinielas",
 		pathname: "/bets",
 		href: "/bets",
 		title: "Ir a página de quinielas",
 		icon: <BetsIcon className="" />,
-	},*/
+	},
 	{
 		id: 1,
 		text: "Finales",
@@ -384,14 +384,14 @@ export const LinksPage = [
 		title: "Ir a página de posiciones",
 		icon: <PositionsIcon className="" />,
 	},
-	/*{
+	{
 		id: 4,
 		text: "Estadísticas",
 		pathname: "/statistics",
 		href: `/statistics?tournament=${new Date().getMonth() < 6 ? "0168" : "0159"}&type=goals`,
 		title: "Ir a página de estadística",
 		icon: <StatsIcon className="" />,
-	},*/
+	},
 ]
 
 export const LinksProfile = [

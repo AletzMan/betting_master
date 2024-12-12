@@ -26,7 +26,7 @@
 
 
             &Title {
-                color: var(--foregrounColor);
+                color: var(--foregroundColor);
                 width: 100%;
                 text-align: center;
                 padding: 0 0 0.5em 0;
@@ -101,7 +101,7 @@
 
     &_label {
         position: relative;
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         font-size: 0.85em;
 
         &Error {
@@ -132,7 +132,7 @@
         font-weight: 500;
         border: 1px solid var(--borderColor);
         border-radius: var(--borderRadius);
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         font-family: var(--font-montserrat);
         background-color: var(--background-textTwo);
 
@@ -165,7 +165,7 @@
 
         &:nth-child(2) {
             background-color: var(--headerhover-color);
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
         }
 
         &:hover {

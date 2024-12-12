@@ -4,17 +4,17 @@
     align-items: center;
     justify-content: center;
     border: none;
-    height: 2em;
     font-weight: 600;
-    padding: 0.25em 0.6em 0.25em 0.25em;
+    padding: 0.5em 1em;
     min-width: 6em;
     width: max-content;
-    column-gap: 1em;
+    column-gap: 0.5em;
     border-radius: var(--borderRadius);
     color: var(--tertiaryColor);
     background-color: var(--primaryColor);
     transition: all 0.3s ease-in-out;
     font-family: var(--font-montserrat);
+    cursor: pointer;
 
     &>svg {
         width: 1.3em;
@@ -26,8 +26,8 @@
     }
 
     &_secondary {
-        color: var(--foregrounColor);
-        background-color: var(--headerhover-color);
+        color: var(--foregroundColor);
+        background-color: var(--foregroundColor);
 
         &:hover {
             background-color: var(--twitterTwo-color);
