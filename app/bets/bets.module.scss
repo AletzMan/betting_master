@@ -217,7 +217,7 @@
         padding: 1em 2em;
         margin: 1em 0 0 0;
         border-radius: var(--borderRadius);
-        color: var(--foregrounColor);
+        color: var(--foregroundColor);
         background-color: var(--hover-link);
 
         &Bets {
@@ -253,7 +253,7 @@
             font-weight: 600;
             text-align: center;
             text-wrap: balance;
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
         }
 
         &Label {
@@ -267,7 +267,7 @@
             font-size: 0.85em;
             font-weight: 300;
             text-align: center;
-            color: var(--foregrounColor);
+            color: var(--foregroundColor);
 
             &Light {
                 text-align: center;
@@ -407,79 +407,4 @@
 
     }
 
-}
-
-.winners {
-    display: flex;
-    flex-flow: row wrap;
-    gap: 0.75em;
-    padding: 0.5em;
-
-    &_title {
-        text-align: center;
-    }
-}
-
-.winner {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 6em;
-    gap: 0.5em;
-    border-radius: 0.5em;
-    padding: 0.5em;
-    border: 3px solid #b28966;
-    background: linear-gradient(-60deg, var(--headerhover-color)30%, #425163 50%, var(--headerhover-color)70%);
-    box-shadow: 0 0 4px 2px #6e6e6e00;
-    animation: animationWinner 0.6s ease-in-out infinite alternate;
-
-    @keyframes animationWinner {
-        0% {
-            box-shadow: 0 0 4px 2px #b2a86610;
-
-        }
-
-        100% {
-            box-shadow: 0 0 6px 4px #b2a86690;
-        }
-    }
-
-    &_picture {
-        border-radius: 12em;
-        border: 3px solid #dec158;
-        padding: 0.25em;
-        width: 4em;
-        height: 4em;
-        overflow: hidden;
-    }
-
-    &_image {
-        width: 100%;
-        height: 100%;
-        border-radius: 12em;
-        object-fit: cover;
-    }
-
-    &_name {
-        font-size: 0.8em;
-        font-weight: 700;
-        text-align: center;
-    }
-
-    &_bet {
-        text-align: center;
-    }
-
-    &_icon {
-        color: var(--primaryColor);
-    }
-
-
-}
-
-.buttonViewWinners {
-    margin: 0.5em 0;
-    max-width: 11em;
 }
