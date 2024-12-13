@@ -31,8 +31,8 @@
         text-align: left;
         color: var(--foregroundColor);
         background-color: #101010AA;
-        border: none;
-        border-bottom: 2px solid var(--borderColor);
+        border: 1px solid var(--borderColor);
+        border-radius: var(--borderRadius);
         outline: none;
         color: var(--foregroundColor);
         transition: 0.25s ease-in-out all;

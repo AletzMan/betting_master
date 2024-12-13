@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import styles from "./adminfinals.module.scss"
 import { useSnackbar } from "notistack"
 import { IParticipants } from "@/app/types/types"
 import { QualifiedTeams } from "@/app/finals/components/Quarterfinals"
 import { Button } from "@/app/components/Button/Button"
-import { LuckIcon } from "@/app/svg"
+import { ArrowUpIcon, LotteryIcon, LuckIcon } from "@/app/svg"
 import { GetFinalParticipants, UpdateFinalParticipants } from "@/app/config/firebase"
+import styles from "./adminfinals.module.scss"
+import stylesGeneral from "../profile.module.scss"
 
 export default function AdminFinals() {
     const { enqueueSnackbar } = useSnackbar()
@@ -63,10 +64,19 @@ export default function AdminFinals() {
     }
 
     return (
-        <article className={styles.details}>
-            <h4>Sorteo</h4>
-            {participants?.length === 8 && <Button props={{ onClick: HandleDrawTeams }} text="Sortear" icon={<LuckIcon className={""} />} />}
-        </article>
+        <details className={stylesGeneral.details} name="adminpanel">
+            <summary className={stylesGeneral.details_summary}>
+                <div className={stylesGeneral.details_title}>
+                    <LotteryIcon className={stylesGeneral.details_icon} />
+                    Administración de Sorteo
+                </div>
+                <ArrowUpIcon className={stylesGeneral.details_arrow} />
+            </summary>
+
+            <article className={styles.details}>
+                {participants?.length === 8 && <Button props={{ onClick: HandleDrawTeams }} text="Sortear" icon={<LuckIcon className={""} />} />}
+            </article>
+        </details>
     )
 }
 

@@ -1,10 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
-import styles from "./betsbyuser.module.scss"
 import { DeleteBet, GetBetsByDay, GetBetsByIDGroup, UpdateBetByUser } from "@/app/config/firebase"
 import { IBetDataDocument, IBetDocument } from "@/app/types/types"
 import { useSnackbar } from "notistack"
 import Image from "next/image"
-import { DeleteIcon } from "@/app/svg"
+import { ArrowUpIcon, DeleteIcon, PaymentIcon } from "@/app/svg"
+import styles from "./betsbyuser.module.scss"
+import stylesGeneral from "../profile.module.scss"
 
 interface IBetsByUser {
     uid: string,
@@ -23,7 +25,7 @@ export function BetsByUser() {
     const [betsByID, setBetsByID] = useState<IBetsByUser[]>(EmptyBetsBtID)
 
     useEffect(() => {
-        GetBets()
+        //GetBets()
     }, [matchDay])
 
     const GetBets = async () => {
@@ -70,15 +72,18 @@ export function BetsByUser() {
         }
     }
 
-
     return (
-        <details className={styles.details}>
-            <summary className={styles.details_summary}>
-                Quinielas Pagadas
+        <details className={stylesGeneral.details} name="adminpanel">
+            <summary className={stylesGeneral.details_summary}>
+                <div className={stylesGeneral.details_title}>
+                    <PaymentIcon className={stylesGeneral.details_icon} />
+                    Gestión de Pagos
+                </div>
+                <ArrowUpIcon className={stylesGeneral.details_arrow} />
             </summary>
             <section className={styles.section}>
                 <header className={styles.header}>
-                    <select className={styles.section_select} onChange={(e) => setMatchDay(parseInt(e.target.value))}>
+                    <select className={`${styles.section_select} scrollbar`} onChange={(e) => setMatchDay(parseInt(e.target.value))}>
                         <option className={styles.section_selectOption} value="0">-- Selecciona una jornada --</option>
                         {MatchDays.map((day) => (
                             <option className={styles.section_selectOption} key={day.id} value={day.id}>{day.name}</option>
@@ -104,7 +109,7 @@ export function BetsByUser() {
                     </div>
                 </header>
                 <div className={styles.bets}>
-                    {betsByID.map((bet, index) => (
+                    {betsByID[0]?.uid && betsByID?.map((bet, index) => (
                         <details key={bet.uid} className={`${styles.bets_bet} ${betsByID[index].bets.find(betdata => !betdata.data.paid)?.data ? styles.bets_betNoPaid : styles.bets_betPaid}`}>
                             <summary className={`${styles.bets_betSummary} `}>
                                 <Image className={styles.bets_betSummaryImage} src={bet?.bets[0]?.data.userInfo?.photo || "/user_icon.png"} alt="user" width={30} height={30} />

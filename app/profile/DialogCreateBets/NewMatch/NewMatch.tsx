@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { TeamsNames, TeamsLogos } from "@/app/constants/constants"
 import styles from "./newmatch.module.scss"
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react"
@@ -32,14 +33,12 @@ export function NewMatch(props: Props) {
 		// Llama a la función HandleSelectionTeam para obtener una respuesta
 		const response = HandleSelectionTeam("home", homeTeam.id)
 		UpdateListTeams(response)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [homeTeam])
 
 	useEffect(() => {
 		// Llama a la función HandleSelectionTeam para obtener una respuesta
 		const response = HandleSelectionTeam("away", awayTeam.id)
 		UpdateListTeams(response)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [awayTeam])
 
 	const UpdateListTeams = (newTeams: Teams[]) => {
@@ -85,12 +84,8 @@ export function NewMatch(props: Props) {
 		// Actualiza el estado con el nuevo conjunto de equipos
 		setTeams(newSetTeams)
 	}
-	console.log(selectedTeams)
-
-
 
 	const HandleSelectionTeam = (team: string, teamid: string) => {
-		console.log(team)
 		// Copia del arreglo de selectedTeams
 		let newTeams: Teams[] = { ...selectedTeams }
 		// Obten una copia del partido actual
@@ -104,8 +99,6 @@ export function NewMatch(props: Props) {
 		}
 		// Actualiza el arreglo de selectedTeams con la nueva información
 		newTeams[matchNumber] = newMatch
-
-		console.log(newTeams)
 		// Actualiza el estado con el nuevo arreglo
 		return newTeams
 	}

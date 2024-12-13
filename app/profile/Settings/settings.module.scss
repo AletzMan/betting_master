@@ -1,9 +1,4 @@
 .settingsProfile {
-    position: relative;
-    padding: 0.5em;
-    background-color: var(--tertiaryColor);
-    border: 1px solid var(--subtitleBack-color);
-    border-radius: var(--borderRadius);
 
     &_title {
         font-size: 1em;
@@ -25,8 +20,10 @@
     }
 
     &_info {
+        position: relative;
         display: flex;
         flex-direction: column;
+        padding: 0.5em;
 
         &__item {
             display: flex;
@@ -74,9 +71,11 @@
     }
 
     &_button {
+        display: flex;
+        justify-content: flex-end;
         align-self: flex-end;
         width: 8em;
-        margin: 0.5em 0 0 0;
+        margin: 0.5em 0.25em 0.25em 0;
 
     }
 

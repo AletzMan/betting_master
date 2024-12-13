@@ -8,7 +8,7 @@
     height: 2.3em;
     width: 100%;
     font-family: var(--font-montserat);
-    border: 1px solid var(--hover-link);
+    //border: 1px solid var(--hover-link);
 
     @media (width < 400px) {
         grid-template-columns: 1.5fr 1fr 1.5fr;
@@ -61,8 +61,11 @@
         grid-column: 2 / 3;
         height: 2em;
         width: 80%;
+        padding: 0.15em 0.25em;
+        border-radius: var(--borderRadius);
         color: var(--foregroundColor);
-        background-color: var(--headerhover-color);
+        background-color: var(--backgroundColor);
+        border: 1px solid var(--borderColor);
     }
 
     &_away {

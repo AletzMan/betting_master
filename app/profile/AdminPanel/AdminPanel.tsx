@@ -1,16 +1,16 @@
 "use client"
 
-import styles from "./adminpanel.module.scss"
 import { ChangeEvent, useEffect, useState } from "react"
 import { AddMatchDay, AddResults, GetCurrentMatchDay, GetResultsByDay, UpdateResultsMatchDay } from "@/app/config/firebase"
 import { ICurrentMatch, IMatchDay, IResultsMatches } from "@/app/types/types"
 import { ButtonBet } from "../ButtonBet/ButtonBet"
-import { AddIcon, ArrowUpIcon, LoadingIcon, UpdateLogo } from "@/app/svg"
+import { AddIcon, AdminIcon, ArrowUpIcon, BetConfigIcon, LoadingIcon, PaymentIcon, UpdateLogo } from "@/app/svg"
 import { TeamsLogos } from "@/app/constants/constants"
 import { DialogCreatBets } from "../DialogCreateBets/DialogCreateBets"
 import { Button } from "@/app/components/Button/Button"
 import { useSnackbar } from "notistack"
-import { undefined } from "zod"
+import styles from "./adminpanel.module.scss"
+import stylesGeneral from "../profile.module.scss"
 
 export function AdminPanel() {
 	const { enqueueSnackbar } = useSnackbar()
@@ -23,6 +23,12 @@ export function AdminPanel() {
 	const [viewCreateBets, setViewCreateBets] = useState(false)
 	const [numberCorrectPicks, setNumberCorrectPicks] = useState(results.winner_correct_pick | 0)
 	const [isAvailable, setIsAvailable] = useState(true)
+
+
+	useEffect(() => {
+
+		//GetDay()
+	}, [])
 
 	const GetDay = async () => {
 		const response = await GetCurrentMatchDay(new Date().getMonth() < 6 ? "0168" : "0159")
@@ -97,19 +103,17 @@ export function AdminPanel() {
 		setNumberCorrectPicks(correctsPicks)
 	}
 
-	useEffect(() => {
-
-		GetDay()
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
 
 	return (
 		<>
 			{viewCreateBets && <DialogCreatBets setView={setViewCreateBets} numberMatches={numberCorrectPicks} />}
-			<details className={styles.admin}>
-				<summary className={styles.admin_summary}>
-					Panel de administrador
+			<details className={stylesGeneral.details} name="adminpanel">
+				<summary className={stylesGeneral.details_summary}>
+					<div className={stylesGeneral.details_title}>
+						<BetConfigIcon className={stylesGeneral.details_icon} />
+						Edición de Quiniela
+					</div>
+					<ArrowUpIcon className={stylesGeneral.details_arrow} />
 				</summary>
 				<section className={styles.admin_section}>
 					{matchDay !== 0 &&
