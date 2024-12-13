@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { IUserInfo, IUserSettings } from "@/app/types/types"
 import styles from "./settings.module.scss"
@@ -92,10 +93,10 @@ export const SettingsProfile = ({ user }: ISettingsProfileProps) => {
                     {errors.account && <p className={styles.settingsProfile_error}>{errors.account}</p>}
                 </div>
                 <Button
-                    className={styles.settingsProfile_button}
+                    props={{ onClick: HandleSave }}
                     text="Guardar"
-                    onClick={HandleSave}
                     icon={<SaveIcon />}
+                    type="primary"
                 />
                 <picture className={styles.settingsProfile_picture}>
                     <Image className={styles.settingsProfile_image} src={userSettings.photo || "/user-icon.png"} alt={userSettings.name || ""} width={100} height={100} />
