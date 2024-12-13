@@ -12,6 +12,7 @@ import { SnackbarProvider } from "notistack"
 import { SettingsProfile } from "./Settings/SettingsProfile"
 import { BetsByUser } from "./BetsByUser/BetsByUser"
 import AdminFinals from "./AdminFinals/AdminFinals"
+import { AppConfig } from "./AppConfig/AppConfig"
 
 const ADMIN_UID = process.env.NEXT_PUBLIC_ADMIN_UID
 
@@ -41,7 +42,7 @@ export default function ProfilePage() {
 
 
 	useEffect(() => {
-		GetBets()
+		//GetBets()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -51,9 +52,10 @@ export default function ProfilePage() {
 			<main className={`${styles.main} ${isLandscape && styles.main_landscape} scrollbar`}>
 				<section className={styles.section}>
 					{<SettingsProfile user={user} />}
-					{!loading && user.uid === ADMIN_UID && <AdminPanel />}
-					{/*!loading && user.uid === ADMIN_UID && <BetsByUser />*/}
-					{!loading && user.uid === ADMIN_UID && <AdminFinals />}
+					{loading && user.uid === ADMIN_UID && <AppConfig />}
+					{loading && user.uid === ADMIN_UID && <AdminPanel />}
+					{loading && user.uid === ADMIN_UID && <BetsByUser />}
+					{loading && user.uid === ADMIN_UID && <AdminFinals />}
 					{/*<h2 className={styles.main_subtitle}>Mis quinielas</h2>*/}
 					{/*myBets?.map((myBet, index) => (
 						<BettingDay key={myBet[0]} bet={myBet} open={open} setOpen={setOpen} index={index} numberDays={open.length} />

@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { IUserInfo, IUserSettings } from "@/app/types/types"
-import styles from "./settings.module.scss"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { GetInfoUser, SaveInfouser } from "@/app/config/firebase"
@@ -9,7 +8,9 @@ import { useSnackbar } from "notistack"
 import { profileSettingsSchema } from "@/app/validations/profileSettingsSchema"
 import { ZodError } from "zod"
 import { Button } from "@/app/components/Button/Button"
-import { SaveIcon } from "@/app/svg"
+import { ArrowUpIcon, ProfileIcon, SaveIcon } from "@/app/svg"
+import styles from "./settings.module.scss"
+import stylesGeneral from "../profile.module.scss"
 
 interface ISettingsProfileProps {
     user: IUserInfo
@@ -70,8 +71,14 @@ export const SettingsProfile = ({ user }: ISettingsProfileProps) => {
 
 
     return (
-        <div className={styles.settingsProfile}>
-            <h1 className={styles.settingsProfile_title}>Perfil</h1>
+        <details className={stylesGeneral.details} name="adminpanel">
+            <summary className={stylesGeneral.details_summary}>
+                <div className={stylesGeneral.details_title}>
+                    <ProfileIcon className={stylesGeneral.details_icon} />
+                    Perfil
+                </div>
+                <ArrowUpIcon className={stylesGeneral.details_arrow} />
+            </summary>
             <div className={styles.settingsProfile_info}>
                 <div className={styles.settingsProfile_info__item}>
                     <label className={styles.settingsProfile_label}>Nombre</label>
@@ -92,17 +99,20 @@ export const SettingsProfile = ({ user }: ISettingsProfileProps) => {
                     />
                     {errors.account && <p className={styles.settingsProfile_error}>{errors.account}</p>}
                 </div>
-                <Button
-                    props={{ onClick: HandleSave }}
-                    text="Guardar"
-                    icon={<SaveIcon />}
-                    type="primary"
-                />
+                <div className={styles.settingsProfile_button}>
+                    <Button
+
+                        props={{ onClick: HandleSave }}
+                        text="Guardar"
+                        icon={<SaveIcon />}
+                        type="primary"
+                    />
+                </div>
                 <picture className={styles.settingsProfile_picture}>
                     <Image className={styles.settingsProfile_image} src={userSettings.photo || "/user-icon.png"} alt={userSettings.name || ""} width={100} height={100} />
                 </picture>
             </div>
 
-        </div>
+        </details>
     )
 }

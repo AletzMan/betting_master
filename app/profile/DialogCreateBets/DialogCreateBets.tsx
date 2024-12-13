@@ -9,6 +9,7 @@ import { ValidateNewBet } from "@/app/functions/functions"
 import { TeamsNames } from "@/app/constants/constants"
 import { useSnackbar } from "notistack"
 import { Button } from "@/app/components/Button/Button"
+import { AddIcon, CloseIcon, ResetIcon } from "@/app/svg"
 interface Props {
 	setView: Dispatch<SetStateAction<boolean>>
 	numberMatches: number
@@ -120,9 +121,9 @@ export function DialogCreatBets({ numberMatches, setView }: Props) {
 		<dialog className={`${styles.dialog} ${isLandscape && styles.dialog_landscape}`} open>
 			<section className={`${styles.dialog_section} scrollbar`}>
 				<header className={styles.dialog_header}>
-					<Button onClick={HandleCreateMatchDay} text="Crear Quiniela" type="primary" />
-					<Button onClick={HandleCrearTeams} text="Limpiar" type="secondary" />
-					<Button onClick={() => setView(false)} text="Cerrar" type="secondary" />
+					<Button props={{ onClick: HandleCreateMatchDay }} text="Crear Quiniela" type="success" icon={<AddIcon className="" />} />
+					<Button props={{ onClick: HandleCrearTeams }} text="Reiniciar" type="secondary" icon={<ResetIcon className="" />} />
+					<Button props={{ onClick: () => setView(false) }} text="Cerrar" type="error" icon={<CloseIcon className="" />} />
 				</header>
 				<article className={styles.dialog_matches}>
 					{error.hasError && (
@@ -130,7 +131,7 @@ export function DialogCreatBets({ numberMatches, setView }: Props) {
 					)}
 					<div className={styles.dialog_matchesDay}>
 						<label className={styles.dialog_matchesDayText}>
-							Jornada:
+							Jornada
 							<input
 								className={`${styles.dialog_matchesDayNumber} ${error.errorMatchDay && styles.dialog_matchesDayNumberError}`}
 								type="number"
@@ -139,7 +140,7 @@ export function DialogCreatBets({ numberMatches, setView }: Props) {
 							/>
 						</label>
 						<label className={styles.dialog_matchesDayText}>
-							Numero de partidos:
+							Numero de partidos
 							<input
 								className={`${styles.dialog_matchesDayNumber} ${error.errorMatchDay && styles.dialog_matchesDayNumberError}`}
 								type="number"
