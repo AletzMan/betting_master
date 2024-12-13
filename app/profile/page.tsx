@@ -51,7 +51,7 @@ export default function ProfilePage() {
 			<main className={`${styles.main} ${isLandscape && styles.main_landscape} scrollbar`}>
 				<section className={styles.section}>
 					{<SettingsProfile user={user} />}
-					{/*!loading && user.uid === ADMIN_UID && <AdminPanel />*/}
+					{!loading && user.uid === ADMIN_UID && <AdminPanel />}
 					{/*!loading && user.uid === ADMIN_UID && <BetsByUser />*/}
 					{!loading && user.uid === ADMIN_UID && <AdminFinals />}
 					{/*<h2 className={styles.main_subtitle}>Mis quinielas</h2>*/}

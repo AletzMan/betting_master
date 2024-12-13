@@ -68,6 +68,7 @@ export function AdminPanel() {
 
 
 	const HandleUpdate = async () => {
+		console.log("CLICK")
 		if (matchDay) {
 			setSending(true)
 			const newResults: IResultsMatches = {
@@ -149,7 +150,7 @@ export function AdminPanel() {
 					</article>
 					<footer className={styles.admin_footer}>
 						<Button
-							onClick={HandleCreate}
+							props={{ onClick: HandleCreate }}
 							text="Crear quiniela"
 							type="primary"
 							icon={<AddIcon className="" />}
@@ -157,11 +158,10 @@ export function AdminPanel() {
 						/>
 						{matchDay !== 0 &&
 							<Button
-								onClick={HandleUpdate}
+								props={{ onClick: () => HandleUpdate(), disabled: sending }}
 								text={!sending ? "Actualizar" : "Sending..."}
 								icon={sending ? <LoadingIcon className={styles.admin_updateIcon} /> : <UpdateLogo className={styles.admin_updateIcon} />}
-								disabled={sending}
-								type="primary"
+								type="secondary"
 							/>
 						}
 					</footer>

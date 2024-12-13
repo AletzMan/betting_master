@@ -35,7 +35,11 @@
 
 }
 
-.namesTable {
+.buttonView {
+    padding: 0.5em 0;
+}
+
+.headerTable {
     position: sticky;
     left: 0;
     display: flex;
@@ -46,365 +50,29 @@
     background-color: var(--background-text);
 
 
-    &_photo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 2em;
-        overflow: hidden;
-        width: 1.6em;
-        height: 1.6em;
-        border: 1px solid var(--facebookTwo-color);
-
-        &Image {
-            object-fit: cover;
-            border-radius: 2em;
-            width: 1.4em;
-            height: 1.4em;
-        }
-    }
-
-    &_name {
-        display: grid;
-        grid-template-columns: 2em 1fr 3em;
-        align-items: center;
-        justify-content: flex-start;
-        height: 2em;
-        padding: 0 0.2em;
-        border-radius: var(--borderRadius);
-        background-color: var(--secondaryColor);
-        overflow: hidden;
-
-        &Select {
-            border-top: 1px solid var(--primaryColor);
-            border-bottom: 1px solid var(--primaryColor);
-        }
-
-
-    }
-
-    &_hits {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: right;
-
-        &Icon {
-            color: #950fc2;
-            width: 1.2em;
-            height: 1.2em;
-
-            &Not {
-                color: #c7c7c7;
-            }
-        }
-
-        &Number {
-            position: absolute;
-            color: #c29b0f;
-            font-size: 0.8em;
-
-            &Not {
-                color: #c7c7c7;
-            }
-        }
-    }
-
-    &_winIcon {
-        color: #c29b0f;
-    }
-
-    &_header {
-        position: sticky;
-        top: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-direction: column;
-        height: 5.75em;
-        box-sizing: border-box;
-        width: 100%;
-        background-color: var(--background-text);
-        z-index: 3;
-
-        &Hidden {
-            //
-        }
-
-        &Amount {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1em;
-            font-weight: 600;
-            margin: 0 0 0.5em 0;
-            border-radius: 3em;
-            color: var(--subtitle-color);
-        }
-
-        &Title {
-            font-size: 1em;
-            text-align: center;
-            text-wrap: balance;
-        }
-
-        &Day {
-            font-weight: 600;
-            color: var(--foregroundSecondColor);
-
-            &Hidden {
-                color: transparent;
-            }
-        }
-
-        &Select {
-            width: 100%;
-            justify-self: end;
-            margin: 0.5em 0 0 0;
-            padding: 0.25em 0.5em;
-            font-weight: 500;
-            font-family: var(--font-montserrat);
-            text-align: center;
-            border: none;
-            border-radius: var(--borderRadius);
-            color: var(--primaryColor);
-            background-color: var(--headerhover-color);
-        }
-
-        &Resize {
-            position: absolute;
-            top: 1.5em;
-            right: -0em;
-            display: flex;
-            align-items: center;
-            width: 1.5em;
-            height: 2.5em;
-            z-index: 4;
-            border-radius: 2em 0 0 2em;
-            border: none;
-            background-color: var(--primaryColor);
-
-            &Arrow {
-                color: var(--tertiaryColor);
-
-                &Hidden {
-                    transform: rotate(180deg);
-                }
-            }
-
-        }
-    }
 }
 
-.betsTable {
+.empty {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    width: 100%;
-
-    &_container {
-        display: flex;
-        flex-direction: column;
-        padding: 0.25em 0 0 0.25em;
-        row-gap: 0.25em;
-    }
-
-    &_empty {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        row-gap: 0.5em;
-        padding: 1em 2em;
-        margin: 1em 0 0 0;
-        border-radius: var(--borderRadius);
-        color: var(--foregroundColor);
-        background-color: var(--hover-link);
-
-        &Bets {
-            text-wrap: balance;
-            font-size: 1.1em;
-        }
-
-        &Icon {
-            width: 4em;
-            height: 4em;
-            margin-bottom: 1em;
-            color: var(--primaryColor);
-        }
-
-        &Data {
-            display: flex;
-            flex-direction: column;
-            justify-content: left;
-            align-items: flex-start;
-            align-self: self-start;
-            margin: 0.5em 0;
-
-            &Account {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                margin: 0.25em 0;
-            }
-        }
-
-        &Title {
-            font-size: 1em;
-            font-weight: 600;
-            text-align: center;
-            text-wrap: balance;
-            color: var(--foregroundColor);
-        }
-
-        &Label {
-            font-size: 0.8em;
-            font-weight: 300;
-            text-align: center;
-            color: var(--foregroundSecondColor);
-        }
-
-        &Text {
-            font-size: 0.85em;
-            font-weight: 300;
-            text-align: center;
-            color: var(--foregroundColor);
-
-            &Light {
-                text-align: center;
-                color: var(--primaryColor);
-                margin: 0em 0 0 0;
-                font-size: 0.8em;
-            }
-
-            &Name {
-                font-size: 0.8em;
-                font-weight: 600;
-                text-align: center;
-                padding: 0.5em 1em;
-                border-radius: var(--borderRadius);
-                background-color: var(--subtitleBack-color);
-                color: var(--subtitle-color);
-            }
-
-            &Account {
-                font-size: 0.8em;
-                font-weight: 300;
-                text-align: center;
-                color: #0deba1;
-                padding: 0.5em 1em;
-                border-radius: var(--borderRadius);
-                background-color: var(--subtitleBack-color);
-            }
-
-            &Info {
-                font-size: 0.8em;
-                font-weight: 600;
-                text-align: center;
-                text-wrap: balance;
-                color: var(--subtitle-color);
-            }
-
-            &InfoTwo {
-                font-size: 1.1em;
-                font-weight: 600;
-                text-align: center;
-                text-wrap: balance;
-                color: var(--subtitle-color);
-            }
-        }
-
-        &Price {
-            font-size: 1.5em;
-            font-weight: 600;
-            color: var(--subtitle-color);
-        }
-    }
+    row-gap: 0.5em;
+    padding: 1em 2em;
+    margin: 1em 0 0 0;
+    border-radius: var(--borderRadius);
+    color: var(--foregroundColor);
+    background-color: var(--hover-link);
 
     &_bets {
-        display: grid;
-        grid-template-columns: repeat(9, 2.5em);
-        column-gap: 0.25em;
-        width: 100%;
-
-        &:active>.betsTable_betsBet {
-            border-top: 1px solid var(--primaryColor);
-            border-bottom: 1px solid var(--primaryColor);
-        }
-
-        &Bet {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            list-style: none;
-            width: 100%;
-            height: 2em;
-            min-width: 2.5em;
-            font-weight: 600;
-            border-radius: var(--borderRadius);
-
-
-            &SelectRow {
-                border-top: 1px solid var(--primaryColor);
-                border-bottom: 1px solid var(--primaryColor);
-            }
-
-            &SelectColumn {
-                border-left: 1px solid var(--primaryColor);
-                border-right: 1px solid var(--primaryColor);
-            }
-
-
-
-            &Win {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 1.5em;
-                height: 1.5em;
-                width: 100%;
-                height: 100%;
-                border-radius: var(--borderRadius);
-                background-color: #98f54285;
-                color: #f4fff8;
-            }
-
-            &NoWin {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                height: 100%;
-                border-radius: var(--borderRadius);
-                background-color: var(--headerhover-color);
-
-            }
-
-            &PreWin {
-                background-color: #FF000025;
-                color: #FF0000;
-                border: 1px solid #FF0000;
-
-            }
-
-
-        }
-    }
-}
-
-.matches {
-    position: sticky;
-    top: 0;
-    height: 5.75em;
-    display: grid;
-    grid-template-columns: repeat(9, 2.5em);
-    column-gap: 0.25em;
-    margin: 0 0 0 0.25em;
-    background-color: var(--background-text);
-    width: max-content;
-
-    @media (width < 790px) {
-        width: max-content;
-
+        text-wrap: balance;
+        font-size: 1.1em;
     }
 
+    &_text {
+        font-size: 0.85em;
+        font-weight: 300;
+        text-align: center;
+        color: var(--foregroundColor);
+    }
 }

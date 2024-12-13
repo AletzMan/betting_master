@@ -65,7 +65,7 @@ export default function AdminFinals() {
     return (
         <article className={styles.details}>
             <h4>Sorteo</h4>
-            {participants?.length === 8 && <Button text="Sortear" onClick={HandleDrawTeams} icon={<LuckIcon className="" />} />}
+            {participants?.length === 8 && <Button props={{ onClick: HandleDrawTeams }} text="Sortear" icon={<LuckIcon className={""} />} />}
         </article>
     )
 }
