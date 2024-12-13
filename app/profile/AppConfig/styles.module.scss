@@ -1,0 +1,38 @@
+.checkbox {
+    width: 2em;
+    height: 2em;
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--foregroundSecondColor);
+
+    &:checked {
+        accent-color: var(--primaryColor);
+    }
+
+    &_label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5em;
+        color: var(--foregroundSecondColor);
+    }
+}
+
+.options {
+    padding: 0.5em;
+}
+
+.fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 0.5em;
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--borderColor);
+}
+
+.legend {
+    color: var(--foregroundColor);
+    padding: 0.15em 0.5em;
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--borderColor);
+}
