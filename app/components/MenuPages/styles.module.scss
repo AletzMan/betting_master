@@ -1,0 +1,91 @@
+.menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 100svh;
+    width: 15em;
+    padding: 0.5em 0 0 0;
+    overflow: hidden;
+    background-color: var(--secondaryColor);
+    border-right: 1px solid var(--borderColor);
+    transform-origin: top right;
+    box-sizing: border-box;
+
+    &_links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100%;
+        margin: 2em 0 0 0;
+        padding: 0.25em 1em 0.25em 0.25em;
+        gap: 0.25em;
+    }
+
+    &_link {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 2.5em 1fr;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.5em;
+        font-weight: 600;
+        font-size: 0.85em;
+        text-align: left;
+        text-decoration: none;
+        padding: 0.35em;
+        border: none;
+        color: var(--foregroundSecondColor);
+        font-family: var(--font-monsterrat);
+        transition: all 0.15s ease-in-out;
+        background-color: transparent;
+        cursor: pointer;
+
+        &Active {
+            background-color: #11cfd930;
+            border: 1px solid var(--borderColor);
+            border-radius: var(--borderRadius);
+            color: var(--foregroundColor);
+            transform: translateX(0.5em);
+        }
+
+        &:hover:not(.profile_linkActive) {
+            background-color: var(--fourthColor);
+            color: var(--foregroundColor);
+        }
+    }
+
+    &_icon {
+        width: 2em;
+        height: 2em;
+    }
+}
+
+.logo {
+    grid-row: 2 / 3;
+    width: 2.2em;
+    height: 2.2em;
+    margin: 0 0 0 1em;
+    align-self: center;
+    justify-self: center;
+}
+
+.dialog {
+    top: 0;
+    width: 100svw;
+    height: 100svh;
+    border: none;
+    background-color: transparent;
+    z-index: 5;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-100%);
+
+    &_active {
+        transform: translateX(0);
+    }
+
+}

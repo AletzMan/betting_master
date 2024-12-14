@@ -64,3 +64,13 @@ export const useNewBet = create<INewBet>((set) => ({
 		}),
 	clearDates: () => set({ selectedDates: [] }),
 }))
+
+interface IDialogMenu {
+	openMenu: boolean
+	setOpenMenu: (value: boolean) => void
+}
+
+export const useMenu = create<IDialogMenu>((set) => ({
+	openMenu: false,
+	setOpenMenu: (value: boolean) => set({ openMenu: value }),
+}))
