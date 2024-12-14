@@ -7,6 +7,7 @@ import {
 	ChivasLogo,
 	CruzAzulLogo,
 	GetafeLogo,
+	HomeIcon,
 	JuarezLogo,
 	LeonLogo,
 	LuckIcon,
@@ -16,6 +17,7 @@ import {
 	OsasunaLogo,
 	PachucaLogo,
 	PositionsIcon,
+	ProfileIcon,
 	PueblaLogo,
 	PumasLogo,
 	QueretaroLogo,
@@ -29,6 +31,7 @@ import {
 	TigresLogo,
 	TijuanaLogo,
 	TolucaLogo,
+	WinnerIcon,
 } from "@/app/svg"
 import { IOptions, Team } from "../types/types"
 
@@ -354,6 +357,22 @@ export const TeamsNames: Team[] = [
 export const LinksPage = [
 	{
 		id: 0,
+		text: "Inicio",
+		pathname: "/",
+		href: "/",
+		title: "Ir a pagina de inicio",
+		icon: <HomeIcon className="" />,
+	},
+	{
+		id: 1,
+		text: "Perfil",
+		pathname: "/profile",
+		href: "/profile",
+		title: "Ir a sección de perfil",
+		icon: <ProfileIcon className="" />,
+	},
+	{
+		id: 2,
 		text: "Quinielas",
 		pathname: "/bets",
 		href: "/bets",
@@ -361,15 +380,15 @@ export const LinksPage = [
 		icon: <BetsIcon className="" />,
 	},
 	{
-		id: 1,
+		id: 3,
 		text: "Finales",
 		pathname: "/finals",
 		href: "/finals",
 		title: "Ir a enfrentamientos finales",
-		icon: <LuckIcon className="" />,
+		icon: <WinnerIcon className="" />,
 	},
 	{
-		id: 2,
+		id: 4,
 		text: "Resultados",
 		pathname: "/results",
 		href: "/results",
@@ -377,7 +396,7 @@ export const LinksPage = [
 		icon: <ResultsIcon className="" />,
 	},
 	{
-		id: 3,
+		id: 5,
 		text: "Posiciones",
 		pathname: "/positions",
 		href: "/positions",
@@ -385,7 +404,7 @@ export const LinksPage = [
 		icon: <PositionsIcon className="" />,
 	},
 	{
-		id: 4,
+		id: 6,
 		text: "Estadísticas",
 		pathname: "/statistics",
 		href: `/statistics?tournament=${new Date().getMonth() < 6 ? "0168" : "0159"}&type=goals`,

@@ -1,51 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
-import { AppLogo, LiveIcon, LogInIcon, LogOutIcon, MenuIcon, ProfileIcon } from "@/app/svg"
+import { MenuIcon } from "@/app/svg"
 import styles from "./header.module.scss"
-import { use, useEffect, useState } from "react"
-import Link from "next/link"
-import { LinksPage } from "@/app/constants/constants"
-import { signOut } from "firebase/auth"
-import { auth } from "@/app/config/firebase"
-import { usePathname, useRouter } from "next/navigation"
+import { useEffect } from "react"
+import { usePathname } from "next/navigation"
 import { useOrientation } from "@/app/hooks/useOrientation"
 import { useLoggedUser } from "@/app/hooks/useLoggedUser"
-import axios from "axios"
 import { SnackbarProvider } from "notistack"
+import { MenuPages } from "../MenuPages/MenuPages"
+import { useMenu } from "@/app/config/zustand-store"
+import { LinksPage } from "@/app/constants/constants"
 
 export function Header() {
-	const router = useRouter()
+
 	const pathname = usePathname()
 	const { isLogged, setIsLogged, setUser, userLocal } = useLoggedUser()
 	const { isLandscape } = useOrientation()
-	const [viewMenuProfile, setViewMenuProfile] = useState(false)
+	const { openMenu, setOpenMenu } = useMenu()
 
 	useEffect(() => {
-		setViewMenuProfile(false)
+		setOpenMenu(false)
 	}, [pathname])
 
 
 	const HandleViewMenu = () => {
-		setViewMenuProfile((prev) => !prev)
+		const prev = !openMenu
+		setOpenMenu(prev)
 	}
-
-
-	const HandleSignOut = async () => {
-		try {
-			await signOut(auth)
-			const response = await axios.post("/api/logout")
-
-			if (response.status === 200) {
-				setUser({ uid: "", name: "", photo: "", email: "" })
-				setIsLogged(false)
-				setViewMenuProfile(false)
-				router.push("/")
-				router.refresh()
-			}
-		} catch (error) {
-			console.error(error)
-		}
-	}
-
 
 
 	return (
@@ -54,83 +35,33 @@ export function Header() {
 			<header className={`${styles.header} ${isLandscape && styles.header_active}`}>
 				<section className={styles.header_section}>
 					<div className={styles.header_session}>
-						{/*<Link href={`/lives`} className={styles.header_live} title="Ir a partidos en vivo">
-						<LiveIcon className={styles.header_liveIcon} />
-						<span className={styles.header_liveText}>En vivo</span>
-					</Link>*/}
-						<Link href={"/"} title="Ir a inicio">
-							<AppLogo className={styles.header_logo} />
-						</Link>
 						<button
-							className={`${styles.header_menu} ${viewMenuProfile && styles.header_menuActive}`}
+							className={`${styles.header_menu} ${openMenu && styles.header_menuActive}`}
 							onClick={HandleViewMenu}>
 							<MenuIcon className={styles.header_menuIcon} />
 							<span className={styles.header_menuName}>Menu</span>
 						</button>
-						<nav
-							className={`${styles.profile} ${viewMenuProfile && styles.profile_active}`}
-							onMouseLeave={() => setViewMenuProfile(false)}>
-							<div className={styles.profile_user}>
-								<picture className={styles.profile_userPicture}>
-									<img
-										className={styles.profile_userImage}
-										src={userLocal?.photo || "/user-icon.png"}
-										alt="Imagen de perfil"
-										loading="lazy"
-										width={50}
-										height={50}
-									/>
-								</picture>
-								<span className={styles.profile_userName}>{userLocal.name || "Invitado"}</span>
+						<span className={styles.header_pathname}>{LinksPage.filter(link => link.pathname === pathname)[0]?.text}</span>
+						<div className={styles.user}>
+							<picture className={styles.user_picture}>
+								<img
+									className={styles.user_image}
+									src={userLocal?.photo || "/user-icon.png"}
+									alt="Imagen de perfil"
+									loading="lazy"
+									width={50}
+									height={50}
+								/>
+							</picture>
+							<div className={styles.user_info}>
+								<span className={styles.user_name}>{userLocal.name && `${userLocal.name?.split(" ")[0]} ${userLocal.name?.split(" ")[1] || ""}` || "Invitado"}</span>
 							</div>
-							<div className={styles.profile_links}>
-								<Link
-									href={`/profile`}
-									className={`${styles.profile_link} ${pathname === "/profile" && styles.profile_linkActive}`}
-									title="Ir a sesión de perfil">
-									<ProfileIcon className={styles.profile_icon} />
-									Perfil
-								</Link>
-								{LinksPage.map((link) => (
-									<Link
-										className={`${styles.profile_link} ${link.pathname === pathname && styles.profile_linkActive}`}
-										key={link.id}
-										href={link.href}
-										title={link.title}>
-										{link.icon}
-										{link.text}
-									</Link>
-								))}
-								{!isLogged && (
-									<Link href={!isLogged ? "auth/login" : "/logout"} className={styles.profile_link} title={"Ir a sección iniciar sesión"}>
-										<LogInIcon className={styles.profile_icon} />
-										{"Iniciar sesión"}
-									</Link>
-								)}
-								{isLogged && (
-									<button onClick={HandleSignOut} className={styles.profile_link} title={"Cerrar sesión"}>
-										<LogOutIcon className={styles.profile_icon} />
-										{"Cerrar sesión"}
-									</button>
-								)}
-							</div>
-						</nav>
+						</div>
+
 					</div>
-					{!isLandscape && (
-						<nav className={styles.nav}>
-							{LinksPage.map((link) => (
-								<Link
-									className={`${styles.nav_link} ${link.pathname === pathname && styles.nav_linkActive}`}
-									key={link.id}
-									href={link.href}
-									title={link.title}>
-									{link.text}
-								</Link>
-							))}
-						</nav>
-					)}
 				</section>
 			</header>
+			<MenuPages />
 		</>
 	)
 }
