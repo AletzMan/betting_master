@@ -28,7 +28,7 @@ export function MatchBet(props: PropsMatch) {
 		const newBets = bets.map((bet, index) => (index === numberMatch ? { id: crypto.randomUUID(), prediction: typePrediction } : bet))
 		setBets(newBets)
 	}
-	console.log(bets)
+
 	return (
 		<section className={styles.match}>
 			<div className={`${styles.match_header} ${isEmpty && bets[numberMatch].prediction === "" && styles.predictionsEmpty}`}>

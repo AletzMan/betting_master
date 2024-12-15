@@ -5,6 +5,8 @@
     flex-direction: column;
     row-gap: 0.5em;
     padding: 1em 0.5em;
+    width: 100%;
+    max-width: 30em;
     border-radius: var(--borderRadius);
     color: var(--foregroundColor);
     background-color: var(--tertiaryColor);
@@ -214,7 +216,8 @@
         align-items: center;
         position: absolute;
         top: 0;
-        width: 100%;
+        border: none;
+        width: 100svw;
         height: 100%;
         background-color: var(--hover-linkTwo);
         backdrop-filter: blur(5px);
@@ -226,6 +229,8 @@
             align-items: center;
             row-gap: 1em;
             padding: 1em;
+            width: calc(100svw - 1em);
+            max-width: 30em;
             border-radius: var(--borderRadius);
             background-color: var(--tertiaryColor);
             border: 1px solid var(--borderColor);

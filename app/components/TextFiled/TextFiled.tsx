@@ -7,7 +7,7 @@ export function TextField(props: InputHTMLAttributes<HTMLInputElement>) {
     return (
         <label className={styles.label}>
             {props["aria-label"]}
-            <input {...props} className={styles.input} />
+            <input {...props} className={`${styles.input} ${props.className}`} />
         </label>
     )
 }
