@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    background-color: var(--hover-link);
+    background-color: var(--borderTwoColor);
     border: 1px solid transparent;
     border-radius: var(--borderRadius);
     padding: 0.35em 0.35em;
@@ -107,17 +107,21 @@
     border-radius: 0.2em;
 
     &Empty {
+        border-radius: var(--borderRadius);
+        background-color: #FF000005;
         animation: animationEmpty 1s ease-in-out alternate infinite;
         border: 1px solid #c8282545;
 
         @keyframes animationEmpty {
             0% {
-                border: 1px solid #c82825;
+                border: 1px solid #c82825AA;
+                background-color: #FF000005;
 
                 //transform: scale(1);
             }
 
             100% {
+                background-color: #FF000000;
                 border: 1px solid #c8282550;
 
                 //transform: scale(1);
@@ -133,7 +137,8 @@
         width: 2.3em;
         height: 2.3em;
         border-radius: 0.1em;
-        background-color: var(--hover-link);
+        background-color: var(--borderTwoColor);
+        border: 1px solid var(--borderColor);
         transition: background-color 0.25s ease-in-out;
 
         &:hover {

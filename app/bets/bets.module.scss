@@ -5,11 +5,16 @@
     flex-direction: column;
     margin: 0 auto;
     height: 100svh;
-    padding: 5em 0.5em 1em 0.5em;
+    padding: 2.6em 0.5em 1em 0.5em;
     width: 100%;
     max-width: var(--max-width);
     overflow: hidden;
     box-sizing: border-box;
+
+    @media (width < 700px) {
+        width: 100svw;
+        padding: 2.6em 0.5em 1em 0;
+    }
 
     &_landscape {
         padding: 2.5em 0.5em 0.5em 0.5em;

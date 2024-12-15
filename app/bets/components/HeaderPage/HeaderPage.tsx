@@ -16,7 +16,7 @@ export function HeaderPage({ isInTime, setOpenDialog, timeFirstMatch }: Props) {
 		<header className={styles.header}>
 			{isInTime &&
 				<Button
-					onClick={() => setOpenDialog(true)}
+					props={{ onClick: () => setOpenDialog(true) }}
 					icon={<AddIcon className={styles.headerButtonIcon} />}
 					text="Crear"
 				/>

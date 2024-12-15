@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { useRef, useEffect } from "react"
 
@@ -48,12 +49,11 @@ export function TeamsSlides() {
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.container__slide} ref={slideRef}>
+			<div className={styles.container_slide} ref={slideRef}>
 				{TeamsLogos.map((logo) => (
 					<div
 						key={logo.id}
-						className={styles.container__logo}
-						style={{ backgroundColor: `${logo.color_one}50`, border: `2px solid${logo.color_three}65` }}
+						className={styles.container_logo}
 					>
 						{logo.logo}
 					</div>

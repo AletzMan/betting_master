@@ -25,7 +25,7 @@ export function BetsByUser() {
     const [betsByID, setBetsByID] = useState<IBetsByUser[]>(EmptyBetsBtID)
 
     useEffect(() => {
-        //GetBets()
+        GetBets()
     }, [matchDay])
 
     const GetBets = async () => {

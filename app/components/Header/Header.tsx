@@ -41,7 +41,6 @@ export function Header() {
 							<MenuIcon className={styles.header_menuIcon} />
 							<span className={styles.header_menuName}>Menu</span>
 						</button>
-						<span className={styles.header_pathname}>{LinksPage.filter(link => link.pathname === pathname)[0]?.text}</span>
 						<div className={styles.user}>
 							<picture className={styles.user_picture}>
 								<img

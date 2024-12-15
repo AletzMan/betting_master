@@ -71,7 +71,7 @@ export const SettingsProfile = ({ user }: ISettingsProfileProps) => {
 
 
     return (
-        <details className={stylesGeneral.details} name="adminpanel">
+        <details className={stylesGeneral.details} name="adminpanel" open>
             <summary className={stylesGeneral.details_summary}>
                 <div className={stylesGeneral.details_title}>
                     <ProfileIcon className={stylesGeneral.details_icon} />
