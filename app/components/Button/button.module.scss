@@ -22,7 +22,7 @@
     }
 
     &:hover {
-        background-color: var(--primaryColor);
+        filter: brightness(120%);
     }
 
     &_secondary {
