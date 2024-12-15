@@ -19,6 +19,11 @@ export function Header() {
 	const { openMenu, setOpenMenu } = useMenu()
 
 	useEffect(() => {
+		const color = localStorage.getItem("colorBettingGame")
+		if (color) {
+			document.documentElement.style.setProperty("--primaryColor", color)
+			document.documentElement.style.setProperty("--primaryOpacityColor", `${color}55`)
+		}
 		setOpenMenu(false)
 	}, [pathname])
 

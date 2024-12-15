@@ -46,14 +46,14 @@
         cursor: pointer;
 
         &Active {
-            background-color: #11cfd930;
-            border: 1px solid var(--borderColor);
+            background-color: var(--primaryOpacityColor);
+            border: 1px solid var(--primaryOpacityColor);
             border-radius: var(--borderRadius);
             color: var(--foregroundColor);
             transform: translateX(0.5em);
         }
 
-        &:hover:not(.profile_linkActive) {
+        &:hover:not(.menu_linkActive) {
             background-color: var(--fourthColor);
             color: var(--foregroundColor);
         }

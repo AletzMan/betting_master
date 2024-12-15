@@ -357,6 +357,8 @@ export interface IUserSettings {
 	name: string | null
 	email: string | null
 	photo: string | null
+	color: string
+	notifications: boolean
 }
 
 export interface IFinalsParticipants extends DocumentData {
