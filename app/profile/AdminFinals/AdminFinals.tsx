@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { useSnackbar } from "notistack"
 import { IParticipants } from "@/app/types/types"
 import { QualifiedTeams } from "@/app/finals/components/Quarterfinals"
 import { Button } from "@/app/components/Button/Button"
@@ -9,12 +8,11 @@ import styles from "./adminfinals.module.scss"
 import stylesGeneral from "../profile.module.scss"
 
 export default function AdminFinals() {
-    const { enqueueSnackbar } = useSnackbar()
     const [participants, setParticipants] = useState<IParticipants[]>()
     const [finalistTeams, setFinalistTeams] = useState<string[]>([])
 
     useEffect(() => {
-        GetParticipants()
+        //GetParticipants()
         const finalist = QualifiedTeams.flatMap(team => team.name)
         setFinalistTeams(finalist)
     }, [])

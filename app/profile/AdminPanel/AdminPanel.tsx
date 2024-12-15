@@ -8,12 +8,11 @@ import { AddIcon, AdminIcon, ArrowUpIcon, BetConfigIcon, LoadingIcon, PaymentIco
 import { TeamsLogos } from "@/app/constants/constants"
 import { DialogCreatBets } from "../DialogCreateBets/DialogCreateBets"
 import { Button } from "@/app/components/Button/Button"
-import { useSnackbar } from "notistack"
+import { enqueueSnackbar, useSnackbar } from "notistack"
 import styles from "./adminpanel.module.scss"
 import stylesGeneral from "../profile.module.scss"
 
 export function AdminPanel() {
-	const { enqueueSnackbar } = useSnackbar()
 	const [matchDay, setMatchDay] = useState<number | undefined>(0)
 	const [results, setResults] = useState<IResultsMatches>({} as IResultsMatches)
 	const [matches, setMatches] = useState<ICurrentMatch[]>([])
@@ -27,7 +26,7 @@ export function AdminPanel() {
 
 	useEffect(() => {
 
-		GetDay()
+		//GetDay()
 	}, [])
 
 	const GetDay = async () => {

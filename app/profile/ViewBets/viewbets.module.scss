@@ -29,7 +29,7 @@
     &_title {
         font-size: 1.2em;
         padding: 0.5em 0;
-        color: var(--primaryHoverColor);
+        color: var(--primaryColor);
     }
 
     &_name {
@@ -120,7 +120,7 @@
         background-color: var(--primaryColor);
 
         &:hover {
-            background-color: var(--primaryHoverColor);
+            background-color: var(--primaryColor);
             cursor: pointer;
         }
     }

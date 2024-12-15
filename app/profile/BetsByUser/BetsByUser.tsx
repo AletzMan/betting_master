@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { DeleteBet, GetBetsByDay, GetBetsByIDGroup, UpdateBetByUser } from "@/app/config/firebase"
 import { IBetDataDocument, IBetDocument } from "@/app/types/types"
-import { useSnackbar } from "notistack"
+import { enqueueSnackbar } from "notistack"
 import Image from "next/image"
 import { ArrowUpIcon, DeleteIcon, PaymentIcon } from "@/app/svg"
 import styles from "./betsbyuser.module.scss"
@@ -19,13 +19,12 @@ const EmptyBetsBtID = [{
 }]
 
 export function BetsByUser() {
-    const { enqueueSnackbar } = useSnackbar()
     const [matchDay, setMatchDay] = useState<number>(0)
     const [bets, setBets] = useState<IBetDataDocument[]>([])
     const [betsByID, setBetsByID] = useState<IBetsByUser[]>(EmptyBetsBtID)
 
     useEffect(() => {
-        GetBets()
+        //GetBets()
     }, [matchDay])
 
     const GetBets = async () => {
