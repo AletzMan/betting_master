@@ -5,7 +5,7 @@
     flex-direction: column;
     margin: 0 auto;
     min-height: 100svh;
-    padding: 7.5em 0.5em 1em 0.5em;
+    padding: 3em 0.5em 1em 0.5em;
     width: 100%;
     background: linear-gradient(-30deg, var(--tertiaryColor), var(--backgroundColor));
     max-width: var(--max-width);
@@ -147,6 +147,7 @@
         background-color: var(--secondaryColor);
         border-bottom: 1px solid var(--borderColor);
         text-align: center;
+        width: 100%;
         font-weight: 600;
         z-index: 2;
 
@@ -159,11 +160,12 @@
     &_table {
         display: flex;
         flex-direction: column;
+        align-items: center;
         background-color: var(--background-text);
         border: 1px solid var(--hover-link);
         width: 100%;
         max-width: 30em;
-        height: calc(100svh - 11.5em);
+        height: calc(100svh - 8em);
         //overflow-y: auto;
     }
 
