@@ -7,10 +7,16 @@
     color: var(--foregroundColor);
     font-family: var(--font-family);
     width: 100%;
+    accent-color: var(--primaryColor);
 
     &::placeholder {
         color: var(--borderColor);
     }
+
+    &:checked {
+        accent-color: var(--primaryColor);
+    }
+
 }
 
 .label {
