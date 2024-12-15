@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { ChangeIcon, ExitLogo, InjuryIcon, RedCardIcon, ShirtIcon, SoccerBallIcon, YellowCardIcon } from "@/app/svg"
 import styles from "./match.module.scss"
