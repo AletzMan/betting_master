@@ -373,7 +373,7 @@
         cursor: pointer;
 
         &:hover {
-            background-color: var(--primaryHoverColor);
+            background-color: var(--primaryColor);
         }
     }
 
@@ -415,7 +415,7 @@
 
             &Active {
                 //border-bottom: 2px solid var(--primaryColor);
-                color: var(--primaryHoverColor);
+                color: var(--primaryColor);
                 background-color: var(--backgroundColor);
                 font-weight: 600;
             }
