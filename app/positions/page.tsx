@@ -63,6 +63,17 @@ export default function PositionsPage() {
 									</option>
 								))}
 							</select>
+							<div className={styles.description}>
+								<div className={styles.description_container}>
+									{TitleClasification.filter(desc => desc.name === selectedLeague.name)[0].clasifications.map((description, index) => (
+										<div key={description} className={styles.description_group}>
+											<div className={`${styles.description_quad}  `}></div>
+											<span className={styles.description_text}>{description}</span>
+										</div>
+									))
+									}
+								</div>
+							</div>
 						</div>
 						{numberGroups > 1 && (
 							<div className={styles.group}>
@@ -144,5 +155,71 @@ const namesDescription = [
 	{
 		id: 7,
 		name: "PTS",
+	},
+]
+
+
+const TitleClasification = [
+	{
+		name: "Liga MX",
+		clasifications: [
+			"Serie final",
+			"Eliminatorias de la serie final"
+		]
+	},
+	{
+		name: "Premier League",
+		clasifications: [
+			"Fase de grupos de Champions League",
+			"Fase de grupos de Europa League"
+		]
+	},
+	{
+		name: "La Liga",
+		clasifications: [
+			"Fase de grupos de Champions League",
+			"Fase de grupos de Europa League",
+			"Clasificados en Liga Conferencia"
+		]
+	},
+	{
+		name: "Bundesliga",
+		clasifications: [
+			"Fase de grupos de Champions League",
+			"Fase de grupos de Europa League",
+			"Clasificados en Liga Conferencia"
+		]
+	},
+	{
+		name: "Liga Holandesa",
+		clasifications: [
+			"Fase de grupos de Champions League",
+			"Fase de grupos de Europa League",
+			"Clasificados en Liga Conferencia"
+		]
+	},
+	{
+		name: "Serie A",
+		clasifications: [
+			"Fase de grupos de Champions League",
+			"Fase de grupos de Europa League",
+			"Clasificados en Liga Conferencia"
+		]
+	},
+	{
+		name: "League 1",
+		clasifications: [
+			"Fase de grupos de Champions League",
+			"Clasificados en Champions League",
+			"Fase de grupos de Europa League",
+			"Clasificados en Liga Conferencia"
+		]
+	},
+	{
+		name: "Champions League",
+		clasifications: [
+			"Siguiente ronda",
+			"Eliminatorias"
+		]
 	},
 ]
