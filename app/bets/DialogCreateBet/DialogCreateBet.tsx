@@ -1,18 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Dispatch, SetStateAction, MouseEvent, useState, ChangeEvent, useEffect } from "react"
 import styles from "./dialodcreatebet.module.scss"
 import { MatchBet } from "./MatchCalendar/MatchBet"
 import { useBet, useUser } from "@/app/config/zustand-store"
 import { AddBet, GetResultsByDay, auth } from "@/app/config/firebase"
-import { CancelLogo, ExitLogo, FinishedIcon, SendIcon } from "@/app/svg"
+import { CancelLogo, ExitLogo, FinishedIcon, HelpIcon, SendIcon, ViewIcon } from "@/app/svg"
 import { Loading } from "@/app/components/Loading/Loading"
 import { AbbNameMatches } from "@/app/functions/functions"
 import { IMatchDay, IPredictions } from "@/app/types/types"
 import axios from "axios"
-import { useSnackbar } from "notistack"
+import { enqueueSnackbar, useSnackbar } from "notistack"
 import { useRouter } from "next/navigation"
 import { signOut } from "firebase/auth"
 import { Button } from "@/app/components/Button/Button"
 import { IMyBets } from "../page"
+import { TextField } from "@/app/components/TextFiled/TextFiled"
 
 interface DialogProps {
 	matches: IMatchDay
@@ -35,14 +37,11 @@ const EmptyBetPredictions: IPredictions[] = [
 
 export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps) {
 	const router = useRouter()
-	const { enqueueSnackbar } = useSnackbar()
 	const { user } = useUser()
 	const { bets, setBets, setIsEmpty, error, typeError, setTypeError, setError } = useBet()
 	const [name, setName] = useState("")
 	const [betSentSuccessfully, setBetSentSuccessfully] = useState(false)
 	const [loading, setLoading] = useState(false)
-
-	console.log(matches)
 
 	useEffect(() => {
 		let newBets: IPredictions[] = []
@@ -50,7 +49,6 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 			newBets.push({ id: crypto.randomUUID(), prediction: "" })
 		}
 		setBets(newBets)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 
@@ -118,39 +116,79 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 	}
 
 	const HandleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
-		if (e.currentTarget.value.length < 11) {
+		if (e.currentTarget.value.length < 13) {
 			setName(e.currentTarget.value)
 		}
 		setTypeError("")
 		setError(false)
 	}
-	console.log(matches)
-	console.log(bets)
+
 	return (
 		<dialog className={styles.dialog} open={open}>
 			<main className={styles.dialog_main}>
 				<header className={styles.dialog_mainHeader}>
-					{/*<Button
-						onClick={() => { }}
-						text="Ver mis quinielas"
-	/>*/}
-					<h2 className={styles.dialog_mainHeaderTitle}>CREAR QUINIELA</h2>
+					<div className={styles.help}>
+						<button className={styles.help_button}>
+							<HelpIcon className={styles.help_icon} />
+						</button>
+						<div className={styles.help_window}>
+							<p className={styles.help_message}>{`En cada partido, selecciona tu predicción haciendo clic en uno de los tres recuadros disponibles:`}</p>
+							<p className={styles.help_message}>{`'L' para victoria del equipo local`}</p>
+							<p className={styles.help_message}>{`'E' para empate `}</p>
+							<p className={styles.help_message}>{`'V' para victoria del equipo visitante.`}</p>
+							<p className={styles.help_message}>{`Asegúrate de elegir una opción para todos los partidos antes de guardar tu quiniela.`}</p>
+						</div>
+					</div>
+					{myBets.hasBets && <div className={styles.mybets}>
+						<button className={styles.mybets_button}>
+							<ViewIcon className={styles.mybets_icon} />
+							<span className={styles.mybets_text}>Ver mis quinielas</span>
+						</button>
+						<div className={`${styles.mybets_container} scrollbar`}>
+							<header className={styles.mybets_header}>
+								{myBets.bets[0].data.matches.map((match, index) => (
+									<div key={match} className={styles.mybets_headerMatch}>
+										<p className={styles.mybets_headerText}>{match.split("-")[0]}</p>
+										<p className={styles.mybets_headerText}>vs</p>
+										<p className={styles.mybets_headerText}>{match.split("-")[1]}</p>
+									</div>
+								))}
+							</header>
+							{
+
+								myBets.bets.map(bet => (
+									<div key={bet.id} className={styles.mybets_bet}>
+										<span className={styles.mybets_title}>{bet.data.name}</span>
+										<article>
+
+											<main className={styles.mybets_main}>
+												{bet.data.bets.map((result, index) => (
+													<div key={index} className={styles.mybets_mainResult} >
+														<p className={styles.mybets_mainText}>{result.prediction}</p>
+													</div>
+												))}
+											</main>
+										</article>
+									</div >
+								))
+							}
+
+						</div>
+					</div>}
 					<form className={styles.form}>
 						<div className={styles.form_name}>
-							<label className={styles.form_label}>
-								Nombre
-							</label>
-							<input className={`${styles.form_input} ${typeError === "name_empty" || typeError === "name_short" || typeError === "empty" && styles.form_inputError}`} type="text" value={name} onChange={HandleChangeName} />
+							<TextField aria-label="Nombre" className={`${typeError === "name_empty" || typeError === "name_short" || typeError === "empty" && styles.form_inputError}`} type="text" value={name} onChange={HandleChangeName} />
+
 						</div>
 						<div className={styles.form_buttons}>
 							<Button
+								props={{ onClick: HandleSendBet }}
 								text="Enviar"
-								onClick={HandleSendBet}
 								icon={<SendIcon className={styles.form_buttonIcon} />}
 							/>
 							<Button
+								props={{ onClick: () => HandleStatusDialog(false) }}
 								text="Cancelar"
-								onClick={() => HandleStatusDialog(false)}
 								icon={<CancelLogo className={styles.form_buttonIcon} />}
 								type="secondary"
 							/>
