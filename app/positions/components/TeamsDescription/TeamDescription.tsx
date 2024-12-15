@@ -28,7 +28,8 @@ export function TeamDescription(props: PropsTeam) {
 				className={`${styles.description} 
 				${position <= ClassifiedPositions[selectedLeague.name][0] && styles.description_qualifiers} 
 				${position > ClassifiedPositions[selectedLeague.name][0] && position <= ClassifiedPositions[selectedLeague.name][1] && styles.description_playoff}
-				${isConference && (position === ClassifiedPositions[selectedLeague.name][1] + 1) && styles.description_conference}`}
+				${isConference && (position === ClassifiedPositions[selectedLeague.name][1] + 1) && styles.description_conference}
+				${(selectedLeague.name === "League 1" && position === 6) && styles.description_leagueone}`}
 			>
 				<p className={styles.description_position}>{position}</p>
 				<Image

@@ -5,7 +5,7 @@
     flex-direction: column;
     margin: 0 auto;
     height: 100svh;
-    padding: 5em 0.25em 1em 0.25em;
+    padding: 2.65em 0.25em 1em 0.25em;
     width: 100%;
     background: linear-gradient(-30deg, var(--tertiaryColor), var(--backgroundColor));
     max-width: var(--max-width);
@@ -27,8 +27,8 @@
 
     &_select {
         text-align: center;
-        padding: 0.25em 0.5em;
-        font-size: 1em;
+        padding: 0.25em 0.25em;
+        font-size: 0.85em;
         color: var(--primaryHoverColor);
         border: 1px solid transparent;
         border-radius: var(--borderRadius);
@@ -36,7 +36,11 @@
     }
 
     &_combobox {
-        padding: 0.5em 0;
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5em;
+        padding: 0.5em;
+        width: 100%;
     }
 
     &_tables {
@@ -49,6 +53,66 @@
 
 
 }
+
+.description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+
+    &_container {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 1em;
+        width: max-content;
+        animation: animationSlide 13s linear infinite alternate;
+
+        @keyframes animationSlide {
+            to {
+                transform: translateX(-100%);
+            }
+        }
+    }
+
+    &_group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5em;
+        padding: 0.2em 0.5em;
+        border-radius: var(--borderRadius);
+        background-color: var(--borderTwoColor);
+
+        &:nth-child(1) .description_quad {
+            background-color: #1976D2;
+        }
+
+        &:nth-child(2) .description_quad {
+            background-color: #d27219;
+        }
+
+        &:nth-child(3) .description_quad {
+            background-color: #19d28e;
+        }
+
+        &:nth-child(4) .description_quad {
+            background-color: #24C1E0;
+        }
+    }
+
+    &_quad {
+        width: 1em;
+        height: 1em;
+    }
+
+
+
+    &_text {
+        font-size: 0.8em;
+    }
+}
+
 
 .group {
     display: flex;
