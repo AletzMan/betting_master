@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import styles from "./match.module.scss"
 import Image from "next/image"
@@ -52,7 +53,7 @@ export function Match({ props }: { props: PropsMatch }) {
 	return (
 		<>
 			<div className={styles.match}>
-				{isAllMatches && <span className={styles.match_day}>{`${eventData.tournament.name}`}</span>}
+				{isAllMatches && <span className={styles.match_tournament}>{`${eventData.tournament.name}`}</span>}
 				{sportEvent.matchDay && <span className={styles.match_day}>{`Jornada ${sportEvent.matchDay}`}</span>}
 				<div className={styles.match_header}>
 					<div className={styles.match_team}>

@@ -13,9 +13,15 @@
         background-color: var(--hover-link);
     }
 
+    &_tournament {
+        padding: 0.15em 0.5em;
+        border-radius: var(--borderRadius);
+        color: var(--foregroundColor);
+    }
+
     &_day {
         font-size: 0.8em;
-        color: var(--primaryHoverColor);
+        color: #c86213;
     }
 
     &_header {
@@ -63,10 +69,10 @@
         padding: 0.25em 0;
         text-align: center;
         border-radius: var(--borderRadius);
-        background-color: var(--headerhover-color);
+        background-color: var(--fourthColor);
         font-weight: 600;
         font-size: 1.2em;
-        color: #17d5cf;
+        color: #b1e418;
 
         @media (max-width: 600px) {
             width: 2em;
@@ -234,7 +240,7 @@
         border-radius: var(--borderRadius);
         color: var(--foregroundColor);
         border: none;
-        background-color: #17749835;
+        background-color: #0db0f035;
         cursor: pointer;
         transition: background-color 0.15s ease-in-out;
 
