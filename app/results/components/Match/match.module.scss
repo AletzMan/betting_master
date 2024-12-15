@@ -722,7 +722,7 @@
         padding: 1.25em 0 0.25em 0.25em;
         height: 3.5em;
         width: 100%;
-        background-color: #FFFFFF15;
+        background-color: var(--borderTwoColor);
     }
 
     &_shirt {
@@ -878,7 +878,7 @@
         backdrop-filter: blur(2px);
 
         &Substitute {
-            top: -1.3em;
+            bottom: 0.2em;
             left: 2em;
             background-color: transparent;
 
@@ -905,7 +905,7 @@
         text-transform: capitalize;
         font-weight: 600;
 
-        color: var(--borderTwoColor);
+        color: var(--foregroundSecondColor);
         //background-color: #d39c0f45;
     }
 }

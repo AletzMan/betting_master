@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import styles from "./match.module.scss"
@@ -177,9 +178,8 @@ export function DialogDetails(props: DialogProps) {
 								<span className={styles.lineups_managerFormation}>{details.lineup.lineups.homeTeam.formationTeam.split("").join("-")}</span>
 							</div>
 							<div
-								className={`${styles.lineup} ${styles.lineupHome} ${
-									details.lineup.lineups.homeTeam.formationTeam.length === 4 && styles.lineup_fourRows
-								}`}
+								className={`${styles.lineup} ${styles.lineupHome} ${details.lineup.lineups.homeTeam.formationTeam.length === 4 && styles.lineup_fourRows
+									}`}
 							>
 								{details.lineup.lineups.homeTeam.actualLineup.map((player) => (
 									<Player
@@ -201,9 +201,8 @@ export function DialogDetails(props: DialogProps) {
 								))}
 							</div>
 							<div
-								className={`${styles.lineup} ${styles.lineupAway} ${
-									details.lineup.lineups.awayTeam.formationTeam.length === 4 && styles.lineup_fourRows
-								}`}
+								className={`${styles.lineup} ${styles.lineupAway} ${details.lineup.lineups.awayTeam.formationTeam.length === 4 && styles.lineup_fourRows
+									}`}
 							>
 								{details.lineup.lineups.awayTeam.actualLineup.map((player) => (
 									<Player
