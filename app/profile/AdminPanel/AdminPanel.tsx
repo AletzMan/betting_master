@@ -1,14 +1,14 @@
 "use client"
 
 import { ChangeEvent, useEffect, useState } from "react"
-import { AddMatchDay, AddResults, GetCurrentMatchDay, GetResultsByDay, UpdateResultsMatchDay } from "@/app/config/firebase"
-import { ICurrentMatch, IMatchDay, IResultsMatches } from "@/app/types/types"
+import { AddResults, GetCurrentMatchDay, GetResultsByDay, UpdateResultsMatchDay } from "@/app/config/firebase"
+import { ICurrentMatch, IResultsMatches } from "@/app/types/types"
 import { ButtonBet } from "../ButtonBet/ButtonBet"
-import { AddIcon, AdminIcon, ArrowUpIcon, BetConfigIcon, LoadingIcon, PaymentIcon, UpdateLogo } from "@/app/svg"
+import { AddIcon, ArrowUpIcon, BetConfigIcon, LoadingIcon, SendIcon, UpdateLogo } from "@/app/svg"
 import { TeamsLogos } from "@/app/constants/constants"
 import { DialogCreatBets } from "../DialogCreateBets/DialogCreateBets"
 import { Button } from "@/app/components/Button/Button"
-import { enqueueSnackbar, useSnackbar } from "notistack"
+import { enqueueSnackbar } from "notistack"
 import styles from "./adminpanel.module.scss"
 import stylesGeneral from "../profile.module.scss"
 
@@ -25,40 +25,11 @@ export function AdminPanel() {
 
 
 	useEffect(() => {
-
-		//GetDay()
+		GetDay()
 	}, [])
 
 	const GetDay = async () => {
 		const response = await GetCurrentMatchDay(new Date().getMonth() < 6 ? "0168" : "0159")
-		/*if (!response) {
-			const newMatches: ICurrentMatch[] = []
-			for (let index = 0; index < 8; index++) {
-				newMatches.push({
-					id: crypto.randomUUID(),
-					status: "Sin comenzar",
-					startDate: "",
-					teams: {
-						home: index,
-						away: index + 8,
-					},
-				})
-			}
-			const newArrayResults: string[] = []
-			for (let index = 0; index < numberCorrectPicks; index++) {
-				newArrayResults.push("-")
-			}
-			const newMatchDay: IMatchDay = {
-				day: 0,
-				tournament: "Liga BBVA Bancomer MX",
-				matches: newMatches,
-				results: newArrayResults,
-				isAvailable: false,
-				isFinishGame: false
-			}
-			const response = await AddMatchDay(newMatchDay, new Date().getMonth() < 6 ? "0168" : "0159", 0)
-		}
-		console.log(response)*/
 		const result = await GetResultsByDay(response.day.toString(), new Date().getMonth() < 6 ? "0168" : "0159")
 		setMatches(response.matches)
 		setMatchDay(response.day)
@@ -66,14 +37,12 @@ export function AdminPanel() {
 			setResults(result)
 			setResultByMatch(result.results)
 			setStatusGame(result.status === "finished")
-			//setNumberCorrectPicks(result.winner_correct_pick)
 			setIsAvailable(result.isAvailable)
 		}
 	}
 
 
 	const HandleUpdate = async () => {
-		console.log("CLICK")
 		if (matchDay) {
 			setSending(true)
 			const newResults: IResultsMatches = {
@@ -117,7 +86,9 @@ export function AdminPanel() {
 				<section className={styles.admin_section}>
 					{matchDay !== 0 &&
 						<header className={styles.admin_header}>
-							<h3 className={styles.admin_sectionTitle}>{`Jornada ${matchDay}`}</h3>
+							<div className={styles.admin_container}>
+								<h3 className={styles.admin_sectionTitle}>{`Jornada ${matchDay}`}</h3>
+							</div>
 							<div className={styles.admin_subSection}>
 								<div className={styles.admin_subSectionButtons}>
 									<div className={`${styles.admin_status} ${statusGame && styles.admin_statusActive}`}>
@@ -157,14 +128,13 @@ export function AdminPanel() {
 							text="Crear quiniela"
 							type="primary"
 							icon={<AddIcon className="" />}
-
 						/>
 						{matchDay !== 0 &&
 							<Button
 								props={{ onClick: () => HandleUpdate(), disabled: sending }}
 								text={!sending ? "Actualizar" : "Sending..."}
 								icon={sending ? <LoadingIcon className={styles.admin_updateIcon} /> : <UpdateLogo className={styles.admin_updateIcon} />}
-								type="secondary"
+								type="success"
 							/>
 						}
 					</footer>

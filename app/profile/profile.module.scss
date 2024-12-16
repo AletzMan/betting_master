@@ -43,6 +43,7 @@
     border: 1px solid var(--twitterTwo-color);
     border-radius: var(--borderRadius);
     background-color: var(--secondaryColor);
+    transition: all 0.4s ease-in-out;
 
     &[open] .details_summary {
         color: var(--primaryColor);

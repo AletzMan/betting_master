@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+"use client"
 import { useEffect, useState } from "react"
 import { DeleteBet, GetBetsByDay, GetBetsByIDGroup, UpdateBetByUser } from "@/app/config/firebase"
 import { IBetDataDocument, IBetDocument } from "@/app/types/types"

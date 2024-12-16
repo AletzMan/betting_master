@@ -12,10 +12,9 @@ import { ArrowUpIcon, ProfileIcon, SaveIcon } from "@/app/svg"
 import styles from "./settings.module.scss"
 import stylesGeneral from "../profile.module.scss"
 import { TextField } from "@/app/components/TextFiled/TextFiled"
+import { useUser } from "@/app/config/zustand-store"
 
-interface ISettingsProfileProps {
-    user: IUserInfo
-}
+
 
 const EmptyUserSettings: IUserSettings = {
     uid: "",
@@ -24,7 +23,11 @@ const EmptyUserSettings: IUserSettings = {
     email: "",
     photo: "",
     color: "#11cfd9",
-    notifications: true
+    notifications: true,
+    bets_won: 0,
+    finals_won: 0,
+    last_login: "",
+    total_bets: 0
 }
 
 const EmptyErrors = {
@@ -32,7 +35,8 @@ const EmptyErrors = {
 }
 
 
-export const SettingsProfile = ({ user }: ISettingsProfileProps) => {
+export const SettingsProfile = () => {
+    const { user } = useUser()
     const [userSettings, setUserSettings] = useState<IUserSettings>(EmptyUserSettings)
     const [errors, setErrors] = useState(EmptyErrors)
     const [statusNotifications, setStatusNotifications] = useState(false)

@@ -1,20 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
-import { MenuIcon } from "@/app/svg"
+import { MenuIcon, NotificationIcon } from "@/app/svg"
 import styles from "./header.module.scss"
 import { useEffect } from "react"
 import { usePathname } from "next/navigation"
 import { useOrientation } from "@/app/hooks/useOrientation"
 import { useLoggedUser } from "@/app/hooks/useLoggedUser"
-import { SnackbarProvider } from "notistack"
+import { SnackbarProvider, enqueueSnackbar } from "notistack"
 import { MenuPages } from "../MenuPages/MenuPages"
 import { useMenu } from "@/app/config/zustand-store"
-import { LinksPage } from "@/app/constants/constants"
 
 export function Header() {
 
 	const pathname = usePathname()
-	const { isLogged, setIsLogged, setUser, userLocal } = useLoggedUser()
+	const { userLocal } = useLoggedUser()
 	const { isLandscape } = useOrientation()
 	const { openMenu, setOpenMenu } = useMenu()
 
@@ -34,6 +33,13 @@ export function Header() {
 	}
 
 
+	const HandleActiveNotifications = () => {
+		const response = confirm("¡Activa las notificaciones y entérate cuando haya una nueva quiniela disponible!")
+		if (response) {
+			enqueueSnackbar("¡Notificaciones activadas con éxito!", { variant: "success" })
+		}
+	}
+
 	return (
 		<>
 			<SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }} />
@@ -46,19 +52,25 @@ export function Header() {
 							<MenuIcon className={styles.header_menuIcon} />
 							<span className={styles.header_menuName}>Menu</span>
 						</button>
-						<div className={styles.user}>
-							<picture className={styles.user_picture}>
-								<img
-									className={styles.user_image}
-									src={userLocal?.photo || "/user-icon.png"}
-									alt="Imagen de perfil"
-									loading="lazy"
-									width={50}
-									height={50}
-								/>
-							</picture>
-							<div className={styles.user_info}>
-								<span className={styles.user_name}>{userLocal.name && `${userLocal.name?.split(" ")[0]} ${userLocal.name?.split(" ")[1] || ""}` || "Invitado"}</span>
+						<div className={styles.header_buttons}>
+							<button className={styles.notifications} onClick={HandleActiveNotifications}>
+								<NotificationIcon className={styles.notifications_icon} />
+								<span className={styles.notifications_dot}></span>
+							</button>
+							<div className={styles.user}>
+								<picture className={styles.user_picture}>
+									<img
+										className={styles.user_image}
+										src={userLocal?.photo || "/user-icon.png"}
+										alt="Imagen de perfil"
+										loading="lazy"
+										width={50}
+										height={50}
+									/>
+								</picture>
+								<div className={styles.user_info}>
+									<span className={styles.user_name}>{userLocal.name && `${userLocal.name?.split(" ")[0]} ${userLocal.name?.split(" ")[1] || ""}` || "Invitado"}</span>
+								</div>
 							</div>
 						</div>
 

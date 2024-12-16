@@ -359,6 +359,10 @@ export interface IUserSettings {
 	photo: string | null
 	color: string
 	notifications: boolean
+	total_bets: number
+	finals_won: number
+	bets_won: number
+	last_login: string
 }
 
 export interface IFinalsParticipants extends DocumentData {

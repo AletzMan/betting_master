@@ -8,7 +8,11 @@
     height: 2.65em;
     z-index: 5;
 
-
+    &_buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5em;
+    }
 
 
     &_section {
@@ -108,6 +112,65 @@
 
         &Text {
             font-weight: 300;
+        }
+    }
+}
+
+.notifications {
+    display: flex;
+    align-items: center;
+    justify-self: flex-end;
+    gap: 0.5em;
+    padding: 0 0.25em;
+    background-color: transparent;
+    border: none;
+    color: var(--foregroundColor);
+    animation: shake 4s infinite ease-in-out;
+
+    &_dot {
+        position: absolute;
+        bottom: 3px;
+        right: 5px;
+        width: 0.65em;
+        height: 0.65em;
+        background: red;
+        border-radius: 50%;
+    }
+
+
+    &_icon {
+        @keyframes shake {
+
+            0%,
+            10% {
+                transform: rotate(0deg);
+            }
+
+            15% {
+                transform: rotate(-15deg);
+            }
+
+            20% {
+                transform: rotate(15deg);
+            }
+
+            25% {
+                transform: rotate(-10deg);
+            }
+
+            30% {
+                transform: rotate(10deg);
+            }
+
+            35% {
+                transform: rotate(0deg);
+            }
+
+            66%,
+            100% {
+                transform: rotate(0deg);
+                /* Pausa de 3 segundos */
+            }
         }
     }
 }

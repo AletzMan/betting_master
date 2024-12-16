@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import {
 	IStatusResponse,
 	IUserInfo,
+	IUserSettings,
 	LeagueMX,
 	ResponseStatsLeagueMX,
 	StatsLeagueMX,
@@ -124,6 +125,52 @@ export const GetMatchDay = async (tournamentId: string): Promise<number> => {
 
 		return response.data.data.data[0].classificationHead.matchDay
 	} catch (error) {
+		if (axios.isAxiosError(error) && error.response) {
+			console.log(error.code)
+		}
+		return 0
+	}
+}
+
+
+export const GetUsersData = async (): Promise<IUserSettings[]> => {
+	try {
+		const response = await fetch(`/api/users`, {
+			method: "GET",
+			next: { revalidate: 10, tags: ['dataUsers'] },
+		})
+
+		if (response.status === 200) {
+			return await response.json()
+		} else if (response.status === 204) {
+			return {} as IUserSettings[]
+		}
+	} catch (error) {
+		if (axios.isAxiosError(error) && error.response) {
+			console.error(error)
+		}
+		return {} as IUserSettings[]
+	}
+	return {} as IUserSettings[]
+}
+
+
+export const SendNotifications = async (users: IUserSettings[], day: string): Promise<number> => {
+	try {
+		const emails = users.map(user => user.email)
+		const response = await axios.post(
+			`/api/notifications`,
+			{
+				emails: emails,
+				day: day
+			}
+		)
+		if (response.status === 200) {
+			return 1
+		}
+		return 0
+	} catch (error) {
+		console.log(error)
 		if (axios.isAxiosError(error) && error.response) {
 			console.log(error.code)
 		}
