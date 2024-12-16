@@ -53,6 +53,7 @@ export const SettingsProfile = () => {
         setUserSettings(newUserSettings)
         setAccentColor(newUserSettings.color)
         setStatusNotifications(newUserSettings.notifications)
+        localStorage.setItem("bettingNotifications", `${newUserSettings.notifications}`)
     }
 
     const HandleSave = async () => {
@@ -72,6 +73,7 @@ export const SettingsProfile = () => {
                 setErrors({ ...errors, [error.issues[0].path[0]]: error.issues[0].message })
             }
         }
+        localStorage.setItem("bettingNotifications", `${statusNotifications}`)
     }
 
     const HandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
