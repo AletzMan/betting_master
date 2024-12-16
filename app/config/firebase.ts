@@ -43,13 +43,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)
+export const db = getFirestore(app)
 
 export const auth = getAuth(app)
 export const GoogleProvider = new GoogleAuthProvider()
 export const TwitterProvider = new TwitterAuthProvider()
 export const FacebookProvider = new FacebookAuthProvider()
 
-const db = getFirestore(app)
 
 export const GetBetsByDay = async (day: string) => {
 	console.log("GetBetsByDay")
@@ -253,6 +253,50 @@ export const GetInfoUser = async (id: string) => {
 	} catch (error) {
 		console.error(error)
 		return { uid: "", account: "" } as IUserSettings
+	}
+}
+
+export const GetUsers = async () => {
+	console.log("GetInfoUser")
+	try {
+		let documents: IUserSettings[] = []
+		const querySnapshot = await getDocs(collection(db, `users`))
+		querySnapshot.forEach((doc) => {
+			// doc.data() is never undefined for query doc snapshots
+			//console.log(doc.id, " => ", doc.data());
+			documents.push(doc.data() as IUserSettings)
+		})
+		const users = [...(documents as IUserSettings[])]
+		return users
+	} catch (error) {
+		console.error(error)
+		return [] as IUserSettings[]
+	}
+}
+
+
+
+export const DeleteUser = async (uid: string) => {
+	try {
+		await deleteDoc(doc(db, `users`, `${uid}`))
+		return "OK"
+	} catch (e) {
+		console.error("Error deleting document: ", e)
+		return "FAIL"
+	}
+}
+
+export const UpdateNotificationUser = async (uid: string, notifications: boolean) => {
+	console.log("UpdateNotificationUser")
+	try {
+		const docRef = await updateDoc(doc(db, `users`, `${uid}`), {
+			notifications,
+		})
+		return "OK"
+	} catch (e) {
+		console.log(e)
+		console.error("Error adding document: ", e)
+		return "FAIL"
 	}
 }
 

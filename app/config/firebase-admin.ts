@@ -1,4 +1,5 @@
-import { cert, getApps, initializeApp } from "firebase-admin/app"
+import { cert, getApps, initializeApp, } from "firebase-admin/app"
+import { } from "firebase-admin/firestore"
 
 
 
@@ -18,3 +19,4 @@ export function InitApp() {
         initializeApp(FirebaseAdminConfig)
     }
 }
+

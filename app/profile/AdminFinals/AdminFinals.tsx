@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react"
 import { IParticipants } from "@/app/types/types"
 import { QualifiedTeams } from "@/app/finals/components/Quarterfinals"

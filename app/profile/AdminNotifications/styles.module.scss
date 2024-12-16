@@ -1,0 +1,265 @@
+.checkbox {
+    width: 2em;
+    height: 2em;
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--foregroundSecondColor);
+
+    &:checked {
+        accent-color: var(--primaryColor);
+    }
+
+    &_label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5em;
+        color: var(--foregroundSecondColor);
+    }
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    padding: 0 0.5em 0.75em 0.5em;
+}
+
+.fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 0.5em;
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--borderColor);
+}
+
+.legend {
+    color: var(--foregroundColor);
+    padding: 0.15em 0.5em;
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--borderColor);
+}
+
+.users {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+
+    &_user {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 0.5em;
+        padding: 0.5em;
+        border: none;
+        font-size: 1em;
+        font-family: var(--font-family);
+        border-radius: var(--borderRadius);
+        background-color: var(--borderTwoColor);
+        transition: all 0.3s ease;
+
+
+        &Active {
+            margin: 1.5em 0;
+            padding: 1.25em 0.5em 0em 0.5em;
+
+            .users_data {
+
+                .users_name {
+                    font-size: 0.95em;
+                    padding: 0 0 0 0.5em;
+                }
+
+                .users_email {
+                    font-size: 0.85em;
+                    padding: 0 0 0 0.5em;
+                }
+
+                .users_photo {
+                    transform: translateX(0.2em) translateY(-1.5em);
+                    width: 3em;
+                    height: 3em;
+                }
+            }
+
+            .users_stats {
+                display: flex;
+            }
+
+            .users_options {
+                display: flex;
+                transform: translateY(1em);
+                opacity: 1;
+            }
+
+        }
+    }
+
+    &_group {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    &_data {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5em;
+        width: 100%;
+        pointer-events: none;
+    }
+
+    &_name {
+        font-size: 0.8em;
+        color: var(--foregroundColor);
+        transition: all 0.3s ease;
+    }
+
+    &_email {
+        font-size: 0.7em;
+        color: #999999;
+        transition: all 0.3s ease;
+    }
+
+    &_account {
+        font-size: 0.7em;
+        color: #5eb993;
+    }
+
+    &_photo {
+        width: 2em;
+        height: 2em;
+        border-radius: var(--borderRadius);
+        transition: all 0.4s ease;
+        box-shadow: 0 0 6px 1px #FFFFFF25;
+    }
+
+    &_date {
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        color: #b8b8b8;
+        font-size: 0.7em;
+    }
+
+    &_stats {
+        display: none;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 100%;
+    }
+
+    &_bets {
+        display: flex;
+        flex-direction: column;
+        padding: 0 1em;
+        border-right: 1px solid var(--borderTwoColor);
+        border-left: 1px solid var(--borderTwoColor);
+
+    }
+
+    &_number {
+        color: var(--foregroundColor);
+        font-size: 0.9em;
+    }
+
+    &_label {
+        color: var(--foregroundColor);
+        text-transform: uppercase;
+        font-size: 0.6em;
+        opacity: 0.8;
+    }
+
+    &_options {
+        display: none;
+        justify-content: space-evenly;
+        background-color: var(--secondaryColor);
+        width: 80%;
+        padding: 0.5em;
+        opacity: 0;
+        border-radius: var(--borderRadius);
+        align-self: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 6px 1px #FFFFFF25;
+    }
+
+    &_delete,
+    &_mail {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2em;
+        height: 2em;
+        border-radius: 0.25em;
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+
+        @media (hover: hover) {
+            &:hover {
+                background-color: var(--borderColor);
+            }
+        }
+    }
+
+    &_iconDelete {
+        width: 1.3em;
+        height: 1.3em;
+        color: var(--foregroundSecondColor);
+    }
+
+    &_iconEmail {
+        width: 1.85em;
+        height: 1.85em;
+        color: var(--foregroundSecondColor);
+    }
+
+    &_iconNoti {
+        width: 1.85em;
+        height: 1.85em;
+        color: var(--foregroundSecondColor);
+
+        &Active {
+            color: var(--primaryColor);
+        }
+    }
+
+}
+
+.header {
+    display: flex;
+    justify-content: flex-end;
+
+    &_button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.45em;
+        height: 2.45em;
+        border-radius: 2em;
+        background-color: var(--borderTwoColor);
+        border: none;
+
+        &:active {
+
+            .header_icon {
+                color: var(--primaryColor);
+            }
+        }
+    }
+
+    &_icon {
+        width: 1.75em;
+        height: 1.75em;
+        color: var(--foregroundSecondColor);
+    }
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+}

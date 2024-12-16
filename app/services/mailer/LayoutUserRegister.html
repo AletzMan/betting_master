@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserRegister</title>
+    <style>
+        .container {
+            background-color: #0f161a;
+            display: grid;
+            grid-template-columns: 1fr;
+            border-radius: 0.5em;
+            width: 100%;
+            max-width: 600px;
+            padding: 1em 3em;
+            font-family: system-ui;
+
+        }
+
+        .logo {
+            margin: 0 auto 2em auto;
+        }
+
+        .title {
+            color: #edebeb;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.7em;
+            max-width: 70%;
+
+        }
+
+        .image {
+            margin: 0 auto;
+            min-width: 100%;
+            height: 4em;
+            object-fit: cover;
+
+        }
+
+        .buttonShop {
+            max-width: max-content;
+            margin: 2em auto 8em auto;
+            text-decoration: none;
+            background-color: #9ea01a;
+            padding: 0.3em 1em;
+            border-radius: 2em;
+            text-transform: uppercase;
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #023756;
+            transition: all 0.3s ease-in-out;
+
+        }
+
+        .buttonShop:hover {
+            background-color: #d0d31e;
+        }
+
+        .welcome {
+            text-align: center;
+            color: #fff5a0;
+            max-width: 25em;
+            font-size: 1.15em;
+            margin: 0 auto;
+        }
+
+        .paragraph {
+            color: whitesmoke;
+        }
+
+        .unsubscribe {
+            color: #a8bdcf;
+            padding: 0.2em 1em;
+            font-size: 0.75em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <a class="logo" href="https://www.google.com">
+            <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/LogoTechnolife.png">
+        </a>
+        <h1 class="title">Welcome to Technolife</h1>
+        <p class="paragraph">Hello {{user}}!</p>
+        <p class="paragraph">Thank you for registering at Technolife, your favorite technology store. We're excited to
+            have you as part of
+            our community.</p>
+        <p class="paragraph">At Technolife, you'll find a wide variety of cutting-edge technology products, from
+            smartphones to innovative
+            gadgets.</p>
+        <p class="paragraph">We're here to fulfill your tech needs and provide you with an exceptional shopping
+            experience.</p>
+        <p class="paragraph">We look forward to seeing you soon at our online store!</p>
+        <p class="paragraph">Best regards,</p>
+        <p class="paragraph">The Technolife Team</p>
+        <img class="image" src="https://promotions.newegg.com/nepro/23-1064/800x120@2x.jpg" style="width: 13em" />
+        <a href="https://www.google.com" class="buttonShop">Start shopping
+        </a>
+
+    </div>
+</body>
+
+</html>

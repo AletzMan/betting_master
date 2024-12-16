@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            background-color: #0f161a;
+            display: grid;
+            grid-template-columns: 1fr;
+            border-radius: 0.5em;
+            width: 100%;
+            max-width: 480px;
+            padding: 1em;
+            font-family: system-ui;
+
+        }
+
+        .logo {
+            margin: 0 auto 2em auto;
+        }
+
+        .logoimage {
+            width: 7em;
+        }
+
+        .title {
+            color: #edebeb;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.7em;
+
+        }
+
+        .image {
+            margin: 0 auto;
+
+        }
+
+        .buttonShop {
+            max-width: max-content;
+            margin: 2em auto 8em auto;
+            text-decoration: none;
+            background-color: #9ea01a;
+            padding: 0.3em 1em;
+            border-radius: 2em;
+            text-transform: uppercase;
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #023756;
+            transition: all 0.3s ease-in-out;
+
+        }
+
+        .buttonShop:hover {
+            background-color: #d0d31e;
+        }
+
+        .welcome {
+            text-align: center;
+            color: #fff5a0;
+            max-width: 25em;
+            font-size: 1.15em;
+            margin: 0 auto;
+        }
+
+        .unsubscribe {
+            color: #a8bdcf;
+            padding: 0.2em 1em;
+            font-size: 0.75em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <a class="logo" href="https://www.google.com">
+            <img class="logoimage"
+                src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/main/streamin-movie-clone/screenshots/SmallLogo.png">
+        </a>
+        <h1 class="title">Your subscription has been activated</h1>
+        <img class="image" src="https://cdn.icon-icons.com/icons2/3149/PNG/512/newsletter_open_letter_icon_192628.png"
+            style="width: 13em" />
+        <p class="welcome">
+            Welcome to our newsletter, where you will receive the latest news about offers and new products.
+        </p>
+        <a href="https://www.google.com" class="buttonShop">Start shopping
+        </a>
+        <a href="https://www.google.com" class="unsubscribe">Unsubscribe and stop receiving these emails</a>
+    </div>
+</body>
+
+</html>
