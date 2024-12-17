@@ -1,8 +1,37 @@
 .details {
     padding: 0.5em;
-    border: 1px solid var(--twitterTwo-color);
-    border-radius: var(--borderRadius);
+    border-top: 1px solid var(--twitterTwo-color);
     background-color: var(--secondaryColor);
+}
 
+.teams {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: flex-start;
+    padding: 0.25em 0.5em;
 
+    &_team {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 1em;
+    }
+
+    &_position {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.75em;
+        height: 1.75em;
+        border-radius: var(--borderRadius);
+        background-color: var(--borderTwoColor);
+    }
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1em 0 0 0.5em;
 }

@@ -2376,6 +2376,25 @@ export function CircleIcon(props: IProps) {
 	)
 }
 
+export function StartedIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width={24} height={24} viewBox="0 0 24 24">
+			<path fill="currentColor" d="M9 16q.425 0 .713-.288T10 15V9q0-.425-.288-.712T9 8t-.712.288T8 9v6q0 .425.288.713T9 16m4.175-.775l3.9-2.6q.35-.225.35-.625t-.35-.625l-3.9-2.6q-.375-.25-.775-.038T12 9.4v5.2q0 .45.4.663t.775-.038M12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22">
+			</path></svg>
+	)
+}
+
+export function SuccessIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width="1em" height="1em" viewBox="0 0 48 48">
+			<defs><mask id="ipSCheckOne0"><g fill="none" strokeLinejoin="round" strokeWidth={4}>
+				<path fill="#fff" stroke="#fff" d="M24 44a19.94 19.94 0 0 0 14.142-5.858A19.94 19.94 0 0 0 44 24a19.94 19.94 0 0 0-5.858-14.142A19.94 19.94 0 0 0 24 4A19.94 19.94 0 0 0 9.858 9.858A19.94 19.94 0 0 0 4 24a19.94 19.94 0 0 0 5.858 14.142A19.94 19.94 0 0 0 24 44Z"></path><path stroke="#000" strokeLinecap="round" d="m16 24l6 6l12-12"></path></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSCheckOne0)">
+			</path></svg>
+	)
+}
+
 export function WinnerIcon(props: IProps) {
 	const { className } = props
 	return (
@@ -3059,6 +3078,14 @@ export function EmailIcon(props: IProps) {
 			<path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m-.4 4.25l-7.07 4.42c-.32.2-.74.2-1.06 0L4.4 8.25a.85.85 0 1 1 .9-1.44L12 11l6.7-4.19a.85.85 0 1 1 .9 1.44">
 			</path>
 		</svg>
+	)
+}
+
+export function BracketIcon(props: IProps) {
+	const { className } = props
+	return (
+		<svg className={className} width={24} height={24} viewBox="0 0 24 24">
+			<path fill="currentColor" d="M2 2v2h5v4H2v2h5c1.11 0 2-.89 2-2V7h5v10H9v-1c0-1.11-.89-2-2-2H2v2h5v4H2v2h5c1.11 0 2-.89 2-2v-1h5c1.11 0 2-.89 2-2v-4h6v-2h-6V7c0-1.11-.89-2-2-2H9V4c0-1.11-.89-2-2-2z"></path></svg>
 	)
 }
 

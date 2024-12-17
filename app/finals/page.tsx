@@ -6,7 +6,7 @@ import { TeamsLogos } from "../constants/constants"
 import { useOrientation } from "../hooks/useOrientation"
 import { IFinalsParticipants, IParticipants, IUserInfo } from "../types/types"
 import QuarterFinals from "./components/Quarterfinals"
-import { SnackbarProvider } from "notistack"
+import { SnackbarProvider, enqueueSnackbar } from "notistack"
 import styles from "./finales.module.scss"
 import { useSnackbar } from "notistack"
 import axios from "axios"
@@ -17,7 +17,6 @@ import { useRouter } from "next/navigation"
 
 export default function Page() {
     const router = useRouter()
-    const { enqueueSnackbar } = useSnackbar()
     const { isLandscape } = useOrientation()
     const [loading, setLoading] = useState(false)
     const [participants, setParticipants] = useState<IParticipants[]>()
@@ -78,49 +77,47 @@ export default function Page() {
     }
 
     return (
-        <SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }}>
-            <main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
-                {isParticipating &&
-                    <>
-                        {participants && participants?.length < 8 ?
-                            <>
-                                <QuarterFinals />
-                                <div className={styles.participants}>
-                                    <h3 className={styles.participants_title}>Participantes</h3>
-                                    <div className={styles.participants_container}>
-                                        {participants?.map(participant => (
-                                            <Participant key={participant.id} participant={participant} />
-                                        ))}
-                                    </div>
+        <main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
+            {isParticipating &&
+                <>
+                    {participants && participants?.length < 8 ?
+                        <>
+                            <QuarterFinals />
+                            <div className={styles.participants}>
+                                <h3 className={styles.participants_title}>Participantes</h3>
+                                <div className={styles.participants_container}>
+                                    {participants?.map(participant => (
+                                        <Participant key={participant.id} participant={participant} />
+                                    ))}
                                 </div>
-                            </> :
-                            <>
-                                {participants && participants.find(participant => participant.team === "")?.team !== "" ? <Finals participants={participants} /> : <QuarterFinals />}
-                            </>
+                            </div>
+                        </> :
+                        <>
+                            {participants && participants.find(participant => participant.team === "")?.team !== "" ? <Finals participants={participants} /> : <QuarterFinals />}
+                        </>
 
 
-                        }
-                    </>
-                }
-                {!isParticipating ?
-                    <>
-                        <QuarterFinals />
-                        {participants !== undefined && userLogin !== undefined &&
-                            <div className={styles.finals}>
-                                <article>
-                                    {participants?.length === 8 && <p className={styles.main_message}>Participación cerrada. Se ha alcanzado el limite de jugadores.</p>}
-                                    {participants?.length < 8 && <p className={styles.main_message}>Limitado a 8 participantes, una participación por cuenta.</p>}
-                                    {participants?.length < 8 && <p className={styles.main_message}>$50 por participación</p>}
-                                </article>
+                    }
+                </>
+            }
+            {!isParticipating ?
+                <>
+                    <QuarterFinals />
+                    {participants !== undefined && userLogin !== undefined &&
+                        <div className={styles.finals}>
+                            <article>
+                                {participants?.length === 8 && <p className={styles.main_message}>Participación cerrada. Se ha alcanzado el limite de jugadores.</p>}
+                                {participants?.length < 8 && <p className={styles.main_message}>Limitado a 8 participantes, una participación por cuenta.</p>}
+                                {participants?.length < 8 && <p className={styles.main_message}>$50 por participación</p>}
+                            </article>
 
-                                {participants?.length < 8 && <Button onClick={HandleParticipate} text={loading ? "Cargando" : "Quiero participar"} className={styles.button} icon={loading ? <LoadingTwoIcon className={""} /> : <LuckIcon className="" />} disabled={loading} />}
-                            </div>}
-                    </>
-                    : <div>
-                        {participants && participants?.length < 8 && <p className={styles.main_message}>¡Tu participación ha sido registrada! El sorteo se llevará a cabo una vez que se completen los 8 participantes.</p>}
-                    </div>}
-            </main>
-        </SnackbarProvider>
+                            {participants?.length < 8 && <Button props={{ onClick: HandleParticipate, disabled: loading }} text={loading ? "Cargando" : "Quiero participar"} icon={loading ? <LoadingTwoIcon className={""} /> : <LuckIcon className="" />} />}
+                        </div>}
+                </>
+                : <div>
+                    {participants && participants?.length < 8 && <p className={styles.main_message}>¡Tu participación ha sido registrada! El sorteo se llevará a cabo una vez que se completen los 8 participantes.</p>}
+                </div>}
+        </main>
     )
 }
 

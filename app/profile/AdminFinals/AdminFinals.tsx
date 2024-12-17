@@ -1,21 +1,28 @@
 "use client"
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { IParticipants } from "@/app/types/types"
 import { QualifiedTeams } from "@/app/finals/components/Quarterfinals"
 import { Button } from "@/app/components/Button/Button"
-import { ArrowUpIcon, LotteryIcon, LuckIcon } from "@/app/svg"
+import { ArrowUpIcon, LotteryIcon, LuckIcon, StartedIcon, WinnerIcon } from "@/app/svg"
 import { GetFinalParticipants, UpdateFinalParticipants } from "@/app/config/firebase"
 import styles from "./adminfinals.module.scss"
 import stylesGeneral from "../profile.module.scss"
+import { TeamsLocalNames } from "@/app/constants/constants"
+import SelectFiled from "@/app/components/SelectFiled/SelectFiled"
+import { uniqueStringSchema } from "@/app/validations/uniqueStringSchema"
+import { ZodError } from "zod"
+import { enqueueSnackbar } from "notistack"
+import { getDuplicateFlags } from "@/app/utils/helpers"
 
 export default function AdminFinals() {
-    const [participants, setParticipants] = useState<IParticipants[]>()
-    const [finalistTeams, setFinalistTeams] = useState<string[]>([])
+    const [participants, setParticipants] = useState<IParticipants[]>([])
+    const [finalistTeams, setFinalistTeams] = useState<string[]>(["", "", "", "", "", "", "", ""])
+    const [errorTeams, setErrorTeams] = useState<boolean[]>([false, false, false, false, false, false, false, false])
 
     useEffect(() => {
         //GetParticipants()
-        const finalist = QualifiedTeams.flatMap(team => team.name)
-        setFinalistTeams(finalist)
+        //const finalist = QualifiedTeams.flatMap(team => team.name)
+        //setFinalistTeams(finalist)
     }, [])
 
     const HandleDrawTeams = async () => {
@@ -36,7 +43,6 @@ export default function AdminFinals() {
             }
         }
 
-        console.log(numerosAleatorios)
 
         if (participants) {
             const newParticipants = [...participants]
@@ -62,6 +68,39 @@ export default function AdminFinals() {
         }
     }
 
+    const HandleStart = async () => {
+        try {
+            const reponse = await uniqueStringSchema.parseAsync(finalistTeams)
+            setErrorTeams([false, false, false, false, false, false, false, false])
+            enqueueSnackbar("Equipos finalistas guardados", { variant: "success" })
+        } catch (error) {
+            if (error instanceof ZodError) {
+                if (error.issues.filter(issue => issue.code === "custom").length > 0) {
+                    const newErrors = getDuplicateFlags(finalistTeams)
+                    setErrorTeams(newErrors)
+                } else {
+                    const newErrors = [false, false, false, false, false, false, false, false]
+                    error.issues.forEach(issue => {
+                        newErrors[Number(issue.path)] = true
+                    })
+                    setErrorTeams(newErrors)
+                }
+                enqueueSnackbar(error.issues[0].message, { variant: "error" })
+            }
+        }
+    }
+
+
+    const HandleOnChangeTeam = (event: ChangeEvent<HTMLSelectElement>, index: number) => {
+        const value = event.currentTarget.value
+        const newTeams = [...finalistTeams]
+        newTeams[index] = value
+        setFinalistTeams(newTeams)
+        const newErrors = [...errorTeams]
+        newErrors[index] = false
+        setErrorTeams(newErrors)
+    }
+
     return (
         <details className={stylesGeneral.details} name="adminpanel">
             <summary className={stylesGeneral.details_summary}>
@@ -73,7 +112,21 @@ export default function AdminFinals() {
             </summary>
 
             <article className={styles.details}>
-                {participants?.length === 8 && <Button props={{ onClick: HandleDrawTeams }} text="Sortear" icon={<LuckIcon className={""} />} />}
+                <div className={styles.teams}>
+                    {
+                        TeamsLocalNames.map((team, index) => index < 8 && (
+                            <div key={team} className={styles.teams_team}>
+                                <span className={styles.teams_position}>{index + 1}</span>
+                                <SelectFiled items={TeamsLocalNames} props={{ value: finalistTeams[index], onChange: (e) => HandleOnChangeTeam(e, index), "aria-errormessage": errorTeams[index] ? "error" : "" }} />
+                            </div>
+
+                        ))
+                    }
+                </div>
+                <footer className={styles.footer}>
+                    <Button props={{ onClick: HandleStart }} text="Iniciar ronda" icon={<StartedIcon className={""} />} />
+                    <Button props={{ onClick: HandleDrawTeams, disabled: participants && participants!.length < 8 }} text="Sortear" icon={<LuckIcon className={""} />} />
+                </footer>
             </article>
         </details>
     )

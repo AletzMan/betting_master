@@ -18,14 +18,14 @@ export default function MatchFinals({ participants, index }: Props) {
                     {QualifiedTeams[index[0]].name}
                 </span>
             </div>
-            <div className={styles.quarters_player} style={{ backgroundColor: `${QualifiedTeams[index[0]].color_one}35` }}>
+            <div className={styles.quarters_player} >
                 <picture className={styles.quarters_playerPicture}>
                     <Image className={styles.quarters_playerImage} src={participants.find(participant => participant.team === QualifiedTeams[index[0]].name)?.userInfo?.photo || "/user-icon.png"} width={25} height={25} alt={`Foto de perfil de ${participants.find(participant => participant.team === QualifiedTeams[0].name)?.userInfo?.photo || ""} `} />
                 </picture>
                 <span className={styles.quarters_playerName}>{participants.find(participant => participant.team === QualifiedTeams[index[0]].name)?.userInfo?.name}</span>
             </div>
             <div className={styles.quarters_matchVS}>VS</div>
-            <div className={`${styles.quarters_player} ${styles.quarters_playerAway}`} style={{ backgroundColor: `${QualifiedTeams[index[1]].color_one}35` }}>
+            <div className={`${styles.quarters_player} ${styles.quarters_playerAway}`} >
                 <picture className={styles.quarters_playerPicture}>
                     <Image className={styles.quarters_playerImage} src={participants.find(participant => participant.team === QualifiedTeams[index[1]].name)?.userInfo?.photo || "/user-icon.png"} width={25} height={25} alt={`Foto de perfil de ${participants.find(participant => participant.team === QualifiedTeams[0].name)?.userInfo?.photo || ""} `} />
                 </picture>
