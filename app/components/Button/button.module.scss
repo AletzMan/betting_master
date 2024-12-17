@@ -34,6 +34,13 @@
         }
     }
 
+    &:disabled {
+        opacity: 0.9;
+        pointer-events: none;
+        filter: brightness(80%);
+        cursor: not-allowed;
+    }
+
     &_error {
         color: var(--foregroundColor);
         background-color: #bc0505;

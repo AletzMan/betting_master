@@ -35,3 +35,15 @@ export const findFirstMatch = (text: string, keywords: string[]): string | null 
     // Return null if no match is found
     return null
 }
+
+export function getDuplicateFlags<T>(arr: T[]): boolean[] {
+    const seen = new Map<T, number>();
+    return arr.map((item, index) => {
+        if (seen.has(item)) {
+            return true // Es un duplicado
+        } else {
+            seen.set(item, index); // Registrar primera aparición
+            return false // No es duplicado
+        }
+    });
+}

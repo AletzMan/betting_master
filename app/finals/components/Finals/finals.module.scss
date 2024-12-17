@@ -1,3 +1,10 @@
+.finals {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    width: 100%;
+}
+
 .quarters {
     display: flex;
     flex-direction: column;
@@ -15,12 +22,12 @@
         display: grid;
         grid-template-columns: 1fr 1fr 3em 1fr 1fr;
         grid-template-rows: 1fr 2em;
-        background-color: var(--hover-link);
         width: 100%;
         gap: 0.25em;
         padding: 0.5em;
-        border-radius: 0.25em;
-        border: 1px solid var(--subtitleBack-color);
+        border-radius: 0 0 0.25em 0.25em;
+        background-color: var(--backgroundColor);
+        border: 1px solid var(--borderTwoColor);
 
         &VS {
             display: flex;
@@ -60,6 +67,7 @@
         border-radius: 0.5em;
         grid-row: 2 / 3;
         grid-column: 1 / span 2;
+        background-color: var(--borderTwoColor);
 
         &Away {
             grid-column: 4 / span 2;
@@ -165,4 +173,10 @@
         }
     }
 
+}
+
+.matches {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
 }
