@@ -16,3 +16,22 @@ export const FormattedDateUpcoming = (date: string) => {
     const formatted = new Date(`${year}-${month}-${day}`).toLocaleDateString("es-MX", SmallDateLocal)
     return `${formatted} `
 }
+
+
+export const findFirstMatch = (text: string, keywords: string[]): string | null => {
+    // Normalize the input text
+    const normalizedText = text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    // Loop through the keywords array
+    for (const keyword of keywords) {
+        const normalizedKeyword = keyword.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        const regex = new RegExp(`\\b${normalizedKeyword}\\b`, 'i')
+
+        if (regex.test(normalizedText)) {
+            return keyword // Return the first matching keyword
+        }
+    }
+
+    // Return null if no match is found
+    return null
+}
