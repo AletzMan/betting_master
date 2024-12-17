@@ -68,7 +68,7 @@ body {
 }
 
 .scrollbar {
-	overflow-x: auto;
+	overflow-x: hidden;
 	overflow-y: auto;
 	border: 1px solid var(--hover-link);
 }

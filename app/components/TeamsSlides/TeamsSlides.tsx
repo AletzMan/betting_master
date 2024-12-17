@@ -3,7 +3,7 @@
 import { useRef, useEffect } from "react"
 
 import styles from "./slides.module.scss"
-import { TeamsLogos } from "@/app/constants/constants"
+import { TeamsLocalLogos, TeamsLogos } from "@/app/constants/constants"
 
 export function TeamsSlides() {
 	const slideRef = useRef<HTMLDivElement | null>(null)
@@ -50,7 +50,7 @@ export function TeamsSlides() {
 	return (
 		<div className={styles.container}>
 			<div className={styles.container_slide} ref={slideRef}>
-				{TeamsLogos.map((logo) => (
+				{TeamsLocalLogos.map((logo) => (
 					<div
 						key={logo.id}
 						className={styles.container_logo}
