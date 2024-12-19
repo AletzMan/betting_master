@@ -1,20 +1,13 @@
 import styles from "./styles.module.scss"
 import stylesGeneral from "../profile.module.scss"
 import { AdminIcon, ArrowUpIcon } from "@/app/svg"
+import Details from "@/app/components/Details/Details"
 
 
 export function AppConfig() {
 
     return (
-        <details className={stylesGeneral.details} name="adminpanel">
-
-            <summary className={stylesGeneral.details_summary}>
-                <div className={stylesGeneral.details_title}>
-                    <AdminIcon className={stylesGeneral.details_icon} />
-                    Ajustes y Preferencias
-                </div>
-                <ArrowUpIcon className={stylesGeneral.details_arrow} />
-            </summary>
+        <Details name="adminpanel" title="Ajustes y Preferencias" icon={<AdminIcon className="" />} >
             <div className={styles.options}>
                 <fieldset className={styles.fieldset}>
                     <legend className={styles.legend}>Paginas visibles</legend>
@@ -40,6 +33,6 @@ export function AppConfig() {
                     </label>
                 </fieldset>
             </div>
-        </details>
+        </Details>
     )
 }
