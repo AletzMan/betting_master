@@ -1,0 +1,45 @@
+.details {
+    border: 1px solid var(--twitterTwo-color);
+    border-radius: var(--borderRadius);
+    background-color: var(--secondaryColor);
+    transition: all 0.4s ease-in-out;
+
+    &[open] .details_summary {
+        color: var(--primaryColor);
+
+        .details_arrow {
+            transform: rotate(180deg);
+        }
+    }
+
+    &_summary {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        color: var(--foregroundSecondColor);
+        padding: 0.35em 1em 0.35em 0.5em;
+        font-size: 1em;
+        font-weight: 600;
+    }
+
+    &_title {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        font-size: 0.9em;
+        text-transform: capitalize;
+
+        &>svg {
+            width: 1.6em;
+            height: 1.6em;
+        }
+    }
+
+    &_arrow {
+        width: 1em;
+        height: 1em;
+        transition: all 0.3s ease-in-out;
+    }
+}
