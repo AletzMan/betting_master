@@ -11,6 +11,7 @@ import { Button } from "@/app/components/Button/Button"
 import { enqueueSnackbar } from "notistack"
 import styles from "./adminpanel.module.scss"
 import stylesGeneral from "../profile.module.scss"
+import Details from "@/app/components/Details/Details"
 
 export function AdminPanel() {
 	const [matchDay, setMatchDay] = useState<number | undefined>(0)
@@ -75,14 +76,7 @@ export function AdminPanel() {
 	return (
 		<>
 			{viewCreateBets && <DialogCreatBets setView={setViewCreateBets} numberMatches={numberCorrectPicks} />}
-			<details className={stylesGeneral.details} name="adminpanel">
-				<summary className={stylesGeneral.details_summary}>
-					<div className={stylesGeneral.details_title}>
-						<BetConfigIcon className={stylesGeneral.details_icon} />
-						Edición de Quiniela
-					</div>
-					<ArrowUpIcon className={stylesGeneral.details_arrow} />
-				</summary>
+			<Details name="adminpanel" title="Edición de Quiniela" icon={<BetConfigIcon className="" />} >
 				<section className={styles.admin_section}>
 					{matchDay !== 0 &&
 						<header className={styles.admin_header}>
@@ -139,7 +133,7 @@ export function AdminPanel() {
 						}
 					</footer>
 				</section>
-			</details>
+			</Details>
 		</>
 	)
 }
