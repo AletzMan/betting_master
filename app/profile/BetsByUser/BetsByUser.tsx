@@ -8,6 +8,7 @@ import Image from "next/image"
 import { ArrowUpIcon, DeleteIcon, PaymentIcon } from "@/app/svg"
 import styles from "./betsbyuser.module.scss"
 import stylesGeneral from "../profile.module.scss"
+import Details from "@/app/components/Details/Details"
 
 interface IBetsByUser {
     uid: string,
@@ -73,14 +74,7 @@ export function BetsByUser() {
     }
 
     return (
-        <details className={stylesGeneral.details} name="adminpanel">
-            <summary className={stylesGeneral.details_summary}>
-                <div className={stylesGeneral.details_title}>
-                    <PaymentIcon className={stylesGeneral.details_icon} />
-                    Gestión de Pagos
-                </div>
-                <ArrowUpIcon className={stylesGeneral.details_arrow} />
-            </summary>
+        <Details name="adminpanel" title="Gestión de Pagos" icon={<PaymentIcon className="" />} >
             <section className={styles.section}>
                 <header className={styles.header}>
                     <select className={`${styles.section_select} scrollbar`} onChange={(e) => setMatchDay(parseInt(e.target.value))}>
@@ -131,7 +125,7 @@ export function BetsByUser() {
                     ))}
                 </div>
             </section>
-        </details>
+        </Details>
     )
 }
 
