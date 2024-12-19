@@ -17,6 +17,10 @@
         accent-color: var(--primaryColor);
     }
 
+    &:focus {
+        outline: 1px solid var(--primaryColor);
+    }
+
 }
 
 .label {
