@@ -1,18 +1,21 @@
-import { IParticipants } from "@/app/types/types"
+import { IFinalsParticipants } from "@/app/types/types"
 import styles from "./finals.module.scss"
 import stylesGeneral from "../../finales.module.scss"
 import MatchFinals from "./MatchFinals"
 import { ArrowUpIcon, BracketIcon, ProfileIcon } from "@/app/svg"
 
 interface Props {
-    participants: IParticipants[]
+    participants: IFinalsParticipants[]
 }
 
 
 export default function Quarters({ participants }: Props) {
 
+
+    const currentFase = Math.max(...participants.map(part => part.progress_stage.length))
+
     return (
-        <details className={stylesGeneral.details} name="finals">
+        <details className={stylesGeneral.details} name="finals" open={currentFase === 1} >
             <summary className={stylesGeneral.details_summary}>
                 <div className={stylesGeneral.details_title}>
                     <BracketIcon className={stylesGeneral.details_icon} />

@@ -24,9 +24,9 @@ import {
 	IBetDataDocument,
 	IBetDocument,
 	ICurrentMatch,
-	IFinalsParticipants,
 	IMatchDay,
-	IParticipants,
+	IFinalsTeams,
+	IFinalsParticipants,
 	IResultsMatches,
 	IUserSettings,
 } from "../types/types"
@@ -85,54 +85,7 @@ export const AddBet = async (bet: IBetDocument) => {
 	}
 }
 
-export const AddFinalParticipant = async (data: IFinalsParticipants) => {
-	console.log("AddFinalParticipant")
-	const year = new Date().getFullYear()
 
-	try {
-		const docRef = await setDoc(doc(db, `finalsparticipants`, `${data.uid}`), data)
-		return "OK"
-	} catch (e) {
-		console.error("Error adding document: ", e)
-		return "FAIL"
-	}
-}
-
-export const GetFinalParticipants = async () => {
-	console.log("GetBetsByIDGroup")
-	try {
-		let response: IFinalsParticipants[] | DocumentData = []
-		const querySnapshot = await getDocs(collection(db, `finalsparticipants`))
-		querySnapshot.forEach((doc) => {
-			const id = doc.id
-			const data = doc.data() as IFinalsParticipants
-			response.push(data as IFinalsParticipants)
-		})
-		const documents = response as IParticipants[]
-
-		//const filterByDay = documents.filter((document) => document.data.day === day)
-
-		return documents
-	} catch (error) {
-		console.error(error)
-		return [] as IParticipants[]
-	}
-}
-
-export const UpdateFinalParticipants = async (betId: string, team: string) => {
-	console.log("UpdateFinalParticipants")
-	const year = new Date().getFullYear()
-	try {
-		const docRef = await updateDoc(doc(db, `finalsparticipants`, `${betId}`), {
-			team,
-		})
-		return "OK"
-	} catch (e) {
-		console.log(e)
-		console.error("Error adding document: ", e)
-		return "FAIL"
-	}
-}
 
 export const GetBetsByUser = async (uid: string) => {
 	console.log("GetBetsByUser")
@@ -364,6 +317,117 @@ export const UpdatePhotoUser = async (id: string, photo: string) => {
 		const docRef = await updateProfile(auth.currentUser, { photoURL: photo })
 		return "OK"
 	} catch (e) {
+		console.error("Error adding document: ", e)
+		return "FAIL"
+	}
+}
+
+
+//------FINALISTS -----//
+
+export const AddMatchFinals = async (data: string[]) => {
+	console.log("AddMMatchFinals")
+	const year = new Date().getFullYear()
+	try {
+		const docRef = await setDoc(doc(db, `finalists`, `teams`), { positions: data })
+		return "OK"
+	} catch (e) {
+		console.error("Error adding document: ", e)
+		return "FAIL"
+	}
+}
+
+export const GetFinalistTeams = async () => {
+	console.log("GetMatchFinals")
+	try {
+		const querySnapshot = await getDoc(doc(db, `finalists`, "teams"))
+		let document: IFinalsTeams = querySnapshot.data() as IFinalsTeams
+
+		console.log(document)
+		return document
+	} catch (error) {
+		console.error(error)
+		return {} as IFinalsTeams
+	}
+}
+
+/*export const GetFinalParticipants = async () => {
+	console.log("GetMatchFinals")
+	try {
+		const querySnapshot = await getDoc(doc(db, `finalists`, "participants"))
+		let document: IFinalsParticipants = querySnapshot.data() as IFinalsParticipants
+
+		console.log(document)
+		console.log(Object.keys(document).length)
+		return document
+	} catch (error) {
+		console.error(error)
+		return {} as IFinalsParticipants
+	}
+}
+*/
+
+/*
+export const AddFinalParticipants = async (participant: IFinalsParticipants) => {
+	console.log("GetMatchFinals")
+	const idFiled = participant.id
+	try {
+		const querySnapshot = await updateDoc(doc(db, `finalists`, "participants"), { [`${idFiled}`]: participant })
+		return "OK"
+	} catch (error) {
+		console.error(error)
+		return "FAIL"
+	}
+}
+*/
+
+
+
+export const AddFinalParticipant = async (data: IFinalsParticipants) => {
+	console.log("AddFinalParticipant")
+	const year = new Date().getFullYear()
+
+	try {
+		const docRef = await setDoc(doc(db, `finalsparticipants`, `${data.user_info.uid}`), data)
+		return "OK"
+	} catch (e) {
+		console.error("Error adding document: ", e)
+		return "FAIL"
+	}
+}
+
+
+export const GetFinalParticipants = async () => {
+	console.log("GetFinalParticipants")
+	try {
+		let response: IFinalsParticipants[] | DocumentData = []
+		const querySnapshot = await getDocs(collection(db, `finalsparticipants`))
+		querySnapshot.forEach((doc) => {
+			const id = doc.id
+			const data = doc.data() as IFinalsParticipants
+			response.push(data as IFinalsParticipants)
+		})
+		const documents = response as IFinalsParticipants[]
+
+		//const filterByDay = documents.filter((document) => document.data.day === day)
+
+		return documents
+	} catch (error) {
+		console.error(error)
+		return [] as IFinalsParticipants[]
+	}
+}
+
+export const UpdateFinalParticipants = async (betId: string, team: string) => {
+	console.log("UpdateFinalParticipants")
+	const year = new Date().getFullYear()
+	try {
+		const docRef = await updateDoc(doc(db, `finalsparticipants`, `${betId}`), {
+			team,
+		})
+		return "OK"
+	} catch (e) {
+		console.log(e)
 		console.error("Error adding document: ", e)
 		return "FAIL"
 	}

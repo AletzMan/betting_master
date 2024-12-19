@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fireworks-js/react": "^2.10.8",
     "axios": "^1.5.1",
     "firebase": "^10.4.0",
     "firebase-admin": "^11.11.0",

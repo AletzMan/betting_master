@@ -2,9 +2,9 @@ import { DocumentData } from "firebase/firestore"
 
 export type IUserInfo = {
 	uid: string
-	name: string | null
-	photo: string | null
-	email: string | null
+	name: string
+	photo: string
+	email: string
 }
 
 export interface IStatusResponse extends Response {
@@ -365,19 +365,6 @@ export interface IUserSettings {
 	last_login: string
 }
 
-export interface IFinalsParticipants extends DocumentData {
-	id: string
-	uid: string
-	team: string
-	userInfo?: IUserInfo
-}
-
-export interface IParticipants {
-	id: string
-	uid: string
-	team: string
-	userInfo?: IUserInfo
-}
 
 
 export interface ITournament {
@@ -389,4 +376,23 @@ export interface ITournament {
 export interface INews {
 	titulo: string
 	url: string
+}
+
+export interface IFinalsTeams {
+	positions: string[]
+}
+
+export type IStage = "quarter" | "half" | "final" | "winner";
+
+export interface IFinalsParticipants {
+	id: string
+	position_team: number
+	progress_stage: IStage[]
+	team: string
+	user_info: {
+		uid: string
+		name: string
+		photo: string
+		email: string
+	}
 }

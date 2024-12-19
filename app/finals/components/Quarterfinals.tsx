@@ -10,11 +10,12 @@ export default function QuarterFinals() {
                 <div className={styles.matches_container}>
                     <article className={styles.matches_match}>
                         <div className={styles.team}>
-                            {QualifiedTeams[0].logo}
+                            {QualifiedTeams[6].logo}
                             <span className={styles.team_name}>
                                 {QualifiedTeams[0].name}
                             </span>
                         </div>
+                        <span className={styles.vs}>VS</span>
                         <div className={styles.team}>
                             {QualifiedTeams[7].logo}
                             <span className={styles.team_name}>
@@ -29,6 +30,7 @@ export default function QuarterFinals() {
                                 {QualifiedTeams[1].name}
                             </span>
                         </div>
+                        <span className={styles.vs}>VS</span>
                         <div className={styles.team}>
                             {QualifiedTeams[6].logo}
                             <span className={styles.team_name}>
@@ -45,6 +47,7 @@ export default function QuarterFinals() {
                                 {QualifiedTeams[2].name}
                             </span>
                         </div>
+                        <span className={styles.vs}>VS</span>
                         <div className={styles.team}>
                             {QualifiedTeams[5].logo}
                             <span className={styles.team_name}>
@@ -59,6 +62,7 @@ export default function QuarterFinals() {
                                 {QualifiedTeams[3].name}
                             </span>
                         </div>
+                        <span className={styles.vs}>VS</span>
                         <div className={styles.team}>
                             {QualifiedTeams[4].logo}
                             <span className={styles.team_name}>

@@ -1,10 +1,10 @@
 "use client"
 import { ChangeEvent, useEffect, useState } from "react"
-import { IParticipants } from "@/app/types/types"
+import { IFinalsParticipants } from "@/app/types/types"
 import { QualifiedTeams } from "@/app/finals/components/Quarterfinals"
 import { Button } from "@/app/components/Button/Button"
 import { ArrowUpIcon, LotteryIcon, LuckIcon, StartedIcon, WinnerIcon } from "@/app/svg"
-import { GetFinalParticipants, UpdateFinalParticipants } from "@/app/config/firebase"
+import { AddMatchFinals, GetFinalParticipants, GetFinalistTeams, UpdateFinalParticipants } from "@/app/config/firebase"
 import styles from "./adminfinals.module.scss"
 import stylesGeneral from "../profile.module.scss"
 import { TeamsLocalNames } from "@/app/constants/constants"
@@ -15,7 +15,7 @@ import { enqueueSnackbar } from "notistack"
 import { getDuplicateFlags } from "@/app/utils/helpers"
 
 export default function AdminFinals() {
-    const [participants, setParticipants] = useState<IParticipants[]>([])
+    const [participants, setParticipants] = useState<IFinalsParticipants[]>([])
     const [finalistTeams, setFinalistTeams] = useState<string[]>(["", "", "", "", "", "", "", ""])
     const [errorTeams, setErrorTeams] = useState<boolean[]>([false, false, false, false, false, false, false, false])
 
@@ -23,6 +23,7 @@ export default function AdminFinals() {
         //GetParticipants()
         //const finalist = QualifiedTeams.flatMap(team => team.name)
         //setFinalistTeams(finalist)
+
     }, [])
 
     const HandleDrawTeams = async () => {
@@ -52,7 +53,7 @@ export default function AdminFinals() {
             setParticipants(newParticipants)
 
             newParticipants.forEach(participant => {
-                const reponse = UpdateFinalParticipants(participant.uid, participant.team)
+                const reponse = UpdateFinalParticipants(participant.user_info.uid, participant.team)
             })
 
         }
@@ -60,32 +61,43 @@ export default function AdminFinals() {
 
     const GetParticipants = async () => {
         const data = await GetFinalParticipants()
-
-        if (data.length > 0) {
-            setParticipants(data)
+        console.log(data)
+        if (Object.keys(data).length > 0) {
+            //setParticipants(data)
         } else {
             setParticipants([])
         }
+    }
+
+    const GetFinalTable = async () => {
+        const data = await GetFinalistTeams()
+        setFinalistTeams(data.positions)
     }
 
     const HandleStart = async () => {
         try {
             const reponse = await uniqueStringSchema.parseAsync(finalistTeams)
             setErrorTeams([false, false, false, false, false, false, false, false])
-            enqueueSnackbar("Equipos finalistas guardados", { variant: "success" })
+            const responseDB = await AddMatchFinals(finalistTeams)
+            if (responseDB === "OK") {
+                enqueueSnackbar("Equipos finalistas guardados", { variant: "success" })
+            } else {
+                enqueueSnackbar("Error al crear la ronda", { variant: "error" })
+            }
         } catch (error) {
             if (error instanceof ZodError) {
                 if (error.issues.filter(issue => issue.code === "custom").length > 0) {
                     const newErrors = getDuplicateFlags(finalistTeams)
                     setErrorTeams(newErrors)
+                    enqueueSnackbar("No se permiten elementos duplicados", { variant: "error" })
                 } else {
                     const newErrors = [false, false, false, false, false, false, false, false]
                     error.issues.forEach(issue => {
                         newErrors[Number(issue.path)] = true
                     })
                     setErrorTeams(newErrors)
+                    enqueueSnackbar(error.issues[0].message, { variant: "error" })
                 }
-                enqueueSnackbar(error.issues[0].message, { variant: "error" })
             }
         }
     }
@@ -125,6 +137,7 @@ export default function AdminFinals() {
                 </div>
                 <footer className={styles.footer}>
                     <Button props={{ onClick: HandleStart }} text="Iniciar ronda" icon={<StartedIcon className={""} />} />
+                    <Button props={{ onClick: GetFinalTable }} text="GET" icon={<StartedIcon className={""} />} />
                     <Button props={{ onClick: HandleDrawTeams, disabled: participants && participants!.length < 8 }} text="Sortear" icon={<LuckIcon className={""} />} />
                 </footer>
             </article>

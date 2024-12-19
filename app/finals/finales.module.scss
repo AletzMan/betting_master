@@ -5,11 +5,15 @@
     flex-direction: column;
     margin: 0 auto;
     height: 100svh;
-    padding: 5em 0.5em 1em 0.5em;
+    padding: 2.85em 0.5em 1em 0.5em;
     width: calc(100svw - 1em);
     max-width: var(--max-width);
     overflow: hidden;
     box-sizing: border-box;
+
+    @media (width < 700px) {
+        padding: 2.85em 0em 1em 0em;
+    }
 
     &_landscape {
         padding: 2.5em 0.5em 0.5em 0.5em;
@@ -50,13 +54,18 @@
     align-items: center;
 }
 
+.loading {
+    width: 4em;
+    height: 4em;
+    color: var(--primaryColor);
+}
 
 .details {
     border: 1px solid var(--twitterTwo-color);
     border-radius: var(--borderRadius);
     background-color: var(--secondaryColor);
     transition: all 0.4s ease-in-out;
-    padding: 0 0.5em 0.5em 0.5em;
+    padding: 0 0.5em 0.0em 0.5em;
 
     &[open] .details_summary {
         color: var(--primaryColor);

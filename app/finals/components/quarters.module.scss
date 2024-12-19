@@ -1,6 +1,10 @@
 .title {
     font-size: 1em;
-    color: var(--subtitle-color);
+    color: var(--foregroundColor);
+    text-transform: uppercase;
+    padding: 0.15em 0.75em;
+    border-radius: var(--borderRadius);
+    background-color: var(--borderTwoColor);
 }
 
 .matches {
@@ -27,7 +31,8 @@
         gap: 0.5em;
         padding: 0.5em;
         border-radius: 0.25em;
-        background-color: var(--background-textTwo);
+        border: 1px solid var(--borderTwoColor);
+        background-color: var(--secondaryColor);
     }
 }
 
@@ -51,4 +56,11 @@
 .button {
     position: fixed;
     bottom: 1em;
+}
+
+.vs {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.85em;
 }
