@@ -13,6 +13,7 @@ import styles from "./settings.module.scss"
 import stylesGeneral from "../profile.module.scss"
 import { TextField } from "@/app/components/TextFiled/TextFiled"
 import { useUser } from "@/app/config/zustand-store"
+import Details from "@/app/components/Details/Details"
 
 
 
@@ -100,14 +101,7 @@ export const SettingsProfile = () => {
 
 
     return (
-        <details className={stylesGeneral.details} name="adminpanel" open>
-            <summary className={stylesGeneral.details_summary}>
-                <div className={stylesGeneral.details_title}>
-                    <ProfileIcon className={stylesGeneral.details_icon} />
-                    Perfil
-                </div>
-                <ArrowUpIcon className={stylesGeneral.details_arrow} />
-            </summary>
+        <Details name="adminpanel" title="Perfil" icon={<ProfileIcon className="" />} >
             <div className={styles.settingsProfile_info}>
                 <picture className={styles.settingsProfile_picture}>
                     <Image className={styles.settingsProfile_image} src={userSettings.photo || "/user-icon.png"} alt={userSettings.name || ""} width={100} height={100} />
@@ -152,9 +146,7 @@ export const SettingsProfile = () => {
                         type="primary"
                     />
                 </div>
-
             </div>
-
-        </details>
+        </Details>
     )
 }
