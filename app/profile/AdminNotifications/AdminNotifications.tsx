@@ -12,6 +12,7 @@ import { IUserSettings } from "@/app/types/types"
 import { FormattedDateUpcoming, SmallDateLocal } from "@/app/utils/helpers"
 import { enqueueSnackbar } from "notistack"
 import { useMatches } from "@/app/hooks/useMatches"
+import Details from "@/app/components/Details/Details"
 
 
 export function AdminNotifications() {
@@ -78,15 +79,7 @@ export function AdminNotifications() {
     }
 
     return (
-        <details className={stylesGeneral.details} name="adminpanel">
-
-            <summary className={stylesGeneral.details_summary}>
-                <div className={stylesGeneral.details_title}>
-                    <NotificationIcon className={stylesGeneral.details_icon} />
-                    Notificaciones y usuarios
-                </div>
-                <ArrowUpIcon className={stylesGeneral.details_arrow} />
-            </summary>
+        <Details name="adminpanel" title="Notificaciones y usuarios" icon={<NotificationIcon className="" />} >
             <div className={styles.options}>
                 <header className={styles.header}>
                     <button className={styles.header_button} onClick={HandleRefreshUsers}>
@@ -126,8 +119,6 @@ export function AdminNotifications() {
                             {/*<input className={styles.users_checkbox} type="checkbox" defaultChecked={user.notifications} />*/}
                         </button>
                     ))}
-
-
                 </div>
                 <footer className={styles.footer}>
                     {<Button
@@ -138,6 +129,6 @@ export function AdminNotifications() {
                     />}
                 </footer>
             </div>
-        </details>
+        </Details>
     )
 }
