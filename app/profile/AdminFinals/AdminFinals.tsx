@@ -1,7 +1,6 @@
 "use client"
 import { ChangeEvent, useEffect, useState } from "react"
 import { IFinalsParticipants } from "@/app/types/types"
-import { QualifiedTeams } from "@/app/finals/components/Quarterfinals"
 import { Button } from "@/app/components/Button/Button"
 import { ArrowUpIcon, LotteryIcon, LuckIcon, StartedIcon, WinnerIcon } from "@/app/svg"
 import { AddMatchFinals, GetFinalParticipants, GetFinalistTeams, UpdateFinalParticipants } from "@/app/config/firebase"
@@ -13,6 +12,8 @@ import { uniqueStringSchema } from "@/app/validations/uniqueStringSchema"
 import { ZodError } from "zod"
 import { enqueueSnackbar } from "notistack"
 import { getDuplicateFlags } from "@/app/utils/helpers"
+import { ButtonRefresh } from "@/app/components/ButtonRefresh/ButtonRefresh"
+import Details from "@/app/components/Details/Details"
 
 export default function AdminFinals() {
     const [participants, setParticipants] = useState<IFinalsParticipants[]>([])
@@ -76,7 +77,7 @@ export default function AdminFinals() {
 
     const HandleStart = async () => {
         try {
-            const reponse = await uniqueStringSchema.parseAsync(finalistTeams)
+            await uniqueStringSchema.parseAsync(finalistTeams)
             setErrorTeams([false, false, false, false, false, false, false, false])
             const responseDB = await AddMatchFinals(finalistTeams)
             if (responseDB === "OK") {
@@ -86,18 +87,18 @@ export default function AdminFinals() {
             }
         } catch (error) {
             if (error instanceof ZodError) {
+                let newErrors = [false, false, false, false, false, false, false, false]
                 if (error.issues.filter(issue => issue.code === "custom").length > 0) {
-                    const newErrors = getDuplicateFlags(finalistTeams)
-                    setErrorTeams(newErrors)
+                    newErrors = getDuplicateFlags(finalistTeams)
                     enqueueSnackbar("No se permiten elementos duplicados", { variant: "error" })
                 } else {
-                    const newErrors = [false, false, false, false, false, false, false, false]
+                    newErrors = [false, false, false, false, false, false, false, false]
                     error.issues.forEach(issue => {
                         newErrors[Number(issue.path)] = true
                     })
-                    setErrorTeams(newErrors)
                     enqueueSnackbar(error.issues[0].message, { variant: "error" })
                 }
+                setErrorTeams(newErrors)
             }
         }
     }
@@ -114,16 +115,12 @@ export default function AdminFinals() {
     }
 
     return (
-        <details className={stylesGeneral.details} name="adminpanel">
-            <summary className={stylesGeneral.details_summary}>
-                <div className={stylesGeneral.details_title}>
-                    <LotteryIcon className={stylesGeneral.details_icon} />
-                    Administración de Sorteo
-                </div>
-                <ArrowUpIcon className={stylesGeneral.details_arrow} />
-            </summary>
-
+        <Details name="adminpanel" title="Administración de Sorteo" icon={<LuckIcon className="" />} >
             <article className={styles.details}>
+                <header className={styles.header}>
+                    <h2 className={styles.title}>Equipos finalistas</h2>
+                    <ButtonRefresh className={styles.refresh} onClick={GetFinalTable} />
+                </header>
                 <div className={styles.teams}>
                     {
                         TeamsLocalNames.map((team, index) => index < 8 && (
@@ -131,116 +128,14 @@ export default function AdminFinals() {
                                 <span className={styles.teams_position}>{index + 1}</span>
                                 <SelectFiled items={TeamsLocalNames} props={{ value: finalistTeams[index], onChange: (e) => HandleOnChangeTeam(e, index), "aria-errormessage": errorTeams[index] ? "error" : "" }} />
                             </div>
-
                         ))
                     }
                 </div>
                 <footer className={styles.footer}>
                     <Button props={{ onClick: HandleStart }} text="Iniciar ronda" icon={<StartedIcon className={""} />} />
-                    <Button props={{ onClick: GetFinalTable }} text="GET" icon={<StartedIcon className={""} />} />
                     <Button props={{ onClick: HandleDrawTeams, disabled: participants && participants!.length < 8 }} text="Sortear" icon={<LuckIcon className={""} />} />
                 </footer>
             </article>
-        </details>
+        </Details>
     )
 }
-
-/*const data = [
-           {
-               team: '',
-               uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-               userInfo: {
-                   photo:
-                       'https://lh3.googleusercontent.com/a/ACg8ocJ7E4PzlEjRsIqGpdN71kUe-sG33WN9UXMQ61Wpp0oVP2U=s96-c',
-                   email: 'alejo2986@gmail.com',
-                   uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-                   name: 'Alejandro Garcia'
-               },
-               id: '544684cf-ccfe-4946-95ec-09dfcf137c53'
-           },
-           {
-               team: '',
-               uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-               userInfo: {
-                   photo:
-                       'https://lh3.googleusercontent.com/a/ACg8ocJV7zokRNBsZLofjwaVPe9HJrOz487ZQduUXf6n3bO7=s96-c',
-                   email: 'alejo2986@gmail.com',
-                   uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-                   name: 'Judith Garcia'
-               },
-               id: '544684cf-ccfe-4946-95ec-09dfcf137c53'
-           },
-           {
-               team: '',
-               uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-               userInfo: {
-                   photo:
-                       'https://lh3.googleusercontent.com/a/ACg8ocLZzEGfe6SOAX62JGMV4TKbreD5d0lkuA6Pidwx7Mt2=s96-c',
-                   email: 'alejo2986@gmail.com',
-                   uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-                   name: 'JK Garcia'
-               },
-               id: '544684cf-ccfe-4946-95ec-09dfcf137c53'
-           },
-           {
-               team: '',
-               uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-               userInfo: {
-                   photo:
-                       'https://lh3.googleusercontent.com/a/ACg8ocJHdeCqmsWqnlERyNQu_m-MLBuqe6FVeLSsJSMM4Efr=s96-c',
-                   email: 'alejo2986@gmail.com',
-                   uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-                   name: 'Paty Garcia'
-               },
-               id: '544684cf-ccfe-4946-95ec-09dfcf137c53'
-           },
-           {
-               team: '',
-               uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-               userInfo: {
-                   photo:
-                       'https://lh3.googleusercontent.com/a/ACg8ocLA92MJoEylcI8tY0R26cCh9ok-aZdPN1UOMty4ESIJ=s96-c',
-                   email: 'alejo2986@gmail.com',
-                   uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-                   name: 'Ma del Rosario'
-               },
-               id: '544684cf-ccfe-4946-95ec-09dfcf137c53'
-           },
-           {
-               team: '',
-               uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-               userInfo: {
-                   photo:
-                       'https://lh3.googleusercontent.com/a/ACg8ocKulEAaKcIXyW5CAeLySco3xBveoDj0prmY8LMeQ0IP=s96-c',
-                   email: 'alejo2986@gmail.com',
-                   uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-                   name: 'Juan Galvan'
-               },
-               id: '544684cf-ccfe-4946-95ec-09dfcf137c53'
-           },
-           {
-               team: '',
-               uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-               userInfo: {
-                   photo:
-                       'https://lh3.googleusercontent.com/a/ACg8ocInVz5eFzExt4oD9KmQjLH_akceoyNSIPbbbzcnSYsW=s96-c',
-                   email: 'alejo2986@gmail.com',
-                   uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-                   name: 'Aide Alonso'
-               },
-               id: '544684cf-ccfe-4946-95ec-09dfcf137c53'
-           },
-           {
-               team: '',
-               uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-               userInfo: {
-                   photo:
-                       'https://lh3.googleusercontent.com/a/ACg8ocJHvPhVKJiHO1-lxgi0jGlJnSlIbGY43RpR0EFCIhzI=s96-c',
-                   email: 'alejo2986@gmail.com',
-                   uid: 'AGstpoT4F9WHdWIwZjbHP6TRHea2',
-                   name: 'Lola Torres'
-               },
-               id: '544684cf-ccfe-4946-95ec-09dfcf137c53'
-           }
-       ]
-       */
