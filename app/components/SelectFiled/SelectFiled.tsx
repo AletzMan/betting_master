@@ -1,6 +1,6 @@
 import { SelectHTMLAttributes } from "react"
 import styles from "./styles.module.scss"
-import { CheckIcon, CloseIcon, SuccessIcon } from "@/app/svg"
+import { ArrowUpIcon, CheckIcon, CloseIcon, SuccessIcon } from "@/app/svg"
 
 interface Props {
     items: string[]
@@ -18,6 +18,7 @@ export default function SelectFiled({ items, props }: Props) {
                 }
             </select>
             {props?.["aria-errormessage"] && <CloseIcon className={styles.container_icon} />}
+            <ArrowUpIcon className={styles.select_arrow} />
         </div>
     )
 }

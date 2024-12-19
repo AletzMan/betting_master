@@ -1,4 +1,4 @@
-import { IParticipants } from "@/app/types/types"
+import { IFinalsParticipants } from "@/app/types/types"
 import styles from "./finals.module.scss"
 import Quarters from "./Quarters"
 import Semis from "./Semis"
@@ -7,35 +7,48 @@ import ConfettiExplosion from "react-confetti-explosion"
 import Image from "next/image"
 import { WinnerIcon } from "@/app/svg"
 import { TeamsLogos } from "@/app/constants/constants"
+import WinnerCard from "@/app/bets/components/WinnerCard/WinnerCard"
+import Fireworks, { FireworksHandlers } from "@fireworks-js/react"
+import { useRef } from "react"
 
 interface Props {
-    participants: IParticipants[]
+    participants: IFinalsParticipants[]
 }
 
 export default function Finals({ participants }: Props) {
-    return (
-        <div className={`${styles.finals} scrollbar`}>
-            <>
-                {/*} <h3 className={styles.winners_title}>GANADOR</h3>*/}
-                {/*<section className={styles.winners}>
-                    <ConfettiExplosion />
-                    <div className={styles.winner}   >
-                        <picture className={styles.winner_picture}>
-                            <Image className={styles.winner_image} src={participants[1].userInfo?.photo || "/user-icon.png"} alt="Winner" width={100} height={100} />
-                        </picture>
-                        <span className={styles.winner_name}>{participants[1].userInfo?.name}</span>
-                        <div className={styles.winner_logo}>
-                            {TeamsLogos.find(team => team.name === participants[1].team)?.logo || "/user-icon.png"}
-                        </div>
-                        <span className={styles.winner_bet}>{participants[1].team}</span>
-                        <WinnerIcon className={styles.winner_icon} />
-                    </div>
+    const ref = useRef<FireworksHandlers>(null)
 
-    </section>*/}
-            </>
-            {<Final participants={participants} />}
-            {<Semis participants={participants} />}
-            <Quarters participants={participants} />
+    const orderParticipants = participants.sort((a, b) => a.position_team - b.position_team)
+    const winner = orderParticipants.filter(part => part.progress_stage.includes("winner"))
+    const filterFinal = orderParticipants.filter(part => part.progress_stage.includes("final"))
+    const filterSemi = orderParticipants.filter(part => part.progress_stage.includes("half"))
+    const filterQuarters = orderParticipants.filter(part => part.progress_stage.includes("quarter"))
+
+    return (
+
+        <div className={`${styles.finals} scrollbar`}>
+            {winner.length === 1 &&
+                <>
+                    <Fireworks style={{
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        position: 'fixed',
+                        background: '#00000000',
+                        zIndex: 15,
+                        pointerEvents: "none"
+                    }} />
+
+                    {<h3 className={styles.winners_title}>GANADOR</h3>}
+                    {<section className={styles.winners}>
+                        <WinnerCard participant={winner[0].user_info} name_team={winner[0].team} />
+                    </section>}
+                </>
+            }
+            {filterFinal.length === 2 && <Final participants={filterFinal} />}
+            {filterSemi.length === 4 && <Semis participants={filterSemi} />}
+            {filterQuarters.length === 8 && <Quarters participants={filterQuarters} />}
         </div>
     )
 }

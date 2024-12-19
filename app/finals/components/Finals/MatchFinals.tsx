@@ -1,41 +1,58 @@
-import { IParticipants } from "@/app/types/types"
+import { IFinalsParticipants, IStage } from "@/app/types/types"
 import styles from "./finals.module.scss"
 import { QualifiedTeams } from "../Quarterfinals"
 import Image from "next/image"
+import { TeamsLocalLogos } from "@/app/constants/constants"
+import { DeadIcon } from "@/app/svg"
 
 interface Props {
-    participants: IParticipants[]
+    participants: IFinalsParticipants[]
     index: [number, number]
 }
 
 
 export default function MatchFinals({ participants, index }: Props) {
+
+    const teams = [participants[index[0]].progress_stage.length, participants[index[1]].progress_stage.length]
+    const won = Math.max(...teams)
+    const indexWon = teams.indexOf(won)
+
     return (
-        <div className={styles.quarters_match}>
-            <div className={styles.quarters_team}>
-                {QualifiedTeams[index[0]].logo}
-                <span className={styles.quarters_teamName}>
-                    {QualifiedTeams[index[0]].name}
+        <div className={styles.match}>
+            <div className={styles.match_team}>
+                {TeamsLocalLogos.find(logo => logo.name === participants[index[0]].team)?.logo}
+                <span className={styles.teamName}>
+                    {TeamsLocalLogos.find(logo => logo.name === participants[index[0]].team)?.name}
                 </span>
+                {indexWon === 1 &&
+                    <div className={styles.loser}>
+                        <DeadIcon className={styles.loser_icon} />
+                    </div>
+                }
             </div>
-            <div className={styles.quarters_player} >
-                <picture className={styles.quarters_playerPicture}>
-                    <Image className={styles.quarters_playerImage} src={participants.find(participant => participant.team === QualifiedTeams[index[0]].name)?.userInfo?.photo || "/user-icon.png"} width={25} height={25} alt={`Foto de perfil de ${participants.find(participant => participant.team === QualifiedTeams[0].name)?.userInfo?.photo || ""} `} />
+            <div className={styles.match_player} >
+                <picture className={styles.match_playerPicture}>
+                    <Image className={styles.match_playerImage} src={participants[index[0]]?.user_info?.photo || "/user-icon.png"} width={25} height={25} alt={`Foto de perfil de ${participants[index[0]]?.user_info?.photo || ""} `} />
                 </picture>
-                <span className={styles.quarters_playerName}>{participants.find(participant => participant.team === QualifiedTeams[index[0]].name)?.userInfo?.name}</span>
+                <span className={styles.match_playerName}>{participants[index[0]]?.user_info?.name}</span>
             </div>
-            <div className={styles.quarters_matchVS}>VS</div>
-            <div className={`${styles.quarters_player} ${styles.quarters_playerAway}`} >
-                <picture className={styles.quarters_playerPicture}>
-                    <Image className={styles.quarters_playerImage} src={participants.find(participant => participant.team === QualifiedTeams[index[1]].name)?.userInfo?.photo || "/user-icon.png"} width={25} height={25} alt={`Foto de perfil de ${participants.find(participant => participant.team === QualifiedTeams[0].name)?.userInfo?.photo || ""} `} />
+            <div className={styles.match_VS}>VS</div>
+            <div className={`${styles.match_player} ${styles.match_playerAway}`} >
+                <picture className={styles.match_playerPicture}>
+                    <Image className={styles.match_playerImage} src={participants[index[1]]?.user_info?.photo || "/user-icon.png"} width={25} height={25} alt={`Foto de perfil de ${participants[index[1]]?.user_info?.photo || ""} `} />
                 </picture>
-                <span className={styles.quarters_playerName}>{participants.find(participant => participant.team === QualifiedTeams[index[1]].name)?.userInfo?.name}</span>
+                <span className={styles.match_playerName}>{participants[index[1]]?.user_info?.name}</span>
             </div>
-            <div className={`${styles.quarters_team} ${styles.quarters_teamAway}`}>
-                {QualifiedTeams[index[1]].logo}
-                <span className={styles.quarters_teamName}>
-                    {QualifiedTeams[index[1]].name}
+            <div className={`${styles.match_team} ${styles.match_teamAway}`}>
+                {TeamsLocalLogos.find(logo => logo.name === participants[index[1]].team)?.logo}
+                <span className={styles.match_teamName}>
+                    {TeamsLocalLogos.find(logo => logo.name === participants[index[1]].team)?.name}
                 </span>
+                {indexWon === 0 &&
+                    <div className={styles.loser}>
+                        <DeadIcon className={styles.loser_icon} />
+                    </div>
+                }
             </div>
         </div>
     )
