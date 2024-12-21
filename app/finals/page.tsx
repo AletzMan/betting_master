@@ -85,7 +85,7 @@ export default function Page() {
             {!loadingPage && <>
                 {isParticipating &&
                     <>
-                        {participants && participants?.length === 8 && participants.some(participant => participant.team === "") ?
+                        {participants && participants?.length <= 8 && participants.some(participant => participant.team === "") ?
                             <>
                                 <QuarterFinals />
                                 <div className={styles.participants}>
