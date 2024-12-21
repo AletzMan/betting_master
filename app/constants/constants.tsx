@@ -277,6 +277,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 0,
 		logo: <AmericaLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/1/1.png",
 		name: "América",
 		abbName: "AME",
 		color_one: "#d6bf25",
@@ -286,6 +287,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 1,
 		logo: <AtlasLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/10445/10445.png",
 		name: "Atlas",
 		abbName: "ATS",
 		color_one: "#dd2709",
@@ -295,6 +297,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 2,
 		logo: <CruzAzulLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/12566/12566.png",
 		name: "Cruz Azul",
 		abbName: "CRZ",
 		color_one: "#001f60",
@@ -304,6 +307,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 3,
 		logo: <ChivasLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/7/7.png",
 		name: "Guadalajara",
 		abbName: "GUA",
 		color_one: "#CE0E2D",
@@ -313,6 +317,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 4,
 		logo: <JuarezLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/11790/11790.png",
 		name: "Juárez",
 		abbName: "JUA",
 		color_one: "#76bc21",
@@ -322,6 +327,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 5,
 		logo: <LeonLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/9/9.png",
 		name: "León",
 		abbName: "LEO",
 		color_one: "#00722e",
@@ -331,6 +337,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 6,
 		logo: <TigresLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/16/16.png",
 		name: "Tigres",
 		abbName: "TIG",
 		color_one: "#f1a21e",
@@ -340,6 +347,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 7,
 		logo: <MazatlanLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/12043/12043.png",
 		name: "Mazatlán",
 		abbName: "MAZ",
 		color_one: "#533278",
@@ -349,6 +357,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 8,
 		logo: <MonterreyLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/14/14.png",
 		name: "Monterrey",
 		abbName: "MTY",
 		color_one: "#0a2240",
@@ -358,6 +367,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 9,
 		logo: <NecaxaLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/29/29.png",
 		name: "Necaxa",
 		abbName: "NEC",
 		color_one: "#EA0029",
@@ -367,6 +377,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 10,
 		logo: <PachucaLogo className="logo__team_slided" />,
+		urlLogo: "https://www.ligamx.net/cancha/club/11/pachuca",
 		name: "Pachuca",
 		abbName: "PCH",
 		color_one: "#002577",
@@ -376,6 +387,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 11,
 		logo: <PueblaLogo className="logo__team_slided" />,
+		urlLogo: "https://www.ligamx.net/cancha/club/11550/puebla",
 		name: "Puebla",
 		abbName: "PUE",
 		color_one: "#35426a",
@@ -385,6 +397,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 12,
 		logo: <PumasLogo className="logo__team_slided" />,
+		urlLogo: "https://www.ligamx.net/cancha/club/18/pumas",
 		name: "Pumas",
 		abbName: "PUM",
 		color_one: "#001e47",
@@ -394,6 +407,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 13,
 		logo: <SanLuisLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/11220/11220.png",
 		name: "San Luis",
 		abbName: "SLUI",
 		color_one: "#a23725",
@@ -403,6 +417,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 14,
 		logo: <SantosLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/15/15.png",
 		name: "Santos",
 		abbName: "SAN",
 		color_one: "#007763",
@@ -412,6 +427,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 15,
 		logo: <TijuanaLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/5/5.png",
 		name: "Tijuana",
 		abbName: "TIJ",
 		color_one: "#df040b",
@@ -421,6 +437,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 16,
 		logo: <TolucaLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/17/17.png",
 		name: "Toluca",
 		abbName: "TOL",
 		color_one: "#ce0e2d",
@@ -430,6 +447,7 @@ export const TeamsLocalLogos = [
 	{
 		id: 17,
 		logo: <QueretaroLogo className="logo__team_slided" />,
+		urlLogo: "https://s3.amazonaws.com/lmxwebsite/docs/archdgtl/AfldDrct/logos/12037/12037.png",
 		name: "Queretaro",
 		abbName: "QUE",
 		color_one: "#142055",
@@ -737,3 +755,5 @@ export const STATISTICS_OPTIONS: IOptions[] = [
 		rank: "rankSaves",
 	},
 ]
+
+export const ADMIN_ID = process.env.NEXT_PUBLIC_ADMIN_UID
