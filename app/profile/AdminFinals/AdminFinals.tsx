@@ -5,7 +5,6 @@ import { Button } from "@/app/components/Button/Button"
 import { ArrowUpIcon, LotteryIcon, LuckIcon, StartedIcon, WinnerIcon } from "@/app/svg"
 import { AddMatchFinals, GetFinalParticipants, GetFinalistTeams, UpdateFinalParticipants } from "@/app/config/firebase"
 import styles from "./adminfinals.module.scss"
-import stylesGeneral from "../profile.module.scss"
 import { TeamsLocalNames } from "@/app/constants/constants"
 import SelectFiled from "@/app/components/SelectFiled/SelectFiled"
 import { uniqueStringSchema } from "@/app/validations/uniqueStringSchema"
@@ -60,15 +59,6 @@ export default function AdminFinals() {
         }
     }
 
-    const GetParticipants = async () => {
-        const data = await GetFinalParticipants()
-        console.log(data)
-        if (Object.keys(data).length > 0) {
-            //setParticipants(data)
-        } else {
-            setParticipants([])
-        }
-    }
 
     const GetFinalTable = async () => {
         const data = await GetFinalistTeams()
