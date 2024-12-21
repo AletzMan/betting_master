@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import styles from "./signin.module.scss"
-import { AppLogo } from "@/app/svg"
+import { AppLogo, LuckIcon } from "@/app/svg"
 import { TeamsSlides } from "../TeamsSlides/TeamsSlides"
 import { GetNewsLigaMX } from "@/app/services/fetch_utils"
 import Link from "next/link"
@@ -10,6 +10,8 @@ import { Teams, TeamsLogos } from "@/app/constants/constants"
 
 export async function SignIn() {
 	const news = await GetNewsLigaMX()
+
+
 
 
 	return (
