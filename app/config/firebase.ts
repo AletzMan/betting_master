@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { DocumentData } from "firebase-admin/firestore"
 import { getApp, getApps, initializeApp } from "firebase/app"
+import { child, get, getDatabase, onChildAdded, push, ref, set, update } from "firebase/database"
 import {
 	FacebookAuthProvider,
 	GoogleAuthProvider,
@@ -31,6 +32,7 @@ import {
 	IUserSettings,
 } from "../types/types"
 
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
 	apiKey: process.env.NEXT_PUBLIC_API_KEY_FIREBASE,
@@ -39,6 +41,7 @@ const firebaseConfig = {
 	storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET_FIREBASE,
 	messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID_FIREBASE,
 	appId: process.env.NEXT_PUBLIC_APP_ID_FIREBASE,
+	databaseURL: process.env.NEXT_PUBLIC_DATABASE_URL_FIREBASE,
 }
 
 // Initialize Firebase
@@ -418,17 +421,79 @@ export const GetFinalParticipants = async () => {
 	}
 }
 
-export const UpdateFinalParticipants = async (betId: string, team: string) => {
+export const UpdateFinalParticipants = async (uid: string, team: {}) => {
 	console.log("UpdateFinalParticipants")
 	const year = new Date().getFullYear()
 	try {
-		const docRef = await updateDoc(doc(db, `finalsparticipants`, `${betId}`), {
-			team,
-		})
+		const docRef = await updateDoc(doc(db, `finalsparticipants`, `${uid}`), team)
 		return "OK"
 	} catch (e) {
 		console.log(e)
 		console.error("Error adding document: ", e)
 		return "FAIL"
+	}
+}
+
+
+
+//////-------------------------------------------FIREBASE REALTIME DATABASE------------------------------------/////
+
+export const database = getDatabase(app)
+
+
+export const WriteChatDraw = async (data: unknown, path: string) => {
+	try {
+		const chatListRef = ref(database, path)
+		const newMessageRef = push(chatListRef)
+		set(newMessageRef, data)
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+
+export const UpdatedRealDataTime = async (data: {}, path: string) => {
+	try {
+		update(ref(database, path), data)
+	} catch (error) {
+		console.log(error)
+	}
+}
+export const WriteMustSpin = async (data: unknown, path: string) => {
+	try {
+		const chatListRef = ref(database, path)
+		set(chatListRef, data)
+	} catch (error) {
+		console.log(data)
+		console.log(path)
+		console.log(error)
+	}
+}
+
+export const ReadChatDraw = async (path: string) => {
+	try {
+		let messages
+		const messagesRef = ref(database, path)
+		onChildAdded(messagesRef, (snapshot) => {
+			messages = snapshot.val()
+		})
+		return messages
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+export const GetDataRealDataTime = async (path: string): Promise<any | undefined> => {
+	try {
+		const dbRef = ref(database)
+		const snapshot = await get(child(dbRef, `${path}`))
+		if (snapshot.exists()) {
+			console.log(snapshot.val())
+			return snapshot.val()
+		}
+		return undefined
+	} catch (error) {
+		console.log(error)
+		return undefined
 	}
 }
