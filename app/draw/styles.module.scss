@@ -1,4 +1,5 @@
 .section {
+    position: relative;
     padding: 2.8em 0.25em 0.25em 0.25em;
     background-color: var(--secondaryColor);
 
@@ -102,15 +103,66 @@
 }
 
 .chat {
-    display: flex;
-    flex-direction: column;
+    position: absolute;
+    height: 58svh;
+    bottom: 0.5em;
+    display: grid;
+    grid-template-rows: 1fr 2.5em;
     gap: 0.5em;
-    padding: 0.5em 0.75em;
-    height: 100%;
-    border-radius: 0.25em 0.25em 0 0;
-    border: 1px dashed var(--borderColor);
-    background-color: #101010;
+    padding: 0.25em;
+    border: 1px solid var(--borderColor);
+    border-radius: var(--borderRadius);
+    background-color: var(--secondaryColor);
+    z-index: 6;
+
+    &_text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        padding: 0.5em 0.75em;
+        border-radius: 0.25em 0.25em 0 0;
+        border: 1px dashed var(--borderColor);
+        background-color: #101010;
+    }
 }
+
+.buttonChat {
+    position: absolute;
+    bottom: 60svh;
+    right: 0.25em;
+    z-index: 3;
+    width: 3em;
+    height: 3em;
+    padding: 0;
+    border: none;
+    border-radius: 3em;
+    background-color: var(--secondaryColor);
+
+    &_icon {
+        width: 2.5em;
+        height: 2.5em;
+        transform: scaleX(-1);
+        color: var(--primaryColor);
+    }
+}
+
+
+.footer {
+    display: grid;
+    grid-template-columns: 1fr 6em;
+    padding: 0 0 0.5em 0;
+    width: 100%;
+
+
+    &.div {
+        grid-column: 1 / 2;
+    }
+
+    &.button {
+        grid-column: 2 / 3;
+    }
+}
+
 
 .user {
     position: relative;
@@ -177,7 +229,7 @@
     display: grid;
     grid-template-rows: 3fr 1.5fr;
     gap: 0.5em;
-    height: calc(100svh - 7.25em);
+    height: calc(100svh - 6em);
     padding: 0 0.25em 0.25em 0.25em;
 }
 
@@ -243,7 +295,7 @@
 
     &_reset {
         position: absolute;
-        right: 0.25em;
+        left: 0.25em;
         top: 0.25em;
     }
 
@@ -255,7 +307,7 @@
         font-weight: 500;
         border: 1px dashed #dddddd55;
         border-radius: 0.1em;
-        background: linear-gradient(25deg, var(--tertiaryColor), var(--fourthColor), var(--tertiaryColor));
+        background: linear-gradient(25deg, #887a01, #b7a502, #887a01);
     }
 
     & div {
@@ -263,38 +315,22 @@
         height: 55svw;
         max-width: 25em;
         max-height: 25em;
+        background-color: var(--secondaryColor);
+        border-radius: 100%;
     }
 }
 
-.footer {
-    position: fixed;
-    bottom: 0.25em;
-    display: grid;
-    grid-template-columns: 1fr 6em;
-    padding: 0 0.25em;
-    width: 100%;
-
-    &.div {
-        grid-column: 1 / 2;
-    }
-
-    &.button {
-        grid-column: 2 / 3;
-    }
-}
 
 .participants {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 0.8em 1.5em 1.5em;
+    grid-template-rows: 0.8em 1.5em 1.75em;
     place-items: center center;
-    gap: 0.5em;
+    gap: 0.25em;
     background-color: #101010;
-    border: 1px dashed var(--borderColor);
+    border: 1px solid var(--borderTwoColor);
     width: 100%;
     padding: 0.25em;
-
-    &_title {}
 
     &_name {
         width: 6em;
@@ -307,12 +343,14 @@
     &_team {
         font-size: 1.1em;
         font-weight: 600;
-        color: var(--foregroundColor);
         opacity: 1;
-        background-color: var(--borderTwoColor);
         padding: 0.15em 0.5em;
+        color: var(--foregroundColor);
         border-radius: var(--borderRadius);
+        background: linear-gradient(-15deg, #544b01, #998a02, #544b01);
+        border: 1px dashed var(--borderColor);
         animation: apperInitial 0.5s ease-in-out both;
+        text-shadow: 0 0 3px #101010;
 
         @keyframes apperInitial {
             0% {
