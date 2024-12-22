@@ -1,0 +1,250 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client"
+
+import { Button } from "@/app/components/Button/Button"
+import styles from "./styles.module.scss"
+import { ADMIN_ID } from "@/app/constants/constants"
+import { AwaitIcon, CheckIcon, LuckIcon, ResetIcon, TargetIcon } from "@/app/svg"
+import { useConnectedUsers } from "@/app/hooks/useConnectedUsers"
+import { GetDataRealDataTime, GetFinalParticipants, GetFinalistTeams, UpdateFinalParticipants, UpdatedRealDataTime, WriteMustSpin, database } from "@/app/config/firebase"
+import { Wheel } from "react-custom-roulette"
+import { WheelData } from "react-custom-roulette/dist/components/Wheel/types"
+import { onChildAdded, onChildChanged, onValue, ref } from "firebase/database"
+import { useEffect, useState } from "react"
+import { useUser } from "@/app/config/zustand-store"
+import { IFinalsParticipants } from "@/app/types/types"
+
+interface IStatusDraw {
+    has_started: boolean
+    has_finished: boolean
+    must_spin: boolean
+    current_participant: string
+    current_team: string
+    missing_teams: string[]
+    missing_participants: string[]
+    prizeNumber: number
+}
+
+
+const dataOP: WheelData[] = [
+    { option: '0' },
+    { option: '1' },
+    { option: '2' },
+    { option: '3' },
+    { option: '4' },
+    { option: '5' },
+    { option: '6' },
+    { option: '7' },
+]
+
+
+export default function SpinWheel() {
+    const { user } = useUser()
+    const { participants } = useConnectedUsers()
+    const [data, setData] = useState<WheelData[]>(dataOP)
+    const [statusDraw, setStatusDraw] = useState<IStatusDraw>({ has_started: false, has_finished: false, current_participant: "", current_team: "", missing_teams: [], missing_participants: [], prizeNumber: 0, must_spin: false })
+    const [teams, setTeams] = useState<string[]>([])
+
+    useEffect(() => {
+        GetInitialInfo()
+
+
+        try {
+            const messagesRef = ref(database, 'roulette')
+            const unsubscribe = onChildAdded(messagesRef, (snapshot) => {
+                const newMessage = snapshot.val()
+            })
+            onValue(messagesRef, function (messagesSnapshot) {
+                try {
+                    const newsStatusDraw: IStatusDraw = messagesSnapshot.val()
+                    if (newsStatusDraw.must_spin === true) {
+                        setStatusDraw({ ...newsStatusDraw, must_spin: true })
+                        PLaySoundSpin()
+                    } else {
+                        setStatusDraw({ ...newsStatusDraw, must_spin: false })
+
+                    }
+                } catch (error) {
+                    debugger
+                    console.log(error)
+                }
+            })
+
+            const messagesRefData = ref(database, 'dataTeams')
+            const unsubscribeData = onChildChanged(messagesRefData, (snapshot) => {
+                const newMessage = snapshot.val()
+            })
+            onValue(messagesRefData, function (messagesSnapshot) {
+                const newsStatusDraw: WheelData[] = messagesSnapshot.val()
+                if (newsStatusDraw) {
+                    setData(newsStatusDraw)
+                }
+            })
+
+
+            return () => {
+                unsubscribeData()
+                unsubscribe()
+            }
+
+        } catch (error) {
+            debugger
+            console.log(error)
+        }
+
+
+    }, [])
+
+    const GetInitialInfo = async () => {
+        const updateTeams = await GetTeams()
+        setTeams(updateTeams.teams)
+        const updateParticipatns = await GetParticipants()
+        //setParticipants(updateParticipatns)
+        if (user.uid === ADMIN_ID) {
+            try {
+                const idParticipants = updateParticipatns.map(participant => participant.user_info.uid)
+                const response = await GetDataRealDataTime("has_started")
+                const responseRoulette = await GetDataRealDataTime("roulette")
+                if (!response) {
+                    if (responseRoulette) {
+                        await UpdatedRealDataTime({ current_team: "", missing_participants: updateParticipatns.map(participant => participant.user_info.uid), missing_teams: updateTeams.teams, current_participant: idParticipants[0] }, "roulette")
+                    }
+                    await WriteMustSpin(updateTeams.data, "dataTeams")
+                    await WriteMustSpin(true, "has_started")
+                }
+                if (response && responseRoulette.must_spin) {
+                    await UpdatedRealDataTime({ must_spin: false }, "roulette")
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
+    }
+
+    const HandleResetInitialInfo = async () => {
+        const updateTeams = await GetTeams()
+        const updateParticipatns = await GetParticipants()
+        const idParticipants = updateParticipatns.map(participant => participant.user_info.uid)
+        await UpdatedRealDataTime(false, "has_started")
+        await WriteMustSpin(updateTeams.data, "dataTeams")
+        await UpdatedRealDataTime({ current_team: "", missing_participants: updateParticipatns.map(participant => participant.user_info.uid), missing_teams: updateTeams.teams, current_participant: idParticipants[0], must_spin: false, prizeNumber: 0 }, "roulette")
+    }
+
+    const GetTeams = async (): Promise<{ teams: string[], data: WheelData[] }> => {
+        try {
+            const response = await GetFinalistTeams()
+            const newTeams = response.positions
+            const dataTeams: WheelData[] = []
+            if (response) {
+                newTeams.forEach(team => {
+                    dataTeams.push({ option: team })
+                })
+                setData(dataTeams)
+            }
+            return { teams: response.positions, data: dataTeams }
+        } catch (error) {
+            console.error(error)
+            return { teams: [], data: [] }
+        }
+    }
+
+    const GetParticipants = async (): Promise<IFinalsParticipants[]> => {
+        const finalParticipants = await GetFinalParticipants()
+        const response: IFinalsParticipants[] = finalParticipants
+        if (response) {
+            await WriteMustSpin(response, "participants")
+        }
+        return response
+    }
+
+
+    const handleSpinClick = async () => {
+        try {
+            if (!statusDraw.must_spin && statusDraw.current_participant === user.uid) {
+                const newPrizeNumber = Math.floor(Math.random() * data.length)
+                console.log(newPrizeNumber)
+                if (newPrizeNumber >= 0) {
+                    await UpdatedRealDataTime({ must_spin: true, prizeNumber: newPrizeNumber }, "roulette")
+                }
+            }
+        } catch (error) {
+            debugger
+            console.log(error)
+        }
+    }
+
+    const HandleOnStop = async () => {
+        try {
+
+            if (statusDraw.current_participant === user.uid) {
+                let newData = [...data]
+                const deleteData = newData.splice(statusDraw.prizeNumber, 1)
+                const newTeam = deleteData[0].option
+                if (newTeam) {
+                    const newMissingTeams = statusDraw.missing_teams.filter(team => team !== newTeam)
+                    const response = await GetDataRealDataTime("roulette")
+                    if (response) {
+                        await UpdatedRealDataTime({ current_team: newTeam, missing_teams: newMissingTeams }, "roulette")
+                        const responseUpdate = await GetDataRealDataTime("roulette")
+                        const updateparticipants = [...responseUpdate.missing_participants]
+                        updateparticipants.splice(responseUpdate.missing_participants.indexOf(responseUpdate.current_participant), 1)
+                        setTimeout(() => {
+                            UpdatedRealDataTime({ missing_participants: updateparticipants, current_team: "", current_participant: updateparticipants[0], must_spin: false }, "roulette")
+                        }, 7000);
+                    }
+                    await WriteMustSpin(newData, "dataTeams")
+                    const responseUpdate = await UpdateFinalParticipants(user.uid, { team: newTeam, position_team: teams.indexOf(newTeam) + 1, progress_stage: ["quarter"] })
+                }
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const PLaySoundSpin = () => {
+        const sound = new Audio("https://github.com/AletzMan/ImagesStorage/raw/refs/heads/main/bettinggame/Wheel_Sound_Effect.mp3")
+        sound.volume = 0
+        setTimeout(() => {
+            //sound.play()
+        }, 1150)
+    }
+
+    return (
+        <div className={styles.draw}>
+            <aside className={styles.teams}>
+                {user.uid === ADMIN_ID && <Button className={styles.teams_reset} props={{ onClick: HandleResetInitialInfo }} text="" icon={<ResetIcon className="" />} />}
+                <div className={styles.teams_roulette}>
+                    {data && <Wheel
+                        mustStartSpinning={statusDraw?.must_spin}
+                        prizeNumber={statusDraw?.prizeNumber}
+                        data={data}
+                        onStopSpinning={HandleOnStop}
+                        outerBorderWidth={3}
+                        innerBorderWidth={1}
+                        innerRadius={5}
+                        radiusLineWidth={2}
+                        outerBorderColor="#ffffff"
+                        innerBorderColor="#ffffff"
+                        backgroundColors={['#000000', '#dddddd', '#000000', '#dddddd', '#000000', '#dddddd', '#000000', '#dddddd']}
+                        textColors={['#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000']}
+                        fontSize={25}
+                        radiusLineColor="#ffffff"
+                        fontWeight={500} spinDuration={1}
+                    />}
+                </div>
+                <section className={styles.participants}>
+                    <span className={styles.participants_title}>Es el turno de:</span>
+                    <span className={styles.participants_name}>{`${participants.find(participant => participant.user_info.uid === statusDraw.current_participant)?.user_info.name}`}</span>
+                    {statusDraw.current_team && <span className={styles.participants_team}>{statusDraw.current_team}</span>}
+                </section>
+            </aside>
+            <footer className={styles.draw_footer}>
+                <Button className={statusDraw.current_participant === user.uid ? styles.draw_button : ""}
+                    type={statusDraw.current_participant === user.uid ? "success" : "secondary"}
+                    text={statusDraw.current_participant === user.uid ? statusDraw.must_spin ? "¡Suerte!" : "¡Es tu turno!" : statusDraw.missing_participants?.includes(user.uid) ? "Esperando tu turno" : "¡Ya participaste!"}
+                    props={{ onClick: handleSpinClick, disabled: statusDraw.current_participant !== user.uid || statusDraw.must_spin }}
+                    icon={statusDraw.current_participant === user.uid ? statusDraw.must_spin ? <LuckIcon className="" /> : <TargetIcon className="" /> : statusDraw.missing_participants?.includes(user.uid) ? <AwaitIcon className="" /> : <CheckIcon className="" />} />
+            </footer>
+        </div>
+    )
+}
