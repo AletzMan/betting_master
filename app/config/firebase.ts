@@ -428,7 +428,6 @@ export const UpdateFinalParticipants = async (uid: string, team: {}) => {
 		const docRef = await updateDoc(doc(db, `finalsparticipants`, `${uid}`), team)
 		return "OK"
 	} catch (e) {
-		console.log(e)
 		console.error("Error adding document: ", e)
 		return "FAIL"
 	}
@@ -465,9 +464,7 @@ export const WriteMustSpin = async (data: unknown, path: string) => {
 		set(chatListRef, data)
 	} catch (error) {
 		debugger
-		console.log(data)
-		console.log(path)
-		console.log(error)
+
 	}
 }
 
@@ -489,7 +486,6 @@ export const GetDataRealDataTime = async (path: string): Promise<any | undefined
 		const dbRef = ref(database)
 		const snapshot = await get(child(dbRef, `${path}`))
 		if (snapshot.exists()) {
-			console.log(snapshot.val())
 			return snapshot.val()
 		}
 		return undefined
