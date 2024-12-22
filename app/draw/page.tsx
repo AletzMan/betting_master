@@ -7,20 +7,22 @@ import { Button } from "../components/Button/Button"
 import { TextField } from "../components/TextFiled/TextFiled"
 import { GetDataRealDataTime, GetFinalParticipants, GetFinalistTeams, UpdateFinalParticipants, UpdatedRealDataTime, WriteChatDraw, WriteMustSpin, database } from "../config/firebase"
 import { useUser } from "../config/zustand-store"
-import { ArrowIcon, AwaitIcon, ChatIcon, CheckIcon, LuckIcon, ResetIcon, SendIcon, TargetIcon } from "../svg"
+import { AwaitIcon, ChatIcon, CheckIcon, LuckIcon, ResetIcon, SendIcon, TargetIcon } from "../svg"
 import styles from "./styles.module.scss"
-import firebase from "firebase/compat/app"
 import { onChildAdded, onChildChanged, onValue, ref, set } from "firebase/database"
 import { Wheel } from 'react-custom-roulette'
 import { WheelData } from "react-custom-roulette/dist/components/Wheel/types"
-import { ADMIN_ID, TeamsLocalLogos } from "../constants/constants"
+import { ADMIN_ID } from "../constants/constants"
 import { IFinalsParticipants } from "../types/types"
 import { enqueueSnackbar } from "notistack"
+import dynamic from 'next/dynamic'
+import { useConnectedUsers } from "../hooks/useConnectedUsers"
+import UsersConnected from "./components/UsersConnected"
 
 interface IMessage {
     uid: string
     message: string
-    username: string
+    username: string | null
 }
 
 interface IStatusDraw {
@@ -33,6 +35,7 @@ interface IStatusDraw {
     missing_participants: string[]
     prizeNumber: number
 }
+
 
 const dataOP: WheelData[] = [
     { option: '0' },
@@ -50,8 +53,7 @@ export default function Page() {
     const [messages, setMessages] = useState<IMessage[]>([{ uid: "AGstpoT4F9WHdWIwZjbHP6TRHea2", message: "Hola Majo", username: "Alejandro" }, { uid: "kyFpemF", message: "Hola Ale", username: "Maria Jose" }, { uid: "AGstpoT4F9WHdWIwZjbHP6TRHea2", message: "Oye sabes que ha pasado con el proyecto VPF24156, se va a enviar mañana?", username: "Alejandro" }, { uid: "kyFpemF", message: "Lo estuve revisando con Guy, y llegamos a la conclusion de que se van a tener que cambiar todos los strippers", username: "Maria Jose" }]);
     const refChat = useRef<HTMLDivElement | null>(null)
     const [data, setData] = useState<WheelData[]>(dataOP)
-    const [participants, setParticipants] = useState<IFinalsParticipants[]>([])
-    const [participantsOnline, setParticipantsOnline] = useState<{ [key: string]: string }>({})
+    const { participants } = useConnectedUsers()
     const [statusDraw, setStatusDraw] = useState<IStatusDraw>({ has_started: false, has_finished: false, current_participant: "", current_team: "", missing_teams: [], missing_participants: [], prizeNumber: 0, must_spin: false })
     const [viewChat, setViewChat] = useState(false)
     const [teams, setTeams] = useState<string[]>([])
@@ -120,31 +122,9 @@ export default function Page() {
             })
 
 
-            const refParticipants = ref(database, 'participants')
-            const unsubscribeparticipants = onChildChanged(refParticipants, (snapshot) => {
-                const newMessage = snapshot.val()
-            })
-            onValue(refParticipants, function (messagesSnapshot) {
-                const newsParticipants: IFinalsParticipants[] = messagesSnapshot.val()
-                if (newsParticipants) {
-                    setParticipants(newsParticipants)
-                }
-            })
-            const refParticipantsOnline = ref(database, 'participants_connected')
-            const unsubscribeparticipantsOnline = onChildChanged(refParticipantsOnline, (snapshot) => {
-                const newMessage = snapshot.val()
-            })
-            onValue(refParticipantsOnline, function (messagesSnapshot) {
-                const newsParticipants = messagesSnapshot.val()
-                if (newsParticipants) {
-                    setParticipantsOnline(newsParticipants)
-                }
-            })
             return () => {
                 unsubscribeData()
                 unsubscribe()
-                unsubscribeparticipants()
-                unsubscribeparticipantsOnline()
             }
 
         } catch (error) {
@@ -155,44 +135,6 @@ export default function Page() {
 
     }, [])
 
-    useEffect(() => {
-        const onBlur = (ev: FocusEvent) => {
-            StatusUserConnection('OUT')
-        }
-        window.addEventListener("blur", onBlur)
-
-        const onBeforeUnload = (ev: BeforeUnloadEvent) => {
-            StatusUserConnection('OUT')
-        }
-        window.addEventListener("beforeunload", onBeforeUnload)
-
-        const onLoad = (ev: FocusEvent) => {
-            StatusUserConnection('IN')
-        }
-        window.addEventListener("focus", onLoad)
-
-        StatusUserConnection("IN")
-
-        return () => {
-            window.removeEventListener("blur", onBlur)
-            window.removeEventListener("beforeunload", onBeforeUnload)
-            window.removeEventListener("focus", onLoad)
-        }
-    }, [])
-
-    const StatusUserConnection = async (status: 'IN' | 'OUT') => {
-        const response = await GetDataRealDataTime("participants_connected")
-        if (!response) {
-            await UpdatedRealDataTime({ [`${user.uid}`]: user.uid }, `participants_connected/`)
-        } else if (status === 'IN') {
-            const usersConnected: string[] = Object.values(response)
-            if (!usersConnected.includes(user.uid)) {
-                await UpdatedRealDataTime({ [`${user.uid}`]: user.uid }, `participants_connected/`)
-            }
-        } else if (status === 'OUT') {
-            await UpdatedRealDataTime({ [`${user.uid}`]: null }, `participants_connected/`)
-        }
-    }
 
     const GetInitialInfo = async () => {
         const updateTeams = await GetTeams()
@@ -332,18 +274,7 @@ export default function Page() {
 
     return (
         <section className={styles.section}>
-            <header className={styles.header}>
-                <div className={styles.header_users}>
-                    {participants.length > 0 && participants?.map(participant => (
-                        <picture className={`${styles.header_picture} ${participantsOnline && !Object.values(participantsOnline).includes(participant.user_info.uid) ? styles.header_pictureOffline : styles.header_pictureOnline}`}
-                            key={participant.id} attr-name={participant.user_info.name.split(" ")[0]}>
-                            <img className={styles.header_image} src={participant.user_info.photo} alt={`Foto de perfil de ${participant.user_info.name}`} />
-                        </picture>
-                    ))
-
-                    }
-                </div>
-            </header>
+            <UsersConnected />
             <div className={styles.board}>
                 <div className={styles.draw}>
                     <aside className={styles.teams}>
