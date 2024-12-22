@@ -14,17 +14,17 @@ export function useConnectedUsers() {
         const onBlur = (ev: FocusEvent) => {
             StatusUserConnection('OUT')
         }
-        window.addEventListener("blur", onBlur)
+        window?.addEventListener("blur", onBlur)
 
         const onBeforeUnload = (ev: BeforeUnloadEvent) => {
             StatusUserConnection('OUT')
         }
-        window.addEventListener("beforeunload", onBeforeUnload)
+        window?.addEventListener("beforeunload", onBeforeUnload)
 
         const onLoad = (ev: FocusEvent) => {
             StatusUserConnection('IN')
         }
-        window.addEventListener("focus", onLoad)
+        window?.addEventListener("focus", onLoad)
 
         StatusUserConnection("IN")
 
@@ -52,9 +52,9 @@ export function useConnectedUsers() {
         })
 
         return () => {
-            window.removeEventListener("blur", onBlur)
-            window.removeEventListener("beforeunload", onBeforeUnload)
-            window.removeEventListener("focus", onLoad)
+            window?.removeEventListener("blur", onBlur)
+            window?.removeEventListener("beforeunload", onBeforeUnload)
+            window?.removeEventListener("focus", onLoad)
             unsubscribeparticipants()
             unsubscribeparticipantsOnline()
         }
