@@ -16,8 +16,6 @@ import { ADMIN_ID } from "../constants/constants"
 import { IFinalsParticipants } from "../types/types"
 import { enqueueSnackbar } from "notistack"
 import dynamic from 'next/dynamic'
-import { useConnectedUsers } from "../hooks/useConnectedUsers"
-import UsersConnected from "./components/UsersConnected"
 
 interface IMessage {
     uid: string
@@ -47,13 +45,20 @@ const dataOP: WheelData[] = [
     { option: '6' },
     { option: '7' },
 ]
+
+const DynamicComponentWithNoSSR = dynamic(
+    () => import('./components/UsersConnected'),
+    { ssr: false }
+)
+
+
 export default function Page() {
     const { user } = useUser()
     const [message, setMessage] = useState<string>("")
     const [messages, setMessages] = useState<IMessage[]>([{ uid: "AGstpoT4F9WHdWIwZjbHP6TRHea2", message: "Hola Majo", username: "Alejandro" }, { uid: "kyFpemF", message: "Hola Ale", username: "Maria Jose" }, { uid: "AGstpoT4F9WHdWIwZjbHP6TRHea2", message: "Oye sabes que ha pasado con el proyecto VPF24156, se va a enviar mañana?", username: "Alejandro" }, { uid: "kyFpemF", message: "Lo estuve revisando con Guy, y llegamos a la conclusion de que se van a tener que cambiar todos los strippers", username: "Maria Jose" }]);
     const refChat = useRef<HTMLDivElement | null>(null)
     const [data, setData] = useState<WheelData[]>(dataOP)
-    const { participants } = useConnectedUsers()
+    const [participants, setParticipants] = useState<IFinalsParticipants[]>([])
     const [statusDraw, setStatusDraw] = useState<IStatusDraw>({ has_started: false, has_finished: false, current_participant: "", current_team: "", missing_teams: [], missing_participants: [], prizeNumber: 0, must_spin: false })
     const [viewChat, setViewChat] = useState(false)
     const [teams, setTeams] = useState<string[]>([])
@@ -155,6 +160,7 @@ export default function Page() {
                 if (response && responseRoulette.must_spin) {
                     await UpdatedRealDataTime({ must_spin: false }, "roulette")
                 }
+                setParticipants(updateParticipatns)
             } catch (error) {
                 console.error(error)
             }
@@ -274,7 +280,7 @@ export default function Page() {
 
     return (
         <section className={styles.section}>
-            <UsersConnected />
+            <DynamicComponentWithNoSSR />
             <div className={styles.board}>
                 <div className={styles.draw}>
                     <aside className={styles.teams}>
