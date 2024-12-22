@@ -391,8 +391,8 @@ export interface IFinalsParticipants {
 	team: string
 	user_info: {
 		uid: string
-		name: string
-		photo: string
-		email: string
+		name: string | null
+		photo: string | null
+		email: string | null
 	}
 }
