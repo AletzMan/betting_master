@@ -30,8 +30,8 @@ export async function POST(request: NextRequest) {
 					httpOnly: true,
 					secure: true,
 				}
-
-				cookies().set(options)
+				const cookiesStore = await cookies()
+				cookiesStore.set(options)
 			}
 			return NextResponse.json({}, { status: 200 })
 		} catch (error) {
@@ -42,7 +42,8 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
 	try {
-		const session = cookies().get("session-soccer")?.value || ""
+		const cookiesStore = await cookies()
+		const session = cookiesStore.get("session-soccer")?.value || ""
 
 		//Validate if the cookie exist
 		if (!session) {
@@ -71,7 +72,8 @@ export async function GET(request: NextRequest) {
 	} catch (error) {
 		console.log(error instanceof Error)
 		if (error instanceof Error) {
-			cookies().delete("session-soccer")
+			const cookiesStore = await cookies()
+			cookiesStore.delete("session-soccer")
 			return NextResponse.json({ isLogged: false, message: error.message }, { status: 401 })
 		}
 	}
