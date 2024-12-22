@@ -54,6 +54,7 @@ export default function Page() {
     const [participantsOnline, setParticipantsOnline] = useState<{ [key: string]: string }>({})
     const [statusDraw, setStatusDraw] = useState<IStatusDraw>({ has_started: false, has_finished: false, current_participant: "", current_team: "", missing_teams: [], missing_participants: [], prizeNumber: 0, must_spin: false })
     const [viewChat, setViewChat] = useState(false)
+    const [teams, setTeams] = useState<string[]>([])
 
 
     useEffect(() => {
@@ -194,9 +195,10 @@ export default function Page() {
     }
 
     const GetInitialInfo = async () => {
+        const updateTeams = await GetTeams()
+        setTeams(updateTeams.teams)
         if (user.uid === ADMIN_ID) {
             try {
-                const updateTeams = await GetTeams()
                 const updateParticipatns = await GetParticipants()
                 const idParticipants = updateParticipatns.map(participant => participant.user_info.uid)
                 const response = await GetDataRealDataTime("has_started")
@@ -230,7 +232,7 @@ export default function Page() {
 
     const GetTeams = async (): Promise<{ teams: string[], data: WheelData[] }> => {
         try {
-            const response = { positions: ['Cruz Azul', 'Toluca', 'Tigres', 'Pumas', 'Monterrey', 'San Luis', 'América', 'Tijuana'] }
+            const response = await GetFinalistTeams()
             const newTeams = response.positions
             const dataTeams: WheelData[] = []
             if (response) {
@@ -315,17 +317,10 @@ export default function Page() {
                         updateparticipants.splice(responseUpdate.missing_participants.indexOf(responseUpdate.current_participant), 1)
                         setTimeout(() => {
                             UpdatedRealDataTime({ missing_participants: updateparticipants, current_team: "", current_participant: updateparticipants[0], must_spin: false }, "roulette")
-                        }, 5000);
+                        }, 7000);
                     }
-
                     await WriteMustSpin(newData, "dataTeams")
-
-                    /*const response = await UpdateFinalParticipants(user.uid, { team: newTeam, position_team: teams.indexOf(newTeam) + 1, progress_stage: ["quarter"] })
-                    if (response === "OK")
-                        enqueueSnackbar(`A ${user.name} le ha tocado ${newTeam}. ¡Que lleguen a la final!`, { variant: "success", autoHideDuration: 6000 })
-                    else
-                        enqueueSnackbar(`Error al asignar el equipo actualiza la pagina`, { variant: "error" })*/
-                    //await WriteMustSpin("false", "roulette")
+                    const responseUpdate = await UpdateFinalParticipants(user.uid, { team: newTeam, position_team: teams.indexOf(newTeam) + 1, progress_stage: ["quarter"] })
                 }
             }
         } catch (error) {
