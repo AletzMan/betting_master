@@ -2,8 +2,9 @@ import { IStatistics } from "@/app/types/StatisticsTypes"
 import axios from "axios"
 import { PlayerStatistics } from "../PlayerStatistics/PlayerStatistics"
 import { STATISTICS_OPTIONS } from "@/app/constants/constants"
+import { SearchParams } from "@/app/types/appTypes"
 
-const GetStatistics = async (tournament: string, type: string) => {
+const GetStatistics = async (tournament: string | string[] | undefined, type: string | string[] | undefined) => {
 	try {
 		const response = await axios.get<IStatistics>(process.env.NODE_ENV === "development" ? `http://localhost:3000/api/teams/statistics/${tournament}/${type}` : `https://betting-master.vercel.app/api/teams/statistics/${tournament}/${type}`)
 
@@ -16,9 +17,7 @@ const GetStatistics = async (tournament: string, type: string) => {
 	}
 }
 
-export async function StatisticsTable({ searchParams }: { searchParams: { [key: string]: string } }) {
-	const tournament = searchParams.tournament
-	const type = searchParams.type
+export async function StatisticsTable({ tournament, type }: { tournament: string | string[] | undefined, type: string | string[] | undefined }) {
 	const statistics = await GetStatistics(tournament, type)
 	const option = STATISTICS_OPTIONS.filter((option) => option?.type === type)[0]
 
