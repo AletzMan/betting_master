@@ -2,9 +2,9 @@ import { DocumentData } from "firebase/firestore"
 
 export type IUserInfo = {
 	uid: string
-	name: string
-	photo: string
-	email: string
+	name: string | null
+	photo: string | null
+	email: string | null
 }
 
 export interface IStatusResponse extends Response {
