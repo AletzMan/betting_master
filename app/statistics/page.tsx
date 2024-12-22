@@ -4,9 +4,14 @@ import { STATISTICS_OPTIONS } from "../constants/constants"
 import { Suspense } from "react"
 import { StatisticsTable } from "./components/StatisticsTable/StatisticsTable"
 import { Loading } from "../components/Loading/Loading"
+import { SearchParams } from "../types/appTypes"
 
-export default async function StatisticsPage({ searchParams }: { searchParams: { [key: string]: string } }) {
+
+
+export default async function StatisticsPage(props: { searchParams: SearchParams }) {
+	const searchParams = await props.searchParams
 	const type = searchParams.type
+	const tournament = searchParams.tournament
 
 	const option = STATISTICS_OPTIONS.filter((option) => option?.type === type)[0]
 
@@ -39,7 +44,7 @@ export default async function StatisticsPage({ searchParams }: { searchParams: {
 					<span>{option?.headers[2]}</span>
 				</header>
 				<Suspense fallback={<Loading />}>
-					<StatisticsTable searchParams={searchParams} />
+					<StatisticsTable tournament={tournament} type={type} />
 				</Suspense>
 			</section>
 		</main>
