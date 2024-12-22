@@ -1,0 +1,97 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    padding: 0.25em 0 0.5em 0.5em;
+    gap: 2em;
+
+    &_users {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5em;
+    }
+
+    &_picture {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(100svw / 12);
+        height: calc(100svw / 12);
+        max-width: 2em;
+        max-height: 2em;
+        border-radius: 3em;
+        opacity: 1;
+
+        &::before {
+            content: '';
+            position: absolute;
+            right: 0em;
+            bottom: 0em;
+            width: 0.5em;
+            height: 0.5em;
+            border-radius: 2em;
+            background-color: #57c325;
+            z-index: 2;
+            transition: all 0.3s ease-in-out;
+        }
+
+        &Offline {
+            .header_image {
+                opacity: 0.4;
+            }
+
+            &::before {
+                background-color: #d62b2b;
+            }
+        }
+
+        &Online {
+            &::after {
+                position: absolute;
+                content: attr(attr-name);
+                font-size: 0.8em;
+                padding: 0.1em 0.3em;
+                color: rgb(1, 9, 16);
+                background-color: var(--foregroundSecondColor);
+                border-radius: 0.25em;
+                animation: animOnline 2s ease-in-out both;
+                z-index: 15;
+
+
+                @keyframes animOnline {
+                    0% {
+                        opacity: 0;
+                        transform: translateY(1em);
+                    }
+
+                    10% {
+                        opacity: 1;
+                    }
+
+                    50% {
+                        opacity: 1;
+                    }
+
+                    100% {
+                        opacity: 0;
+                        transform: translateY(3em);
+                    }
+                }
+
+
+            }
+        }
+
+    }
+
+    &_image {
+        width: calc(100svw / 12);
+        height: calc(100svw / 12);
+        max-width: 2em;
+        max-height: 2em;
+        border-radius: 3em;
+        border: 1px solid var(--foregroundSecondColor);
+        transition: all 0.3s ease-in-out;
+    }
+
+}
