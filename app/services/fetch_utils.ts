@@ -134,27 +134,6 @@ export const GetMatchDay = async (tournamentId: string): Promise<number> => {
 }
 
 
-export const GetUsersData = async (): Promise<IUserSettings[]> => {
-	try {
-		const response = await fetch(`/api/users`, {
-			method: "GET",
-			next: { revalidate: 10, tags: ['dataUsers'] },
-		})
-
-		if (response.status === 200) {
-			return await response.json()
-		} else if (response.status === 204) {
-			return {} as IUserSettings[]
-		}
-	} catch (error) {
-		if (axios.isAxiosError(error) && error.response) {
-			console.error(error)
-		}
-		return {} as IUserSettings[]
-	}
-	return {} as IUserSettings[]
-}
-
 
 export const GetNewsLigaMX = async (): Promise<INews[]> => {
 	try {
