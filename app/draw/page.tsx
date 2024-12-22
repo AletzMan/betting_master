@@ -49,11 +49,11 @@ export default function Page() {
     const [message, setMessage] = useState<string>("")
     const [messages, setMessages] = useState<IMessage[]>([{ uid: "AGstpoT4F9WHdWIwZjbHP6TRHea2", message: "Hola Majo", username: "Alejandro" }, { uid: "kyFpemF", message: "Hola Ale", username: "Maria Jose" }, { uid: "AGstpoT4F9WHdWIwZjbHP6TRHea2", message: "Oye sabes que ha pasado con el proyecto VPF24156, se va a enviar mañana?", username: "Alejandro" }, { uid: "kyFpemF", message: "Lo estuve revisando con Guy, y llegamos a la conclusion de que se van a tener que cambiar todos los strippers", username: "Maria Jose" }]);
     const refChat = useRef<HTMLDivElement | null>(null)
-    const [teams, setTeams] = useState<string[]>(['Cruz Azul', 'Toluca', 'Tigres', 'Pumas', 'Monterrey', 'San Luis', 'América', 'Tijuana'])
     const [data, setData] = useState<WheelData[]>(dataOP)
     const [participants, setParticipants] = useState<IFinalsParticipants[]>([])
     const [participantsOnline, setParticipantsOnline] = useState<{ [key: string]: string }>({})
     const [statusDraw, setStatusDraw] = useState<IStatusDraw>({ has_started: false, has_finished: false, current_participant: "", current_team: "", missing_teams: [], missing_participants: [], prizeNumber: 0, must_spin: false })
+    const [viewChat, setViewChat] = useState(false)
 
 
     useEffect(() => {
@@ -238,7 +238,6 @@ export default function Page() {
                     dataTeams.push({ option: team })
                 })
                 setData(dataTeams)
-                setTeams(newTeams)
             }
             return { teams: response.positions, data: dataTeams }
         } catch (error) {
@@ -335,6 +334,7 @@ export default function Page() {
     }
 
 
+
     return (
         <section className={styles.section}>
             <header className={styles.header}>
@@ -386,7 +386,7 @@ export default function Page() {
                             icon={statusDraw.current_participant === user.uid ? statusDraw.must_spin ? <LuckIcon className="" /> : <TargetIcon className="" /> : statusDraw.missing_participants?.includes(user.uid) ? <AwaitIcon className="" /> : <CheckIcon className="" />} />
                     </footer>
                 </div>
-                <div className={styles.chat}>
+                <div className={`${styles.chat} ${viewChat ? styles.chat_active : styles.chat_inactive}`}>
                     <div className={`${styles.chat_text} scrollbar`} ref={refChat}>
                         {messages.map((message, index) => (
                             <div key={index} className={`${styles.user} ${user.uid === message.uid ? styles.user_local : styles.user_away}`}>
@@ -401,7 +401,7 @@ export default function Page() {
                     </footer>
                 </div>
             </div>
-            <button className={styles.buttonChat}>
+            <button className={`${styles.buttonChat} ${viewChat ? styles.buttonChat_active : styles.buttonChat_inactive}`} onClick={() => setViewChat(prev => !prev)}>
                 <ChatIcon className={styles.buttonChat_icon} />
             </button>
 
