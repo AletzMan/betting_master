@@ -25,18 +25,20 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 2em;
-        height: 2em;
+        width: calc(100svw / 12);
+        height: calc(100svw / 12);
+        max-width: 2em;
+        max-height: 2em;
         border-radius: 3em;
         opacity: 1;
 
         &::before {
             content: '';
             position: absolute;
-            right: -0.15em;
-            bottom: -0.15em;
-            width: 0.75em;
-            height: 0.75em;
+            right: 0em;
+            bottom: 0em;
+            width: 0.5em;
+            height: 0.5em;
             border-radius: 2em;
             background-color: #57c325;
             z-index: 2;
@@ -93,8 +95,10 @@
     }
 
     &_image {
-        width: 2em;
-        height: 2em;
+        width: calc(100svw / 12);
+        height: calc(100svw / 12);
+        max-width: 2em;
+        max-height: 2em;
         border-radius: 3em;
         border: 1px solid var(--foregroundSecondColor);
         transition: all 0.3s ease-in-out;
@@ -114,6 +118,17 @@
     border-radius: var(--borderRadius);
     background-color: var(--secondaryColor);
     z-index: 6;
+    transition: all 0.4s ease-in-out;
+
+
+    &_inactive {
+        transform: translateX(100svw);
+
+    }
+
+    &_active {
+        transform: translateX(0);
+    }
 
     &_text {
         display: flex;
@@ -128,8 +143,8 @@
 
 .buttonChat {
     position: absolute;
-    bottom: 60svh;
     right: 0.25em;
+    bottom: 60svh;
     z-index: 3;
     width: 3em;
     height: 3em;
@@ -137,6 +152,15 @@
     border: none;
     border-radius: 3em;
     background-color: var(--secondaryColor);
+
+
+    &_inactive {
+        transform: translateY(50svh);
+    }
+
+    &_active {
+        transform: translateY(0);
+    }
 
     &_icon {
         width: 2.5em;
@@ -226,9 +250,9 @@
 }
 
 .board {
-    display: grid;
-    grid-template-rows: 3fr 1.5fr;
+    display: flex;
     gap: 0.5em;
+    width: 100%;
     height: calc(100svh - 6em);
     padding: 0 0.25em 0.25em 0.25em;
 }
@@ -238,6 +262,7 @@
     flex-direction: column;
     position: relative;
     height: 100%;
+    width: 100%;
     border: 1px solid var(--borderColor);
     border-radius: var(--borderRadius);
     background-color: var(--secondaryColor);
