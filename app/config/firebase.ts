@@ -464,6 +464,7 @@ export const WriteMustSpin = async (data: unknown, path: string) => {
 		const chatListRef = ref(database, path)
 		set(chatListRef, data)
 	} catch (error) {
+		debugger
 		console.log(data)
 		console.log(path)
 		console.log(error)
