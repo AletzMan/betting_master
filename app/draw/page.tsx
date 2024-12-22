@@ -352,7 +352,7 @@ export default function Page() {
             <div className={styles.board}>
                 <div className={styles.draw}>
                     <aside className={styles.teams}>
-                        {user.uid === ADMIN_ID && <Button className={styles.teams_reset} props={{ onClick: HandleResetInitialInfo }} text="Reset" icon={<ResetIcon className="" />} />}
+                        {user.uid === ADMIN_ID && <Button className={styles.teams_reset} props={{ onClick: HandleResetInitialInfo }} text="" icon={<ResetIcon className="" />} />}
                         <div className={styles.teams_roulette}>
                             {data && <Wheel
                                 mustStartSpinning={statusDraw?.must_spin}
@@ -365,17 +365,17 @@ export default function Page() {
                                 radiusLineWidth={2}
                                 outerBorderColor="#ffffff"
                                 innerBorderColor="#ffffff"
-                                backgroundColors={['#863611', '#0f0c6d', '#0c6d2c', '#8c7807']}
-                                fontSize={24}
+                                backgroundColors={['#000000', '#dddddd', '#000000', '#dddddd', '#000000', '#dddddd', '#000000', '#dddddd']}
+                                textColors={['#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000']}
+                                fontSize={25}
                                 radiusLineColor="#ffffff"
-                                textColors={['#ffffff']}
                                 fontWeight={500} spinDuration={1}
                             />}
                         </div>
                         <section className={styles.participants}>
                             <span className={styles.participants_title}>Es el turno de:</span>
                             <span className={styles.participants_name}>{`${participants.find(participant => participant.user_info.uid === statusDraw.current_participant)?.user_info.name}`}</span>
-                            {!statusDraw.current_team && <span className={styles.participants_team}>{"Monterrey"}</span>}
+                            {statusDraw.current_team && <span className={styles.participants_team}>{statusDraw.current_team}</span>}
                         </section>
                     </aside>
                     <footer className={styles.draw_footer}>
