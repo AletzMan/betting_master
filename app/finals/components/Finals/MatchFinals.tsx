@@ -1,6 +1,5 @@
 import { IFinalsParticipants, IStage } from "@/app/types/types"
 import styles from "./finals.module.scss"
-import { QualifiedTeams } from "../Quarterfinals"
 import Image from "next/image"
 import { TeamsLocalLogos } from "@/app/constants/constants"
 import { DeadIcon } from "@/app/svg"
