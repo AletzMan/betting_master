@@ -1,8 +1,9 @@
 import "./globals.css"
 import type { Metadata } from "next"
 import { Jost } from "next/font/google"
-import { Header } from "./components/Header/Header"
 import MaintenancePage from "./maintenance/page"
+import Header from "./components/Header/Header"
+
 
 const montserrat = Jost({ subsets: ["latin"] })
 
