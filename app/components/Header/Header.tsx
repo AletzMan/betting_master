@@ -11,7 +11,7 @@ import { MenuPages } from "../MenuPages/MenuPages"
 import { useMenu } from "@/app/config/zustand-store"
 import { UpdateNotificationUser } from "@/app/config/firebase"
 
-export function Header() {
+export default function Header() {
 
 	const pathname = usePathname()
 	const { userLocal } = useLoggedUser()
