@@ -1,5 +1,8 @@
+"use client"
 import { useConnectedUsers } from "@/app/hooks/useConnectedUsers"
 import styles from "./styles.module.scss"
+
+
 
 export default function UsersConnected() {
     const { participants, participantsOnline } = useConnectedUsers()
