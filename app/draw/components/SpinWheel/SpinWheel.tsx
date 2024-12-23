@@ -15,6 +15,8 @@ import { useUser } from "@/app/config/zustand-store"
 import { IFinalsParticipants } from "@/app/types/types"
 import PixelArt from "../PixelArt/PixelArt"
 import { CountdownCircleTimer, OnComplete } from "react-countdown-circle-timer"
+import { ShuffleArray } from "@/app/utils/helpers"
+import { useRouter } from "next/navigation"
 
 interface IStatusDraw {
     has_started: boolean
@@ -41,6 +43,7 @@ const dataOP: WheelData[] = [
 
 
 export default function SpinWheel() {
+    const router = useRouter()
     const { user } = useUser()
     const { participants } = useConnectedUsers()
     const [data, setData] = useState<WheelData[]>(dataOP)
@@ -48,6 +51,7 @@ export default function SpinWheel() {
     const [teams, setTeams] = useState<string[]>([])
     const [countDown, setCountdown] = useState(false)
     const [started, setStarted] = useState(false)
+    const [finished, setFinished] = useState(false)
 
     useEffect(() => {
         GetInitialInfo()
@@ -88,6 +92,16 @@ export default function SpinWheel() {
                 const newsStart: boolean = messagesSnapshot.val()
                 setStarted(newsStart)
             })
+
+            const messagesRefEnd = ref(database, 'has_finished')
+            const unsubscribeEnd = onChildChanged(messagesRefEnd, (snapshot) => {
+                const newMessage = snapshot.val()
+            })
+            onValue(messagesRefEnd, function (messagesSnapshot) {
+                const newsStart: boolean = messagesSnapshot.val()
+                setFinished(newsStart)
+            })
+
             const messagesRefCountdown = ref(database, 'countdown')
             const unsubscribeCountdown = onChildChanged(messagesRefCountdown, (snapshot) => {
                 const newMessage = snapshot.val()
@@ -103,6 +117,7 @@ export default function SpinWheel() {
                 unsubscribe()
                 unsubscribeStart()
                 unsubscribeCountdown()
+                unsubscribeEnd()
             }
 
         } catch (error) {
@@ -117,18 +132,17 @@ export default function SpinWheel() {
         const updateTeams = await GetTeams()
         setTeams(updateTeams.teams)
         const updateParticipatns = await GetParticipants()
-        //setParticipants(updateParticipatns)
         if (user.uid === ADMIN_ID) {
             try {
-                const idParticipants = updateParticipatns.map(participant => participant.user_info.uid)
+                const uidParticipants = updateParticipatns.map(participant => participant.user_info.uid)
+                const newOrder = ShuffleArray(uidParticipants)
                 const response = await GetDataRealDataTime("has_started")
                 const responseRoulette = await GetDataRealDataTime("roulette")
                 if (!response) {
                     if (responseRoulette) {
-                        await UpdatedRealDataTime({ current_team: "", missing_participants: updateParticipatns.map(participant => participant.user_info.uid), missing_teams: updateTeams.teams, current_participant: idParticipants[0] }, "roulette")
+                        await UpdatedRealDataTime({ current_team: "", missing_participants: newOrder, missing_teams: updateTeams.teams, current_participant: newOrder[0] }, "roulette")
                     }
                     await WriteMustSpin(updateTeams.data, "dataTeams")
-                    //await WriteMustSpin(true, "has_started")
                 }
                 if (response && responseRoulette.must_spin) {
                     await UpdatedRealDataTime({ must_spin: false }, "roulette")
@@ -142,11 +156,13 @@ export default function SpinWheel() {
     const HandleResetInitialInfo = async () => {
         const updateTeams = await GetTeams()
         const updateParticipatns = await GetParticipants()
-        const idParticipants = updateParticipatns.map(participant => participant.user_info.uid)
         await WriteMustSpin(updateTeams.data, "dataTeams")
         await WriteMustSpin(false, "countdown")
         await WriteMustSpin(false, "has_started")
-        await UpdatedRealDataTime({ current_team: "", missing_participants: updateParticipatns.map(participant => participant.user_info.uid), missing_teams: updateTeams.teams, current_participant: idParticipants[0], must_spin: false, prizeNumber: 0 }, "roulette")
+        await WriteMustSpin(false, "has_finished")
+        const uidParticipants = updateParticipatns.map(participant => participant.user_info.uid)
+        const newOrder = ShuffleArray(uidParticipants)
+        await UpdatedRealDataTime({ current_team: "", missing_participants: newOrder, missing_teams: updateTeams.teams, current_participant: newOrder[0], must_spin: false, prizeNumber: 0 }, "roulette")
     }
 
     const GetTeams = async (): Promise<{ teams: string[], data: WheelData[] }> => {
@@ -203,13 +219,21 @@ export default function SpinWheel() {
                     const newMissingTeams = statusDraw.missing_teams.filter(team => team !== newTeam)
                     const response = await GetDataRealDataTime("roulette")
                     if (response) {
-                        await UpdatedRealDataTime({ current_team: newTeam, missing_teams: newMissingTeams }, "roulette")
-                        const responseUpdate = await GetDataRealDataTime("roulette")
-                        const updateparticipants = [...responseUpdate.missing_participants]
-                        updateparticipants.splice(responseUpdate.missing_participants.indexOf(responseUpdate.current_participant), 1)
-                        setTimeout(() => {
-                            UpdatedRealDataTime({ missing_participants: updateparticipants, current_team: "", current_participant: updateparticipants[0], must_spin: false }, "roulette")
-                        }, 7000);
+                        if (response.missing_participants.length > 1) {
+                            await UpdatedRealDataTime({ current_team: newTeam, missing_teams: newMissingTeams }, "roulette")
+                            const responseUpdate = await GetDataRealDataTime("roulette")
+                            const updateparticipants = [...responseUpdate.missing_participants]
+                            updateparticipants.splice(responseUpdate.missing_participants.indexOf(responseUpdate.current_participant), 1)
+                            setTimeout(() => {
+                                UpdatedRealDataTime({ missing_participants: updateparticipants, current_team: "", current_participant: updateparticipants[0], must_spin: false }, "roulette")
+                            }, 7000)
+                        } else {
+                            await UpdatedRealDataTime({ current_team: newTeam }, "roulette")
+                            setTimeout(() => {
+                                WriteMustSpin(true, "has_finished")
+                                router.push("/finals")
+                            }, 7000)
+                        }
                     }
                     await WriteMustSpin(newData, "dataTeams")
                     const responseUpdate = await UpdateFinalParticipants(user.uid, { team: newTeam, position_team: teams.indexOf(newTeam) + 1, progress_stage: ["quarter"] })
@@ -235,7 +259,7 @@ export default function SpinWheel() {
 
     return (
         <div className={styles.draw}>
-            {started && <>
+            {started && !finished && <>
                 <aside className={styles.teams}>
                     {user.uid === ADMIN_ID && <Button className={styles.teams_reset} props={{ onClick: HandleResetInitialInfo }} text="" icon={<ResetIcon className="" />} />}
                     <div className={styles.teams_roulette}>
@@ -271,7 +295,7 @@ export default function SpinWheel() {
                         icon={statusDraw.current_participant === user.uid ? statusDraw.must_spin ? <LuckIcon className="" /> : <TargetIcon className="" /> : statusDraw.missing_participants?.includes(user.uid) ? <AwaitIcon className="" /> : <CheckIcon className="" />} />
                 </footer>
             </>}
-            {!started &&
+            {!started && !finished &&
                 <>
                     <PixelArt />
                     {countDown &&
@@ -286,6 +310,11 @@ export default function SpinWheel() {
                             </CountdownCircleTimer>
                         </div>
                     }
+                </>
+            }
+            {finished && started &&
+                <>
+                    <span className={styles.messagefinal}>Felicidades!</span>
                 </>
             }
         </div>
