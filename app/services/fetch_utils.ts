@@ -127,7 +127,7 @@ export const GetMatchDay = async (tournamentId: string): Promise<number> => {
 		return response.data.data.data[0].classificationHead.matchDay
 	} catch (error) {
 		if (axios.isAxiosError(error) && error.response) {
-			console.log(error.code)
+			console.error(error.code)
 		}
 		return 0
 	}
@@ -140,7 +140,6 @@ export const GetNewsLigaMX = async (): Promise<INews[]> => {
 		const response = await axios.get("https://www.marca.com/mx/ue-nydus/nydus-feeder.php?option=direct&content=mx%2Ffutbol%2Fliga-mx%2F2024%2F12%2F17%2F6760b4ca22601d9a648b45cc")
 
 		if (response.status === 200) {
-			console.log("NOTICIAS: ", response.data.content)
 			return response.data.content
 		} else if (response.status === 204) {
 			return [] as INews[]
@@ -171,9 +170,9 @@ export const SendNotifications = async (users: IUserSettings[], day: string): Pr
 		}
 		return 0
 	} catch (error) {
-		console.log(error)
+		console.error(error)
 		if (axios.isAxiosError(error) && error.response) {
-			console.log(error.code)
+			console.error(error.code)
 		}
 		return 0
 	}
