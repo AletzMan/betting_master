@@ -757,3 +757,15 @@ export const STATISTICS_OPTIONS: IOptions[] = [
 ]
 
 export const ADMIN_ID = process.env.NEXT_PUBLIC_ADMIN_UID
+
+
+export const UsernameColors = [
+	"#FF5733", // Rojo anaranjado
+	"#33FF57", // Verde brillante
+	"#50a2ff", // Azul vivo
+	"#FF33A6", // Rosa vibrante
+	"#FFD733", // Amarillo cálido
+	"#33FFF7", // Turquesa
+	"#a970ff", // Morado intenso
+	"#ff33d6"  // Naranja brillante
+]
