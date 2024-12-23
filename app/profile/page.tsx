@@ -16,11 +16,11 @@ export default async function ProfilePage() {
 		<main className={`${styles.main}   scrollbar`}>
 			<section className={styles.section}>
 				{<SettingsProfile />}
-				{/*loading && user.uid === */ADMIN_UID && <AppConfig />}
-				{/*loading && user.uid === */ADMIN_UID && <AdminPanel />}
-				{/*loading && user.uid === */ADMIN_UID && <AdminNotifications />}
-				{/*loading && user.uid === */ADMIN_UID && <BetsByUser />}
-				{/*loading && user.uid === */ADMIN_UID && <AdminFinals />}
+				{loading && user.uid === ADMIN_UID && <AppConfig />}
+				{loading && user.uid === ADMIN_UID && <AdminPanel />}
+				{loading && user.uid === ADMIN_UID && <AdminNotifications />}
+				{loading && user.uid === ADMIN_UID && <BetsByUser />}
+				{loading && user.uid === ADMIN_UID && <AdminFinals />}
 			</section>
 		</main>
 	)
