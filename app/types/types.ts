@@ -5,6 +5,7 @@ export type IUserInfo = {
 	name: string | null
 	photo: string | null
 	email: string | null
+	color?: string
 }
 
 export interface IStatusResponse extends Response {
@@ -389,10 +390,5 @@ export interface IFinalsParticipants {
 	position_team: number
 	progress_stage: IStage[]
 	team: string
-	user_info: {
-		uid: string
-		name: string | null
-		photo: string | null
-		email: string | null
-	}
+	user_info: IUserInfo
 }
