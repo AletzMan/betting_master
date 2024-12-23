@@ -143,9 +143,9 @@ export default function SpinWheel() {
         const updateTeams = await GetTeams()
         const updateParticipatns = await GetParticipants()
         const idParticipants = updateParticipatns.map(participant => participant.user_info.uid)
-        await WriteMustSpin(false, "has_started")
-        await WriteMustSpin(false, "countdown")
         await WriteMustSpin(updateTeams.data, "dataTeams")
+        await WriteMustSpin(false, "countdown")
+        await WriteMustSpin(false, "has_started")
         await UpdatedRealDataTime({ current_team: "", missing_participants: updateParticipatns.map(participant => participant.user_info.uid), missing_teams: updateTeams.teams, current_participant: idParticipants[0], must_spin: false, prizeNumber: 0 }, "roulette")
     }
 
@@ -278,9 +278,9 @@ export default function SpinWheel() {
                         <div className={styles.countdown}>
                             <CountdownCircleTimer
                                 isPlaying
-                                duration={10}
+                                duration={10} strokeWidth={3}
                                 colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                                colorsTime={[7, 5, 2, 0]} initialRemainingTime={10} size={100} isSmoothColorTransition onComplete={HandleStarted}
+                                colorsTime={[7, 5, 2, 0]} initialRemainingTime={10} size={90} isSmoothColorTransition onComplete={HandleStarted}
                             >
                                 {({ remainingTime }) => <span className={styles.countdown_number}>{remainingTime}</span>}
                             </CountdownCircleTimer>
