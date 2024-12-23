@@ -2,6 +2,8 @@
     position: relative;
     padding: 2.8em 0.25em 0.25em 0.25em;
     background-color: var(--secondaryColor);
+    max-width: 1000px;
+    margin: 0 auto;
 
     &_title {
         font-size: 1em;
