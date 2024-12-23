@@ -12,6 +12,7 @@ import { LoadingTwoIcon, LuckIcon } from "../svg"
 import Participant from "./components/Participant/Participant"
 import Finals from "./components/Finals/Finals"
 import { Loading } from "../components/Loading/Loading"
+import { UsernameColors } from "../constants/constants"
 
 export default function Page() {
     const { isLandscape } = useOrientation()
@@ -68,7 +69,7 @@ export default function Page() {
                 team: "",
                 position_team: 0,
                 progress_stage: ["quarter"],
-                user_info: userInfo,
+                user_info: { ...userInfo, color: UsernameColors[participants?.length || 0] },
             }
             const result = await AddFinalParticipant(newParticipant)
             if (result === "OK") {
