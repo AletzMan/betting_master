@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-
 import styles from "./signin.module.scss"
-import { AppLogo, LuckIcon } from "@/app/svg"
+import { AppLogo, LuckIcon, StartedIcon } from "@/app/svg"
 import { TeamsSlides } from "../TeamsSlides/TeamsSlides"
 import { GetNewsLigaMX } from "@/app/services/fetch_utils"
 import Link from "next/link"
@@ -9,10 +8,8 @@ import { findFirstMatch } from "@/app/utils/helpers"
 import { Teams, TeamsLogos } from "@/app/constants/constants"
 
 export async function SignIn() {
+
 	const news = await GetNewsLigaMX()
-
-
-
 
 	return (
 		<article className={`${styles.signIn} `}>
@@ -23,7 +20,7 @@ export async function SignIn() {
 				<TeamsSlides />
 			</section>
 			<h2 className={styles.title}>Noticias</h2>
-			<section className={`${styles.news} scrollbar`}>
+			{<section className={`${styles.news} scrollbar`}>
 				{news.length > 0 && news?.map((notice, index) => (
 					<Link key={notice.titulo} className={styles.news_notice} href={notice.url}>
 						<div className={styles.news_logo}>
@@ -35,7 +32,7 @@ export async function SignIn() {
 				))
 
 				}
-			</section>
+			</section>}
 		</article>
 	)
 }
