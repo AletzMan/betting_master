@@ -13,6 +13,8 @@ import { onChildAdded, onChildChanged, onValue, ref } from "firebase/database"
 import { useEffect, useState } from "react"
 import { useUser } from "@/app/config/zustand-store"
 import { IFinalsParticipants } from "@/app/types/types"
+import PixelArt from "../PixelArt/PixelArt"
+import { CountdownCircleTimer, OnComplete } from "react-countdown-circle-timer"
 
 interface IStatusDraw {
     has_started: boolean
@@ -44,6 +46,8 @@ export default function SpinWheel() {
     const [data, setData] = useState<WheelData[]>(dataOP)
     const [statusDraw, setStatusDraw] = useState<IStatusDraw>({ has_started: false, has_finished: false, current_participant: "", current_team: "", missing_teams: [], missing_participants: [], prizeNumber: 0, must_spin: false })
     const [teams, setTeams] = useState<string[]>([])
+    const [countDown, setCountdown] = useState(false)
+    const [started, setStarted] = useState(false)
 
     useEffect(() => {
         GetInitialInfo()
@@ -55,18 +59,13 @@ export default function SpinWheel() {
                 const newMessage = snapshot.val()
             })
             onValue(messagesRef, function (messagesSnapshot) {
-                try {
-                    const newsStatusDraw: IStatusDraw = messagesSnapshot.val()
-                    if (newsStatusDraw.must_spin === true) {
-                        setStatusDraw({ ...newsStatusDraw, must_spin: true })
-                        PLaySoundSpin()
-                    } else {
-                        setStatusDraw({ ...newsStatusDraw, must_spin: false })
+                const newsStatusDraw: IStatusDraw = messagesSnapshot.val()
+                if (newsStatusDraw.must_spin === true) {
+                    setStatusDraw({ ...newsStatusDraw, must_spin: true })
+                    PLaySoundSpin()
+                } else {
+                    setStatusDraw({ ...newsStatusDraw, must_spin: false })
 
-                    }
-                } catch (error) {
-                    debugger
-                    console.log(error)
                 }
             })
 
@@ -81,10 +80,29 @@ export default function SpinWheel() {
                 }
             })
 
+            const messagesRefStart = ref(database, 'has_started')
+            const unsubscribeStart = onChildChanged(messagesRefStart, (snapshot) => {
+                const newMessage = snapshot.val()
+            })
+            onValue(messagesRefStart, function (messagesSnapshot) {
+                const newsStart: boolean = messagesSnapshot.val()
+                setStarted(newsStart)
+            })
+            const messagesRefCountdown = ref(database, 'countdown')
+            const unsubscribeCountdown = onChildChanged(messagesRefCountdown, (snapshot) => {
+                const newMessage = snapshot.val()
+            })
+            onValue(messagesRefCountdown, function (messagesSnapshot) {
+                const newsStart: boolean = messagesSnapshot.val()
+                setCountdown(newsStart)
+            })
+
 
             return () => {
                 unsubscribeData()
                 unsubscribe()
+                unsubscribeStart()
+                unsubscribeCountdown()
             }
 
         } catch (error) {
@@ -110,7 +128,7 @@ export default function SpinWheel() {
                         await UpdatedRealDataTime({ current_team: "", missing_participants: updateParticipatns.map(participant => participant.user_info.uid), missing_teams: updateTeams.teams, current_participant: idParticipants[0] }, "roulette")
                     }
                     await WriteMustSpin(updateTeams.data, "dataTeams")
-                    await WriteMustSpin(true, "has_started")
+                    //await WriteMustSpin(true, "has_started")
                 }
                 if (response && responseRoulette.must_spin) {
                     await UpdatedRealDataTime({ must_spin: false }, "roulette")
@@ -125,7 +143,8 @@ export default function SpinWheel() {
         const updateTeams = await GetTeams()
         const updateParticipatns = await GetParticipants()
         const idParticipants = updateParticipatns.map(participant => participant.user_info.uid)
-        await UpdatedRealDataTime(false, "has_started")
+        await WriteMustSpin(false, "has_started")
+        await WriteMustSpin(false, "countdown")
         await WriteMustSpin(updateTeams.data, "dataTeams")
         await UpdatedRealDataTime({ current_team: "", missing_participants: updateParticipatns.map(participant => participant.user_info.uid), missing_teams: updateTeams.teams, current_participant: idParticipants[0], must_spin: false, prizeNumber: 0 }, "roulette")
     }
@@ -209,42 +228,66 @@ export default function SpinWheel() {
         }, 1150)
     }
 
+
+    function HandleStarted(totalElapsedTime: number): void | OnComplete {
+        WriteMustSpin(true, "has_started")
+    }
+
     return (
         <div className={styles.draw}>
-            <aside className={styles.teams}>
-                {user.uid === ADMIN_ID && <Button className={styles.teams_reset} props={{ onClick: HandleResetInitialInfo }} text="" icon={<ResetIcon className="" />} />}
-                <div className={styles.teams_roulette}>
-                    {data && <Wheel
-                        mustStartSpinning={statusDraw?.must_spin}
-                        prizeNumber={statusDraw?.prizeNumber}
-                        data={data}
-                        onStopSpinning={HandleOnStop}
-                        outerBorderWidth={3}
-                        innerBorderWidth={1}
-                        innerRadius={5}
-                        radiusLineWidth={2}
-                        outerBorderColor="#ffffff"
-                        innerBorderColor="#ffffff"
-                        backgroundColors={['#000000', '#dddddd', '#000000', '#dddddd', '#000000', '#dddddd', '#000000', '#dddddd']}
-                        textColors={['#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000']}
-                        fontSize={25}
-                        radiusLineColor="#ffffff"
-                        fontWeight={500} spinDuration={1}
-                    />}
-                </div>
-                <section className={styles.participants}>
-                    <span className={styles.participants_title}>Es el turno de:</span>
-                    <span className={styles.participants_name}>{`${participants.find(participant => participant.user_info.uid === statusDraw.current_participant)?.user_info.name}`}</span>
-                    {statusDraw.current_team && <span className={styles.participants_team}>{statusDraw.current_team}</span>}
-                </section>
-            </aside>
-            <footer className={styles.draw_footer}>
-                <Button className={statusDraw.current_participant === user.uid ? styles.draw_button : ""}
-                    type={statusDraw.current_participant === user.uid ? "success" : "secondary"}
-                    text={statusDraw.current_participant === user.uid ? statusDraw.must_spin ? "¡Suerte!" : "¡Es tu turno!" : statusDraw.missing_participants?.includes(user.uid) ? "Esperando tu turno" : "¡Ya participaste!"}
-                    props={{ onClick: handleSpinClick, disabled: statusDraw.current_participant !== user.uid || statusDraw.must_spin }}
-                    icon={statusDraw.current_participant === user.uid ? statusDraw.must_spin ? <LuckIcon className="" /> : <TargetIcon className="" /> : statusDraw.missing_participants?.includes(user.uid) ? <AwaitIcon className="" /> : <CheckIcon className="" />} />
-            </footer>
+            {started && <>
+                <aside className={styles.teams}>
+                    {user.uid === ADMIN_ID && <Button className={styles.teams_reset} props={{ onClick: HandleResetInitialInfo }} text="" icon={<ResetIcon className="" />} />}
+                    <div className={styles.teams_roulette}>
+                        {data && <Wheel
+                            mustStartSpinning={statusDraw?.must_spin}
+                            prizeNumber={statusDraw?.prizeNumber}
+                            data={data}
+                            onStopSpinning={HandleOnStop}
+                            outerBorderWidth={3}
+                            innerBorderWidth={1}
+                            innerRadius={5}
+                            radiusLineWidth={2}
+                            outerBorderColor="#ffffff"
+                            innerBorderColor="#ffffff"
+                            backgroundColors={['#000000', '#dddddd', '#000000', '#dddddd', '#000000', '#dddddd', '#000000', '#dddddd']}
+                            textColors={['#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000']}
+                            fontSize={25}
+                            radiusLineColor="#ffffff"
+                            fontWeight={500} spinDuration={1}
+                        />}
+                    </div>
+                    <section className={styles.participants}>
+                        <span className={styles.participants_title}>Es el turno de:</span>
+                        <span className={styles.participants_name}>{`${participants.find(participant => participant.user_info.uid === statusDraw.current_participant)?.user_info.name}`}</span>
+                        {statusDraw.current_team && <span className={styles.participants_team}>{statusDraw.current_team}</span>}
+                    </section>
+                </aside>
+                <footer className={styles.draw_footer}>
+                    <Button className={statusDraw.current_participant === user.uid ? styles.draw_button : ""}
+                        type={statusDraw.current_participant === user.uid ? "success" : "secondary"}
+                        text={statusDraw.current_participant === user.uid ? statusDraw.must_spin ? "¡Suerte!" : "¡Es tu turno!" : statusDraw.missing_participants?.includes(user.uid) ? "Esperando tu turno" : "¡Ya participaste!"}
+                        props={{ onClick: handleSpinClick, disabled: statusDraw.current_participant !== user.uid || statusDraw.must_spin }}
+                        icon={statusDraw.current_participant === user.uid ? statusDraw.must_spin ? <LuckIcon className="" /> : <TargetIcon className="" /> : statusDraw.missing_participants?.includes(user.uid) ? <AwaitIcon className="" /> : <CheckIcon className="" />} />
+                </footer>
+            </>}
+            {!started &&
+                <>
+                    <PixelArt />
+                    {countDown &&
+                        <div className={styles.countdown}>
+                            <CountdownCircleTimer
+                                isPlaying
+                                duration={10}
+                                colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                colorsTime={[7, 5, 2, 0]} initialRemainingTime={10} size={100} isSmoothColorTransition onComplete={HandleStarted}
+                            >
+                                {({ remainingTime }) => <span className={styles.countdown_number}>{remainingTime}</span>}
+                            </CountdownCircleTimer>
+                        </div>
+                    }
+                </>
+            }
         </div>
     )
 }

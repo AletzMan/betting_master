@@ -158,3 +158,13 @@
         }
     }
 }
+
+.countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &_number {
+        font-size: 2em;
+    }
+}

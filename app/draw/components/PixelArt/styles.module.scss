@@ -1,0 +1,21 @@
+.waiting {
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+
+    &_container {
+        background-color: var(--borderTwoColor);
+        padding: 0.15em 1em;
+        border-radius: var(--borderRadius);
+    }
+
+    &_message {
+        text-align: center;
+        font-size: 0.8em;
+    }
+
+
+}
