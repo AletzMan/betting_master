@@ -37,7 +37,7 @@ export const findFirstMatch = (text: string, keywords: string[]): string | null 
 }
 
 export function getDuplicateFlags<T>(arr: T[]): boolean[] {
-    const seen = new Map<T, number>();
+    const seen = new Map<T, number>()
     return arr.map((item, index) => {
         if (seen.has(item)) {
             return true // Es un duplicado
@@ -45,5 +45,21 @@ export function getDuplicateFlags<T>(arr: T[]): boolean[] {
             seen.set(item, index); // Registrar primera aparición
             return false // No es duplicado
         }
-    });
+    })
+}
+
+export const ShuffleArray = (arrayString: string[]): string[] => {
+    //debugger
+    let newOrder: string[] = new Array(arrayString.length)
+    for (let index = 0; index < arrayString.length; index++) {
+        let exist = false
+        do {
+            let randomNumber = Math.floor(Math.random() * (arrayString.length))
+            if (!newOrder.includes(arrayString[randomNumber])) {
+                newOrder[index] = arrayString[randomNumber]
+                exist = true
+            }
+        } while (!exist)
+    }
+    return newOrder
 }
