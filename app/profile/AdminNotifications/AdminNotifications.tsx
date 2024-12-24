@@ -72,11 +72,11 @@ export function AdminNotifications() {
         const response = await UpdateNotificationUser(uid, !notifications)
         if (response === "OK") {
             enqueueSnackbar("Usuario actualizado correctamente", { variant: "success" })
-            const response = await UpdateNotificationUser(uid, true)
             const responseUsers = await GetUsers()
             setUsersData(responseUsers)
         }
     }
+    console.log(usersData)
 
     return (
         <Details name="adminpanel" title="Notificaciones y usuarios" icon={<NotificationIcon className="" />} >
