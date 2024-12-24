@@ -9,7 +9,7 @@ import { useLoggedUser } from "@/app/hooks/useLoggedUser"
 import { SnackbarProvider, enqueueSnackbar } from "notistack"
 import { MenuPages } from "../MenuPages/MenuPages"
 import { useMenu } from "@/app/config/zustand-store"
-import { UpdateNotificationUser } from "@/app/config/firebase"
+import { CreateNotification, UpdateNotificationUser } from "@/app/config/firebase"
 
 export default function Header() {
 
@@ -42,7 +42,7 @@ export default function Header() {
 	const HandleActiveNotifications = async () => {
 		const response = confirm("¡Activa las notificaciones y entérate cuando haya una nueva quiniela disponible!")
 		if (response) {
-			const response = await UpdateNotificationUser(userLocal.uid, true)
+			const response = await CreateNotification(userLocal.uid, { ...userLocal, notifications: true, account: "", last_login: new Date().toISOString() })
 			if (response === "OK") {
 				localStorage.setItem("bettingNotifications", `${true}`)
 				setNotifications(true)
