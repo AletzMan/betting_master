@@ -1,16 +1,15 @@
 "use client"
 
-import { ChangeEvent, useEffect, useState } from "react"
-import { AddResults, GetCurrentMatchDay, GetResultsByDay, UpdateResultsMatchDay } from "@/app/config/firebase"
+import { useEffect, useState } from "react"
+import { AddResults, DeleteMatchDay, GetCurrentMatchDay, GetResultsByDay, UpdateResultsMatchDay } from "@/app/config/firebase"
 import { ICurrentMatch, IResultsMatches } from "@/app/types/types"
 import { ButtonBet } from "../ButtonBet/ButtonBet"
-import { AddIcon, ArrowUpIcon, BetConfigIcon, LoadingIcon, SendIcon, UpdateLogo } from "@/app/svg"
+import { AddIcon, BetConfigIcon, DeleteIcon, LoadingIcon, UpdateLogo } from "@/app/svg"
 import { TeamsLogos } from "@/app/constants/constants"
 import { DialogCreatBets } from "../DialogCreateBets/DialogCreateBets"
 import { Button } from "@/app/components/Button/Button"
 import { enqueueSnackbar } from "notistack"
 import styles from "./adminpanel.module.scss"
-import stylesGeneral from "../profile.module.scss"
 import Details from "@/app/components/Details/Details"
 
 export function AdminPanel() {
@@ -63,6 +62,18 @@ export function AdminPanel() {
 	const HandleCreate = async () => {
 		setViewCreateBets(true)
 	}
+	const HandleDeleteDayMatch = async () => {
+		const deleteResponse = confirm(`Desea eliminar todas las quinielas de la jornada ${matchDay}`)
+		if (deleteResponse) {
+			const response = await DeleteMatchDay(new Date().getMonth() < 6 ? "0168" : "0159")
+			if (response === "OK") {
+				enqueueSnackbar("Quinielas eliminadas", { variant: "success" })
+				await GetDay()
+			} else {
+				enqueueSnackbar("No se eliminaron las quinielas", { variant: "error" })
+			}
+		}
+	}
 
 
 	return (
@@ -74,6 +85,7 @@ export function AdminPanel() {
 						<header className={styles.admin_header}>
 							<div className={styles.admin_container}>
 								<h3 className={styles.admin_sectionTitle}>{`Jornada ${matchDay}`}</h3>
+								<Button props={{ onClick: HandleDeleteDayMatch }} text="Eliminar jornada" type="secondary" icon={<DeleteIcon className="" />} />
 							</div>
 							<div className={styles.admin_subSection}>
 								<div className={styles.admin_subSectionButtons}>
