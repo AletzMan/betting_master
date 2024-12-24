@@ -421,11 +421,11 @@ export const GetFinalParticipants = async () => {
 	}
 }
 
-export const UpdateFinalParticipants = async (uid: string, team: {}) => {
+export const UpdateFinalParticipants = async (uid: string, data: {}) => {
 	console.log("UpdateFinalParticipants")
 	const year = new Date().getFullYear()
 	try {
-		const docRef = await updateDoc(doc(db, `finalsparticipants`, `${uid}`), team)
+		const docRef = await updateDoc(doc(db, `finalsparticipants`, `${uid}`), data)
 		return "OK"
 	} catch (e) {
 		console.error("Error adding document: ", e)
