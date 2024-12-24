@@ -21,7 +21,6 @@ export function AdminPanel() {
 	const [statusGame, setStatusGame] = useState(false)
 	const [sending, setSending] = useState(false)
 	const [viewCreateBets, setViewCreateBets] = useState(false)
-	const [numberCorrectPicks, setNumberCorrectPicks] = useState(results.winner_correct_pick | 0)
 	const [isAvailable, setIsAvailable] = useState(true)
 
 
@@ -67,15 +66,10 @@ export function AdminPanel() {
 		setViewCreateBets(true)
 	}
 
-	const HandleSetCorrects = (e: ChangeEvent<HTMLInputElement>) => {
-		const correctsPicks = parseInt(e.currentTarget.value)
-		setNumberCorrectPicks(correctsPicks)
-	}
-
 
 	return (
 		<>
-			{viewCreateBets && <DialogCreatBets setView={setViewCreateBets} numberMatches={numberCorrectPicks} />}
+			{viewCreateBets && <DialogCreatBets setView={setViewCreateBets} />}
 			<Details name="adminpanel" title="Edición de Quiniela" icon={<BetConfigIcon className="" />} >
 				<section className={styles.admin_section}>
 					{matchDay !== 0 &&
@@ -95,10 +89,6 @@ export function AdminPanel() {
 										<div className={`${styles.admin_isAvailableButton} ${isAvailable && styles.admin_isAvailableButtonActive}`}></div>
 										<span className={styles.admin_isAvailableText}>{isAvailable ? "Abierta" : "Cerrada"}</span>
 									</div>
-								</div>
-								<div className={`${styles.admin_corrects}`}>
-									<input className={styles.admin_correctsInput} type="number" value={numberCorrectPicks} onChange={HandleSetCorrects} />
-									<span className={styles.admin_correctsText}>{"Aciertos"}</span>
 								</div>
 							</div>
 						</header>}
