@@ -72,9 +72,8 @@ export const GetCurrentDays = (today: Date): MatchDay[] => {
 			date: currentDate.getDate(),
 			month: MONTHS[currentDate.getMonth()],
 			year: currentDate.getFullYear(),
-			dateFull: `${DAYS[currentDate.getDay()].long} ${currentDate.getDate()} ${
-				MONTHS[currentDate.getMonth()]
-			}`,
+			dateFull: `${DAYS[currentDate.getDay()].long} ${currentDate.getDate()} ${MONTHS[currentDate.getMonth()]
+				}`,
 			dateFullShort: `${currentDate.getFullYear()}-${formattedNumber(
 				currentDate.getMonth() + 1
 			)}-${formattedNumber(currentDate.getDate())}`,
@@ -213,31 +212,7 @@ export const GetMatchesOfTheDay = async () => {
 	return filterWeekend
 }
 
-/*export const GetResultsAndStatusMatches = (results: Results[]): IUserAndState[] => {
-    let Results: IUserAndState[] = []
-    //console.log(results)
-    results.forEach(res => {
-        if (res.score.winner.name === res.sportEvent.competitors.homeTeam.commonName && res.score.period.name === "Finalizado") {
-            Results.push({ status: "end", result: "G" })
-        } else if (res.score.winner.name === res.sportEvent.competitors.awayTeam.commonName && res.score.period.name === "Finalizado") {
-            Results.push({ status: "end", result: "P" })
-        } else if (res.score.winner.name === "" && res.score.period.name === "Finalizado") {
-            Results.push({ status: "end", result: "E" })
-        } else if (res.score.winner.name === res.sportEvent.competitors.homeTeam.commonName && (res.score.period.name === "2nd half" || res.score.period.name === "1st half" || res.score.period.name === "Descanso")) {
-            Results.push({ status: "live", result: "G" })
-        } else if (res.score.winner.name === res.sportEvent.competitors.awayTeam.commonName && (res.score.period.name === "2nd half" || res.score.period.name === "1st half" || res.score.period.name === "Descanso")) {
-            Results.push({ status: "live", result: "P" })
-        } else if (res.score.winner.name === "" && (res.score.period.name === "2nd half" || res.score.period.name === "1st half" || res.score.period.name === "Descanso")) {
-            Results.push({ status: "live", result: "E" })
-        } else if (res.score.period.name === "2nd half" || res.score.period.name === "1st half" || res.score.period.name === "Descanso") {
-            Results.push({ status: "live", result: "" })
-        } else if (res.score.period.name === "Sin comenzar") {
-            Results.push({ status: "notstarted", result: "" })
-        }
-    })
-    return Results
-}
-*/
+
 
 export const InTimeToBet = (dateFirstMatch: string) => {
 	const dateMatch = new Date(dateFirstMatch).getTime()
@@ -364,9 +339,6 @@ export function ValidateNewBet(
 	let hasErrors: boolean = false
 	let totalTeams: number[] = []
 	const idTeams = Array.from({ length: numberMatches }, (_, index) => index)
-	console.log(numberMatches)
-
-	console.log(dataMatches)
 
 	for (let index = 0; index < Object.entries(dataMatches).length; index++) {
 		errorMatches.home.push(Number.isNaN(dataMatches[index].home))
@@ -387,8 +359,6 @@ export function ValidateNewBet(
 
 	if (!hasErrors) {
 		for (let index = 0; index < Object.entries(dataMatches).length; index++) {
-			//dataMatches.includes({ home: parseInt(TeamsNames[index].id), away: parseInt(TeamsNames[index].id) })
-			console.log(index)
 			const idTeamHome = idTeams.find((team) => team === dataMatches[index].home)
 			if (idTeamHome && !totalTeams.includes(idTeamHome)) {
 				totalTeams.push(idTeamHome)
@@ -415,9 +385,9 @@ export function ConvertToPrice(number: number) {
 export function askNotificationPermission() {
 	Notification.requestPermission().then((result) => {
 		if (result === "granted") {
-			console.log("Notification permission granted.")
+			console.info("Notification permission granted.")
 		} else {
-			console.log("Notification permission denied.")
+			console.info("Notification permission denied.")
 		}
 	})
 }
