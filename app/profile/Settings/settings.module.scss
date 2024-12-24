@@ -4,10 +4,17 @@
         font-size: 1em;
     }
 
-    &_picture {
+    &_container {
         position: absolute;
         top: 0.25em;
         right: 0.25em;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25em;
+        align-items: center;
+    }
+
+    &_picture {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -17,6 +24,28 @@
         overflow: hidden;
         padding: 0.5em;
         border: 1px solid var(--facebookTwo-color);
+    }
+
+    &_change {
+        position: relative;
+        display: flex;
+        gap: 0.25em;
+        background-color: var(--borderColor);
+        border-radius: var(--borderRadius);
+        padding: 0.25em 0.5em 0 0.5em;
+        text-decoration: none;
+        color: var(--foregroundColor);
+    }
+
+    &_icon {
+        width: 1.5em;
+        height: 1.5em;
+        pointer-events: none;
+    }
+
+    &_name {
+        left: 2.25em;
+        pointer-events: none;
     }
 
     &_info {
@@ -32,7 +61,12 @@
             padding: 0.25em 0 0.75em 0;
             margin: 0.25em 0;
             border-bottom: 1px solid var(--subtitleBack-color);
+
+            &:nth-child(2) {
+                padding: 0.25em 0 2.5em 0;
+            }
         }
+
     }
 
     &_input {
