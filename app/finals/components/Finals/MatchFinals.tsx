@@ -14,6 +14,9 @@ export default function MatchFinals({ participants, index }: Props) {
 
     const teams = [participants[index[0]].progress_stage.length, participants[index[1]].progress_stage.length]
     const won = Math.max(...teams)
+    const canAdvance = teams[0] !== teams[1] ? true : false
+    console.log(teams)
+    console.log(won)
     const indexWon = teams.indexOf(won)
 
     return (
@@ -23,7 +26,7 @@ export default function MatchFinals({ participants, index }: Props) {
                 <span className={styles.teamName}>
                     {TeamsLocalLogos.find(logo => logo.name === participants[index[0]].team)?.name}
                 </span>
-                {indexWon === 1 &&
+                {indexWon === 1 && canAdvance &&
                     <div className={styles.loser}>
                         <DeadIcon className={styles.loser_icon} />
                     </div>
@@ -47,7 +50,7 @@ export default function MatchFinals({ participants, index }: Props) {
                 <span className={styles.match_teamName}>
                     {TeamsLocalLogos.find(logo => logo.name === participants[index[1]].team)?.name}
                 </span>
-                {indexWon === 0 &&
+                {indexWon === 0 && canAdvance &&
                     <div className={styles.loser}>
                         <DeadIcon className={styles.loser_icon} />
                     </div>
