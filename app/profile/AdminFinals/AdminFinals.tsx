@@ -40,7 +40,6 @@ export default function AdminFinals() {
     const [errorTeams, setErrorTeams] = useState<boolean[]>([false, false, false, false, false, false, false, false])
 
 
-
     const HandleResetAssignedTeams = async () => {
         for (let index = 0; index < data.partcipants.length; index++) {
             await WriteMustSpin(false, "has_finished")
@@ -60,7 +59,6 @@ export default function AdminFinals() {
         const dataParticiapants = await GetFinalParticipants()
         const orderParticipants = dataParticiapants.sort((a, b) => a.position_team - b.position_team)
         const positionStage = dataParticiapants.map(part => part.progress_stage)
-        console.log(positionStage)
         setData({ finalTeams: dataTeams.positions, partcipants: orderParticipants, position_stages: positionStage })
     }
 
