@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
-import { useEffect, useState } from "react"
-import { DeleteBet, GetBetsByDay, GetBetsByIDGroup, UpdateBetByUser } from "@/app/config/firebase"
-import { IBetDataDocument, IBetDocument } from "@/app/types/types"
+import { ChangeEvent, useState, MouseEvent } from "react"
+import { DeleteBet, GetBetsByIDGroup, UpdateBetByUser } from "@/app/config/firebase"
+import { IBetDataDocument } from "@/app/types/types"
 import { enqueueSnackbar } from "notistack"
 import Image from "next/image"
-import { ArrowUpIcon, DeleteIcon, PaymentIcon } from "@/app/svg"
+import { DeleteIcon, PaymentIcon } from "@/app/svg"
 import styles from "./betsbyuser.module.scss"
-import stylesGeneral from "../profile.module.scss"
 import Details from "@/app/components/Details/Details"
+import SelectField from "@/app/components/SelectField/SelectField"
+import { ButtonRefresh } from "@/app/components/ButtonRefresh/ButtonRefresh"
 
 interface IBetsByUser {
     uid: string,
@@ -25,9 +26,7 @@ export function BetsByUser() {
     const [bets, setBets] = useState<IBetDataDocument[]>([])
     const [betsByID, setBetsByID] = useState<IBetsByUser[]>(EmptyBetsBtID)
 
-    useEffect(() => {
-        //GetBets()
-    }, [matchDay])
+
 
     const GetBets = async () => {
         if (matchDay) {
@@ -38,7 +37,6 @@ export function BetsByUser() {
             documents.forEach((bet) => {
                 const userID = bet.data.uid
                 const betID = bet.id
-
                 const found = newGroup.find((group) => group.uid === userID)
                 if (found) {
                     newGroup.map((group) => {
@@ -73,16 +71,23 @@ export function BetsByUser() {
         }
     }
 
+    const HandleChangeDay = async (e: ChangeEvent<HTMLSelectElement>) => {
+        const newValue = parseInt(e.target.value.split(" ")[1])
+        setMatchDay(newValue)
+    }
+
+    const HandleGetData = async (event: MouseEvent<HTMLButtonElement>) => {
+        await GetBets()
+    }
+
     return (
         <Details name="adminpanel" title="Gestión de Pagos" icon={<PaymentIcon className="" />} >
             <section className={styles.section}>
                 <header className={styles.header}>
-                    <select className={`${styles.section_select} scrollbar`} onChange={(e) => setMatchDay(parseInt(e.target.value))}>
-                        <option className={styles.section_selectOption} value="0">-- Selecciona una jornada --</option>
-                        {MatchDays.map((day) => (
-                            <option className={styles.section_selectOption} key={day.id} value={day.id}>{day.name}</option>
-                        ))}
-                    </select>
+                    <div className={styles.day}>
+                        <SelectField items={MatchDays} props={{ onChange: HandleChangeDay, value: MatchDays[matchDay - 1] }} />
+                        <ButtonRefresh onClick={HandleGetData} />
+                    </div>
                     <div className={styles.description}>
                         <div className={styles.description_total}>
                             <h2 className={styles.description_title}>Total</h2>
@@ -131,24 +136,24 @@ export function BetsByUser() {
 
 
 const MatchDays = [
-    { id: 1, name: "Jornada 1" },
-    { id: 2, name: "Jornada 2" },
-    { id: 3, name: "Jornada 3" },
-    { id: 4, name: "Jornada 4" },
-    { id: 5, name: "Jornada 5" },
-    { id: 6, name: "Jornada 6" },
-    { id: 7, name: "Jornada 7" },
-    { id: 8, name: "Jornada 8" },
-    { id: 9, name: "Jornada 9" },
-    { id: 10, name: "Jornada 10" },
-    { id: 11, name: "Jornada 11" },
-    { id: 12, name: "Jornada 12" },
-    { id: 13, name: "Jornada 13" },
-    { id: 14, name: "Jornada 14" },
-    { id: 15, name: "Jornada 15" },
-    { id: 16, name: "Jornada 16" },
-    { id: 17, name: "Jornada 17" },
-    { id: 18, name: "Cuartos" },
-    { id: 19, name: "Semi-Final" },
-    { id: 20, name: "Final" },
+    "Jornada 1",
+    "Jornada 2",
+    "Jornada 3",
+    "Jornada 4",
+    "Jornada 5",
+    "Jornada 6",
+    "Jornada 7",
+    "Jornada 8",
+    "Jornada 9",
+    "Jornada 10",
+    "Jornada 11",
+    "Jornada 12",
+    "Jornada 13",
+    "Jornada 14",
+    "Jornada 15",
+    "Jornada 16",
+    "Jornada 17",
+    "Cuartos",
+    "Semi-Final",
+    "Final",
 ]
