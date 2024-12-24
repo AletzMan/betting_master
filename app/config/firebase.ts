@@ -55,15 +55,12 @@ export const FacebookProvider = new FacebookAuthProvider()
 
 
 export const GetBetsByDay = async (day: string) => {
-	console.log("GetBetsByDay")
 	const year = new Date().getFullYear()
 
 	let documets: IBetDocument[] | DocumentData = []
 	try {
 		const querySnapshot = await getDocs(collection(db, `bets`))
 		querySnapshot.forEach((doc) => {
-			// doc.data() is never undefined for query doc snapshots
-			//console.log(doc.id, " => ", doc.data());
 			documets.push(doc.data())
 		})
 		const documents = documets as IBetDocument[]
@@ -76,7 +73,6 @@ export const GetBetsByDay = async (day: string) => {
 }
 
 export const AddBet = async (bet: IBetDocument) => {
-	console.log("AddBet")
 	const year = new Date().getFullYear()
 
 	try {
@@ -91,15 +87,12 @@ export const AddBet = async (bet: IBetDocument) => {
 
 
 export const GetBetsByUser = async (uid: string) => {
-	console.log("GetBetsByUser")
 	const year = new Date().getFullYear()
 
 	let documets: IBetDocument[] | DocumentData = []
 	try {
 		const querySnapshot = await getDocs(collection(db, `bets`))
 		querySnapshot.forEach((doc) => {
-			// doc.data() is never undefined for query doc snapshots
-			//console.log(doc.id, " => ", doc.data());
 			documets.push(doc.data())
 		})
 		const Bets = [...(documets as IBetDocument[])]
@@ -114,7 +107,6 @@ export const GetBetsByUser = async (uid: string) => {
 }
 
 export const GetResultsByDay = async (day: string, tournament: string) => {
-	console.log("GetResultsByDay")
 	const year = new Date().getFullYear()
 
 	try {
@@ -129,7 +121,6 @@ export const GetResultsByDay = async (day: string, tournament: string) => {
 }
 
 export const AddResults = async (data: IResultsMatches, tournament: string) => {
-	console.log("AddResults")
 	const year = new Date().getFullYear()
 
 	try {
@@ -145,7 +136,6 @@ export const AddResults = async (data: IResultsMatches, tournament: string) => {
 }
 
 export const AddMatchDay = async (data: IMatchDay, tournament: string, matchDay: number) => {
-	console.log("AddMatchDay")
 	const year = new Date().getFullYear()
 	try {
 		const docRef = await setDoc(doc(db, `matchday`, `matchday${tournament}`), data)
@@ -164,7 +154,6 @@ export const UpdateResultsMatchDay = async (
 	isFinishGame: boolean
 ) => {
 	const year = new Date().getFullYear()
-	console.log("UpdateResultsMatchDay")
 	try {
 		const docRef = await updateDoc(doc(db, `matchday`, `matchday${tournament}`), {
 			results: data,
@@ -180,7 +169,6 @@ export const UpdateResultsMatchDay = async (
 }
 
 export const GetCurrentMatchDay = async (tournament: string) => {
-	console.log("GetCurrentMatchDay")
 	const year = new Date().getFullYear()
 
 	//console.log(`matchDay${year}${tournament}`)
@@ -196,7 +184,6 @@ export const GetCurrentMatchDay = async (tournament: string) => {
 }
 
 export const GetInfoUser = async (id: string) => {
-	console.log("GetInfoUser")
 	try {
 		const querySnapshot = await getDoc(doc(db, `users`, `${id}`))
 		const documents = querySnapshot.data() as IUserSettings
@@ -213,7 +200,6 @@ export const GetInfoUser = async (id: string) => {
 }
 
 export const GetUsers = async () => {
-	console.log("GetInfoUser")
 	try {
 		let documents: IUserSettings[] = []
 		const querySnapshot = await getDocs(collection(db, `users`))
@@ -243,7 +229,6 @@ export const DeleteUser = async (uid: string) => {
 }
 
 export const UpdateNotificationUser = async (uid: string, notifications: boolean) => {
-	console.log("UpdateNotificationUser")
 	try {
 		const docRef = await updateDoc(doc(db, `users`, `${uid}`), {
 			notifications,
@@ -257,7 +242,6 @@ export const UpdateNotificationUser = async (uid: string, notifications: boolean
 }
 
 export const SaveInfouser = async (id: string, data: IUserSettings) => {
-	console.log("SaveInfouser")
 	try {
 		const docRef = await setDoc(doc(db, `users`, `${id}`), data)
 		return "OK"
@@ -268,7 +252,6 @@ export const SaveInfouser = async (id: string, data: IUserSettings) => {
 }
 
 export const UpdateBetByUser = async (betId: string, paid: boolean) => {
-	console.log("UpdateBetByUser")
 	const year = new Date().getFullYear()
 	try {
 		const docRef = await updateDoc(doc(db, `bets`, `${betId}`), {
@@ -283,7 +266,6 @@ export const UpdateBetByUser = async (betId: string, paid: boolean) => {
 }
 
 export const GetBetsByIDGroup = async (day: string) => {
-	console.log("GetBetsByIDGroup")
 	try {
 		let response: IBetDataDocument[] | DocumentData = []
 		const querySnapshot = await getDocs(collection(db, `bets`))
@@ -314,7 +296,6 @@ export const DeleteBet = async (betId: string) => {
 }
 
 export const UpdatePhotoUser = async (id: string, photo: string) => {
-	console.log("UpdatePhotoUser")
 	try {
 		if (!auth.currentUser) return "FAIL"
 		const docRef = await updateProfile(auth.currentUser, { photoURL: photo })
@@ -329,7 +310,6 @@ export const UpdatePhotoUser = async (id: string, photo: string) => {
 //------FINALISTS -----//
 
 export const AddMatchFinals = async (data: string[]) => {
-	console.log("AddMMatchFinals")
 	const year = new Date().getFullYear()
 	try {
 		const docRef = await setDoc(doc(db, `finalists`, `teams`), { positions: data })
@@ -341,7 +321,6 @@ export const AddMatchFinals = async (data: string[]) => {
 }
 
 export const GetFinalistTeams = async () => {
-	console.log("GetMatchFinals")
 	try {
 		const querySnapshot = await getDoc(doc(db, `finalists`, "teams"))
 		let document: IFinalsTeams = querySnapshot.data() as IFinalsTeams
@@ -387,7 +366,6 @@ export const AddFinalParticipants = async (participant: IFinalsParticipants) => 
 
 
 export const AddFinalParticipant = async (data: IFinalsParticipants) => {
-	console.log("AddFinalParticipant")
 	const year = new Date().getFullYear()
 
 	try {
@@ -401,7 +379,6 @@ export const AddFinalParticipant = async (data: IFinalsParticipants) => {
 
 
 export const GetFinalParticipants = async () => {
-	console.log("GetFinalParticipants")
 	try {
 		let response: IFinalsParticipants[] | DocumentData = []
 		const querySnapshot = await getDocs(collection(db, `finalsparticipants`))
@@ -422,7 +399,6 @@ export const GetFinalParticipants = async () => {
 }
 
 export const UpdateFinalParticipants = async (uid: string, data: {}) => {
-	console.log("UpdateFinalParticipants")
 	const year = new Date().getFullYear()
 	try {
 		const docRef = await updateDoc(doc(db, `finalsparticipants`, `${uid}`), data)
