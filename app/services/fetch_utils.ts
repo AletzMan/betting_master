@@ -44,7 +44,7 @@ export const GetStats = async (tournamentId: string): Promise<LeagueMX[]> => {
 		return response.data.data.data
 	} catch (error) {
 		if (axios.isAxiosError(error) && error.response) {
-			console.log(error.code)
+			console.error(error.code)
 		}
 		return {} as LeagueMX[]
 	}
