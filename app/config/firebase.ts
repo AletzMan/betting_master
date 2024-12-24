@@ -238,6 +238,16 @@ export const UpdateNotificationUser = async (uid: string, notifications: boolean
 	}
 }
 
+export const CreateNotification = async (id: string, data: {}) => {
+	try {
+		const docRef = await setDoc(doc(db, `users`, `${id}`), data)
+		return "OK"
+	} catch (e) {
+		console.error("Error adding document: ", e)
+		return "FAIL"
+	}
+}
+
 export const SaveInfouser = async (id: string, data: IUserSettings) => {
 	try {
 		const docRef = await setDoc(doc(db, `users`, `${id}`), data)
