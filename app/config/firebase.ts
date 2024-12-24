@@ -171,7 +171,6 @@ export const UpdateResultsMatchDay = async (
 export const GetCurrentMatchDay = async (tournament: string) => {
 	const year = new Date().getFullYear()
 
-	//console.log(`matchDay${year}${tournament}`)
 	try {
 		const querySnapshot = await getDoc(doc(db, `matchday`, `matchday${tournament}`))
 		const documents = querySnapshot.data() as IMatchDay
@@ -204,8 +203,6 @@ export const GetUsers = async () => {
 		let documents: IUserSettings[] = []
 		const querySnapshot = await getDocs(collection(db, `users`))
 		querySnapshot.forEach((doc) => {
-			// doc.data() is never undefined for query doc snapshots
-			//console.log(doc.id, " => ", doc.data());
 			documents.push(doc.data() as IUserSettings)
 		})
 		const users = [...(documents as IUserSettings[])]
@@ -235,7 +232,7 @@ export const UpdateNotificationUser = async (uid: string, notifications: boolean
 		})
 		return "OK"
 	} catch (e) {
-		console.log(e)
+		console.error(e)
 		console.error("Error adding document: ", e)
 		return "FAIL"
 	}
@@ -259,7 +256,7 @@ export const UpdateBetByUser = async (betId: string, paid: boolean) => {
 		})
 		return "OK"
 	} catch (e) {
-		console.log(e)
+		console.error(e)
 		console.error("Error adding document: ", e)
 		return "FAIL"
 	}
@@ -324,45 +321,12 @@ export const GetFinalistTeams = async () => {
 	try {
 		const querySnapshot = await getDoc(doc(db, `finalists`, "teams"))
 		let document: IFinalsTeams = querySnapshot.data() as IFinalsTeams
-
-		console.log(document)
 		return document
 	} catch (error) {
 		console.error(error)
 		return {} as IFinalsTeams
 	}
 }
-
-/*export const GetFinalParticipants = async () => {
-	console.log("GetMatchFinals")
-	try {
-		const querySnapshot = await getDoc(doc(db, `finalists`, "participants"))
-		let document: IFinalsParticipants = querySnapshot.data() as IFinalsParticipants
-
-		console.log(document)
-		console.log(Object.keys(document).length)
-		return document
-	} catch (error) {
-		console.error(error)
-		return {} as IFinalsParticipants
-	}
-}
-*/
-
-/*
-export const AddFinalParticipants = async (participant: IFinalsParticipants) => {
-	console.log("GetMatchFinals")
-	const idFiled = participant.id
-	try {
-		const querySnapshot = await updateDoc(doc(db, `finalists`, "participants"), { [`${idFiled}`]: participant })
-		return "OK"
-	} catch (error) {
-		console.error(error)
-		return "FAIL"
-	}
-}
-*/
-
 
 
 export const AddFinalParticipant = async (data: IFinalsParticipants) => {
@@ -422,7 +386,7 @@ export const WriteChatDraw = async (data: unknown, path: string) => {
 		const newMessageRef = push(chatListRef)
 		set(newMessageRef, data)
 	} catch (error) {
-		console.log(error)
+		console.error(error)
 	}
 }
 
@@ -431,7 +395,7 @@ export const UpdatedRealDataTime = async (data: {}, path: string) => {
 	try {
 		update(ref(database, path), data)
 	} catch (error) {
-		console.log(error)
+		console.error(error)
 	}
 }
 export const WriteMustSpin = async (data: unknown, path: string) => {
@@ -439,7 +403,7 @@ export const WriteMustSpin = async (data: unknown, path: string) => {
 		const chatListRef = ref(database, path)
 		set(chatListRef, data)
 	} catch (error) {
-		debugger
+		console.error(error)
 
 	}
 }
@@ -453,7 +417,7 @@ export const ReadChatDraw = async (path: string) => {
 		})
 		return messages
 	} catch (error) {
-		console.log(error)
+		console.error(error)
 	}
 }
 
@@ -466,7 +430,7 @@ export const GetDataRealDataTime = async (path: string): Promise<any | undefined
 		}
 		return undefined
 	} catch (error) {
-		console.log(error)
+		console.error(error)
 		return undefined
 	}
 }
