@@ -2,6 +2,7 @@
     padding: 0.5em;
     border-top: 1px solid var(--twitterTwo-color);
     background-color: var(--secondaryColor);
+    max-width: calc(100svw - 2em);
 }
 
 .header {
@@ -53,7 +54,7 @@
 
 .table {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.5fr 0.2fr 2.5em;
 }
 
 .participants {
@@ -62,17 +63,59 @@
     gap: 0.5em;
     padding: 0.25em 0;
 
+    &_participant {
+        position: relative;
+    }
+
     &_user {
-        display: flex;
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 3em;
         flex-direction: row;
-        gap: 0.5em;
+        justify-content: flex-end;
         align-items: center;
+        gap: 0.5em;
+        padding: 0.1em 0.5em;
+        opacity: 0;
+        border: 1px solid var(--borderColor);
+        border-radius: var(--borderRadius);
+        background-color: var(--borderTwoColor);
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease-in-out;
+        z-index: 2;
     }
 
     &_photo {
         width: 1.5em;
         height: 1.5em;
         border-radius: var(--borderRadius);
+
+    }
+
+    &_button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--borderTwoColor);
+        border: none;
+        width: 2em;
+        height: 2em;
+        border-radius: 5em;
+
+        &:focus {
+
+            &~.participants_user {
+                display: flex;
+                opacity: 1;
+            }
+        }
+    }
+
+    &_icon {
+        width: 1.5em;
+        height: 1.5em;
+        color: var(--foregroundSecondColor);
     }
 }
 
@@ -80,5 +123,5 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 1em 0 0 0.5em;
+    padding: 1em 0 0 0;
 }
