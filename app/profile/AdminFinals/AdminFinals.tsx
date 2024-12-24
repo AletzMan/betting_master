@@ -113,6 +113,11 @@ export default function AdminFinals() {
     const HandleSaveStage = async () => {
         for (let index = 0; index < data.position_stages.length; index++) {
             const response = await UpdateFinalParticipants(data.partcipants[index].user_info.uid, { progress_stage: data.position_stages[index] })
+            if (response === "OK") {
+                enqueueSnackbar("Equipos finalistas guardados", { variant: "success" })
+            } else {
+                enqueueSnackbar("Error al atualizar", { variant: "error" })
+            }
         }
     }
 
