@@ -200,14 +200,13 @@ export default function SpinWheel() {
         try {
             if (!statusDraw.must_spin && statusDraw.current_participant === user.uid) {
                 const newPrizeNumber = Math.floor(Math.random() * data.length)
-                console.log(newPrizeNumber)
                 if (newPrizeNumber >= 0) {
                     await UpdatedRealDataTime({ must_spin: true, prizeNumber: newPrizeNumber }, "roulette")
                 }
             }
         } catch (error) {
             debugger
-            console.log(error)
+            console.error(error)
         }
     }
 
