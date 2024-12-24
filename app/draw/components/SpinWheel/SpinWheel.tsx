@@ -125,7 +125,7 @@ export default function SpinWheel() {
 
         } catch (error) {
             debugger
-            console.log(error)
+            console.error(error)
         }
 
 
