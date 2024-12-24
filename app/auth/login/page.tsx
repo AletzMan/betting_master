@@ -49,7 +49,7 @@ export default function LoginPage() {
 				setIsLogged(true)
 			}
 		} catch (error) {
-			console.log("ERROR FIREBASE OK:", error)
+			console.error("ERROR FIREBASE OK:", error)
 			if (error as FirebaseError) {
 				const credential = GoogleAuthProvider.credentialFromError(error as FirebaseError)
 			}
