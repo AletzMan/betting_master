@@ -100,6 +100,9 @@ export default function SpinWheel() {
             onValue(messagesRefEnd, function (messagesSnapshot) {
                 const newsStart: boolean = messagesSnapshot.val()
                 setFinished(newsStart)
+                if (newsStart) {
+                    router.push("/finals")
+                }
             })
 
             const messagesRefCountdown = ref(database, 'countdown')
@@ -231,7 +234,6 @@ export default function SpinWheel() {
                             await UpdatedRealDataTime({ current_team: newTeam }, "roulette")
                             setTimeout(() => {
                                 WriteMustSpin(true, "has_finished")
-                                router.push("/finals")
                             }, 7000)
                         }
                     }
