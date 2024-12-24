@@ -34,7 +34,7 @@ export default function Chat() {
             }
 
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }, [])
 
