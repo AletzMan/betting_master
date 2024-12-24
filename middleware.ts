@@ -35,6 +35,15 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 			return NextResponse.next()
 		}
 	}
+
+	if (pathname.endsWith("/draw")) {
+		if (!session) {
+			request.nextUrl.pathname = "/auth/login"
+			return NextResponse.redirect(request.nextUrl)
+		} else {
+			return NextResponse.next()
+		}
+	}
 }
 //Add your protected routes
 
