@@ -106,6 +106,7 @@ export const GetBetsByUser = async (uid: string) => {
 	}
 }
 
+
 export const GetResultsByDay = async (day: string, tournament: string) => {
 	const year = new Date().getFullYear()
 
@@ -145,6 +146,18 @@ export const AddMatchDay = async (data: IMatchDay, tournament: string, matchDay:
 		return "FAIL"
 	}
 }
+
+
+export const DeleteMatchDay = async (tournament: string) => {
+	try {
+		await deleteDoc(doc(db, `matchday`, `matchday${tournament}`))
+		return "OK"
+	} catch (e) {
+		console.error("Error deleting document: ", e)
+		return "FAIL"
+	}
+}
+
 
 export const UpdateResultsMatchDay = async (
 	data: string[],
