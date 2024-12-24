@@ -8,12 +8,13 @@ import { enqueueSnackbar } from "notistack"
 import { profileSettingsSchema } from "@/app/validations/profileSettingsSchema"
 import { ZodError } from "zod"
 import { Button } from "@/app/components/Button/Button"
-import { ArrowUpIcon, ProfileIcon, SaveIcon } from "@/app/svg"
+import { ArrowUpIcon, EditIcon, ProfileIcon, SaveIcon } from "@/app/svg"
 import styles from "./settings.module.scss"
 import stylesGeneral from "../profile.module.scss"
 import { TextField } from "@/app/components/TextFiled/TextFiled"
 import { useUser } from "@/app/config/zustand-store"
 import Details from "@/app/components/Details/Details"
+import Link from "next/link"
 
 
 
@@ -35,6 +36,11 @@ const EmptyErrors = {
     account: ""
 }
 
+interface IPhoto {
+    file: File
+    url: string
+}
+
 
 export const SettingsProfile = () => {
     const { user } = useUser()
@@ -42,6 +48,8 @@ export const SettingsProfile = () => {
     const [errors, setErrors] = useState(EmptyErrors)
     const [statusNotifications, setStatusNotifications] = useState(false)
     const [accentColor, setAccentColor] = useState("#11cfd9")
+
+
 
     useEffect(() => {
         if (user.uid)
@@ -101,11 +109,17 @@ export const SettingsProfile = () => {
 
 
     return (
-        <Details name="adminpanel" title="Perfil" icon={<ProfileIcon className="" />} >
+        <Details name="adminpanel" title="Perfil" icon={<ProfileIcon className="" />} open>
             <div className={styles.settingsProfile_info}>
-                <picture className={styles.settingsProfile_picture}>
-                    <Image className={styles.settingsProfile_image} src={userSettings.photo || "/user-icon.png"} alt={userSettings.name || ""} width={100} height={100} />
-                </picture>
+                <div className={styles.settingsProfile_container}>
+                    <picture className={styles.settingsProfile_picture}>
+                        <Image className={styles.settingsProfile_image} src={userSettings.photo || "/user-icon.png"} alt={userSettings.name || ""} width={100} height={100} />
+                    </picture>
+                    <Link className={styles.settingsProfile_change} href={"https://myaccount.google.com/personal-info?gar=WzJd&hl=es&utm_source=OGB&utm_medium=act"} target="_blank">
+                        <EditIcon className={styles.settingsProfile_icon} />
+                        <span className={styles.settingsProfile_name} >Cambiar foto</span>
+                    </Link>
+                </div>
                 <div className={styles.settingsProfile_info__item}>
                     <label className={styles.settingsProfile_label}>Nombre</label>
                     <p className={styles.settingsProfile_text}>{userSettings.name}</p>
