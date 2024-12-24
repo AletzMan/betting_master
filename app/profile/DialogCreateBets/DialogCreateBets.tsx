@@ -12,7 +12,6 @@ import { Button } from "@/app/components/Button/Button"
 import { AddIcon, CloseIcon, ResetIcon } from "@/app/svg"
 interface Props {
 	setView: Dispatch<SetStateAction<boolean>>
-	numberMatches: number
 }
 
 interface IErrorEmpty {
@@ -32,7 +31,7 @@ const initError: IErrorEmpty = {
 	hasError: false
 }
 
-export function DialogCreatBets({ numberMatches, setView }: Props) {
+export function DialogCreatBets({ setView }: Props) {
 	const { enqueueSnackbar } = useSnackbar()
 	const { selectedTeams, selectedDates, clearTeams, clearDates, setSelectedTeams } = useNewBet()
 	const [matchDay, setMatchDay] = useState(0)
@@ -41,17 +40,18 @@ export function DialogCreatBets({ numberMatches, setView }: Props) {
 	const [teams, setTeams] = useState<Team[]>(TeamsNames)
 	const [clear, setClear] = useState<boolean>(false)
 	const [matches, setMatches] = useState<ICurrentMatches[]>([])
-	const [currentMatches, setCurrentMatches] = useState(numberMatches)
+	const [currentMatches, setCurrentMatches] = useState(0)
 
 
 	useEffect(() => {
-		const newMatches = Matches.filter((match, index) => index < currentMatches)
-		setMatches(newMatches)
+		let newMatches: ICurrentMatch[] = []
 		let newMatchesTeams: Teams[] = []
-		for (let index = 0; index < numberMatches; index++) {
+		for (let index = 0; index < currentMatches; index++) {
+			newMatches.push({ id: crypto.randomUUID(), startDate: "", status: "Sin comenzar", teams: { away: 0, home: 0 } })
 			newMatchesTeams.push({ home: NaN, away: NaN })
 		}
 		setSelectedTeams(newMatchesTeams)
+		setMatches(newMatches)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentMatches])
 
@@ -60,7 +60,7 @@ export function DialogCreatBets({ numberMatches, setView }: Props) {
 	}
 
 	const HandleCreateMatchDay = async () => {
-		const respErrors = ValidateNewBet(selectedTeams, selectedDates, matchDay, numberMatches * 2)
+		const respErrors = ValidateNewBet(selectedTeams, selectedDates, matchDay, currentMatches * 2)
 		setError({
 			errorMatches: respErrors.errorMatches,
 			errorDates: respErrors.errorDates,
@@ -82,7 +82,7 @@ export function DialogCreatBets({ numberMatches, setView }: Props) {
 				})
 			}
 			const newArrayResults: string[] = []
-			for (let index = 0; index < numberMatches; index++) {
+			for (let index = 0; index < currentMatches; index++) {
 				newArrayResults.push("-")
 			}
 			const newMatchDay: IMatchDay = {
@@ -146,6 +146,7 @@ export function DialogCreatBets({ numberMatches, setView }: Props) {
 								type="number"
 								value={currentMatches}
 								onChange={(e) => setCurrentMatches(Number(e.currentTarget.value))}
+								max={15}
 							/>
 						</label>
 					</div>
@@ -171,32 +172,3 @@ interface ICurrentMatches {
 	id: string
 }
 
-const Matches: ICurrentMatches[] = [
-	{
-		id: crypto.randomUUID(),
-	},
-	{
-		id: crypto.randomUUID(),
-	},
-	{
-		id: crypto.randomUUID(),
-	},
-	{
-		id: crypto.randomUUID(),
-	},
-	{
-		id: crypto.randomUUID(),
-	},
-	{
-		id: crypto.randomUUID(),
-	},
-	{
-		id: crypto.randomUUID(),
-	},
-	{
-		id: crypto.randomUUID(),
-	},
-	{
-		id: crypto.randomUUID(),
-	},
-]
