@@ -42,7 +42,7 @@ export default function Header() {
 	const HandleActiveNotifications = async () => {
 		const response = confirm("¡Activa las notificaciones y entérate cuando haya una nueva quiniela disponible!")
 		if (response) {
-			const response = await CreateNotification(userLocal.uid, { ...userLocal, notifications: true, account: "", last_login: new Date().toISOString() })
+			const response = await CreateNotification(userLocal.uid, { ...userLocal, notifications: true, account: "", last_login: new Date().toISOString(), finals_won: 0, total_bets: 0, bets_won: 0 })
 			if (response === "OK") {
 				localStorage.setItem("bettingNotifications", `${true}`)
 				setNotifications(true)
