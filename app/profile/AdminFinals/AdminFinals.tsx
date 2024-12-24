@@ -1,8 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import { ChangeEvent, useEffect, useState } from "react"
 import { IFinalsParticipants } from "@/app/types/types"
 import { Button } from "@/app/components/Button/Button"
-import { ArrowUpIcon, LotteryIcon, LuckIcon, StartedIcon, WinnerIcon } from "@/app/svg"
+import { ArrowUpIcon, LotteryIcon, LuckIcon, ResetIcon, SaveIcon, StartedIcon, WinnerIcon } from "@/app/svg"
 import { AddMatchFinals, GetFinalParticipants, GetFinalistTeams, UpdateFinalParticipants } from "@/app/config/firebase"
 import styles from "./adminfinals.module.scss"
 import { TeamsLocalNames } from "@/app/constants/constants"
@@ -14,62 +15,40 @@ import { getDuplicateFlags } from "@/app/utils/helpers"
 import { ButtonRefresh } from "@/app/components/ButtonRefresh/ButtonRefresh"
 import Details from "@/app/components/Details/Details"
 
+interface IDataDraw {
+    finalTeams: string[]
+    partcipants: IFinalsParticipants[]
+}
+
 export default function AdminFinals() {
-    const [participants, setParticipants] = useState<IFinalsParticipants[]>([])
-    const [finalistTeams, setFinalistTeams] = useState<string[]>(["", "", "", "", "", "", "", ""])
+    const [data, setData] = useState<IDataDraw>({ finalTeams: [], partcipants: [] })
     const [errorTeams, setErrorTeams] = useState<boolean[]>([false, false, false, false, false, false, false, false])
 
-    useEffect(() => {
-        //GetParticipants()
-        //const finalist = QualifiedTeams.flatMap(team => team.name)
-        //setFinalistTeams(finalist)
 
-    }, [])
 
-    const HandleDrawTeams = async () => {
-        let randomNumbers: number[] = []
-        // Llenar el arreglo con los números del 1 al 8
-        for (let i = 1; i <= 8; i++) {
-            randomNumbers.push(i);
-        }
-
-        let numerosAleatorios = [];
-        // Muestreo aleatorio sin reemplazo
-        for (let index = 0; index < 8; index++) {
-
-            while (randomNumbers.length > 0) {
-                const indice = Math.floor(Math.random() * randomNumbers.length)
-                numerosAleatorios.push(randomNumbers[indice])
-                randomNumbers.splice(indice, 1)
+    const HandleResetAssignedTeams = async () => {
+        for (let index = 0; index < data.partcipants.length; index++) {
+            const response = await UpdateFinalParticipants(data.partcipants[index].user_info.uid, { team: "", progress_stage: ['quarter'] })
+            if (response === "FAIL") {
+                enqueueSnackbar("No se pudo restablecer los datos, intente mas tarde", { variant: "error" })
+                break
             }
-        }
-
-
-        if (participants) {
-            const newParticipants = [...participants]
-            for (let index = 0; index < 8; index++) {
-                newParticipants[index].team = finalistTeams[numerosAleatorios[index] - 1]
-            }
-            setParticipants(newParticipants)
-
-            newParticipants.forEach(participant => {
-                const reponse = UpdateFinalParticipants(participant.user_info.uid, participant.team)
-            })
-
         }
     }
 
 
     const GetFinalTable = async () => {
-        const data = await GetFinalistTeams()
-        setFinalistTeams(data.positions)
+        const dataTeams = await GetFinalistTeams()
+        const dataParticiapants = await GetFinalParticipants()
+        const orderParticipants = dataParticiapants.sort((a, b) => a.position_team - b.position_team)
+        setData({ finalTeams: dataTeams.positions, partcipants: orderParticipants })
     }
 
     const HandleStart = async () => {
         try {
-            await uniqueStringSchema.parseAsync(finalistTeams)
+            await uniqueStringSchema.parseAsync(data.finalTeams)
             setErrorTeams([false, false, false, false, false, false, false, false])
-            const responseDB = await AddMatchFinals(finalistTeams)
+            const responseDB = await AddMatchFinals(data.finalTeams)
             if (responseDB === "OK") {
                 enqueueSnackbar("Equipos finalistas guardados", { variant: "success" })
             } else {
@@ -79,7 +58,7 @@ export default function AdminFinals() {
             if (error instanceof ZodError) {
                 let newErrors = [false, false, false, false, false, false, false, false]
                 if (error.issues.filter(issue => issue.code === "custom").length > 0) {
-                    newErrors = getDuplicateFlags(finalistTeams)
+                    newErrors = getDuplicateFlags(data.finalTeams)
                     enqueueSnackbar("No se permiten elementos duplicados", { variant: "error" })
                 } else {
                     newErrors = [false, false, false, false, false, false, false, false]
@@ -96,9 +75,9 @@ export default function AdminFinals() {
 
     const HandleOnChangeTeam = (event: ChangeEvent<HTMLSelectElement>, index: number) => {
         const value = event.currentTarget.value
-        const newTeams = [...finalistTeams]
+        const newTeams = [...data.finalTeams]
         newTeams[index] = value
-        setFinalistTeams(newTeams)
+        setData({ ...data, finalTeams: newTeams })
         const newErrors = [...errorTeams]
         newErrors[index] = false
         setErrorTeams(newErrors)
@@ -111,19 +90,31 @@ export default function AdminFinals() {
                     <h2 className={styles.title}>Equipos finalistas</h2>
                     <ButtonRefresh className={styles.refresh} onClick={GetFinalTable} />
                 </header>
-                <div className={styles.teams}>
-                    {
-                        TeamsLocalNames.map((team, index) => index < 8 && (
-                            <div key={team} className={styles.teams_team}>
-                                <span className={styles.teams_position}>{index + 1}</span>
-                                <SelectFiled items={TeamsLocalNames} props={{ value: finalistTeams[index], onChange: (e) => HandleOnChangeTeam(e, index), "aria-errormessage": errorTeams[index] ? "error" : "" }} />
+                <div className={styles.table}>
+                    <div className={styles.teams}>
+                        {
+                            TeamsLocalNames.map((team, index) => index < 8 && (
+                                <div key={team} className={styles.teams_team}>
+                                    <span className={styles.teams_position}>{index + 1}</span>
+                                    <SelectFiled items={TeamsLocalNames} props={{ value: data.finalTeams[index], onChange: (e) => HandleOnChangeTeam(e, index), "aria-errormessage": errorTeams[index] ? "error" : "" }} />
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div className={styles.participants}>
+                        {data.partcipants.map(participant => (
+                            <div className={styles.participants_user} key={participant.id}>
+                                <img className={styles.participants_photo} src={participant.user_info.photo || "/user_photo.png"} alt={`Foto de perfil de ${participant.user_info.name}`} />
+                                <span className={styles.participants_name}>{participant.user_info.name?.split(" ")[0]}</span>
                             </div>
                         ))
-                    }
+
+                        }
+                    </div>
                 </div>
                 <footer className={styles.footer}>
-                    <Button props={{ onClick: HandleStart }} text="Iniciar ronda" icon={<StartedIcon className={""} />} />
-                    <Button props={{ onClick: HandleDrawTeams, disabled: participants && participants!.length < 8 }} text="Sortear" icon={<LuckIcon className={""} />} />
+                    <Button props={{ onClick: HandleStart }} text="Guardar equipos" icon={<SaveIcon className={""} />} />
+                    <Button props={{ onClick: HandleResetAssignedTeams, disabled: data.partcipants && data.partcipants!.length < 8 }} text="Restablecer" icon={<ResetIcon className={""} />} />
                 </footer>
             </article>
         </Details>
