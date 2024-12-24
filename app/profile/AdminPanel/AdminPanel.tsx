@@ -15,7 +15,6 @@ import Details from "@/app/components/Details/Details"
 
 export function AdminPanel() {
 	const [matchDay, setMatchDay] = useState<number | undefined>(0)
-	const [results, setResults] = useState<IResultsMatches>({} as IResultsMatches)
 	const [matches, setMatches] = useState<ICurrentMatch[]>([])
 	const [resultsByMatch, setResultByMatch] = useState<string[]>(["-", "-", "-", "-", "-", "-", "-", "-", "-"])
 	const [statusGame, setStatusGame] = useState(false)
@@ -34,7 +33,6 @@ export function AdminPanel() {
 		setMatches(response.matches)
 		setMatchDay(response.day)
 		if (result) {
-			setResults(result)
 			setResultByMatch(result.results)
 			setStatusGame(result.status === "finished")
 			setIsAvailable(result.isAvailable)
