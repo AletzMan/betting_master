@@ -60,6 +60,8 @@
     }
 
     &_label {
+        display: flex;
+        flex-direction: column;
         font-size: 0.75em;
         color: var(--foregroundSecondColor);
     }
