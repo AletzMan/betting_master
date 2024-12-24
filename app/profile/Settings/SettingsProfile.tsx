@@ -125,7 +125,7 @@ export const SettingsProfile = () => {
                 </div>
                 <div className={styles.settingsProfile_info__item}>
                     <label className={styles.settingsProfile_label}>Color de énfasis
-                        <TextField className={styles.color} type="color" onChange={HandleChangeColor} value={accentColor} />
+                        <input className={styles.color} type="color" onChange={HandleChangeColor} value={accentColor} />
                     </label>
                 </div>
                 <div className={styles.settingsProfile_info__item}>
