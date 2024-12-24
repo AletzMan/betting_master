@@ -21,7 +21,7 @@ export async function GET(request: NextRequest, context: any) {
 
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
-            console.log(error.code)
+            console.error(error.code)
         }
         return NextResponse.json({}, { status: 500 })
     }

@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
 			{ status: 200 }
 		)
 	} catch (error) {
-		console.log(error instanceof Error)
+		console.error(error instanceof Error)
 		if (error instanceof Error) {
 			const cookiesStore = await cookies()
 			cookiesStore.delete("session-soccer")
