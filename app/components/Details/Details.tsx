@@ -6,12 +6,13 @@ interface Props {
     icon?: React.ReactNode
     title: string
     name: string
+    open?: boolean
 }
 
-export default function Details({ children, icon, title, name }: Props) {
+export default function Details({ children, icon, title, name, open }: Props) {
 
     return (
-        <details className={styles.details} name={name}>
+        <details className={styles.details} name={name} open={open}>
             <summary className={styles.details_summary}>
                 <div className={styles.details_title}>
                     {icon}
