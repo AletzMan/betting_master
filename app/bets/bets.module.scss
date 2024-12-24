@@ -81,3 +81,21 @@
         color: var(--foregroundColor);
     }
 }
+
+.nomatches {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    background-color: var(--borderTwoColor);
+    border-radius: var(--borderRadius);
+    padding: 0.5em 1em;
+    margin: 2em 0 0 0;
+
+    &_icon {
+        width: 5em;
+        height: 5em;
+        color: #ac0000;
+    }
+}

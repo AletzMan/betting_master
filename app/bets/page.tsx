@@ -139,7 +139,7 @@ export default function BetsPage() {
 						}
 					</>
 				)}
-				{matches?.results?.length === 0 && <div className={styles.betsTable_empty}>No se ha creado la quiniela de la semana <NotFoundIcon className={styles.betsTable_emptyIcon} /></div>}
+				{matches?.results?.length === 0 && <div className={styles.nomatches}>No se ha creado la quiniela de la semana <NotFoundIcon className={styles.nomatches_icon} /></div>}
 			</>}
 			{matches.isFinishGame && !viewBets &&
 				<WinningBets winners={winners} />
