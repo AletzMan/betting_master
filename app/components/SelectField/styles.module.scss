@@ -1,0 +1,77 @@
+.select {
+    background-color: var(--secondaryColor);
+    padding: 0.25em 1.5em 0.25em 0.5em;
+    color: var(--foregroundColor);
+    border-radius: var(--borderRadius);
+    font-family: var(--font-family);
+    font-size: 0.9em;
+    text-transform: capitalize;
+    appearance: none;
+
+    &::selection {
+        color: var(--primaryColor);
+
+    }
+
+    &:focus {
+        outline: 1px solid var(--primaryColor);
+
+    }
+
+    &:focus~.select_arrow {
+        transform: rotate(180deg);
+    }
+
+    &_arrow {
+        position: absolute;
+        right: 0.5em;
+        width: 0.75em;
+        height: 0.75em;
+        transition: all 0.25s ease-in-out;
+    }
+
+
+
+}
+
+.select[aria-errormessage="error"] {
+    //background-color: #FF000015;
+    border-color: #FF0000bb;
+    border-style: dashed;
+    box-shadow: 0 0 2px 2px #FF000030;
+}
+
+
+.container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.25em;
+    width: max-content;
+    margin: 0 1.5em 0 0;
+
+
+
+    &_icon {
+        position: absolute;
+        right: -1.5em;
+        width: 1.25em;
+        height: 1.25em;
+        color: #FF0000bb;
+        animation: animIn 0.4s ease-in-out;
+
+        @keyframes animIn {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            0% {
+                transform: scale(1);
+            }
+        }
+    }
+}
