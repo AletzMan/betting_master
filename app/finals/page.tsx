@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import { Button } from "../components/Button/Button"
-import { AddFinalParticipant, GetFinalParticipants } from "../config/firebase"
+import { AddFinalParticipant, GetFinalParticipants, GetFinalistTeams } from "../config/firebase"
 import { useOrientation } from "../hooks/useOrientation"
 import { IFinalsParticipants, IUserInfo } from "../types/types"
 import QuarterFinals from "./components/Quarterfinals"
@@ -21,8 +21,11 @@ export default function Page() {
     const [participants, setParticipants] = useState<IFinalsParticipants[]>()
     const [userLogin, setUserLogin] = useState<IUserInfo>()
     const [isParticipating, setIsParticipating] = useState(false)
+    const [qualifiedTeams, setQualifiedTeams] = useState<string[]>([])
+
 
     useEffect(() => {
+        GetQualifiedTeams()
         GetParticipants()
         GetUserLogin()
     }, [loading])
@@ -34,6 +37,14 @@ export default function Page() {
             }
         }
     }, [userLogin, participants])
+
+    const GetQualifiedTeams = async () => {
+        const teams = await GetFinalistTeams()
+        if (teams.positions.length > 0) {
+            setQualifiedTeams(teams.positions)
+        }
+    }
+
 
     const GetParticipants = async () => {
         setLoadingPage(true)
@@ -84,11 +95,11 @@ export default function Page() {
     return (
         <main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
             {!loadingPage && <>
-                {isParticipating &&
+                {isParticipating && qualifiedTeams.length === 8 &&
                     <>
                         {participants && participants?.length <= 8 && participants.some(participant => participant.team === "") ?
                             <>
-                                <QuarterFinals />
+                                <QuarterFinals qualifiedTeams={qualifiedTeams} />
                                 <div className={styles.participants}>
                                     <h3 className={styles.participants_title}>Participantes</h3>
                                     <div className={styles.participants_container}>
@@ -107,23 +118,31 @@ export default function Page() {
                         }
                     </>
                 }
-                {!isParticipating ?
-                    <>
-                        <QuarterFinals />
-                        {participants !== undefined && userLogin !== undefined &&
-                            <div className={styles.finals}>
-                                <article>
-                                    {participants?.length === 8 && <p className={styles.main_message}>Participación cerrada. Se ha alcanzado el limite de jugadores.</p>}
-                                    {participants?.length < 8 && <p className={styles.main_message}>Limitado a 8 participantes, una participación por cuenta.</p>}
-                                    {participants?.length < 8 && <p className={styles.main_message}>$50 por participación</p>}
-                                </article>
+                {qualifiedTeams.length === 8 && <>
 
-                                {participants?.length < 8 && <Button props={{ onClick: HandleAddParticipant, disabled: loading }} text={loading ? "Cargando" : "Quiero participar"} icon={loading ? <LoadingTwoIcon className={""} /> : <LuckIcon className="" />} />}
-                            </div>}
-                    </>
-                    : <div>
-                        {participants && participants?.length < 8 && <p className={styles.main_message}>¡Tu participación ha sido registrada! El sorteo se llevará a cabo una vez que se completen los 8 participantes.</p>}
-                    </div>}
+                    {!isParticipating ?
+                        <>
+                            <QuarterFinals qualifiedTeams={qualifiedTeams} />
+                            {participants !== undefined && userLogin !== undefined &&
+                                <div className={styles.finals}>
+                                    <article>
+                                        {participants?.length === 8 && <p className={styles.main_message}>Participación cerrada. Se ha alcanzado el limite de jugadores.</p>}
+                                        {participants?.length < 8 && <p className={styles.main_message}>Limitado a 8 participantes, una participación por cuenta.</p>}
+                                        {participants?.length < 8 && <p className={styles.main_message}>$50 por participación</p>}
+                                    </article>
+
+                                    {participants?.length < 8 && <Button props={{ onClick: HandleAddParticipant, disabled: loading }} text={loading ? "Cargando" : "Quiero participar"} icon={loading ? <LoadingTwoIcon className={""} /> : <LuckIcon className="" />} />}
+                                </div>}
+                        </>
+                        : <div>
+                            {participants && participants?.length < 8 && <p className={styles.main_message}>¡Tu participación ha sido registrada! El sorteo se llevará a cabo una vez que se completen los 8 participantes.</p>}
+                        </div>
+                    }
+                </>
+                }
+                {qualifiedTeams.length < 8 &&
+                    <div>Partidos no disponibles</div>
+                }
             </>
             }
             {loadingPage && <Loading />}

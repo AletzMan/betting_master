@@ -3,19 +3,11 @@ import styles from "./quarters.module.scss"
 import { useEffect, useState } from "react"
 import { TeamsLocalLogos } from "@/app/constants/constants"
 
-export default function QuarterFinals() {
-    const [qualifiedTeams, setQualifiedTeams] = useState<string[]>([])
+interface Props {
+    qualifiedTeams: string[]
+}
 
-    useEffect(() => {
-        GetQualifiedTeams()
-    }, [])
-
-    const GetQualifiedTeams = async () => {
-        const teams = await GetFinalistTeams()
-        if (teams.positions.length > 0) {
-            setQualifiedTeams(teams.positions)
-        }
-    }
+export default function QuarterFinals({ qualifiedTeams }: Props) {
 
     return (
         <>
