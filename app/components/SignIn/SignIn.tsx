@@ -5,7 +5,7 @@ import { TeamsSlides } from "../TeamsSlides/TeamsSlides"
 import { GetNewsLigaMX } from "@/app/services/fetch_utils"
 import Link from "next/link"
 import { findFirstMatch } from "@/app/utils/helpers"
-import { Teams, TeamsLogos } from "@/app/constants/constants"
+import { Teams, TeamsLogos, TeamsLogosNews } from "@/app/constants/constants"
 
 export async function SignIn() {
 
@@ -24,7 +24,7 @@ export async function SignIn() {
 				{news.length > 0 && news?.map((notice, index) => (
 					<Link key={notice.titulo} className={styles.news_notice} href={notice.url}>
 						<div className={styles.news_logo}>
-							{TeamsLogos.find(team => team.name === findFirstMatch(news[index].titulo, Teams))?.logo || <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/refs/heads/main/bettinggame/ligamx.png" alt="logo" width={40} />}
+							{TeamsLogosNews.find(team => team.name === findFirstMatch(news[index].titulo, Teams))?.logo || <img src="https://raw.githubusercontent.com/AletzMan/ImagesStorage/refs/heads/main/bettinggame/ligamx.png" alt="logo" width={40} />}
 							<span className={styles.news_team}>{TeamsLogos.find(team => team.name === findFirstMatch(news[index].titulo, Teams))?.name}</span>
 						</div>
 						<h3 className={styles.news_title}>{notice.titulo}</h3>
