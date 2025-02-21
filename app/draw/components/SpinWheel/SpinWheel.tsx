@@ -31,7 +31,7 @@ interface IStatusDraw {
 
 
 const dataOP: WheelData[] = [
-    { option: '0' },
+    { option: '0', image: { uri: "" } },
     { option: '1' },
     { option: '2' },
     { option: '3' },
