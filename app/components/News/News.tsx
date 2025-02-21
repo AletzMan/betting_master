@@ -1,15 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import styles from "./signin.module.scss"
-import { AppLogo, LuckIcon, StartedIcon } from "@/app/svg"
+import { AppLogo } from "@/app/svg"
 import { TeamsSlides } from "../TeamsSlides/TeamsSlides"
 import { GetNewsLigaMX } from "@/app/services/fetch_utils"
-import Link from "next/link"
-import { findFirstMatch } from "@/app/utils/helpers"
-import { Teams, TeamsLogos, TeamsLogosNews } from "@/app/constants/constants"
 import { Card } from "primereact/card"
-import { INews } from "@/app/types/types"
-import { Carousel } from "primereact/carousel"
 import CarouselNews from "./CarouselNews"
+import { Tag } from "primereact/tag"
 
 export async function News() {
 
@@ -114,14 +109,13 @@ export async function News() {
 	]
 
 	return (
-		<article className={`${styles.signIn} `}>
-			<AppLogo className={styles.signIn_logo} />
-			<h1 className={styles.signIn_title}>{"Bienvenido a Betting Master"}</h1>
-			<p className={styles.signIn_paragraph}>¡Apuesta por tus favoritos y disfruta del fútbol!</p>
-			<Card className="overflow-x-hidden p-0 max-w-lg border-1 border-(--surface-d)">
+		<article className="relative flex flex-col items-center justify-center gap-3.5 w-full h-[calc(100svh-5em)]">
+			<AppLogo className="w-18" />
+			<h1 className="text-blue-300">{"Bienvenido a Betting Master"}</h1>
+			<Card className="flex items-center p-0 max-w-[calc(100svw-0.5em)]  sm:max-w-lg border-1 border-(--surface-d) overflow-hidden">
 				<TeamsSlides />
 			</Card>
-			<h2 className={styles.title}>Noticias</h2>
+			<Tag severity="info">Noticias</Tag>
 			<CarouselNews news={news} />
 		</article>
 	)

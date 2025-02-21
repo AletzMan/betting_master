@@ -7,7 +7,11 @@ import { PrimeReactProvider } from 'primereact/api';
 import "primereact/resources/themes/arya-blue/theme.css";
 
 
-const montserrat = Jost({ subsets: ["latin"] })
+const fontJost = Jost({
+	variable: "--font-jost",
+	subsets: ["latin"],
+});
+
 
 export const metadata: Metadata = {
 	title: "Quiniela y Resultados",
@@ -17,7 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
-			<body className={montserrat.className}>
+			<body className={fontJost.variable}>
 				<PrimeReactProvider  >
 					{<Header />}
 					{children}

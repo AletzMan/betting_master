@@ -47,7 +47,7 @@ export function TeamsSlides() {
 	}, [])
 
 	return (
-		<div className="relative flex mx-auto px-1 overflow-hidden">
+		<div className="relative flex  ">
 			<div className="relative flex justify-center flex-row gap-6 mx-auto" ref={slideRef}>
 				{TeamsLocalLogos.map((logo) => (
 					<div
