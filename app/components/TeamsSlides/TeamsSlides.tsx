@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
-import { useRef, useEffect } from "react"
-
-import styles from "./slides.module.scss"
+import { useRef, useEffect, ReactSVGElement } from "react"
 import { TeamsLocalLogos, TeamsLogos } from "@/app/constants/constants"
+import React from "react"
 
 export function TeamsSlides() {
 	const slideRef = useRef<HTMLDivElement | null>(null)
@@ -48,14 +47,18 @@ export function TeamsSlides() {
 	}, [])
 
 	return (
-		<div className={styles.container}>
-			<div className={styles.container_slide} ref={slideRef}>
+		<div className="relative flex mx-auto px-1 overflow-hidden">
+			<div className="relative flex justify-center flex-row gap-6 mx-auto" ref={slideRef}>
 				{TeamsLocalLogos.map((logo) => (
 					<div
 						key={logo.id}
-						className={styles.container_logo}
+						className={`relative flex flex-col items-center justify-center text-[0.8em] basis-[8em] gap-[0.5em] font-medium min-w-[6.5em] py-[0.75em] transition-all duration-300 ease-in-out text-[var(--font-second-color)] rounded-[var(--borderRadius)]`} // Mantén cualquier otro estilo de los módulos CSS
 					>
-						{logo.logo}
+						{React.isValidElement(logo.logo) ? (
+							React.cloneElement(logo.logo as ReactSVGElement, { className: 'w-[4em] h-[4em]' })
+						) : (
+							logo.logo
+						)}
 					</div>
 				))}
 			</div>

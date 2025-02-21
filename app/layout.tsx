@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { Jost } from "next/font/google"
 import MaintenancePage from "./maintenance/page"
 import Header from "./components/Header/Header"
+import { PrimeReactProvider } from 'primereact/api';
+import "primereact/resources/themes/arya-blue/theme.css";
 
 
 const montserrat = Jost({ subsets: ["latin"] })
@@ -16,9 +18,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<body className={montserrat.className}>
-				{<Header />}
-				{children}
-				{/*<MaintenancePage />*/}
+				<PrimeReactProvider  >
+					{<Header />}
+					{children}
+					{/*<MaintenancePage />*/}
+				</PrimeReactProvider>
 			</body>
 		</html>
 	)
