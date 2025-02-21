@@ -4,7 +4,7 @@ import styles from "./dialodcreatebet.module.scss"
 import { MatchBet } from "./MatchCalendar/MatchBet"
 import { useBet, useUser } from "@/app/config/zustand-store"
 import { AddBet, GetResultsByDay, auth } from "@/app/config/firebase"
-import { CancelLogo, ExitLogo, FinishedIcon, HelpIcon, SendIcon, ViewIcon } from "@/app/svg"
+import { CancelLogo, ExitLogo, FinishedIcon, HelpIcon, LoadingIcon, SendIcon, ViewIcon } from "@/app/svg"
 import { Loading } from "@/app/components/Loading/Loading"
 import { AbbNameMatches } from "@/app/functions/functions"
 import { IMatchDay, IPredictions } from "@/app/types/types"
@@ -63,6 +63,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 
 	const HandleSendBet = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
+		setLoading(true)
 		const results = await GetResultsByDay(matches.day.toString(), new Date().getMonth() < 6 ? "0168" : "0159")
 		if (results.isAvailable === false) {
 			enqueueSnackbar("Tiempo agotado para enviar", { variant: "error" })
@@ -78,7 +79,6 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 			const response = await axios.get("/api/login")
 			if (response.status === 200) {
 				const userInfo = response.data.userInfo
-				setLoading(true)
 				if (bets.some((bet) => bet.prediction === "")) {
 					setIsEmpty(true)
 					setTypeError("empty")
@@ -96,13 +96,12 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 					const response = AbbNameMatches(matches)
 					const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), matches: response, userInfo, seasson: new Date().getMonth() < 6 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, season: new Date().getMonth() < 6 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, paid: false, tournament: matches.tournament })
 					if (result === "OK") {
+						enqueueSnackbar("Quiniela creada correctamente", { variant: "success" })
 						setBetSentSuccessfully(true)
 						setBets(EmptyBetPredictions)
 						setError(false)
 						setName("")
-						setTimeout(() => {
-							setOpen(false)
-						}, 2000)
+						setOpen(false)
 					}
 				}
 			}
@@ -183,8 +182,9 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 						<div className={styles.form_buttons}>
 							<Button
 								props={{ onClick: HandleSendBet }}
-								text="Enviar"
-								icon={<SendIcon className={styles.form_buttonIcon} />}
+								disabled={loading}
+								text={loading ? "Enviando..." : "Enviar"}
+								icon={loading ? <LoadingIcon className={styles.form_buttonIcon} /> : <SendIcon className={styles.form_buttonIcon} />}
 							/>
 							<Button
 								props={{ onClick: () => HandleStatusDialog(false) }}
