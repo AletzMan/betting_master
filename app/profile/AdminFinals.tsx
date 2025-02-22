@@ -54,12 +54,12 @@ export default function AdminFinals() {
 
 
     const GetFinalTable = async () => {
-        //const dataTeams = await GetFinalistTeams()
-        const dataTeams: IFinalsTeams = {
+        const dataTeams = await GetFinalistTeams()
+        const dataParticiapants = await GetFinalParticipants()
+        /*const dataTeams: IFinalsTeams = {
             positions: ["Guadalajara", "Cruz Azul", "team3", "team4", "team5", "team6", "team7", "team8"]
-        }
-        //const dataParticiapants = await GetFinalParticipants()
-        const dataParticiapants: IFinalsParticipants[] = [
+        }*/
+        /*const dataParticiapants: IFinalsParticipants[] = [
             {
                 id: "1",
                 position_team: 1,
@@ -156,7 +156,7 @@ export default function AdminFinals() {
                     email: "email2"
                 }
             },
-        ]
+        ]*/
         const orderParticipants = dataParticiapants.sort((a, b) => a.position_team - b.position_team)
         const positionStage = dataParticiapants.map(part => part.progress_stage)
         setData({ finalTeams: dataTeams.positions, partcipants: orderParticipants, position_stages: positionStage })
