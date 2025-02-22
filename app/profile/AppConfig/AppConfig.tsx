@@ -1,5 +1,4 @@
 import { AdminIcon, ArrowUpIcon } from "@/app/svg"
-import Details from "@/app/components/Details/Details"
 import { Fieldset } from "primereact/fieldset"
 import { Checkbox } from "primereact/checkbox"
 
