@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useUser } from "../config/zustand-store"
 import { IUserInfo } from "../types/types"
 import { IsLoggedUser } from "../services/fetch_utils"
+import { useSession } from "next-auth/react"
 
 export function useLoggedUser() {
 	const [isLogged, setIsLogged] = useState(false)
