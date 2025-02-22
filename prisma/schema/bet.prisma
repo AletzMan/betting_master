@@ -1,0 +1,13 @@
+model Bet {
+    id         String       @id @default(uuid())
+    uid        String
+    day        String
+    name       String
+    bets       Prediction[]
+    matches    String[]
+    season     String
+    paid       Boolean
+    tournament String
+    userInfo   User?        @relation(fields: [userInfoId], references: [id])
+    userInfoId String?      @unique
+}

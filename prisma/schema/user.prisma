@@ -1,0 +1,16 @@
+model User {
+    id            String   @id @default(uuid())
+    name          String
+    uid           String   @unique
+    email         String
+    photo         String
+    color         String
+    account       Int
+    total_bets    Int
+    bets_won      Int
+    finals_won    Int
+    last_login    DateTime
+    notifications Boolean
+
+    Bet Bet?
+}

@@ -1,0 +1,7 @@
+model Match {
+    id      Int    @id @default(autoincrement())
+    home    String
+    away    String
+    day     Int
+    seasson String
+}

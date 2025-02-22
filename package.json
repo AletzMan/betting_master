@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fireworks-js/react": "^2.10.8",
+    "@prisma/client": "^6.4.1",
     "@tailwindcss/postcss": "^4.0.8",
     "axios": "^1.5.1",
     "firebase": "^10.4.0",
