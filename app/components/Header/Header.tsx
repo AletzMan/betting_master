@@ -10,11 +10,12 @@ import { SnackbarProvider, enqueueSnackbar } from "notistack"
 import { MenuPages } from "../MenuPages/MenuPages"
 import { useMenu } from "@/app/config/zustand-store"
 import { CreateNotification, UpdateNotificationUser } from "@/app/config/firebase"
+import { useSession } from "next-auth/react"
 
 export default function Header() {
 
 	const pathname = usePathname()
-	const { userLocal } = useLoggedUser()
+	const session = useSession()
 	const { isLandscape } = useOrientation()
 	const { openMenu, setOpenMenu } = useMenu()
 	const [notifications, setNotifications] = useState(false)
@@ -42,16 +43,17 @@ export default function Header() {
 	const HandleActiveNotifications = async () => {
 		const response = confirm("¡Activa las notificaciones y entérate cuando haya una nueva quiniela disponible!")
 		if (response) {
-			const response = await CreateNotification(userLocal.uid, { ...userLocal, notifications: true, account: "", last_login: new Date().toISOString(), finals_won: 0, total_bets: 0, bets_won: 0 })
+			/*const response = await CreateNotification(userLocal.uid, { ...userLocal, notifications: true, account: "", last_login: new Date().toISOString(), finals_won: 0, total_bets: 0, bets_won: 0 })
 			if (response === "OK") {
 				localStorage.setItem("bettingNotifications", `${true}`)
 				setNotifications(true)
 				enqueueSnackbar("¡Notificaciones activadas con éxito!", { variant: "success" })
 			} else {
 				enqueueSnackbar("Error al activar las notificaciones. Por favor, inténtalo de nuevo.", { variant: "error" });
-			}
+			}*/
 		}
 	}
+	console.log(session)
 
 	return (
 		<>
@@ -76,7 +78,7 @@ export default function Header() {
 								<picture className={styles.user_picture}>
 									<img
 										className={styles.user_image}
-										src={userLocal?.photo || "/user-icon.png"}
+										src={session.data?.user?.image || "/user-icon.png"}
 										alt="Imagen de perfil"
 										loading="lazy"
 										width={50}
@@ -84,7 +86,7 @@ export default function Header() {
 									/>
 								</picture>
 								<div className={styles.user_info}>
-									<span className={styles.user_name}>{userLocal.name && `${userLocal.name?.split(" ")[0]} ${userLocal.name?.split(" ")[1] || ""}` || "Invitado"}</span>
+									<span className={styles.user_name}>{session.data?.user?.name && `${session.data?.user?.name?.split(" ")[0]} ${session.data?.user?.name?.split(" ")[1] || ""}` || "Invitado"}</span>
 								</div>
 							</div>
 						</div>
