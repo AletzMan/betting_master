@@ -77,7 +77,7 @@ export function AdminNotifications() {
 
         <div className="flex flex-col gap-2 relative h-[calc(100svh-9rem)] ">
             <header className="flex items-center justify-end pb-1">
-                <Button onClick={HandleRefreshUsers} icon="pi pi-refresh" severity="success" size="small" outlined label="Actualizar" />
+                <Button onClick={HandleRefreshUsers} icon="pi pi-refresh" severity="secondary" size="small" outlined label="Actualizar" />
             </header>
             <div className="flex flex-col gap-1 scrollbar">
                 {usersData.map((user, index) => (
