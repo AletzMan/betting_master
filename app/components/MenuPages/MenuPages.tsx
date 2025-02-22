@@ -97,7 +97,7 @@ export function MenuPages() {
                         </Link>
                     ))}
                     {!isLogged && (
-                        <Link href={!isLogged ? "auth/login" : "/logout"} className={styles.menu_link} title={"Ir a sección iniciar sesión"}>
+                        <Link href={!isLogged ? "/login" : "/logout"} className={styles.menu_link} title={"Ir a sección iniciar sesión"}>
                             <LogInIcon className={styles.menu_icon} />
                             {"Iniciar sesión"}
                         </Link>

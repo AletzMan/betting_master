@@ -7,6 +7,8 @@ import { AuthCredential } from "firebase/auth"
 import { ErrorFactory } from "@firebase/util"
 import { FirestoreError } from "firebase/firestore"
 
+
+/*
 InitApp()
 
 export async function POST(request: NextRequest) {
@@ -78,3 +80,4 @@ export async function GET(request: NextRequest) {
 		}
 	}
 }
+*/

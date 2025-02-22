@@ -7,46 +7,43 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 	console.log(pathname)
 	console.log(session)
 
-	//Return to / if have a session
 
-	if (pathname.endsWith("/bets")) {
-		if (!session) {
-			request.nextUrl.pathname = "/auth/login"
-			return NextResponse.redirect(request.nextUrl)
-		} else {
-			return NextResponse.next()
+	/*	if (pathname.endsWith("/bets")) {
+			if (!session) {
+				request.nextUrl.pathname = "/auth/login"
+				return NextResponse.redirect(request.nextUrl)
+			} else {
+				return NextResponse.next()
+			}
 		}
-	}
-
-	if (pathname.endsWith("/finals")) {
-		if (!session) {
-			request.nextUrl.pathname = "/auth/login"
-			return NextResponse.redirect(request.nextUrl)
-		} else {
-			return NextResponse.next()
+	
+		if (pathname.endsWith("/finals")) {
+			if (!session) {
+				request.nextUrl.pathname = "/auth/login"
+				return NextResponse.redirect(request.nextUrl)
+			} else {
+				return NextResponse.next()
+			}
 		}
-	}
-
-	/*if (pathname.endsWith("/profile")) {
-		if (!session) {
-			request.nextUrl.pathname = "/auth/login"
-			return NextResponse.redirect(request.nextUrl)
-		} else {
-			return NextResponse.next()
+	
+		if (pathname.endsWith("/profile")) {
+			if (!session) {
+				request.nextUrl.pathname = "/auth/login"
+				return NextResponse.redirect(request.nextUrl)
+			} else {
+				return NextResponse.next()
+			}
 		}
-	}*/
-
-	if (pathname.endsWith("/draw")) {
-		if (!session) {
-			request.nextUrl.pathname = "/auth/login"
-			return NextResponse.redirect(request.nextUrl)
-		} else {
-			return NextResponse.next()
-		}
-	}
+	
+		if (pathname.endsWith("/draw")) {
+			if (!session) {
+				request.nextUrl.pathname = "/auth/login"
+				return NextResponse.redirect(request.nextUrl)
+			} else {
+				return NextResponse.next()
+			}
+		}*/
 }
-//Add your protected routes
-
 /*
 export const config = {
 	matcher: ["/protected/:path*", "/profile"],

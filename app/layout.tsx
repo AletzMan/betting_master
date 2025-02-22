@@ -6,6 +6,7 @@ import Header from "./components/Header/Header"
 import { PrimeReactProvider } from 'primereact/api';
 import "primereact/resources/themes/arya-blue/theme.css";
 import 'primeicons/primeicons.css';
+import { SessionProvider } from "next-auth/react"
 
 
 
@@ -24,11 +25,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<body className={fontJost.variable}>
-				<PrimeReactProvider  >
-					{<Header />}
-					{children}
-					{/*<MaintenancePage />*/}
-				</PrimeReactProvider>
+				<SessionProvider>
+					<PrimeReactProvider  >
+						{<Header />}
+						{children}
+						{/*<MaintenancePage />*/}
+					</PrimeReactProvider>
+				</SessionProvider>
 			</body>
 		</html>
 	)
