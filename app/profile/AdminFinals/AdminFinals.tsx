@@ -1,19 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import { ChangeEvent, useEffect, useState } from "react"
-import { IFinalsParticipants, IStage } from "@/app/types/types"
-import { Button } from "@/app/components/Button/Button"
-import { ArrowUpIcon, LotteryIcon, LuckIcon, ResetIcon, SaveIcon, StartedIcon, ViewIcon, WinnerIcon } from "@/app/svg"
+import { useState } from "react"
+import { IFinalsParticipants, IFinalsTeams, IStage } from "@/app/types/types"
+import { ViewIcon } from "@/app/svg"
 import { AddMatchFinals, GetFinalParticipants, GetFinalistTeams, UpdateFinalParticipants, WriteMustSpin } from "@/app/config/firebase"
-import styles from "./adminfinals.module.scss"
+import styles from "../profile.module.scss"
 import { TeamsLocalNames } from "@/app/constants/constants"
-import SelectField from "@/app/components/SelectField/SelectField"
 import { uniqueStringSchema } from "@/app/validations/uniqueStringSchema"
 import { ZodError } from "zod"
 import { enqueueSnackbar } from "notistack"
 import { getDuplicateFlags } from "@/app/utils/helpers"
-import { ButtonRefresh } from "@/app/components/ButtonRefresh/ButtonRefresh"
-import Details from "@/app/components/Details/Details"
+import { Dropdown, DropdownChangeEvent } from "primereact/dropdown"
+import { Button } from "primereact/button"
+import { Divider } from "primereact/divider"
 
 const PositionStage: IPositionStage = {
     quarter: ['quarter'],
@@ -55,8 +54,109 @@ export default function AdminFinals() {
 
 
     const GetFinalTable = async () => {
-        const dataTeams = await GetFinalistTeams()
-        const dataParticiapants = await GetFinalParticipants()
+        //const dataTeams = await GetFinalistTeams()
+        const dataTeams: IFinalsTeams = {
+            positions: ["Guadalajara", "Cruz Azul", "team3", "team4", "team5", "team6", "team7", "team8"]
+        }
+        //const dataParticiapants = await GetFinalParticipants()
+        const dataParticiapants: IFinalsParticipants[] = [
+            {
+                id: "1",
+                position_team: 1,
+                progress_stage: ['quarter'],
+                team: "team1",
+                user_info: {
+                    name: "user1",
+                    photo: "https://dokkan.wiki/assets/global/en/character/thumb/card_1010070_thumb.png",
+                    uid: "uid1",
+                    email: "email1"
+                }
+            },
+            {
+                id: "2",
+                position_team: 2,
+                progress_stage: ['quarter'],
+                team: "team2",
+                user_info: {
+                    name: "user2",
+                    photo: "photo2",
+                    uid: "uid2",
+                    email: "email2"
+                }
+            },
+            {
+                id: "3",
+                position_team: 2,
+                progress_stage: ['quarter'],
+                team: "team2",
+                user_info: {
+                    name: "user2",
+                    photo: "photo2",
+                    uid: "uid3",
+                    email: "email2"
+                }
+            },
+            {
+                id: "4",
+                position_team: 2,
+                progress_stage: ['quarter'],
+                team: "team2",
+                user_info: {
+                    name: "user2",
+                    photo: "photo2",
+                    uid: "uid4",
+                    email: "email2"
+                }
+            },
+            {
+                id: "5",
+                position_team: 2,
+                progress_stage: ['quarter'],
+                team: "team2",
+                user_info: {
+                    name: "user2",
+                    photo: "photo2",
+                    uid: "uid5",
+                    email: "email2"
+                }
+            },
+            {
+                id: "6",
+                position_team: 2,
+                progress_stage: ['quarter'],
+                team: "team2",
+                user_info: {
+                    name: "user2",
+                    photo: "photo2",
+                    uid: "uid6",
+                    email: "email2"
+                }
+            },
+            {
+                id: "7",
+                position_team: 2,
+                progress_stage: ['quarter'],
+                team: "team2",
+                user_info: {
+                    name: "user2",
+                    photo: "photo2",
+                    uid: "uid7",
+                    email: "email2"
+                }
+            },
+            {
+                id: "8",
+                position_team: 2,
+                progress_stage: ['quarter', 'half'],
+                team: "team2",
+                user_info: {
+                    name: "user2",
+                    photo: "photo2",
+                    uid: "uid8",
+                    email: "email2"
+                }
+            },
+        ]
         const orderParticipants = dataParticiapants.sort((a, b) => a.position_team - b.position_team)
         const positionStage = dataParticiapants.map(part => part.progress_stage)
         setData({ finalTeams: dataTeams.positions, partcipants: orderParticipants, position_stages: positionStage })
@@ -91,8 +191,8 @@ export default function AdminFinals() {
     }
 
 
-    const HandleOnChangeTeam = (event: ChangeEvent<HTMLSelectElement>, index: number) => {
-        const value = event.currentTarget.value
+    const HandleOnChangeTeam = (event: DropdownChangeEvent, index: number) => {
+        const value = event.value
         const newTeams = [...data.finalTeams]
         newTeams[index] = value
         setData({ ...data, finalTeams: newTeams })
@@ -101,8 +201,8 @@ export default function AdminFinals() {
         setErrorTeams(newErrors)
     }
 
-    const HandleOnChangeStage = (event: ChangeEvent<HTMLSelectElement>, position_team: number) => {
-        const stage = event.currentTarget.value as IStage
+    const HandleOnChangeStage = (event: DropdownChangeEvent, position_team: number) => {
+        const stage = event.value as IStage
         const newValue = [...data.position_stages]
         newValue[position_team - 1] = PositionStage[stage]
         setData({ ...data, position_stages: newValue })
@@ -121,51 +221,49 @@ export default function AdminFinals() {
         }
     }
 
-
     return (
-        <Details name="adminpanel" title="Administración de Sorteo" icon={<LuckIcon className="" />} >
-            <article className={styles.details}>
-                <header className={styles.header}>
-                    <h2 className={styles.title}>Equipos finalistas</h2>
-                    <ButtonRefresh className={styles.refresh} onClick={GetFinalTable} />
-                </header>
-                <div className={styles.table}>
-                    <div className={styles.teams}>
-                        {
-                            TeamsLocalNames.map((team, index) => index < 8 && (
-                                <div key={team} className={styles.teams_team}>
-                                    <span className={styles.teams_position}>{index + 1}</span>
-                                    <SelectField items={TeamsLocalNames} props={{ value: data.finalTeams[index], onChange: (e) => HandleOnChangeTeam(e, index), "aria-errormessage": errorTeams[index] ? "error" : "" }} />
-                                </div>
-                            ))
-                        }
-                    </div>
-                    <div className={styles.participants}>
-                        {data.partcipants.map((participant, index) => (
-                            <SelectField key={participant.id} items={['quarter', 'half', 'final', 'winner']} props={{ onChange: (e) => HandleOnChangeStage(e, participant.position_team), value: data.position_stages[index][data.position_stages.length - 1] }} />
-                        ))
-                        }
-                    </div>
-                    <div className={styles.participants}>
-                        {data.partcipants.map(participant => (
-                            <div key={participant.user_info.uid} className={styles.participants_participant} >
-                                <button className={styles.participants_button}>
-                                    <ViewIcon className={styles.participants_icon} />
-                                </button>
-                                <div className={styles.participants_user} >
-                                    <span className={styles.participants_name}>{participant.user_info.name?.split(" ")[0]}</span>
-                                    <img className={styles.participants_photo} src={participant.user_info.photo || "/user_photo.png"} alt={`Foto de perfil de ${participant.user_info.name}`} />
-                                </div>
+        <div className="flex flex-col gap-2 relative h-[calc(100svh-8rem)]">
+            <header className="flex items-center justify-between bg-(--surface-c) px-2 py-1">
+                <h2 className="text-center pl-4  text-sm text-amber-500">Equipos finalistas</h2>
+                <Button icon="pi pi-refresh" size="small" outlined label="Actualizar" severity="secondary" raised onClick={GetFinalTable} />
+            </header>
+            <div className="flex gap-1.5 justify-between">
+                <div className="flex flex-col gap-1.5 w-full max-w-42">
+                    {
+                        TeamsLocalNames.map((team, index) => index < 8 && (
+                            <div key={team} className="flex items-center gap-1 w-full ">
+                                <span className="flex items-center justify-center bg-(--surface-d) h-7 w-7 rounded-sm" >{index + 1}</span>
+                                <Dropdown className="w-full" placeholder="Seleccione" value={data.finalTeams[index]} options={TeamsLocalNames} onChange={(e) => HandleOnChangeTeam(e, index)} />
                             </div>
-                        ))}
-                    </div>
+                        ))
+                    }
                 </div>
-                <footer className={styles.footer}>
-                    <Button props={{ onClick: HandleStart }} text="Equipos" icon={<SaveIcon className={""} />} />
-                    <Button props={{ onClick: HandleSaveStage }} text="Fase" icon={<SaveIcon className={""} />} />
-                    <Button props={{ onClick: HandleResetAssignedTeams, disabled: data.partcipants && data.partcipants!.length < 8 }} text="Asignados" icon={<ResetIcon className={""} />} />
-                </footer>
-            </article>
-        </Details>
+                <div className="flex flex-col gap-1.5">
+                    {data.partcipants.map((participant, index) => (
+                        <Dropdown key={participant.id} value={data.position_stages[index][data.position_stages[index].length - 1]} options={['quarter', 'half', 'final', 'winner']} onChange={(e) => HandleOnChangeStage(e, participant.position_team)} />
+                    ))
+                    }
+                </div>
+                <div className="flex flex-col gap-1.5 h-full">
+                    {data.partcipants.map(participant => (
+                        <div key={participant.user_info.uid} className="h-10.5 flex items-center justify-center relative" >
+                            <button className={styles.participants_button}>
+                                <ViewIcon className={styles.participants_icon} />
+                            </button>
+                            <div className={styles.participants_user} >
+                                <span className={styles.participants_name}>{participant.user_info.name?.split(" ")[0]}</span>
+                                <img className={styles.participants_photo} src={participant.user_info.photo || "/user_photo.png"} alt={`Foto de perfil de ${participant.user_info.name}`} />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <Divider />
+            <footer className="flex items-center justify-between">
+                <Button onClick={HandleStart} label="Equipos" icon="pi pi-play" size="small" severity="success" outlined raised />
+                <Button onClick={HandleSaveStage} label="Fase" icon="pi pi-save" size="small" severity="success" raised />
+                <Button onClick={HandleResetAssignedTeams} label="Asignados" disabled={data.partcipants && data.partcipants!.length < 8} icon="pi pi-replay" size="small" severity="danger" />
+            </footer>
+        </div>
     )
 }
