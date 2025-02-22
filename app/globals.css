@@ -11,7 +11,6 @@
 	--height-combo: 0;
 
 	--backgroundColor: #232323;
-	--primary-color: #11cfd9;
 	--primaryOpacityColor: #11cfd955;
 	--secondaryColor: #171717;
 	--tertiaryColor: #1b1b1b;
@@ -80,7 +79,7 @@ body {
 
 .scrollbar::-webkit-scrollbar-thumb {
 	border-radius: 1em;
-	background-color: var(--primaryColor);
+	background-color: var(--primary-color);
 	cursor: pointer;
 }
 
