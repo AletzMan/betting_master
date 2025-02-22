@@ -10,6 +10,7 @@ import styles from "./betsbyuser.module.scss"
 import Details from "@/app/components/Details/Details"
 import SelectField from "@/app/components/SelectField/SelectField"
 import { ButtonRefresh } from "@/app/components/ButtonRefresh/ButtonRefresh"
+import { Button } from "primereact/button"
 
 interface IBetsByUser {
     uid: string,
@@ -81,56 +82,54 @@ export function BetsByUser() {
     }
 
     return (
-        <Details name="adminpanel" title="Gestión de Pagos" icon={<PaymentIcon className="" />} >
-            <section className={styles.section}>
-                <header className={styles.header}>
-                    <div className={styles.day}>
-                        <SelectField items={MatchDays} props={{ onChange: HandleChangeDay, value: MatchDays[matchDay - 1] }} />
-                        <ButtonRefresh onClick={HandleGetData} />
-                    </div>
-                    <div className={styles.description}>
-                        <div className={styles.description_total}>
-                            <h2 className={styles.description_title}>Total</h2>
-                            <p className={styles.description_totalValue}>{bets.length}</p>
-                        </div>
-                        <div className={styles.description_total}>
-                            <h2 className={styles.description_title}>Pagadas</h2>
-                            <p className={styles.description_totalValue}>{bets.filter((bet) => bet.data.paid).length}</p>
-                        </div>
-                        <div className={styles.description_total}>
-                            <h2 className={styles.description_title}>Monto</h2>
-                            <p className={styles.description_totalValue}>$ {bets.filter((bet) => bet.data.paid).length * 13.5}</p>
-                        </div>
-                        <div className={styles.description_total}>
-                            <h2 className={styles.description_title}>Ganancia</h2>
-                            <p className={styles.description_totalValue}>$ {bets.filter((bet) => bet.data.paid).length * 1.5}</p>
-                        </div>
-                    </div>
-                </header>
-                <div className={styles.bets}>
-                    {betsByID[0]?.uid && betsByID?.map((bet, index) => (
-                        <details key={bet.uid} className={`${styles.bets_bet} ${betsByID[index].bets.find(betdata => !betdata.data.paid)?.data ? styles.bets_betNoPaid : styles.bets_betPaid}`}>
-                            <summary className={`${styles.bets_betSummary} `}>
-                                <Image className={styles.bets_betSummaryImage} src={bet?.bets[0]?.data.userInfo?.photo || "/user_icon.png"} alt="user" width={30} height={30} />
-                                {bet?.bets[0]?.data.userInfo?.name}
-                                <span className={styles.bets_betSummaryCount}>{bet.bets.length}</span>
-                            </summary>
-                            <div className={styles.bets_betContent}>
-                                {bet.bets.map((bet, index) => (
-                                    <div key={index} className={styles.bets_betMatch}>
-                                        <p className={styles.bet_match_title}>{bet.data.name}</p>
-                                        <input className={styles.bets_betMatchCheck} type="checkbox" defaultChecked={bet.data.paid} onChange={(e) => HandleCheck(e, bet.id)} />
-                                        <button className={styles.bets_betMatchButton} onClick={() => HandleDelete(bet.id, bet.data.name)}>
-                                            <DeleteIcon />
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        </details>
-                    ))}
+        <div className="flex flex-col gap-2 relative h-[calc(100svh-9rem)]">
+            <header className="flex flex-col">
+                <div className="flex justify-between">
+                    <SelectField items={MatchDays} props={{ onChange: HandleChangeDay, value: MatchDays[matchDay - 1] }} />
+                    <Button onClick={HandleGetData} icon="pi pi-refresh" outlined severity="secondary" size="small" label="Actualizar" />
                 </div>
-            </section>
-        </Details>
+                <div className={styles.description}>
+                    <div className={styles.description_total}>
+                        <h2 className={styles.description_title}>Total</h2>
+                        <p className={styles.description_totalValue}>{bets.length}</p>
+                    </div>
+                    <div className={styles.description_total}>
+                        <h2 className={styles.description_title}>Pagadas</h2>
+                        <p className={styles.description_totalValue}>{bets.filter((bet) => bet.data.paid).length}</p>
+                    </div>
+                    <div className={styles.description_total}>
+                        <h2 className={styles.description_title}>Monto</h2>
+                        <p className={styles.description_totalValue}>$ {bets.filter((bet) => bet.data.paid).length * 13.5}</p>
+                    </div>
+                    <div className={styles.description_total}>
+                        <h2 className={styles.description_title}>Ganancia</h2>
+                        <p className={styles.description_totalValue}>$ {bets.filter((bet) => bet.data.paid).length * 1.5}</p>
+                    </div>
+                </div>
+            </header>
+            <div className={styles.bets}>
+                {betsByID[0]?.uid && betsByID?.map((bet, index) => (
+                    <details key={bet.uid} className={`${styles.bets_bet} ${betsByID[index].bets.find(betdata => !betdata.data.paid)?.data ? styles.bets_betNoPaid : styles.bets_betPaid}`}>
+                        <summary className={`${styles.bets_betSummary} `}>
+                            <Image className={styles.bets_betSummaryImage} src={bet?.bets[0]?.data.userInfo?.photo || "/user_icon.png"} alt="user" width={30} height={30} />
+                            {bet?.bets[0]?.data.userInfo?.name}
+                            <span className={styles.bets_betSummaryCount}>{bet.bets.length}</span>
+                        </summary>
+                        <div className={styles.bets_betContent}>
+                            {bet.bets.map((bet, index) => (
+                                <div key={index} className={styles.bets_betMatch}>
+                                    <p className={styles.bet_match_title}>{bet.data.name}</p>
+                                    <input className={styles.bets_betMatchCheck} type="checkbox" defaultChecked={bet.data.paid} onChange={(e) => HandleCheck(e, bet.id)} />
+                                    <button className={styles.bets_betMatchButton} onClick={() => HandleDelete(bet.id, bet.data.name)}>
+                                        <DeleteIcon />
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </details>
+                ))}
+            </div>
+        </div>
     )
 }
 
