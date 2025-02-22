@@ -3,14 +3,14 @@ model User {
     name          String
     uid           String   @unique
     email         String
-    photo         String
-    color         String
-    account       Int
-    total_bets    Int
-    bets_won      Int
-    finals_won    Int
-    last_login    DateTime
-    notifications Boolean
+    photo         String?
+    color         String?
+    account       String?
+    total_bets    Int      @default(0)
+    bets_won      Int      @default(0)
+    finals_won    Int      @default(0)
+    last_login    DateTime @default(now())
+    notifications Boolean  @default(false)
 
     Bet Bet?
 }
