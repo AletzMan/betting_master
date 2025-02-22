@@ -84,8 +84,7 @@ export function AdminPanel() {
 					<header className="flex flex-col">
 						<div className="flex justify-between items-center">
 							<h3 className="text-sky-500">{`Jornada ${matchDay}`}</h3>
-							<Button label="Eliminar Jornada" severity="danger" icon="pi pi-trash" size="small" />
-							{/*<Button props={{ onClick: HandleDeleteDayMatch }} text="Eliminar jornada" type="secondary" icon={<DeleteIcon className="" />} />*/}
+							<Button label="Eliminar Jornada" severity="danger" icon="pi pi-trash" size="small" onClick={HandleDeleteDayMatch} />
 						</div>
 						<Divider type="dashed" />
 						<div className="flex flex-row gap-2.5 justify-around ">
@@ -120,7 +119,7 @@ export function AdminPanel() {
 						label="Crear quiniela"
 						icon="pi pi-plus"
 						size="small"
-						disabled={matchDay !== 0}
+						disabled={false}
 						severity="success"
 						onClick={HandleCreate}
 						outlined />
@@ -132,20 +131,6 @@ export function AdminPanel() {
 							size="small"
 							severity="success"
 							onClick={HandleUpdate} />}
-					{/*<Button
-						props={{ onClick: HandleCreate }}
-						text="Crear quiniela"
-						type="primary"
-						icon={<AddIcon className="" />}
-				/>*/}
-					{/*matchDay !== 0 &&
-						<Button
-							props={{ onClick: () => HandleUpdate(), disabled: sending }}
-							text={!sending ? "Actualizar" : "Sending..."}
-							icon={sending ? <LoadingIcon className={styles.admin_updateIcon} /> : <UpdateLogo className={styles.admin_updateIcon} />}
-							type="success"
-						/>
-			*/}
 				</footer>
 			</div>
 		</>

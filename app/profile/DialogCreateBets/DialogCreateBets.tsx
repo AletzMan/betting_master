@@ -8,8 +8,13 @@ import { useOrientation } from "@/app/hooks/useOrientation"
 import { ValidateNewBet } from "@/app/functions/functions"
 import { TeamsNames } from "@/app/constants/constants"
 import { useSnackbar } from "notistack"
-import { Button } from "@/app/components/Button/Button"
 import { AddIcon, CloseIcon, ResetIcon } from "@/app/svg"
+import { Dialog } from "primereact/dialog"
+import { Button } from "primereact/button"
+import { InputText } from "primereact/inputtext"
+import { InputNumber, InputNumberChangeEvent } from "primereact/inputnumber"
+import { Divider } from "primereact/divider"
+import { Message } from "primereact/message"
 interface Props {
 	setView: Dispatch<SetStateAction<boolean>>
 }
@@ -55,8 +60,8 @@ export function DialogCreatBets({ setView }: Props) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentMatches])
 
-	const HandleChangeDay = (e: ChangeEvent<HTMLInputElement>) => {
-		setMatchDay(parseInt(e.currentTarget.value))
+	const HandleChangeDay = (e: InputNumberChangeEvent) => {
+		setMatchDay(e.value || 0)
 	}
 
 	const HandleCreateMatchDay = async () => {
@@ -118,36 +123,26 @@ export function DialogCreatBets({ setView }: Props) {
 	}
 
 	return (
-		<dialog className={`${styles.dialog} ${isLandscape && styles.dialog_landscape}`} open>
-			<section className={`${styles.dialog_section} scrollbar`}>
-				<header className={styles.dialog_header}>
-					<Button props={{ onClick: HandleCreateMatchDay }} text="Crear Quiniela" type="success" icon={<AddIcon className="" />} />
-					<Button props={{ onClick: HandleCrearTeams }} text="Reiniciar" type="secondary" icon={<ResetIcon className="" />} />
-					<Button props={{ onClick: () => setView(false) }} text="Cerrar" type="error" icon={<CloseIcon className="" />} />
+		<Dialog style={{ width: '95svw', maxWidth: '550px', height: '80svh' }} header="HOLA" visible onHide={() => setView(false)}>
+			<section className=" flex flex-col  scrollbar">
+				<header className="flex gap-2.5 justify-between">
+					<Button onClick={HandleCreateMatchDay} label="Crear Quiniela" severity="success" icon="pi pi-plus" size="small" />
+					<Button onClick={HandleCrearTeams} label="Reiniciar" severity="secondary" icon="pi pi-replay" size="small" />
 				</header>
-				<article className={styles.dialog_matches}>
+				<Divider type="dashed" />
+				<article className="flex flex-col">
 					{error.hasError && (
 						<span className={styles.dialog_errorText}>{error.errorMatchDay ? "Elija un número de jornada" : "Existen campos vacíos"}</span>
 					)}
-					<div className={styles.dialog_matchesDay}>
-						<label className={styles.dialog_matchesDayText}>
+					<div className="grid grid-cols-2 w-full gap-6 justify-between">
+						<label className="flex flex-col gap-1 text-sm ">
 							Jornada
-							<input
-								className={`${styles.dialog_matchesDayNumber} ${error.errorMatchDay && styles.dialog_matchesDayNumberError}`}
-								type="number"
-								value={matchDay}
-								onChange={HandleChangeDay}
-							/>
+							<InputNumber invalid={error.errorMatchDay} size={10} value={matchDay} onChange={HandleChangeDay} showButtons min={0} max={25} className="p-invalid mr-2" />
+							<Message severity="error" text="Username is required" />
 						</label>
-						<label className={styles.dialog_matchesDayText}>
+						<label className="flex flex-col gap-1 text-sm">
 							Numero de partidos
-							<input
-								className={`${styles.dialog_matchesDayNumber} ${error.errorMatchDay && styles.dialog_matchesDayNumberError}`}
-								type="number"
-								value={currentMatches}
-								onChange={(e) => setCurrentMatches(Number(e.currentTarget.value))}
-								max={15}
-							/>
+							<InputNumber size={10} value={currentMatches} onChange={(e) => setCurrentMatches(Number(e.value))} showButtons min={0} max={15} />
 						</label>
 					</div>
 					{matches?.map((match, index) => (
@@ -164,7 +159,7 @@ export function DialogCreatBets({ setView }: Props) {
 					))}
 				</article>
 			</section>
-		</dialog>
+		</Dialog>
 	)
 }
 

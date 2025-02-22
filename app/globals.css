@@ -9,6 +9,7 @@
 	--font-primary: ;
 
 	--height-combo: 0;
+	--primary-color: red !important;
 
 	--backgroundColor: #232323;
 	--primaryOpacityColor: #11cfd955;
@@ -98,4 +99,8 @@ body {
 	height: 100svh;
 	overflow-y: auto;
 	max-width: var(--max-width);
+}
+
+.p-dialog .p-dialog-content {
+	padding: 0.5em;
 }
