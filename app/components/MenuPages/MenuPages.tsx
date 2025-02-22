@@ -1,21 +1,20 @@
 import Link from "next/link"
 import styles from "./styles.module.scss"
-import { AppLogo, LogInIcon, LogOutIcon, MenuIcon } from "@/app/svg"
+import { LogInIcon, LogOutIcon, MenuIcon } from "@/app/svg"
 import { LinksPage } from "@/app/constants/constants"
 import { usePathname } from "next/navigation"
-import { auth } from "@/app/config/firebase"
 import { useMenu } from "@/app/config/zustand-store"
-import { Dispatch, MouseEvent, SetStateAction } from "react"
+import { MouseEvent } from "react"
 import { useLoggedUser } from "@/app/hooks/useLoggedUser"
-import { signOut } from "firebase/auth"
 import { useRouter } from "next/navigation"
-import axios from "axios"
+import { signOut, useSession } from "next-auth/react"
 
 export function MenuPages() {
     const pathname = usePathname()
     const router = useRouter()
     const { openMenu, setOpenMenu } = useMenu()
     const { isLogged, setIsLogged, setUser } = useLoggedUser()
+    const session = useSession()
 
     const HandleClickDialog = (e: MouseEvent<HTMLDialogElement>) => {
         if ((e.target as HTMLElement).tagName === "DIALOG") {
@@ -25,16 +24,7 @@ export function MenuPages() {
 
     const HandleSignOut = async () => {
         try {
-            await signOut(auth)
-            const response = await axios.post("/api/logout")
-
-            if (response.status === 200) {
-                setUser({ uid: "", name: "", photo: "", email: "" })
-                setIsLogged(false)
-                setOpenMenu(false)
-                router.push("/")
-                router.refresh()
-            }
+            await signOut({ redirect: true, redirectTo: "/" })
         } catch (error) {
             console.error(error)
         }
@@ -96,13 +86,13 @@ export function MenuPages() {
                             {link.text}
                         </Link>
                     ))}
-                    {!isLogged && (
+                    {session.status === "unauthenticated" && (
                         <Link href={!isLogged ? "/login" : "/logout"} className={styles.menu_link} title={"Ir a sección iniciar sesión"}>
                             <LogInIcon className={styles.menu_icon} />
                             {"Iniciar sesión"}
                         </Link>
                     )}
-                    {isLogged && (
+                    {session.status === "authenticated" && (
                         <button onClick={HandleSignOut} className={styles.menu_link} title={"Cerrar sesión"}>
                             <LogOutIcon className={styles.menu_icon} />
                             {"Cerrar sesión"}
