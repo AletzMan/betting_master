@@ -1,51 +1,21 @@
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
 
-export async function middleware(request: NextRequest, response: NextResponse) {
-	const session = request.cookies.get("session-soccer")
-	const { pathname } = request.nextUrl
-	console.log(pathname)
-	console.log(session)
+import { NextRequest, NextResponse } from "next/server"
+import authConfig from "./app/utils/auth.cofig"
+import NextAuth from "next-auth"
+import { NotAuthorizedError } from "./app/api/_services/errors"
 
+const { auth } = NextAuth(authConfig)
+export default auth(async function middleware(request: NextRequest) {
+	let cookie = request.cookies.get('authjs.session-token')
+	if (request.nextUrl.pathname.startsWith('/bets') && !cookie) {
+		return NextResponse.redirect(new URL('/login', request.url))
+	}
+	if (request.nextUrl.pathname.startsWith('/profile') && !cookie) {
+		return NextResponse.redirect(new URL('/login', request.url))
+	}
+	if (request.nextUrl.pathname.startsWith('/api/users') && !cookie) {
+		return NotAuthorizedError();
+	}
 
-	/*	if (pathname.endsWith("/bets")) {
-			if (!session) {
-				request.nextUrl.pathname = "/auth/login"
-				return NextResponse.redirect(request.nextUrl)
-			} else {
-				return NextResponse.next()
-			}
-		}
-	
-		if (pathname.endsWith("/finals")) {
-			if (!session) {
-				request.nextUrl.pathname = "/auth/login"
-				return NextResponse.redirect(request.nextUrl)
-			} else {
-				return NextResponse.next()
-			}
-		}
-	
-		if (pathname.endsWith("/profile")) {
-			if (!session) {
-				request.nextUrl.pathname = "/auth/login"
-				return NextResponse.redirect(request.nextUrl)
-			} else {
-				return NextResponse.next()
-			}
-		}
-	
-		if (pathname.endsWith("/draw")) {
-			if (!session) {
-				request.nextUrl.pathname = "/auth/login"
-				return NextResponse.redirect(request.nextUrl)
-			} else {
-				return NextResponse.next()
-			}
-		}*/
-}
-/*
-export const config = {
-	matcher: ["/protected/:path*", "/profile"],
-};
-*/
+})
+
