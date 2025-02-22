@@ -3,14 +3,13 @@
 import { useEffect, useState } from "react"
 import { AddResults, DeleteMatchDay, GetCurrentMatchDay, GetResultsByDay, UpdateResultsMatchDay } from "@/app/config/firebase"
 import { ICurrentMatch, IResultsMatches } from "@/app/types/types"
-import { ButtonBet } from "../ButtonBet/ButtonBet"
-import { AddIcon, BetConfigIcon, DeleteIcon, LoadingIcon, UpdateLogo } from "@/app/svg"
+import { ButtonBet } from "./ButtonBet/ButtonBet"
 import { TeamsLogos } from "@/app/constants/constants"
-import { DialogCreatBets } from "../DialogCreateBets/DialogCreateBets"
-import { Button } from "@/app/components/Button/Button"
+import { DialogCreatBets } from "./DialogCreateBets/DialogCreateBets"
 import { enqueueSnackbar } from "notistack"
-import styles from "./adminpanel.module.scss"
-import Details from "@/app/components/Details/Details"
+import { Button } from "primereact/button"
+import { Divider } from "primereact/divider"
+import { InputSwitch } from "primereact/inputswitch"
 
 export function AdminPanel() {
 	const [matchDay, setMatchDay] = useState<number | undefined>(0)
@@ -54,7 +53,8 @@ export function AdminPanel() {
 			await UpdateResultsMatchDay(resultsByMatch, update, new Date().getMonth() < 6 ? "0168" : "0159", isAvailable, statusGame)
 			if (result === "OK") {
 				setSending(false)
-				enqueueSnackbar("Quiniela actualizada", { variant: "success" })
+				enqueueSnackbar("Quiniela actualizada correctamente", { variant: "success" })
+
 			}
 		}
 	}
@@ -79,61 +79,75 @@ export function AdminPanel() {
 	return (
 		<>
 			{viewCreateBets && <DialogCreatBets setView={setViewCreateBets} />}
-			<Details name="adminpanel" title="Edición de Quiniela" icon={<BetConfigIcon className="" />} >
-				<section className={styles.admin_section}>
+			<div className="flex flex-col gap-2 relative h-[calc(100svh-9rem)]">
+				{matchDay !== 0 &&
+					<header className="flex flex-col">
+						<div className="flex justify-between items-center">
+							<h3 className="text-sky-500">{`Jornada ${matchDay}`}</h3>
+							<Button label="Eliminar Jornada" severity="danger" icon="pi pi-trash" size="small" />
+							{/*<Button props={{ onClick: HandleDeleteDayMatch }} text="Eliminar jornada" type="secondary" icon={<DeleteIcon className="" />} />*/}
+						</div>
+						<Divider type="dashed" />
+						<div className="flex flex-row gap-2.5 justify-around ">
+							<div className="flex gap-1.5 flex-col items-center">
+								<label className="text-sm">¿Jornada en Juego?</label>
+								<InputSwitch checked={!statusGame} onChange={() => setStatusGame((prev) => !prev)} />
+							</div>
+							<div className="flex gap-1.5 flex-col items-center">
+								<label className="text-sm">¿Participación abierta?</label>
+								<InputSwitch checked={isAvailable} onChange={() => setIsAvailable((prev) => !prev)} />
+							</div>
+						</div>
+						<Divider type="dashed" />
+					</header>}
+				<article className="grid grid-cols-9 gap-1">
+					{matches.map((match, index) => (
+						<div key={match.teams.away} className="flex flex-col max-w-12">
+							<div className="flex flex-col justify-center">
+								<span className="text-xs text-center">{TeamsLogos[match.teams.home]?.abbName}</span>
+								<span className="text-xs text-center text-amber-300">{"vs"}</span>
+								<span className="text-xs text-center">{TeamsLogos[match.teams.away]?.abbName}</span>
+							</div>
+							{resultsByMatch && (
+								<ButtonBet index={index} setResultMatch={setResultByMatch} resultMatches={resultsByMatch} actualPrediction={resultsByMatch[index]} />
+							)}
+						</div>
+					))}
+				</article>
+				<Divider type="dashed" />
+				<footer className="flex justify-around">
+					<Button
+						label="Crear quiniela"
+						icon="pi pi-plus"
+						size="small"
+						disabled={matchDay !== 0}
+						severity="success"
+						onClick={HandleCreate}
+						outlined />
 					{matchDay !== 0 &&
-						<header className={styles.admin_header}>
-							<div className={styles.admin_container}>
-								<h3 className={styles.admin_sectionTitle}>{`Jornada ${matchDay}`}</h3>
-								<Button props={{ onClick: HandleDeleteDayMatch }} text="Eliminar jornada" type="secondary" icon={<DeleteIcon className="" />} />
-							</div>
-							<div className={styles.admin_subSection}>
-								<div className={styles.admin_subSectionButtons}>
-									<div className={`${styles.admin_status} ${statusGame && styles.admin_statusActive}`}>
-										<input className={styles.admin_statusInput} type="checkbox" checked={statusGame} onChange={() => setStatusGame((prev) => !prev)} />
-										<div className={`${styles.admin_statusButton} ${statusGame && styles.admin_statusButtonActive}`}></div>
-										<span className={styles.admin_statusText}>{statusGame ? "Finalizada" : "En juego"}</span>
-									</div>
-									<div className={`${styles.admin_isAvailable} ${isAvailable && styles.admin_isAvailableActive}`}>
-										<input className={styles.admin_isAvailableInput} type="checkbox" checked={isAvailable} onChange={() => setIsAvailable((prev) => !prev)} />
-										<div className={`${styles.admin_isAvailableButton} ${isAvailable && styles.admin_isAvailableButtonActive}`}></div>
-										<span className={styles.admin_isAvailableText}>{isAvailable ? "Abierta" : "Cerrada"}</span>
-									</div>
-								</div>
-							</div>
-						</header>}
-					<article className={styles.admin_results}>
-						{matches.map((match, index) => (
-							<div key={match.teams.away} className={styles.admin_resultsMatch}>
-								<div className={styles.admin_resultsMatchNames}>
-									<span className={styles.admin_resultsMatchNamesHome}>{TeamsLogos[match.teams.home]?.abbName}</span>
-									<span className={styles.admin_resultsMatchNamesVS}>{"vs"}</span>
-									<span className={styles.admin_resultsMatchNamesAway}>{TeamsLogos[match.teams.away]?.abbName}</span>
-								</div>
-								{resultsByMatch && (
-									<ButtonBet index={index} setResultMatch={setResultByMatch} resultMatches={resultsByMatch} actualPrediction={resultsByMatch[index]} />
-								)}
-							</div>
-						))}
-					</article>
-					<footer className={styles.admin_footer}>
 						<Button
-							props={{ onClick: HandleCreate }}
-							text="Crear quiniela"
-							type="primary"
-							icon={<AddIcon className="" />}
+							label={!sending ? "Actualizar" : "Enviando..."}
+							icon={sending ? "pi pi-spin pi-spinner-dotted" : "pi pi-refresh"}
+							disabled={sending}
+							size="small"
+							severity="success"
+							onClick={HandleUpdate} />}
+					{/*<Button
+						props={{ onClick: HandleCreate }}
+						text="Crear quiniela"
+						type="primary"
+						icon={<AddIcon className="" />}
+				/>*/}
+					{/*matchDay !== 0 &&
+						<Button
+							props={{ onClick: () => HandleUpdate(), disabled: sending }}
+							text={!sending ? "Actualizar" : "Sending..."}
+							icon={sending ? <LoadingIcon className={styles.admin_updateIcon} /> : <UpdateLogo className={styles.admin_updateIcon} />}
+							type="success"
 						/>
-						{matchDay !== 0 &&
-							<Button
-								props={{ onClick: () => HandleUpdate(), disabled: sending }}
-								text={!sending ? "Actualizar" : "Sending..."}
-								icon={sending ? <LoadingIcon className={styles.admin_updateIcon} /> : <UpdateLogo className={styles.admin_updateIcon} />}
-								type="success"
-							/>
-						}
-					</footer>
-				</section>
-			</Details>
+			*/}
+				</footer>
+			</div>
 		</>
 	)
 }

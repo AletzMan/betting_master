@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { IUserSettings } from "@/app/types/types"
-import Image from "next/image"
 import { useEffect, useState } from "react"
 import { GetInfoUser, SaveInfouser } from "@/app/config/firebase"
 import { enqueueSnackbar } from "notistack"

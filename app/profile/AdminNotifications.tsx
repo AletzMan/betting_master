@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import styles from "./styles.module.scss"
+import styles from "./profile.module.scss"
 import { DeleteIcon, EmailIcon, NotificationIcon } from "@/app/svg"
 import { MouseEvent, useState } from "react"
 import { DeleteUser, GetCurrentMatchDay, GetUsers, UpdateNotificationUser } from "@/app/config/firebase"
