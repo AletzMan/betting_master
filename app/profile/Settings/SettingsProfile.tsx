@@ -7,14 +7,16 @@ import { GetInfoUser, SaveInfouser } from "@/app/config/firebase"
 import { enqueueSnackbar } from "notistack"
 import { profileSettingsSchema } from "@/app/validations/profileSettingsSchema"
 import { ZodError } from "zod"
-import { Button } from "@/app/components/Button/Button"
 import { ArrowUpIcon, EditIcon, ProfileIcon, SaveIcon } from "@/app/svg"
-import styles from "./settings.module.scss"
-import stylesGeneral from "../profile.module.scss"
 import { TextField } from "@/app/components/TextFiled/TextFiled"
 import { useUser } from "@/app/config/zustand-store"
-import Details from "@/app/components/Details/Details"
 import Link from "next/link"
+import { Card } from "primereact/card"
+import { Button } from "primereact/button"
+import { InputSwitch, InputSwitchChangeEvent } from "primereact/inputswitch"
+import { ColorPicker, ColorPickerChangeEvent } from "primereact/colorpicker"
+import { InputText } from "primereact/inputtext"
+import { Avatar } from "primereact/avatar"
 
 
 
@@ -47,7 +49,6 @@ export const SettingsProfile = () => {
     const [userSettings, setUserSettings] = useState<IUserSettings>(EmptyUserSettings)
     const [errors, setErrors] = useState(EmptyErrors)
     const [statusNotifications, setStatusNotifications] = useState(false)
-    const [accentColor, setAccentColor] = useState("#11cfd9")
 
 
 
@@ -60,7 +61,6 @@ export const SettingsProfile = () => {
         const response = await GetInfoUser(user.uid)
         const newUserSettings = { ...response, uid: user.uid, name: user.name, email: user.email, photo: user.photo }
         setUserSettings(newUserSettings)
-        setAccentColor(newUserSettings.color)
         setStatusNotifications(newUserSettings.notifications)
         localStorage.setItem("bettingNotifications", `${newUserSettings.notifications}`)
     }
@@ -90,77 +90,43 @@ export const SettingsProfile = () => {
         setErrors({ ...errors, account: "" })
     }
 
-    const HandleStatusNotifications = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const checked = e.target.checked
+    const HandleStatusNotifications = (e: InputSwitchChangeEvent) => {
+        const checked = e.value
         setUserSettings({ ...userSettings, notifications: checked })
         setStatusNotifications(checked)
         setErrors({ ...errors, account: "" })
     }
 
-    const HandleChangeColor = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value
-        document.documentElement.style.setProperty("--primaryColor", value)
-        document.documentElement.style.setProperty("--primaryOpacityColor", `${value}55`)
-        localStorage.setItem("colorBettingGame", value)
-        setUserSettings({ ...userSettings, color: value })
-        setAccentColor(value)
-        setErrors({ ...errors, account: "" })
-    }
-
 
     return (
-        <Details name="adminpanel" title="Perfil" icon={<ProfileIcon className="" />} open>
-            <div className={styles.settingsProfile_info}>
-                <div className={styles.settingsProfile_container}>
-                    <picture className={styles.settingsProfile_picture}>
-                        <Image className={styles.settingsProfile_image} src={userSettings.photo || "/user-icon.png"} alt={userSettings.name || ""} width={100} height={100} />
-                    </picture>
-                    <Link className={styles.settingsProfile_change} href={"https://myaccount.google.com/personal-info?gar=WzJd&hl=es&utm_source=OGB&utm_medium=act"} target="_blank">
-                        <EditIcon className={styles.settingsProfile_icon} />
-                        <span className={styles.settingsProfile_name} >Cambiar foto</span>
-                    </Link>
+        <div className="flex flex-col gap-2 relative h-[calc(100svh-9rem)]">
+            <div className="flex flex-row w-full justify-between  py-2 border-b-1 border-(--surface-d)">
+                <div className="flex flex-col">
+                    <label className="flex flex-col gap-1 text-[13px] text-gray-300">Nombre</label>
+                    <p className="">{userSettings.name}</p>
                 </div>
-                <div className={styles.settingsProfile_info__item}>
-                    <label className={styles.settingsProfile_label}>Nombre</label>
-                    <p className={styles.settingsProfile_text}>{userSettings.name}</p>
-                </div>
-                <div className={styles.settingsProfile_info__item}>
-                    <label className={styles.settingsProfile_label}>Email</label>
-                    <p className={styles.settingsProfile_text}>{userSettings.email}</p>
-                </div>
-                <div className={styles.settingsProfile_info__item}>
-                    <label className={styles.settingsProfile_label}>Cuenta de depósito</label>
-                    <TextField type="number"
-                        name="account"
-                        className={` ${errors.account && styles.settingsProfile_inputError}`}
-                        placeholder="18 digitos" value={userSettings?.account}
-                        onChange={HandleChange} />
-                    {errors.account && <p className={styles.settingsProfile_error}>{errors.account}</p>}
-                </div>
-                <div className={styles.settingsProfile_info__item}>
-                    <label className={styles.settingsProfile_label}>Color de énfasis
-                        <input className={styles.color} type="color" onChange={HandleChangeColor} value={accentColor} />
-                    </label>
-                </div>
-                <div className={styles.settingsProfile_info__item}>
-                    <label className={styles.settingsProfile_label}>¿Recibir correo cuando haya una quiniela disponible?
-                    </label>
-                    <div className={`${styles.status} ${statusNotifications && styles.status_active}`}>
-                        <input className={styles.status_input} type="checkbox" defaultChecked={statusNotifications} onChange={HandleStatusNotifications} />
-                        <div className={`${styles.status_button} ${statusNotifications && styles.status_buttonActive}`}></div>
-                        <span className={styles.status_text}>{statusNotifications ? "SI" : "NO"}</span>
-                    </div>
-                </div>
-                <div className={styles.settingsProfile_button}>
-                    <Button
-
-                        props={{ onClick: HandleSave }}
-                        text="Guardar"
-                        icon={<SaveIcon />}
-                        type="primary"
-                    />
+                <div className="flex flex-col items-center min-w-38">
+                    <Avatar image={userSettings.photo || "/user-icon.png"} className="border-2 border-(--primary-color)" size="large" shape="square" />
+                    <Button link label="Cambiar foto" icon="pi pi-pen-to-square" onClick={() => window.open('https://myaccount.google.com/personal-info?gar=WzJd&hl=es&utm_source=OGB&utm_medium=act', '_blank')} ></Button>
                 </div>
             </div>
-        </Details>
+            <div className="flex flex-col pt-4 pb-7 border-b-1 border-(--surface-d)">
+                <label className="flex flex-col gap-1 text-[13px] text-gray-300">Email</label>
+                <p className="">{userSettings.email}A</p>
+            </div>
+            <div className="flex flex-col pt-4 pb-7 border-b-1 border-(--surface-d)">
+                <label className="flex flex-col gap-1 text-[13px] text-gray-300">Cuenta de depósito</label>
+                <InputText value={userSettings.account} onChange={HandleChange} placeholder="18 digitos" name="account" />
+                {errors.account && <p className="">{errors.account}</p>}
+            </div>
+            <div className="flex py-3 border-b-1 border-(--surface-d)">
+                <label className="flex flex-col gap-1 text-[13px] text-gray-300">¿Recibir correo cuando haya una quiniela disponible?
+                    <InputSwitch checked={statusNotifications} onChange={HandleStatusNotifications} />
+                </label>
+            </div>
+            <div className="flex justify-end w-full pt-4">
+                <Button label="Guardar" icon="pi pi-save" size="small" severity="success" onClick={HandleSave} />
+            </div>
+        </div>
     )
 }

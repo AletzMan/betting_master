@@ -1,38 +1,37 @@
-import styles from "./styles.module.scss"
-import stylesGeneral from "../profile.module.scss"
 import { AdminIcon, ArrowUpIcon } from "@/app/svg"
 import Details from "@/app/components/Details/Details"
+import { Fieldset } from "primereact/fieldset"
+import { Checkbox } from "primereact/checkbox"
 
 
 export function AppConfig() {
 
     return (
-        <Details name="adminpanel" title="Ajustes y Preferencias" icon={<AdminIcon className="" />} >
-            <div className={styles.options}>
-                <fieldset className={styles.fieldset}>
-                    <legend className={styles.legend}>Paginas visibles</legend>
-                    <label className={styles.checkbox_label} >
-                        <input className={styles.checkbox} type="checkbox" />
+        <div className="flex flex-col gap-2 relative h-[calc(100svh-9rem)]">
+            <Fieldset legend="Paginas visibles">
+                <div className="flex flex-col gap-2">
+                    <label className="flex flex-row gap-2.5 items-center" >
+                        <Checkbox checked type="checkbox" />
                         Quinielas
                     </label>
-                    <label className={styles.checkbox_label} >
-                        <input className={styles.checkbox} type="checkbox" />
+                    <label className="flex flex-row gap-2.5 items-center" >
+                        <Checkbox checked type="checkbox" />
                         Finales
                     </label>
-                    <label className={styles.checkbox_label} >
-                        <input className={styles.checkbox} type="checkbox" />
+                    <label className="flex flex-row gap-2.5 items-center" >
+                        <Checkbox checked type="checkbox" />
                         Resultados
                     </label>
-                    <label className={styles.checkbox_label} >
-                        <input className={styles.checkbox} type="checkbox" />
+                    <label className="flex flex-row gap-2.5 items-center" >
+                        <Checkbox checked type="checkbox" />
                         Posiciones
                     </label>
-                    <label className={styles.checkbox_label} >
-                        <input className={styles.checkbox} type="checkbox" />
+                    <label className="flex flex-row gap-2.5 items-center" >
+                        <Checkbox checked type="checkbox" />
                         Estadísticas
                     </label>
-                </fieldset>
-            </div>
-        </Details>
+                </div>
+            </Fieldset>
+        </div>
     )
 }

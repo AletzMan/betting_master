@@ -27,14 +27,14 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 		}
 	}
 
-	if (pathname.endsWith("/profile")) {
+	/*if (pathname.endsWith("/profile")) {
 		if (!session) {
 			request.nextUrl.pathname = "/auth/login"
 			return NextResponse.redirect(request.nextUrl)
 		} else {
 			return NextResponse.next()
 		}
-	}
+	}*/
 
 	if (pathname.endsWith("/draw")) {
 		if (!session) {

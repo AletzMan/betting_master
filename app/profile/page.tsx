@@ -26,7 +26,7 @@ export default function ProfilePage() {
 				{user.uid === ADMIN_UID && <BetsByUser />}
 				{user.uid === ADMIN_UID && <AdminFinals />}
 	</section>*/}
-			<TabView className="w-full">
+			<TabView className="w-full h-full" scrollable>
 				<TabPanel header="Perfil" leftIcon="pi pi-user mr-2">
 					<SettingsProfile />
 				</TabPanel>

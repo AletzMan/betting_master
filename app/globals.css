@@ -11,7 +11,7 @@
 	--height-combo: 0;
 
 	--backgroundColor: #232323;
-	--primaryColor: #11cfd9;
+	--primary-color: #11cfd9;
 	--primaryOpacityColor: #11cfd955;
 	--secondaryColor: #171717;
 	--tertiaryColor: #1b1b1b;
@@ -94,10 +94,9 @@ body {
 	justify-content: flex-start;
 	flex-direction: column;
 	margin: 0 auto;
-	min-height: 100svh;
 	padding: 2.75em 0 0 0;
 	width: 100%;
-	height: calc(100svh - 8em);
+	height: 100svh;
 	overflow-y: auto;
 	max-width: var(--max-width);
 }
