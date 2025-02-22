@@ -1,6 +1,5 @@
 
-import { News } from "./components/News/News"
-import styles from "./page.module.css"
+import { News } from "./components/Home/News"
 
 export default function Home() {
 	return (

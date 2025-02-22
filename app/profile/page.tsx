@@ -15,8 +15,8 @@ export default function ProfilePage() {
 	const { user } = useUser()
 
 	return (
-		<main className={`${styles.main}   scrollbar`}>
-			<section className={styles.section}>
+		<main className={`sectionContainer scrollbar`}>
+			<section className="flex flex-col gap-2 w-full max-w-125 p-2 border-1 border-(--surface-d) rounded-b-md bg-(--surface-e)">
 				{<SettingsProfile />}
 				{user.uid === ADMIN_UID && <AppConfig />}
 				{user.uid === ADMIN_UID && <AdminPanel />}

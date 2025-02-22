@@ -58,7 +58,7 @@ body {
 
 body {
 	color: var(--foregroundColor);
-	background: linear-gradient(130deg, var(--surface-d), var(--surface-c));
+	background: linear-gradient(-40deg, var(--surface-c), var(--surface-d));
 	/*font-family: "Montserrat", "Roboto Mono", sans-serif;*/
 }
 
@@ -86,4 +86,18 @@ body {
 
 .scrollbar::-webkit-scrollbar-corner {
 	background-color: var(--primaryColor);
+}
+
+.sectionContainer {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: column;
+	margin: 0 auto;
+	min-height: 100svh;
+	padding: 2.75em 0.25em 1em 0.25em;
+	width: 100%;
+	height: calc(100svh - 8em);
+	overflow-y: auto;
+	max-width: var(--max-width);
 }
