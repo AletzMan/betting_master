@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/app/utils/db";
+import { prisma } from "@/lib/db";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ConflictError, DefaultError, ServerError, UnprocessableEntityError } from "../_services/errors";
 import { SuccessCreate, SuccessResponse } from "../_services/successfulResponses";
-import { UserSchema } from "@/app/validations/userSchema";
+import { UserSchema } from "@/validations/userSchema";
 import { ZodError } from "zod";
 
 export async function GET(request: NextRequest) {

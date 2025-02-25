@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { SuccessDelete, SuccessResponse, SuccessUpdate } from "../../_services/successfulResponses";
 import { ConflictError, NotFoundError, ServerError, UnprocessableEntityError } from "../../_services/errors";
-import { UserSchema } from "@/app/validations/userSchema";
+import { UserSchema } from "@/validations/userSchema";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ZodError } from "zod";
 
@@ -13,7 +13,7 @@ export async function GET(request: NextRequest, context: any) {
         const response = await prisma?.user.findMany({ where: { id: id } })
 
         if (response) {
-            return SuccessResponse(response);
+            return SuccessResponse(response[0]);
         }
         return NotFoundError();
     } catch (error) {
