@@ -1,6 +1,4 @@
 import Link from "next/link"
-import styles from "./styles.module.scss"
-import { LogInIcon, LogOutIcon } from "@/app/svg"
 import { LinksPage } from "@/app/constants/constants"
 import { usePathname } from "next/navigation"
 import { useMenu } from "@/app/config/zustand-store"
@@ -18,13 +16,6 @@ export function MenuPages() {
     const { openMenu, setOpenMenu } = useMenu()
     const { isLogged, setIsLogged, setUser } = useLoggedUser()
     const session = useSession()
-
-    const HandleClickDialog = (e: MouseEvent<HTMLDialogElement>) => {
-        if ((e.target as HTMLElement).tagName === "DIALOG") {
-            setOpenMenu(false)
-        }
-    }
-
     const HandleSignOut = async () => {
         try {
             await signOut({ redirect: true, redirectTo: "/" })
@@ -93,7 +84,7 @@ export function MenuPages() {
                             </Link>
                         ))}
                         {session.status === "unauthenticated" && (
-                            <Link href={!isLogged ? "/login" : "/logout"} className={`flex flex-row gap-3.5 p-1.5  items-center rounded-sm hover:bg-(--surface-d) font-bold w-full `}
+                            <Link href={"/login"} className={`flex flex-row gap-3.5 p-1.5  items-center rounded-sm hover:bg-(--surface-d) font-bold w-full `}
                                 title={"Ir a sección iniciar sesión"}>
                                 <i className="pi pi-sign-in" style={{ fontSize: '1.25rem' }} />
                                 {"Iniciar sesión"}
