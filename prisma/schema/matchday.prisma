@@ -1,0 +1,7 @@
+model MatchDay {
+    id      Int      @id @default(autoincrement())
+    name    String // Agrega el campo name
+    matches String[]
+    season  String
+    day     Int
+}
