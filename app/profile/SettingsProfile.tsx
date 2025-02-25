@@ -101,7 +101,7 @@ export const SettingsProfile = () => {
                     <label className="flex flex-col gap-1 text-[13px] text-gray-300">Nombre</label>
                     <p className="">{session.data?.user?.name}</p>
                 </div>
-                <div className="flex flex-col items-center min-w-38 gap-1.5">
+                <div className="flex flex-col items-center min-w-38 ga">
                     <Avatar image={session.data?.user?.image || "/user-icon.png"} className="border-2 border-(--primary-color)" size="large" shape="square" />
                     <Button link label="Cambiar foto" icon="pi pi-pen-to-square" onClick={() => window.open('https://myaccount.google.com/personal-info?gar=WzJd&hl=es&utm_source=OGB&utm_medium=act', '_blank')} ></Button>
                 </div>
