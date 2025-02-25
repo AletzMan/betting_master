@@ -2,8 +2,8 @@ model User {
     id            String   @id @default(uuid())
     name          String
     uid           String   @unique
-    email         String
-    photo         String?
+    email         String   @unique
+    image         String?
     color         String?
     account       String?
     total_bets    Int      @default(0)
