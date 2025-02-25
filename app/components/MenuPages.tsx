@@ -2,9 +2,6 @@ import Link from "next/link"
 import { LinksPage } from "@/app/constants/constants"
 import { usePathname } from "next/navigation"
 import { useMenu } from "@/app/config/zustand-store"
-import { MouseEvent } from "react"
-import { useLoggedUser } from "@/app/hooks/useLoggedUser"
-import { useRouter } from "next/navigation"
 import { signOut, useSession } from "next-auth/react"
 import { Sidebar } from "primereact/sidebar"
 import { Button } from "primereact/button"
@@ -12,10 +9,10 @@ import { Divider } from "primereact/divider"
 
 export function MenuPages() {
     const pathname = usePathname()
-    const router = useRouter()
     const { openMenu, setOpenMenu } = useMenu()
-    const { isLogged, setIsLogged, setUser } = useLoggedUser()
     const session = useSession()
+
+
     const HandleSignOut = async () => {
         try {
             await signOut({ redirect: true, redirectTo: "/" })
@@ -23,8 +20,6 @@ export function MenuPages() {
             console.error(error)
         }
     }
-
-
 
     return (
         <Sidebar
