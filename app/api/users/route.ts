@@ -28,9 +28,8 @@ export async function POST(request: NextRequest) {
                 last_login: newUser.last_login,
                 name: newUser.name,
                 notifications: newUser.notifications,
-                photo: newUser.photo,
-                total_bets: newUser.total_bets,
-                uid: newUser.uid
+                image: newUser.photo,
+                total_bets: newUser.total_bets
             }
         })
 

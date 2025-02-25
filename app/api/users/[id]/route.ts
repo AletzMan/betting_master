@@ -10,7 +10,7 @@ export async function GET(request: NextRequest, context: any) {
 
         const { id } = context.params
 
-        const response = await prisma?.user.findMany({ where: { uid: id } })
+        const response = await prisma?.user.findMany({ where: { id: id } })
 
         if (response) {
             return SuccessResponse(response);
@@ -27,7 +27,7 @@ export async function DELETE(request: NextRequest, context: any) {
 
         const { id } = context.params
 
-        const response = await prisma?.user.delete({ where: { uid: id } })
+        const response = await prisma?.user.delete({ where: { id: id } })
 
         if (response) {
             return SuccessDelete();
@@ -46,7 +46,7 @@ export async function PUT(request: NextRequest, context: any) {
         const { id } = context.params
 
         const response = await prisma?.user.update({
-            where: { uid: id }, data: {
+            where: { id: id }, data: {
                 ...newUser
             }
         })
