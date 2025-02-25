@@ -13,6 +13,7 @@ import { CreateNotification, UpdateNotificationUser } from "@/app/config/firebas
 import { useSession } from "next-auth/react"
 import { Avatar } from "primereact/avatar"
 import { Button } from "primereact/button"
+import { Skeleton } from "primereact/skeleton"
 
 export default function Header() {
 
@@ -73,9 +74,12 @@ export default function Header() {
 						</button>
 					}
 					<div className="flex flex-row items-center justify-between gap-2 h-full pr-2 pl-2 w-max border-l-1 border-r-1 border-l-(--surface-d)  border-r-(--surface-d)">
-						<Avatar image={session.data?.user?.image || "/user-icon.png"} shape="circle" size="normal" />
+						{session.status === "authenticated" && <Avatar image={session.data?.user?.image || "/user-icon.png"} shape="circle" size="normal" />}
+						{session.status === "loading" && <Skeleton height="24px" width="24px" />}
 						<div className="flex flex-col">
-							<span className="text-xs font-medium">{session.data?.user?.name && `${session.data?.user?.name?.split(" ")[0]} ${session.data?.user?.name?.split(" ")[1] || ""}` || "Invitado"}</span>
+
+							{session.status === "authenticated" && <span className="text-xs font-medium">{session.data?.user?.name && `${session.data?.user?.name?.split(" ")[0]} ${session.data?.user?.name?.split(" ")[1] || ""}` || "Invitado"}</span>}
+							{session.status === "loading" && <Skeleton height="20px" width="6em" />}
 						</div>
 					</div>
 				</div>
