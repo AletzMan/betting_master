@@ -1,81 +1,32 @@
 "use client"
-import { AppLogo, GoogleLogo, TwitterLogo } from "@/app/svg"
-import styles from "./login.module.scss"
-import { AuthProvider, GoogleAuthProvider, TwitterAuthProvider, User, signInWithPopup, } from "firebase/auth"
-import { FirebaseError } from "firebase/app"
-import { useUser } from "@/app/config/zustand-store"
-import { useEffect, useState } from "react"
-import { auth, GoogleProvider, TwitterProvider, } from "@/app/config/firebase"
-import { useRouter } from "next/navigation"
-import { useOrientation } from "@/app/hooks/useOrientation"
-import axios from "axios"
-import { signIn, useSession } from "next-auth/react"
+import { AppLogo } from "@/app/svg"
+import { signIn } from "next-auth/react"
 import { Card } from "primereact/card"
+import { Divider } from "primereact/divider"
+import { Button } from "primereact/button"
 
 export default function LoginPage() {
-	const { isLandscape } = useOrientation()
-	const session = useSession();
-	const router = useRouter()
-	const { user, setUser } = useUser()
-	const [isLogged, setIsLogged] = useState(false)
-
-	useEffect(() => {
-		if (user.uid) {
-			//router.push('/profile') // Redirige a la página protegida
-		}
-	}, [user, router]);
-
-	console.log(session)
-
-	/*const HandleSignInWithGoogle = async (provider: AuthProvider) => {
-		try {
-			let token: string | undefined = ""
-			let userInfo = {} as User
-			const result = await signInWithPopup(auth, provider)
-			if (provider.providerId === "twitter.com") {
-				const credential = TwitterAuthProvider.credentialFromResult(result)
-				token = credential?.accessToken
-				userInfo = result.user
-			}
-			if (provider.providerId === "google.com") {
-				const credential = GoogleAuthProvider.credentialFromResult(result)
-				token = credential?.accessToken
-				userInfo = result.user
-			}
-
-			const response = await axios.post("/api/login", {}, {
-				headers: {
-					Authorization: `Bearer ${await userInfo.getIdToken()}`,
-				}
-			})
-
-			if (response.status === 200) {
-				setUser({ uid: userInfo.uid, name: userInfo.displayName, photo: userInfo.photoURL, email: userInfo.email })
-				setIsLogged(true)
-			}
-		} catch (error) {
-			console.error("ERROR FIREBASE OK:", error)
-			if (error as FirebaseError) {
-				const credential = GoogleAuthProvider.credentialFromError(error as FirebaseError)
-			}
-		}
-	}*/
 
 	const HandleSignInWithGoogle = (provider: string) => {
 		signIn(provider, { redirect: true, redirectTo: "/" });
 	}
 
+
+
 	return (
-		<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
-			<Card className="flex flex-col gap-2 items-center justify-center">
-				<AppLogo className="w-20 h-20" />
-				<h1 className={styles.header_title}>Iniciar Sesión</h1>
-				<article className={styles.main_article}>
-					<p className={`${styles.main_message} ${styles.main_messageDown}`}>Elige una opción para iniciar sesión.</p>
-					<button className={`${styles.button} ${styles.button_google}`} onClick={() => HandleSignInWithGoogle("google")}>
-						<GoogleLogo className={`${styles.button_icon} ${styles.button_iconGoogle}`} />
-						<span className={`${styles.button_text} ${styles.button_textGoogle}`}>Continuar con Google</span>
-					</button>
+		<main className="flex flex-col items-center justify-start gap-y-4 mt-36  h-[calc(100svh-10em)]">
+			<Card className="flex flex-col gap-2 items-center justify-center ">
+				<div className="flex flex-col items-center gap-2">
+					<AppLogo className="w-20 h-20" />
+					<span className="bg-(--surface-d)  rounded-sm px-2.5 py-0.5">Iniciar Sesión</span>
+				</div>
+				<article className="flex flex-col gap-2.5 p-3 items-center">
+					<Divider >
+						<span className="">Elige una opción para iniciar sesión.</span>
+					</Divider>
+					<Button className="w-full max-w-57" label="Continuar con Google" severity="danger" icon="pi pi-google" onClick={() => HandleSignInWithGoogle("google")} />
+					<Button className="w-full max-w-57" label="Continuar con X" severity="secondary" icon="pi pi-twitter" onClick={() => HandleSignInWithGoogle("twitter")} />
+					<Divider />
 					{/*<button className={`${styles.button} ${styles.button_twitter}`} onClick={() => HandleSignInWithGoogle(TwitterProvider)}>
 						<TwitterLogo className={`${styles.button_icon} ${styles.button_iconTwitter}`} />
 						<span className={`${styles.button_text} ${styles.button_textTwitter}`}>Continuar con X</span>
