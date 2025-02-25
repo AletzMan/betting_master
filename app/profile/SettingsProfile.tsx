@@ -11,6 +11,7 @@ import { Button } from "primereact/button"
 import { InputSwitch, InputSwitchChangeEvent } from "primereact/inputswitch"
 import { InputText } from "primereact/inputtext"
 import { Avatar } from "primereact/avatar"
+import { useSession } from "next-auth/react"
 
 
 
@@ -40,6 +41,7 @@ interface IPhoto {
 
 export const SettingsProfile = () => {
     const { user } = useUser()
+    const session = useSession()
     const [userSettings, setUserSettings] = useState<IUserSettings>(EmptyUserSettings)
     const [errors, setErrors] = useState(EmptyErrors)
     const [statusNotifications, setStatusNotifications] = useState(false)
@@ -97,16 +99,16 @@ export const SettingsProfile = () => {
             <div className="flex flex-row w-full justify-between  py-2 border-b-1 border-(--surface-d)">
                 <div className="flex flex-col">
                     <label className="flex flex-col gap-1 text-[13px] text-gray-300">Nombre</label>
-                    <p className="">{userSettings.name}</p>
+                    <p className="">{session.data?.user?.name}</p>
                 </div>
-                <div className="flex flex-col items-center min-w-38">
-                    <Avatar image={userSettings.photo || "/user-icon.png"} className="border-2 border-(--primary-color)" size="large" shape="square" />
+                <div className="flex flex-col items-center min-w-38 gap-1.5">
+                    <Avatar image={session.data?.user?.image || "/user-icon.png"} className="border-2 border-(--primary-color)" size="large" shape="square" />
                     <Button link label="Cambiar foto" icon="pi pi-pen-to-square" onClick={() => window.open('https://myaccount.google.com/personal-info?gar=WzJd&hl=es&utm_source=OGB&utm_medium=act', '_blank')} ></Button>
                 </div>
             </div>
             <div className="flex flex-col pt-4 pb-7 border-b-1 border-(--surface-d)">
                 <label className="flex flex-col gap-1 text-[13px] text-gray-300">Email</label>
-                <p className="">{userSettings.email}A</p>
+                <p className="">{session.data?.user?.email}A</p>
             </div>
             <div className="flex flex-col pt-4 pb-7 border-b-1 border-(--surface-d)">
                 <label className="flex flex-col gap-1 text-[13px] text-gray-300">Cuenta de depósito</label>

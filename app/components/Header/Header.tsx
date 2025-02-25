@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { MenuIcon, NotificationIcon } from "@/app/svg"
-import styles from "./header.module.scss"
+import styles from "@/app/components/styles.module.scss"
 import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
 import { useOrientation } from "@/app/hooks/useOrientation"
@@ -11,6 +11,8 @@ import { MenuPages } from "../MenuPages/MenuPages"
 import { useMenu } from "@/app/config/zustand-store"
 import { CreateNotification, UpdateNotificationUser } from "@/app/config/firebase"
 import { useSession } from "next-auth/react"
+import { Avatar } from "primereact/avatar"
+import { Button } from "primereact/button"
 
 export default function Header() {
 
@@ -23,7 +25,7 @@ export default function Header() {
 	useEffect(() => {
 		const color = localStorage.getItem("colorBettingGame")
 		if (color) {
-			document.documentElement.style.setProperty("--primaryColor", color)
+			document.documentElement.style.setProperty("--primary-color", color)
 			document.documentElement.style.setProperty("--primaryOpacityColor", `${color}55`)
 		}
 		const notifi = localStorage.getItem("bettingNotifications")
@@ -53,46 +55,30 @@ export default function Header() {
 			}*/
 		}
 	}
-	console.log(session)
 
 	return (
 		<>
 			<SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }} />
-			<header className={`${styles.header} ${isLandscape && styles.header_active}`}>
-				<section className={styles.header_section}>
-					<div className={styles.header_session}>
-						<button
-							className={`${styles.header_menu} ${openMenu && styles.header_menuActive}`}
-							onClick={HandleViewMenu}>
-							<MenuIcon className={styles.header_menuIcon} />
-							<span className={styles.header_menuName}>Menu</span>
+			<header className="flex fixed w-full border-b-(--surface-d) z-5 h-[2.65em] bg-(--surface-b) justify-between">
+				<Button
+					label="Menu" icon="pi pi-bars"
+					text severity="info" size="large"
+					onClick={HandleViewMenu}>
+				</Button>
+				<div className="flex flex-row gap-2">
+					{!notifications &&
+						<button className={styles.notifications} onClick={HandleActiveNotifications}>
+							<NotificationIcon className={styles.notifications_icon} />
+							<span className="absolute bottom-1.5 right-1.25 w-2.5 h-2.5 bg-red-600 rounded-xl"></span>
 						</button>
-						<div className={styles.header_buttons}>
-							{!notifications &&
-								<button className={styles.notifications} onClick={HandleActiveNotifications}>
-									<NotificationIcon className={styles.notifications_icon} />
-									<span className={styles.notifications_dot}></span>
-								</button>
-							}
-							<div className={styles.user}>
-								<picture className={styles.user_picture}>
-									<img
-										className={styles.user_image}
-										src={session.data?.user?.image || "/user-icon.png"}
-										alt="Imagen de perfil"
-										loading="lazy"
-										width={50}
-										height={50}
-									/>
-								</picture>
-								<div className={styles.user_info}>
-									<span className={styles.user_name}>{session.data?.user?.name && `${session.data?.user?.name?.split(" ")[0]} ${session.data?.user?.name?.split(" ")[1] || ""}` || "Invitado"}</span>
-								</div>
-							</div>
+					}
+					<div className="flex flex-row items-center justify-between gap-2 h-full pr-2 pl-2 w-max border-l-1 border-r-1 border-l-(--surface-d)  border-r-(--surface-d)">
+						<Avatar image={session.data?.user?.image || "/user-icon.png"} shape="circle" size="normal" />
+						<div className="flex flex-col">
+							<span className="text-xs font-medium">{session.data?.user?.name && `${session.data?.user?.name?.split(" ")[0]} ${session.data?.user?.name?.split(" ")[1] || ""}` || "Invitado"}</span>
 						</div>
-
 					</div>
-				</section>
+				</div>
 			</header>
 			<MenuPages />
 		</>
