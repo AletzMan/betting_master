@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation"
 import { useOrientation } from "@/app/hooks/useOrientation"
 import { useLoggedUser } from "@/app/hooks/useLoggedUser"
 import { SnackbarProvider, enqueueSnackbar } from "notistack"
-import { MenuPages } from "../MenuPages/MenuPages"
+import { MenuPages } from "./MenuPages/MenuPages"
 import { useMenu } from "@/app/config/zustand-store"
 import { CreateNotification, UpdateNotificationUser } from "@/app/config/firebase"
 import { useSession } from "next-auth/react"
@@ -59,7 +59,7 @@ export default function Header() {
 	return (
 		<>
 			<SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }} />
-			<header className="flex fixed w-full border-b-(--surface-d) z-5 h-[2.65em] bg-(--surface-b) justify-between">
+			<header className="flex fixed w-full border-b-1 border-b-(--surface-d) z-5 h-[2.65em] bg-(--surface-b) justify-between ">
 				<Button
 					label="Menu" icon="pi pi-bars"
 					text severity="info" size="large"
