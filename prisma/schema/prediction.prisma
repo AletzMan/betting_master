@@ -1,6 +1,4 @@
 model Prediction {
   id         String @id @default(uuid())
   prediction String
-  bet        Bet    @relation(fields: [betId], references: [id])
-  betId      String
 }
