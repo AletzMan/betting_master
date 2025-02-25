@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/app/utils/db";
+import { prisma } from "@/lib/db";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ConflictError, DefaultError, NotFoundError, ServerError, UnprocessableEntityError } from "../_services/errors";
 import { SuccessCreate, SuccessResponse } from "../_services/successfulResponses";
-import { UserSchema } from "@/app/validations/userSchema";
+import { UserSchema } from "@/validations/userSchema";
 import { ZodError } from "zod";
-import { BetSchema } from "@/app/validations/betSchema";
+import { BetSchema } from "@/validations/betSchema";
 
 export async function GET(request: NextRequest) {
 
@@ -36,11 +36,12 @@ export async function POST(request: NextRequest) {
 
         // 3. Obtener los IDs de las Predictions creadas
         const predictionIds = createdPredictions.map((prediction) => prediction.id);
+        const { predictions, ...betDataWithoutPredictions } = validatedBetData;
 
         // 4. Crear la Bet con los predictionIds
         const newBet = await prisma.bet.create({
             data: {
-                ...validatedBetData,
+                ...betDataWithoutPredictions,
                 paid: false,
                 predictionIds: predictionIds,
             },
@@ -63,3 +64,4 @@ export async function POST(request: NextRequest) {
         return ServerError();
     }
 }
+
