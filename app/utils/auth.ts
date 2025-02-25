@@ -22,6 +22,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
             // 1. Consultar la base de datos
+            console.log(user)
             const dbUser = await prisma.user.findUnique({
                 where: { email: user.email as string },
             });
@@ -33,7 +34,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         name: user.name as string,
                         email: user.email as string,
                         image: user.image as string,
-                        uid: randomUUID(),
                         account: "",
                         color: "#64b5f6",
                     },
@@ -59,7 +59,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     token.email = dbUser.email;
                     token.user = {
                         id: dbUser.id,
-                        uid: dbUser.uid,
                         name: dbUser.name,
                         email: dbUser.email,
                         image: dbUser.image,
