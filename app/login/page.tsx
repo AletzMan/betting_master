@@ -25,12 +25,8 @@ export default function LoginPage() {
 						<span className="">Elige una opción para iniciar sesión.</span>
 					</Divider>
 					<Button className="w-full max-w-57" label="Continuar con Google" severity="danger" icon="pi pi-google" onClick={() => HandleSignInWithGoogle("google")} />
-					<Button className="w-full max-w-57" label="Continuar con X" severity="secondary" icon="pi pi-twitter" onClick={() => HandleSignInWithGoogle("twitter")} />
+					{/*<Button className="w-full max-w-57" label="Continuar con X" severity="secondary" icon="pi pi-twitter" onClick={() => HandleSignInWithGoogle("twitter")} />*/}
 					<Divider />
-					{/*<button className={`${styles.button} ${styles.button_twitter}`} onClick={() => HandleSignInWithGoogle(TwitterProvider)}>
-						<TwitterLogo className={`${styles.button_icon} ${styles.button_iconTwitter}`} />
-						<span className={`${styles.button_text} ${styles.button_textTwitter}`}>Continuar con X</span>
-	</button>*/}
 				</article>
 			</Card>
 		</main >
