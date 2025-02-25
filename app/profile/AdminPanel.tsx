@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { AddResults, DeleteMatchDay, GetCurrentMatchDay, GetResultsByDay, UpdateResultsMatchDay } from "@/app/config/firebase"
-import { ICurrentMatch, IResultsMatches } from "@/app/types/types"
+import { AddResults, DeleteMatchDay, GetCurrentMatchDay, GetResultsByDay, UpdateResultsMatchDay } from "@/config/firebase"
+import { ICurrentMatch, IResultsMatches } from "@/types/types"
 import { ButtonBet } from "./ButtonBet/ButtonBet"
-import { TeamsLogos } from "@/app/constants/constants"
+import { TeamsLogos } from "@/constants/constants"
 import { DialogCreatBets } from "./DialogCreateBets/DialogCreateBets"
 import { enqueueSnackbar } from "notistack"
 import { Button } from "primereact/button"
