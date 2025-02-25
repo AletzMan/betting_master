@@ -3,35 +3,26 @@ import {
 	AtlasLogo,
 	AtleticoMardidLogo,
 	BarcelonaLogo,
-	BetsIcon,
 	ChivasLogo,
 	CruzAzulLogo,
 	GetafeLogo,
-	HomeIcon,
 	JuarezLogo,
 	LeonLogo,
-	LuckIcon,
 	MazatlanLogo,
 	MonterreyLogo,
 	NecaxaLogo,
 	OsasunaLogo,
 	PachucaLogo,
-	PositionsIcon,
-	ProfileIcon,
 	PueblaLogo,
 	PumasLogo,
 	QueretaroLogo,
 	RayoLogo,
 	RealMadridLogo,
-	ResultsIcon,
 	SanLuisLogo,
 	SantosLogo,
-	StarIcon,
-	StatsIcon,
 	TigresLogo,
 	TijuanaLogo,
 	TolucaLogo,
-	WinnerIcon,
 } from "@/app/svg"
 import { IOptions, Team } from "../types/types"
 
@@ -784,7 +775,7 @@ export const LinksPage = [
 		pathname: "/",
 		href: "/",
 		title: "Ir a pagina de inicio",
-		icon: <HomeIcon className="" />,
+		icon: <i className="pi pi-home" style={{ fontSize: '1.25rem' }} />,
 	},
 	{
 		id: 1,
@@ -792,7 +783,7 @@ export const LinksPage = [
 		pathname: "/profile",
 		href: "/profile",
 		title: "Ir a sección de perfil",
-		icon: <ProfileIcon className="" />,
+		icon: <i className="pi  pi-id-card " style={{ fontSize: '1.25rem' }} />,
 	},
 	{
 		id: 2,
@@ -800,7 +791,7 @@ export const LinksPage = [
 		pathname: "/bets",
 		href: "/bets",
 		title: "Ir a página de quinielas",
-		icon: <BetsIcon className="" />,
+		icon: <i className="pi pi-list" style={{ fontSize: '1.25rem' }} />,
 	},
 	{
 		id: 3,
@@ -808,7 +799,7 @@ export const LinksPage = [
 		pathname: "/finals",
 		href: "/finals",
 		title: "Ir a enfrentamientos finales",
-		icon: <WinnerIcon className="" />,
+		icon: <i className="pi pi-trophy" style={{ fontSize: '1.25rem' }} />,
 	},
 	{
 		id: 4,
@@ -816,7 +807,7 @@ export const LinksPage = [
 		pathname: "/results",
 		href: "/results",
 		title: "Ir a página de resultados",
-		icon: <ResultsIcon className="" />,
+		icon: <i className="pi pi-receipt" style={{ fontSize: '1.25rem' }} />,
 	},
 	{
 		id: 5,
@@ -824,7 +815,7 @@ export const LinksPage = [
 		pathname: "/positions",
 		href: "/positions",
 		title: "Ir a página de posiciones",
-		icon: <PositionsIcon className="" />,
+		icon: <i className="pi pi-sort-numeric-down" style={{ fontSize: '1.25rem' }} />,
 	},
 	{
 		id: 6,
@@ -832,7 +823,7 @@ export const LinksPage = [
 		pathname: "/statistics",
 		href: `/statistics?tournament=${new Date().getMonth() < 6 ? "0168" : "0159"}&type=goals`,
 		title: "Ir a página de estadística",
-		icon: <StatsIcon className="" />,
+		icon: <i className="pi pi-chart-bar" style={{ fontSize: '1.25rem' }} />,
 	},
 ]
 
