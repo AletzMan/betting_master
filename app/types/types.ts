@@ -1,4 +1,5 @@
 import { DocumentData } from "firebase/firestore"
+import { Session } from "next-auth"
 
 export type IUserInfo = {
 	uid: string
@@ -352,21 +353,6 @@ export interface IErrorMatches {
 	away: boolean[]
 }
 
-export interface IUserSettings {
-	uid: string
-	account: string
-	name: string | null
-	email: string | null
-	photo: string | null
-	color: string
-	notifications: boolean
-	total_bets: number
-	finals_won: number
-	bets_won: number
-	last_login: string
-}
-
-
 
 export interface ITournament {
 	id: string
@@ -392,3 +378,23 @@ export interface IFinalsParticipants {
 	team: string
 	user_info: IUserInfo
 }
+
+
+
+
+export interface UserSession {
+	id: string;
+	uid: string;
+	name: string;
+	email: string;
+	image?: string;
+	notifications?: boolean;
+	color?: string;
+	account?: string;
+	total_bets?: number;
+	bets_won?: number;
+	finals_won?: number;
+	last_login?: Date;
+	emailVerified: Date | null;
+}
+
