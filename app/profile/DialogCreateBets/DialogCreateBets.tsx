@@ -1,50 +1,36 @@
-import { Dispatch, ReactSVGElement, SetStateAction, useEffect, useRef, useState } from "react"
+import { Dispatch, Fragment, ReactSVGElement, SetStateAction, useEffect, useRef, useState } from "react"
 import { NewMatch } from "./NewMatch/NewMatch"
-import styles from "./dialogcreatebets.module.scss"
 import { useNewBet } from "@/config/zustand-store"
-import { AddMatchDay } from "@/config/firebase"
-import { ICurrentMatch, IMatchDay, IErrorMatches, Team, Teams, IMatch } from "@/types/types"
-import { ValidateNewBet } from "@/functions/functions"
-import { TeamsLocalNames, TeamsLogosNews, TeamsNames } from "@/constants/constants"
-import { useSnackbar } from "notistack"
+import { TeamsLogosNews, TeamsNames } from "@/constants/constants"
+import { enqueueSnackbar } from "notistack"
 import { Dialog } from "primereact/dialog"
 import { Button } from "primereact/button"
-import { InputNumber, InputNumberChangeEvent } from "primereact/inputnumber"
+import { InputNumber } from "primereact/inputnumber"
 import { Divider } from "primereact/divider"
-import { Message } from "primereact/message"
-import { AutoComplete } from "primereact/autocomplete"
 import { ConfirmDialog } from "primereact/confirmdialog"
-import { Calendar } from "primereact/calendar"
-import { Dropdown } from "primereact/dropdown"
-import { Nullable } from "primereact/ts-helpers"
 import React from "react"
-import { classNames } from "primereact/utils"
-import { SmallDateLocal, SmallDateLocalAndTime } from "@/utils/helpers"
-import { Ripple } from "primereact/ripple"
+import { SmallDateLocalAndTime } from "@/utils/helpers"
+import axios, { AxiosError } from "axios"
+import { ZodIssue } from "zod"
+import { Message } from "primereact/message"
 interface Props {
 	setView: Dispatch<SetStateAction<boolean>>
 }
 
-interface IErrorEmpty {
-	errorMatches: IErrorMatches
-	errorDates: boolean[]
-	errorMatchDay: boolean
-	hasError: boolean
+interface IError {
+	matches: { isError: boolean, message: string }
+	day: { isError: boolean, message: string }
+	season: { isError: boolean, message: string }
 }
 
-const initError: IErrorEmpty = {
-	errorMatches: {
-		home: [false, false, false, false, false, false, false, false, false],
-		away: [false, false, false, false, false, false, false, false, false],
-	},
-	errorDates: [false, false, false, false, false, false, false, false, false],
-	errorMatchDay: false,
-	hasError: false
+const initError: IError = {
+	matches: { isError: false, message: "" },
+	day: { isError: false, message: "" },
+	season: { isError: false, message: "" },
 }
 
 export function DialogCreatBets({ setView }: Props) {
-	const { enqueueSnackbar } = useSnackbar()
-	const [error, setError] = useState<IErrorEmpty>(initError)
+	const [errors, setErrors] = useState<IError>(initError)
 	const [viewNewBet, setViewNewBet] = useState(false);
 	const [resetView, setResetView] = useState(false);
 	const bettingMatches = useNewBet((state) => state.bettingMatches);
@@ -60,6 +46,10 @@ export function DialogCreatBets({ setView }: Props) {
 				top: refMatches.current.scrollHeight,
 				behavior: "smooth",
 			});
+			setErrors((prev) => {
+				const newErros = { ...prev, matches: { isError: false, message: "" } }
+				return newErros
+			})
 		}
 	}, [bettingMatches])
 
@@ -80,17 +70,39 @@ export function DialogCreatBets({ setView }: Props) {
 	}
 
 	const HandleCreateMatchDay = async () => {
-
+		try {
+			const response = await axios.post(`/api/matchdays`,
+				{
+					day: matchDay,
+					season: 'Clausura 2025',
+					matches: bettingMatches
+				}
+			)
+		} catch (error) {
+			console.log(error)
+			if (error instanceof AxiosError) {
+				const newErrors = { ...errors }
+				if (error.response?.status === 422) {
+					const errorArray: ZodIssue[] = error?.response?.data.issues
+					errorArray.map(issue => {
+						if (issue.path[0] === "matches" || issue.path[0] === "day" || issue.path[0] === "season") {
+							newErrors[issue.path[0]].isError = true
+							newErrors[issue.path[0]].message = issue.message
+						}
+					})
+					setErrors(newErrors);
+					enqueueSnackbar("Existen campos vacíos o incompletos", { variant: "error" });
+				}
+			}
+		}
 	}
 
 	const handleClearMatches = () => {
 		clearBettingMatches();
 		setResetView(false);
 	}
-
-
 	return (
-		<Dialog style={{ width: '95svw', maxWidth: '550px', height: '90svh' }} header="Crear Quiniela" visible onHide={() => setView(false)}>
+		<Dialog style={{ width: '95svw', maxWidth: '550px', height: '95svh' }} header="Crear Quiniela" visible onHide={() => setView(false)}>
 			<section className=" flex flex-col  scrollbar">
 				<header className="flex gap-2.5 justify-between">
 					<Button onClick={HandleCreateMatchDay} label="Guardar" severity="success" icon="pi pi-save" size="small" disabled={bettingMatches.length === 0} />
@@ -98,18 +110,32 @@ export function DialogCreatBets({ setView }: Props) {
 				</header>
 				<Divider type="dashed" />
 				<article className="flex flex-col">
-					{error.hasError && (
-						<span className={styles.dialog_errorText}>{error.errorMatchDay ? "Elija un número de jornada" : "Existen campos vacíos"}</span>
-					)}
 					<div className="flex w-full justify-between items-end">
 						<label className="flex flex-col gap-1 text-sm text-(--surface-500) ">
 							Jornada
-							<InputNumber invalid={error.errorMatchDay} size={2} value={matchDay} onChange={(e) => setMatchDay(e.value ?? 0)} showButtons min={0} max={25} className="mr-2 max-h-10.5" buttonLayout="horizontal" decrementButtonClassName="p-button-warning" incrementButtonClassName="p-button-warning" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" />
+							<InputNumber
+								invalid={errors.day.isError}
+								size={2} value={matchDay}
+								onChange={(e) => {
+									setMatchDay(e.value ?? 0)
+									setErrors((prev) => {
+										const newErros = { ...prev, day: { isError: false, message: "" } }
+										return newErros
+									})
+								}}
+								showButtons min={0} max={25}
+								className="mr-2 max-h-10.5"
+								buttonLayout="horizontal"
+								decrementButtonClassName="p-button-primary"
+								incrementButtonClassName="p-button-primary"
+								incrementButtonIcon="pi pi-plus"
+								decrementButtonIcon="pi pi-minus" />
 						</label>
 						<Button label="Agregar partido" size="small" outlined raised severity="success" icon="pi pi-plus" onClick={() => setViewNewBet(true)} />
 					</div>
 					<Divider type="dashed" />
 					<article className="flex flex-col justify-items-start gap-5 scrollbar h-[calc(100svh-22.5em)] pt-4" ref={refMatches}>
+						{errors.matches.isError && <Message text={errors.matches.message} severity="error" />}
 						{bettingMatches.map((match, index) => (
 							<div key={index} className="relative grid grid-cols-[2em_2em_repeat(2,1fr)_2em_3em] w-full bg-(--surface-0) border-1 border-(--surface-d) place-content-center place-items-center py-1 rounded-md transition-all duration-250 matchOfDay">
 								<span className="absolute text-xs -top-3.5 bg-(--pink-900) border-1 border-(--surface-d) rounded-sm px-1 py-0.5">{match.startDate?.toLocaleDateString("es-MX", SmallDateLocalAndTime)}</span>

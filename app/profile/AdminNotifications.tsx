@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import styles from "./profile.module.scss"
-import { DeleteIcon, EmailIcon, NotificationIcon } from "@/app/svg"
+import { DeleteIcon, EmailIcon, NotificationIcon } from "@/svg"
 import { MouseEvent, useState } from "react"
-import { DeleteUser, GetCurrentMatchDay, GetUsers, UpdateNotificationUser } from "@/app/config/firebase"
-import { SendNotifications } from "@/app/services/fetch_utils"
-import { IUserSettings } from "@/app/types/types"
-import { SmallDateLocal } from "@/app/utils/helpers"
+import { DeleteUser, GetCurrentMatchDay, GetUsers, UpdateNotificationUser } from "@/config/firebase"
+import { SendNotifications } from "@/services/fetch_utils"
+import { UserSession } from "@/types/types"
+import { SmallDateLocal } from "@/utils/helpers"
 import { enqueueSnackbar } from "notistack"
 import { Button } from "primereact/button"
 import Image from "next/image"
@@ -14,7 +14,7 @@ import Image from "next/image"
 
 export function AdminNotifications() {
     const [sending, setSending] = useState(false)
-    const [usersData, setUsersData] = useState<IUserSettings[]>([])
+    const [usersData, setUsersData] = useState<UserSession[]>([])
     const [viewDetails, setViewDetails] = useState<number | null>(null)
     const [day, setDay] = useState(0)
 
@@ -83,12 +83,12 @@ export function AdminNotifications() {
                 {usersData.map((user, index) => (
                     <button className={`${styles.users_user} ${viewDetails === index && styles.users_userActive}`} key={user.uid} onClick={(e) => HandleViewDetails(e, index)}>
                         <div className={styles.users_data} >
-                            <Image className={styles.users_photo} src={user.photo || ""} alt={`Imagen de perfil de ${user.name}`} width={70} height={70} />
+                            <Image className={styles.users_photo} src={user.image || ""} alt={`Imagen de perfil de ${user.name}`} width={70} height={70} />
                             <div className={styles.users_group} >
                                 <span className={styles.users_name}>{user.name}</span>
                                 <span className={styles.users_email}>{user.email}</span>
                             </div>
-                            <span className={styles.users_date}>{new Date(user.last_login).toLocaleDateString("es-MX", SmallDateLocal)}</span>
+                            <span className={styles.users_date}>{new Date(user?.last_login as Date).toLocaleDateString("es-MX", SmallDateLocal)}</span>
                         </div>
                         <div className={styles.users_stats}>
                             <div className={styles.users_bets}>
@@ -105,7 +105,7 @@ export function AdminNotifications() {
                             </div>
                         </div>
                         <div className={styles.users_options}>
-                            <button className={styles.users_mail} onClick={() => HandleUpdateNotification(user.uid, user.notifications)}><NotificationIcon className={`${styles.users_iconNoti} ${user.notifications && styles.users_iconNotiActive}`} /></button>
+                            <button className={styles.users_mail} onClick={() => HandleUpdateNotification(user.uid, user.notifications || false)}><NotificationIcon className={`${styles.users_iconNoti} ${user.notifications && styles.users_iconNotiActive}`} /></button>
                             <button className={styles.users_mail} > <EmailIcon className={styles.users_iconEmail} /></button>
                             <button className={styles.users_delete} onClick={() => HandleDeleteUser(user.uid)}><DeleteIcon className={styles.users_iconDelete} /></button>
                         </div>

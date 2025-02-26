@@ -20,41 +20,48 @@ export async function POST(request: NextRequest) {
         const newMatchData = await MatchDaySchema.parseAsync(data);
         const day = newMatchData.day;
         const matches = newMatchData.matches;
-
+        console.log(matches)
         // 1. Crear los partidos
         const createdMatches = await Promise.all(
             matches.map(async (match) => {
+
                 return prisma.match.create({
                     data: {
                         matchDay: day,
                         homeTeam: match.homeTeam,
                         awayTeam: match.awayTeam,
-                        status: "not started",
+                        status: match.status,
                         startDate: match.startDate
                     },
                 });
             })
         );
 
-        // 2. Obtener los IDs de los partidos creados
-        const matchIds = createdMatches.map((match) => match.id);
+        console.log(createdMatches)
+        if (createdMatches) {
 
-        // 3. Crear la MatchDay con los IDs de los partidos
-        const newMatchDay = await prisma.matchDay.create({
-            data: {
-                season: newMatchData.season,
-                matches: matchIds,
-                day: newMatchData.day,
-            },
-        });
+            // 2. Obtener los IDs de los partidos creados
+            const matchIds = createdMatches.map((match) => match?.id);
 
-        if (newMatchDay) {
-            return SuccessCreate(newMatchDay);
+            // 3. Crear la MatchDay con los IDs de los partidos
+            const newMatchDay = await prisma.matchDay.create({
+                data: {
+                    season: newMatchData.season,
+                    matches: matchIds as string[],
+                    day: newMatchData.day,
+                },
+            });
+            if (newMatchDay) {
+                return SuccessCreate(newMatchDay);
+            }
         }
         return DefaultError("Error al crear el registro");
 
     } catch (error) {
-        console.log(error);
+        if (error instanceof TypeError) {
+            console.error("Error de tipo:", error.message);
+            // ... manejar error de tipo ...
+        }
         if (error instanceof PrismaClientKnownRequestError) {
             if (error.code === "P2002") {
                 return ConflictError();
@@ -63,6 +70,7 @@ export async function POST(request: NextRequest) {
         if (error instanceof ZodError) {
             return UnprocessableEntityError(error.issues);
         }
+        //console.log(error);
         return ServerError();
     }
 }

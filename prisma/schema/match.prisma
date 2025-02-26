@@ -3,6 +3,6 @@ model Match {
     homeTeam  String
     awayTeam  String
     matchDay  Int
-    status    String   @default("not started")
-    startDate DateTime @default(now())
+    status    String
+    startDate DateTime @db.Timestamp()
 }

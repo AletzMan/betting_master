@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { TeamsNames, TeamsLogos } from "@/constants/constants"
-import styles from "./newmatch.module.scss"
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, SyntheticEvent, useEffect, useState } from "react"
 import { useNewBet } from "@/config/zustand-store"
 import { IMatch, Team, Teams } from "@/types/types"
@@ -32,8 +31,8 @@ export function NewMatch({ viewNewBet, setViewNewBet }: Props) {
 			const validateData = await MatchSchema.parseAsync(match)
 			setBettingMatches([...bettingMatches, validateData]);
 			setViewNewBet(false)
-			setMatch({ homeTeam: "", awayTeam: "", startDate: null })
-			enqueueSnackbar("Partido agregado correctamente", { variant: "success" })
+			setMatch({ homeTeam: "", awayTeam: "", startDate: new Date(), matchDay: 0, status: "not started" })
+			enqueueSnackbar("Partido agregado correctamente", { variant: "info" })
 		} catch (error) {
 			if (error instanceof ZodError) {
 				enqueueSnackbar("Favor de llenar los campos requeridos", { variant: "error" })

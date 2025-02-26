@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Match" ALTER COLUMN "status" DROP DEFAULT,
+ALTER COLUMN "startDate" DROP DEFAULT;
