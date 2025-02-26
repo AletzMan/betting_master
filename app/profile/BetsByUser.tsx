@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { useState, MouseEvent } from "react"
-import { DeleteBet, GetBetsByIDGroup, UpdateBetByUser } from "@/app/config/firebase"
-import { IBetDataDocument } from "@/app/types/types"
+import { DeleteBet, GetBetsByIDGroup, UpdateBetByUser } from "@/config/firebase"
+import { IBetDataDocument } from "@/types/types"
 import { enqueueSnackbar } from "notistack"
 import { Button } from "primereact/button"
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown"
