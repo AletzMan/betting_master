@@ -3,10 +3,8 @@ import { prisma } from "@/lib/db";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ConflictError, DefaultError, ServerError, UnprocessableEntityError } from "../_services/errors";
 import { SuccessCreate, SuccessResponse } from "../_services/successfulResponses";
-import { UserSchema } from "@/validations/userSchema";
 import { ZodError } from "zod";
 import { MatchDaySchema } from "@/validations/matchDaySchema";
-import { randomUUID } from "crypto";
 
 export async function GET(request: NextRequest) {
 
@@ -42,7 +40,6 @@ export async function POST(request: NextRequest) {
         // 3. Crear la MatchDay con los IDs de los partidos
         const newMatchDay = await prisma.matchDay.create({
             data: {
-                name: newMatchData.name,
                 season: newMatchData.season,
                 matches: matchIds,
                 day: newMatchData.day

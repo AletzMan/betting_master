@@ -1,7 +1,9 @@
 model MatchDay {
-    id      Int      @id @default(autoincrement())
-    name    String // Agrega el campo name
-    matches String[]
-    season  String
-    day     Int
+    id           Int      @id @default(autoincrement())
+    matches      String[]
+    season       String
+    day          Int
+    isAvailable  Boolean  @default(true)
+    isFinishGame Boolean  @default(false)
+    results      String[] @default(["-", "-", "-", "-", "-", "-", "-", "-", "-"])
 }
