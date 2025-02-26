@@ -1,17 +1,14 @@
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { NewMatch } from "./NewMatch/NewMatch"
 import styles from "./dialogcreatebets.module.scss"
-import { useNewBet } from "@/app/config/zustand-store"
-import { AddMatchDay } from "@/app/config/firebase"
-import { ICurrentMatch, IMatchDay, IErrorMatches, Team, Teams } from "@/app/types/types"
-import { useOrientation } from "@/app/hooks/useOrientation"
-import { ValidateNewBet } from "@/app/functions/functions"
-import { TeamsNames } from "@/app/constants/constants"
+import { useNewBet } from "@/config/zustand-store"
+import { AddMatchDay } from "@/config/firebase"
+import { ICurrentMatch, IMatchDay, IErrorMatches, Team, Teams } from "@/types/types"
+import { ValidateNewBet } from "@/functions/functions"
+import { TeamsNames } from "@/constants/constants"
 import { useSnackbar } from "notistack"
-import { AddIcon, CloseIcon, ResetIcon } from "@/app/svg"
 import { Dialog } from "primereact/dialog"
 import { Button } from "primereact/button"
-import { InputText } from "primereact/inputtext"
 import { InputNumber, InputNumberChangeEvent } from "primereact/inputnumber"
 import { Divider } from "primereact/divider"
 import { Message } from "primereact/message"
@@ -40,7 +37,6 @@ export function DialogCreatBets({ setView }: Props) {
 	const { enqueueSnackbar } = useSnackbar()
 	const { selectedTeams, selectedDates, clearTeams, clearDates, setSelectedTeams } = useNewBet()
 	const [matchDay, setMatchDay] = useState(0)
-	const { isLandscape } = useOrientation()
 	const [error, setError] = useState<IErrorEmpty>(initError)
 	const [teams, setTeams] = useState<Team[]>(TeamsNames)
 	const [clear, setClear] = useState<boolean>(false)

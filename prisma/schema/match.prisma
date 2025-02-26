@@ -1,6 +1,8 @@
 model Match {
-    id       String @id @default(uuid())
-    homeTeam String
-    awayTeam String
-    matchDay Int
+    id        String   @id @default(uuid())
+    homeTeam  String
+    awayTeam  String
+    matchDay  Int
+    status    String   @default("not started")
+    startDate DateTime
 }

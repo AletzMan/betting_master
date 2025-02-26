@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { TeamsNames, TeamsLogos } from "@/app/constants/constants"
+import { TeamsNames, TeamsLogos } from "@/constants/constants"
 import styles from "./newmatch.module.scss"
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react"
-import { useNewBet } from "@/app/config/zustand-store"
-import { Team, Teams } from "@/app/types/types"
-import { ComboBox } from "@/app/components/ComboBox/ComboBox"
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, SyntheticEvent, useEffect, useState } from "react"
+import { useNewBet } from "@/config/zustand-store"
+import { Team, Teams } from "@/types/types"
+import { ComboBox } from "@/components/ComboBox/ComboBox"
+import { Calendar } from "primereact/calendar"
+import { Nullable } from "primereact/ts-helpers"
 
 interface Props {
 	matchNumber: number
@@ -103,29 +105,25 @@ export function NewMatch(props: Props) {
 		return newTeams
 	}
 
-	const HandleChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
+
+
+	const HandleChangeDate = (date: Nullable<Date>) => {
 		let dates = [...selectedDates]
 		let newDate = dates[matchNumber]
-
-		newDate = e.currentTarget.value
-		dates[matchNumber] = newDate
+		dates[matchNumber] = date
 		setSelectedDates(dates)
 	}
 
 	return (
-		<div className={styles.match}>
+		<div className="flex flex-row gap-1.5">
 			<div className={`${styles.match_logo} ${styles.match_logoHome}`}>
 				{selectedTeams?.[matchNumber]?.home >= 0 && TeamsLogos[selectedTeams[matchNumber].home].logo}
 			</div>
 			<div className={`${styles.match_home} ${hasError.home && styles.match_error}`}>
 				<ComboBox options={teams} selectOption={homeTeam} setSelectOption={setHomeTeam} plaaceholder="Local" />
 			</div>
-			<input
-				className={`${styles.match_date} ${hasError.date && styles.match_error}`}
-				type="datetime-local"
-				value={selectedDates[matchNumber]}
-				onChange={HandleChangeDate}
-			/>
+			<Calendar value={selectedDates[matchNumber]} onChange={(e) => HandleChangeDate(e.value)} />
+
 			<div className={`${styles.match_away} ${hasError.away && styles.match_error}`}>
 				<ComboBox options={teams} selectOption={awayTeam} setSelectOption={setAwayTeam} plaaceholder="Visita" />
 			</div>

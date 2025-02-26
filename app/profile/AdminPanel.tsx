@@ -22,7 +22,7 @@ export function AdminPanel() {
 
 
 	useEffect(() => {
-		GetDay()
+		//GetDay()
 	}, [])
 
 	const GetDay = async () => {

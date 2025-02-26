@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
             data: {
                 season: newMatchData.season,
                 matches: matchIds,
-                day: newMatchData.day
+                day: newMatchData.day,
             },
         });
 

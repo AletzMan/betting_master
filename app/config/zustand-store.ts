@@ -2,6 +2,7 @@ import { User } from "firebase/auth"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 import { IPredictions, IUserInfo, Teams } from "../types/types"
+import { Nullable } from "primereact/ts-helpers"
 
 type IUser = {
 	user: IUserInfo
@@ -47,8 +48,8 @@ export const useBet = create<BetState>((set) => ({
 interface INewBet {
 	selectedTeams: Teams[]
 	setSelectedTeams: (value: Teams[]) => void
-	selectedDates: string[]
-	setSelectedDates: (value: string[]) => void
+	selectedDates: Nullable<Date>[]
+	setSelectedDates: (value: Nullable<Date>[]) => void
 	clearTeams: () => void
 	clearDates: () => void
 }
@@ -57,7 +58,7 @@ export const useNewBet = create<INewBet>((set) => ({
 	selectedTeams: [],
 	setSelectedTeams: (value: Teams[]) => set({ selectedTeams: value }),
 	selectedDates: [],
-	setSelectedDates: (value: string[]) => set({ selectedDates: value }),
+	setSelectedDates: (value: Nullable<Date>[]) => set({ selectedDates: value }),
 	clearTeams: () =>
 		set({
 			selectedTeams: [],

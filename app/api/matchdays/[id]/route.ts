@@ -1,18 +1,19 @@
 import { NextRequest } from "next/server";
 import { SuccessDelete, SuccessResponse, SuccessUpdate } from "../../_services/successfulResponses";
 import { ConflictError, NotFoundError, ServerError, UnprocessableEntityError } from "../../_services/errors";
-import { UserSchema } from "@/validations/userSchema";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ZodError } from "zod";
+import { prisma } from "@/lib/db";
+import { MatchDayPatchSchema } from "@/validations/matchDayPatchSchema";
 
-export async function GET(request: NextRequest, context: any) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
 
-        const { id } = context.params
 
-        const response = await prisma?.matchDay.findMany({ where: { id: id } })
+        const id = (await params).id
+        const response = await prisma?.matchDay.findMany({ where: { id: Number(id) } })
 
-        if (response) {
+        if (response && response?.length > 0) {
             return SuccessResponse(response[0]);
         }
         return NotFoundError();
@@ -22,12 +23,12 @@ export async function GET(request: NextRequest, context: any) {
 
 }
 
-export async function DELETE(request: NextRequest, context: any) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
 
-        const { id } = context.params
+        const id = (await params).id
 
-        const response = await prisma?.user.delete({ where: { id: id } })
+        const response = await prisma?.matchDay.delete({ where: { id: Number(id) } })
 
         if (response) {
             return SuccessDelete();
@@ -39,24 +40,27 @@ export async function DELETE(request: NextRequest, context: any) {
 
 }
 
-export async function PATCH(request: NextRequest, context: any) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         const data = await request.json()
-        const newUser = await UserSchema.parseAsync(data)
-        const { id } = context.params
-
-        const response = await prisma?.user.update({
-            where: { id: id }, data: {
-                ...newUser
+        const updateMatchDay = await MatchDayPatchSchema.parseAsync(data)
+        const id = (await params).id
+        console.log(id)
+        const response = await prisma?.matchDay.update({
+            where: { id: Number(id) }, data: {
+                ...updateMatchDay
             }
         })
-
+        console.log(response)
         if (response) {
             return SuccessUpdate(response);
         }
         return NotFoundError();
     } catch (error) {
         if (error instanceof PrismaClientKnownRequestError) {
+            if (error.code === "P2025") {
+                return NotFoundError();
+            }
             if (error.code === "P2002") {
                 return ConflictError();
             }
@@ -64,7 +68,7 @@ export async function PATCH(request: NextRequest, context: any) {
         if (error instanceof ZodError) {
             return UnprocessableEntityError(error.issues);
         }
+        console.error(error)
         return ServerError();
     }
-
 }
