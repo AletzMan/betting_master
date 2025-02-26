@@ -29,6 +29,8 @@ export async function POST(request: NextRequest) {
                         matchDay: day,
                         homeTeam: match.homeTeam,
                         awayTeam: match.awayTeam,
+                        status: "not started",
+                        startDate: match.startDate
                     },
                 });
             })

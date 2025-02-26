@@ -4,5 +4,5 @@ model Match {
     awayTeam  String
     matchDay  Int
     status    String   @default("not started")
-    startDate DateTime
+    startDate DateTime @default(now())
 }

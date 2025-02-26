@@ -1,20 +1,18 @@
+import { ConflictError, NotFoundError, ServerError, UnprocessableEntityError } from "@/api/_services/errors";
+import { SuccessDelete, SuccessResponse, SuccessUpdate } from "@/api/_services/successfulResponses";
 import { NextRequest } from "next/server";
-import { SuccessDelete, SuccessResponse, SuccessUpdate } from "../../_services/successfulResponses";
-import { ConflictError, NotFoundError, ServerError, UnprocessableEntityError } from "../../_services/errors";
+import { prisma } from "@/lib/db";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ZodError } from "zod";
-import { prisma } from "@/lib/db";
 import { MatchDayPatchSchema } from "@/validations/matchDayPatchSchema";
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ matchid: string }> }) {
     try {
+        const id = (await params).matchid
+        const response = await prisma?.match.findUnique({ where: { id: id } })
 
-
-        const id = (await params).id
-        const response = await prisma?.matchDay.findMany({ where: { id: Number(id) } })
-
-        if (response && response?.length > 0) {
-            return SuccessResponse(response[0]);
+        if (response) {
+            return SuccessResponse(response);
         }
         return NotFoundError();
     } catch (error) {
@@ -23,12 +21,12 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(request: NextRequest, context: any) {
     try {
 
-        const id = (await params).id
+        const { id } = context.params
 
-        const response = await prisma?.matchDay.delete({ where: { id: Number(id) } })
+        const response = await prisma?.match.delete({ where: { id: id } })
 
         if (response) {
             return SuccessDelete();
@@ -43,15 +41,15 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         const data = await request.json()
-        const updateMatchDay = await MatchDayPatchSchema.parseAsync(data)
+        const updateMatch = await MatchDayPatchSchema.parseAsync(data)
         const id = (await params).id
 
-        const response = await prisma?.matchDay.update({
-            where: { id: Number(id) }, data: {
-                ...updateMatchDay
+        const response = await prisma?.match.update({
+            where: { id: id }, data: {
+                ...updateMatch
             }
         })
-        console.log(response)
+
         if (response) {
             return SuccessUpdate(response);
         }
@@ -68,7 +66,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         if (error instanceof ZodError) {
             return UnprocessableEntityError(error.issues);
         }
-        console.error(error)
         return ServerError();
     }
+
 }
