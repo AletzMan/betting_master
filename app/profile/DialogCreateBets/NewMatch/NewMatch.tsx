@@ -3,133 +3,114 @@ import { TeamsNames, TeamsLogos } from "@/constants/constants"
 import styles from "./newmatch.module.scss"
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, SyntheticEvent, useEffect, useState } from "react"
 import { useNewBet } from "@/config/zustand-store"
-import { Team, Teams } from "@/types/types"
+import { IMatch, Team, Teams } from "@/types/types"
 import { ComboBox } from "@/components/ComboBox/ComboBox"
 import { Calendar } from "primereact/calendar"
 import { Nullable } from "primereact/ts-helpers"
+import { ConfirmDialog } from "primereact/confirmdialog"
+import { Dropdown } from "primereact/dropdown"
+import { Button } from "primereact/button"
+import { MatchSchema } from "@/validations/matchDaySchema"
+import { enqueueSnackbar } from "notistack"
+import axios from "axios"
+import { ZodError } from "zod"
 
 interface Props {
-	matchNumber: number
-	hasError: {
-		home: boolean
-		away: boolean
-		date: boolean
-	}
-	teams: Team[]
-	setTeams: Dispatch<SetStateAction<Team[]>>
-	clear: boolean
+	viewNewBet: boolean,
+	setViewNewBet: Dispatch<SetStateAction<boolean>>
 }
 
-export function NewMatch(props: Props) {
-	const { matchNumber, hasError, teams, setTeams, clear } = props
-	const { selectedTeams, setSelectedTeams, selectedDates, setSelectedDates } = useNewBet()
-	const [homeTeam, setHomeTeam] = useState({ id: "", name: "" })
-	const [awayTeam, setAwayTeam] = useState({ id: "", name: "" })
+export function NewMatch({ viewNewBet, setViewNewBet }: Props) {
+	const [match, setMatch] = useState<IMatch>({ homeTeam: "", awayTeam: "", startDate: null })
+	const [errors, setErrors] = useState({ homeTeam: false, startDate: false, awayTeam: false })
+	const setSelectedTeams = useNewBet((state) => state.setSelectedTeams);
+	const selectedTeams = useNewBet((state) => state.selectedTeams);
 
-	useEffect(() => {
-		setHomeTeam({ id: "", name: "" })
-		setAwayTeam({ id: "", name: "" })
-	}, [clear])
-
-	useEffect(() => {
-		// Llama a la función HandleSelectionTeam para obtener una respuesta
-		const response = HandleSelectionTeam("home", homeTeam.id)
-		UpdateListTeams(response)
-	}, [homeTeam])
-
-	useEffect(() => {
-		// Llama a la función HandleSelectionTeam para obtener una respuesta
-		const response = HandleSelectionTeam("away", awayTeam.id)
-		UpdateListTeams(response)
-	}, [awayTeam])
-
-	const UpdateListTeams = (newTeams: Teams[]) => {
-		// Actualiza el estado setSelectedTeams con la respuesta
-		setSelectedTeams(newTeams)
-
-		// Inicializa arrays vacíos para su uso posterior
-		let newArrayTeams: Team[] = []
-		let orginalTeams: Team[] = [...TeamsNames]
-		let newSetTeams: Team[] = []
-
-		// Recorre la respuesta y filtra los equipos originales en newArrayTeams
-		/*for (let index = 0; index < Object.entries(newTeams).length; index++) {
-			orginalTeams.forEach((origTeam) => {
-				if (origTeam.id === newTeams[index].home.toString() || origTeam.id === newTeams[index].away.toString()) {
-					newArrayTeams.push(origTeam)
-				}
-			})
-		}*/
-
-		// Convierte la respuesta en un array de objetos
-		const arrayObject = Object.entries(newTeams)
-
-		// Filtra los elementos no NaN del array de objetos
-		//const arrayTeamsNotNaN = arrayObject.filter((idEx) => !Number.isNaN(idEx[1].home) || !Number.isNaN(idEx[1].away))
-
-		// Crea un array de IDs a excluir
-		/*let idsAExcluir: string[] = []
-		for (let index = 0; index < arrayTeamsNotNaN.length; index++) {
-			idsAExcluir.push(arrayTeamsNotNaN[index][1].home.toString())
-			idsAExcluir.push(arrayTeamsNotNaN[index][1].away.toString())
-		}*/
-
-		// Si newArrayTeams contiene elementos, filtra orginalTeams para excluir ciertos IDs
-		/*if (newArrayTeams.length > 0) {
-			newSetTeams = orginalTeams.filter((team) => !idsAExcluir.includes(team.id))
-		} else {
-			// Si newArrayTeams está vacío, asigna una copia de TeamsNames a newSetTeams
-			newSetTeams = [...TeamsNames]
-		}*/
-		newSetTeams = [...TeamsNames]
-
-		// Actualiza el estado con el nuevo conjunto de equipos
-		setTeams(newSetTeams)
-	}
-
-	const HandleSelectionTeam = (team: string, teamid: string) => {
-		// Copia del arreglo de selectedTeams
-		let newTeams: Teams[] = { ...selectedTeams }
-		// Obten una copia del partido actual
-		let newMatch = { ...newTeams[matchNumber] }
-
-		// Actualiza el equipo correspondiente (home o away)
-		if (team === "home") {
-			newMatch.home = parseInt(teamid)
-		} else {
-			newMatch.away = parseInt(teamid)
+	const handleAddMatch = async () => {
+		try {
+			const validateData = await MatchSchema.parseAsync(match)
+			setSelectedTeams([...selectedTeams, validateData]);
+			setViewNewBet(false)
+			setMatch({ homeTeam: "", awayTeam: "", startDate: null })
+			enqueueSnackbar("Partido agregado correctamente", { variant: "success" })
+		} catch (error) {
+			if (error instanceof ZodError) {
+				enqueueSnackbar("Favor de llenar los campos requeridos", { variant: "error" })
+				const newErrors = { homeTeam: false, startDate: false, awayTeam: false }
+				error?.issues?.map(issue => {
+					if (issue.path[0] === "homeTeam" || issue.path[0] === "awayTeam" || issue.path[0] === "startDate")
+						newErrors[issue.path[0]] = true
+				})
+				setErrors({ ...newErrors })
+			}
 		}
-		// Actualiza el arreglo de selectedTeams con la nueva información
-		newTeams[matchNumber] = newMatch
-		// Actualiza el estado con el nuevo arreglo
-		return newTeams
 	}
 
+	const handleSetTeam = (value: Team, team: 'homeTeam' | 'awayTeam') => {
+		setMatch((prev) => ({
+			...prev,
+			[`${team}`]: value.id,
+		}));
+		setErrors((prev) => ({
+			...prev,
+			[`${team}`]: false,
+		}));
+	}
 
-
-	const HandleChangeDate = (date: Nullable<Date>) => {
-		let dates = [...selectedDates]
-		let newDate = dates[matchNumber]
-		dates[matchNumber] = date
-		setSelectedDates(dates)
+	const handleSetDate = (date: Nullable<Date>) => {
+		setMatch((prev) => ({
+			...prev,
+			startDate: date,
+		}));
+		setErrors((prev) => ({
+			...prev,
+			startDate: false,
+		}));
 	}
 
 	return (
-		<div className="flex flex-row gap-1.5">
-			<div className={`${styles.match_logo} ${styles.match_logoHome}`}>
-				{selectedTeams?.[matchNumber]?.home >= 0 && TeamsLogos[selectedTeams[matchNumber].home].logo}
-			</div>
-			<div className={`${styles.match_home} ${hasError.home && styles.match_error}`}>
-				<ComboBox options={teams} selectOption={homeTeam} setSelectOption={setHomeTeam} plaaceholder="Local" />
-			</div>
-			<Calendar value={selectedDates[matchNumber]} onChange={(e) => HandleChangeDate(e.value)} />
-
-			<div className={`${styles.match_away} ${hasError.away && styles.match_error}`}>
-				<ComboBox options={teams} selectOption={awayTeam} setSelectOption={setAwayTeam} plaaceholder="Visita" />
-			</div>
-			<div className={`${styles.match_logo} ${styles.match_logoAway}`}>
-				{selectedTeams?.[matchNumber]?.away >= 0 && TeamsLogos[selectedTeams[matchNumber].away].logo}
-			</div>
-		</div>
+		<ConfirmDialog
+			visible={viewNewBet}
+			onHide={() => setViewNewBet(false)}
+			reject={() => setViewNewBet(false)}
+			content={({ headerRef, contentRef, footerRef, hide, message }) => (
+				<div className="flex flex-col items-center gap-3.5 w-full p-5 bg-(--surface-a) rounded-b-md">
+					<span className="text-(--green-400) bg-[#07a52115] px-4 py-1 rounded-md">Nuevo partido</span>
+					<div className="flex flex-col items-center gap-2" >
+						<label className="flex flex-col text-(--surface-400) text-sm w-full">
+							Local
+							<Dropdown invalid={errors.homeTeam} value={TeamsNames.find(team => team.id === match.homeTeam)} options={TeamsNames} placeholder="Elige equipo" onChange={(e) => handleSetTeam(e.target.value, 'homeTeam')} className="w-full" optionLabel="name" />
+						</label>
+						<label className="flex flex-col w-full text-(--surface-400) text-sm">
+							Fecha
+							<Calendar invalid={errors.startDate} className="w-full" placeholder="Elige fecha" showTime hourFormat="24" touchUI value={match.startDate} onChange={(e) => handleSetDate(e.value)} />
+						</label>
+						<label className="flex flex-col text-(--surface-400) text-sm w-full">
+							Visitante
+							<Dropdown invalid={errors.awayTeam} value={TeamsNames.find(team => team.id === match.awayTeam)} options={TeamsNames} placeholder="Elige equipo" onChange={(e) => handleSetTeam(e.target.value, 'awayTeam')} className="w-full" optionLabel="name" />
+						</label>
+					</div>
+					<div className="flex flex-row align-items-center gap-2 mt-4" >
+						<Button
+							label="Cancel"
+							raised outlined
+							severity="danger"
+							icon="pi pi-plus-circle"
+							onClick={(event) => {
+								hide(event);
+							}}
+							className="w-8rem" size="small"
+						/>
+						<Button
+							label="Agregar"
+							raised outlined
+							severity="success"
+							icon="pi pi-plus-circle"
+							onClick={handleAddMatch}
+							className="w-8rem" size="small"
+						/>
+					</div>
+				</div>
+			)} />
 	)
 }
