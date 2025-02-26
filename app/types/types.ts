@@ -1,5 +1,6 @@
 import { DocumentData } from "firebase/firestore"
 import { Session } from "next-auth"
+import { Nullable } from "primereact/ts-helpers"
 
 export type IUserInfo = {
 	uid: string
@@ -401,5 +402,7 @@ export interface UserSession {
 export interface IMatch {
 	homeTeam: string
 	awayTeam: string
-	matchDay: number
+	matchDay?: number
+	status?: 'not started' | 'in progress' | 'finished'
+	startDate: Nullable<Date>
 }
