@@ -668,6 +668,7 @@ export const TeamsLocalLogos = [
 
 export const Teams = ["América", "Atlas", "Cruz Azul", "Guadalajara", "Chivas", "Juárez", "León", "Tigres", "Mazatlán", "Monterrey", "Rayados", "Necaxa", "Pachuca", "Puebla", "Pumas", "San Luis", "Santos", "Tijuana", "Toluca", "Queretaro"]
 export const TeamsLocalNames = ["--Elige--", "América", "Atlas", "Cruz Azul", "Guadalajara", "Juárez", "León", "Tigres", "Mazatlán", "Monterrey", "Necaxa", "Pachuca", "Puebla", "Pumas", "San Luis", "Santos", "Tijuana", "Toluca", "Queretaro"]
+export const TeamsBets = ["América", "Atlas", "Cruz Azul", "Guadalajara", "Juárez", "León", "Tigres", "Mazatlán", "Monterrey", "Necaxa", "Pachuca", "Puebla", "Pumas", "San Luis", "Santos", "Tijuana", "Toluca", "Queretaro"]
 
 export const TeamsNames: Team[] = [
 	{
