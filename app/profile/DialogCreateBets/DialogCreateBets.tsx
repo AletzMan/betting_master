@@ -1,11 +1,11 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { Dispatch, ReactSVGElement, SetStateAction, useEffect, useRef, useState } from "react"
 import { NewMatch } from "./NewMatch/NewMatch"
 import styles from "./dialogcreatebets.module.scss"
 import { useNewBet } from "@/config/zustand-store"
 import { AddMatchDay } from "@/config/firebase"
 import { ICurrentMatch, IMatchDay, IErrorMatches, Team, Teams, IMatch } from "@/types/types"
 import { ValidateNewBet } from "@/functions/functions"
-import { TeamsLocalNames, TeamsNames } from "@/constants/constants"
+import { TeamsLocalNames, TeamsLogosNews, TeamsNames } from "@/constants/constants"
 import { useSnackbar } from "notistack"
 import { Dialog } from "primereact/dialog"
 import { Button } from "primereact/button"
@@ -17,6 +17,10 @@ import { ConfirmDialog } from "primereact/confirmdialog"
 import { Calendar } from "primereact/calendar"
 import { Dropdown } from "primereact/dropdown"
 import { Nullable } from "primereact/ts-helpers"
+import React from "react"
+import { classNames } from "primereact/utils"
+import { SmallDateLocal, SmallDateLocalAndTime } from "@/utils/helpers"
+import { Ripple } from "primereact/ripple"
 interface Props {
 	setView: Dispatch<SetStateAction<boolean>>
 }
@@ -43,10 +47,25 @@ export function DialogCreatBets({ setView }: Props) {
 	const [error, setError] = useState<IErrorEmpty>(initError)
 	const [viewNewBet, setViewNewBet] = useState(false);
 	const selectedTeams = useNewBet((state) => state.selectedTeams);
+	const setSelectedTeams = useNewBet((state) => state.setSelectedTeams);
 	const [matchDay, setMatchDay] = useState(0)
+	const refMatches = useRef<HTMLElement | null>(null)
 
-	const HandleChangeDay = () => {
 
+	useEffect(() => {
+		if (refMatches.current) {
+			refMatches.current.scrollTo({
+				top: refMatches.current.scrollHeight,
+				behavior: "smooth",
+			});
+		}
+	}, [selectedTeams])
+
+
+	const handleDeleteMatch = (index: number) => {
+		const prevMatches = [...selectedTeams]
+		prevMatches.splice(index, 1);
+		setSelectedTeams(prevMatches);
 	}
 
 	const HandleCreateMatchDay = async () => {
@@ -77,11 +96,18 @@ export function DialogCreatBets({ setView }: Props) {
 						<Button label="Agregar partido" size="small" className="max-h-10" icon="pi pi-plus" onClick={() => setViewNewBet(true)} />
 					</div>
 					<Divider type="dashed" />
-					<article className="flex flex-col gap-1.5">
+					<article className="flex flex-col justify-items-start gap-5 scrollbar h-[calc(100svh-22.5em)] pt-4" ref={refMatches}>
 						{selectedTeams.map((match, index) => (
-							<div key={index} className="flex flex-row gap-3.5">
-								<span>{match.homeTeam}</span>
-								<span>{match.awayTeam}</span>
+							<div key={index} className="relative grid grid-cols-[2em_2em_repeat(2,1fr)_2em_3em] w-full bg-(--surface-0) border-1 border-(--surface-d) place-content-center place-items-center py-1 rounded-md">
+								<span className="absolute text-xs -top-3.5 bg-(--pink-900) border-1 border-(--surface-d) rounded-sm px-1 py-0.5">{match.startDate?.toLocaleDateString("es-MX", SmallDateLocalAndTime)}</span>
+								<span className="flex items-center justify-center text-sm bg-(--cyan-900) rounded-xl w-5 h-5">{index + 1}</span>
+								{React.isValidElement(TeamsLogosNews.find(team => team.id.toString() === match.homeTeam)?.logo) &&
+									React.cloneElement(TeamsLogosNews.find(team => team.id.toString() === match.homeTeam)?.logo as ReactSVGElement, { className: "w-6 h-6" })}
+								<span className={`text-sm text-(--surface-500) text-center`}>{TeamsNames.find(team => team.id === match.homeTeam)?.name}</span>
+								<span className={`text-sm text-(--surface-500) text-center`}>{TeamsNames.find(team => team.id === match.awayTeam)?.name}</span>
+								{React.isValidElement(TeamsLogosNews.find(team => team.id.toString() === match.awayTeam)?.logo) &&
+									React.cloneElement(TeamsLogosNews.find(team => team.id.toString() === match.awayTeam)?.logo as ReactSVGElement, { className: "w-6 h-6" })}
+								<Button icon="pi pi-trash" severity="danger" raised text size="small" onClick={() => handleDeleteMatch(index)} />
 							</div>
 						))
 

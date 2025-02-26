@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { AppLogo } from "@/app/svg"
-import { GetNewsLigaMX } from "@/app/services/fetch_utils"
+import { AppLogo } from "@/svg"
+import { GetNewsLigaMX } from "@/services/fetch_utils"
 import { Card } from "primereact/card"
 import CarouselNews from "./CarouselNews"
 import { Tag } from "primereact/tag"

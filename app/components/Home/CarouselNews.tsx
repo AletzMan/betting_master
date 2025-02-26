@@ -1,7 +1,7 @@
 "use client"
-import { Teams, TeamsLogos, TeamsLogosNews } from "@/app/constants/constants";
-import { INews } from "@/app/types/types";
-import { findFirstMatch } from "@/app/utils/helpers";
+import { Teams, TeamsLogos, TeamsLogosNews } from "@/constants/constants";
+import { INews } from "@/types/types";
+import { findFirstMatch } from "@/utils/helpers";
 import Image from "next/image";
 import Link from "next/link";
 import { Card } from "primereact/card";
