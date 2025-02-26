@@ -46,17 +46,17 @@ export const useBet = create<BetState>((set) => ({
 }))
 
 interface INewBet {
-	selectedTeams: IMatch[]
-	setSelectedTeams: (value: IMatch[]) => void
-	clearTeams: () => void
+	bettingMatches: IMatch[]
+	setBettingMatches: (value: IMatch[]) => void
+	clearBettingMatches: () => void
 }
 
 export const useNewBet = create<INewBet>((set) => ({
-	selectedTeams: [],
-	setSelectedTeams: (value: IMatch[]) => set({ selectedTeams: value }),
-	clearTeams: () =>
+	bettingMatches: [],
+	setBettingMatches: (value: IMatch[]) => set({ bettingMatches: value }),
+	clearBettingMatches: () =>
 		set({
-			selectedTeams: [],
+			bettingMatches: [],
 		}),
 }))
 

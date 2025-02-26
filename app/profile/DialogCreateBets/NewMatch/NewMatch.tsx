@@ -23,13 +23,14 @@ interface Props {
 export function NewMatch({ viewNewBet, setViewNewBet }: Props) {
 	const [match, setMatch] = useState<IMatch>({ homeTeam: "", awayTeam: "", startDate: null })
 	const [errors, setErrors] = useState({ homeTeam: false, startDate: false, awayTeam: false })
-	const setSelectedTeams = useNewBet((state) => state.setSelectedTeams);
-	const selectedTeams = useNewBet((state) => state.selectedTeams);
+	const setBettingMatches = useNewBet((state) => state.setBettingMatches);
+	const bettingMatches = useNewBet((state) => state.bettingMatches);
+
 
 	const handleAddMatch = async () => {
 		try {
 			const validateData = await MatchSchema.parseAsync(match)
-			setSelectedTeams([...selectedTeams, validateData]);
+			setBettingMatches([...bettingMatches, validateData]);
 			setViewNewBet(false)
 			setMatch({ homeTeam: "", awayTeam: "", startDate: null })
 			enqueueSnackbar("Partido agregado correctamente", { variant: "success" })
@@ -74,12 +75,19 @@ export function NewMatch({ viewNewBet, setViewNewBet }: Props) {
 			onHide={() => setViewNewBet(false)}
 			reject={() => setViewNewBet(false)}
 			content={({ headerRef, contentRef, footerRef, hide, message }) => (
-				<div className="flex flex-col items-center gap-3.5 w-full p-5 bg-(--surface-a) rounded-b-md">
+				<div className="flex flex-col items-center gap-3.5 w-full min-w-2xs p-5 bg-(--surface-a) rounded-b-md">
 					<span className="text-(--green-400) bg-[#07a52115] px-4 py-1 rounded-md">Nuevo partido</span>
-					<div className="flex flex-col items-center gap-2" >
+					<div className="flex flex-col items-center gap-2 w-full" >
 						<label className="flex flex-col text-(--surface-400) text-sm w-full">
 							Local
-							<Dropdown invalid={errors.homeTeam} value={TeamsNames.find(team => team.id === match.homeTeam)} options={TeamsNames} placeholder="Elige equipo" onChange={(e) => handleSetTeam(e.target.value, 'homeTeam')} className="w-full" optionLabel="name" />
+							<Dropdown
+								invalid={errors.homeTeam}
+								value={TeamsNames.find(team => team.id === match.homeTeam)}
+								options={TeamsNames}
+								placeholder="Equipo Local"
+								onChange={(e) => handleSetTeam(e.target.value, 'homeTeam')}
+								className="w-full"
+								optionLabel="name" />
 						</label>
 						<label className="flex flex-col w-full text-(--surface-400) text-sm">
 							Fecha
@@ -87,27 +95,34 @@ export function NewMatch({ viewNewBet, setViewNewBet }: Props) {
 						</label>
 						<label className="flex flex-col text-(--surface-400) text-sm w-full">
 							Visitante
-							<Dropdown invalid={errors.awayTeam} value={TeamsNames.find(team => team.id === match.awayTeam)} options={TeamsNames} placeholder="Elige equipo" onChange={(e) => handleSetTeam(e.target.value, 'awayTeam')} className="w-full" optionLabel="name" />
+							<Dropdown
+								invalid={errors.awayTeam}
+								value={TeamsNames.find(team => team.id === match.awayTeam)}
+								options={TeamsNames}
+								placeholder="Equipo Visitante"
+								onChange={(e) => handleSetTeam(e.target.value, 'awayTeam')}
+								className="w-full"
+								optionLabel="name" />
 						</label>
 					</div>
-					<div className="flex flex-row align-items-center gap-2 mt-4" >
+					<div className="flex flex-row align-items-center justify-between w-full gap-2 mt-4" >
 						<Button
 							label="Cancel"
-							raised outlined
+							raised
 							severity="danger"
 							icon="pi pi-plus-circle"
 							onClick={(event) => {
 								hide(event);
 							}}
-							className="w-8rem" size="small"
+							size="small" className="w-8rem"
 						/>
 						<Button
 							label="Agregar"
-							raised outlined
+							raised
 							severity="success"
 							icon="pi pi-plus-circle"
 							onClick={handleAddMatch}
-							className="w-8rem" size="small"
+							size="small" className="w-8rem"
 						/>
 					</div>
 				</div>

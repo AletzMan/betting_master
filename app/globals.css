@@ -103,3 +103,14 @@ body {
 .p-dialog .p-dialog-content {
 	padding: 0.5em;
 }
+
+.delete-exit {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.delete-exit-active {
+	opacity: 0;
+	transform: translateY(-20px);
+	transition: opacity 300ms, transform 300ms;
+}
