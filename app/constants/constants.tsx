@@ -23,7 +23,7 @@ import {
 	TigresLogo,
 	TijuanaLogo,
 	TolucaLogo,
-} from "@/app/svg"
+} from "@/svg"
 import { IOptions, Team } from "../types/types"
 
 export const TeamsLogos = [

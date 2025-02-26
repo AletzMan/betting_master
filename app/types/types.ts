@@ -398,3 +398,8 @@ export interface UserSession {
 	emailVerified: Date | null;
 }
 
+export interface IMatch {
+	homeTeam: string
+	awayTeam: string
+	matchDay: number
+}
