@@ -13,8 +13,8 @@ export async function RevalidatePath(tag: string) {
 }
 
 
-interface IMatchDayData {
-    matchDay: IMatchDay | null
+export interface IMatchDayData {
+    matchDay: IMatchDay
     matches: IMatch[]
 }
 

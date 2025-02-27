@@ -11,18 +11,15 @@ import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
 import { InputSwitch } from "primereact/inputswitch"
 import axios from "axios"
-import { getMatchDayData } from "@/utils/fetchData"
+import { IMatchDayData, getMatchDayData } from "@/utils/fetchData"
 import { ToggleButton } from "primereact/togglebutton"
+import { Loading } from "@/components/Loading/Loading"
 
 export function AdminPanel() {
-	const [matchDay, setMatchDay] = useState<IMatchDay | null>(null)
-	const [matches, setMatches] = useState<IMatch[]>([])
-	const [resultsByMatch, setResultByMatch] = useState<string[]>(["-", "-", "-", "-", "-", "-", "-", "-", "-"])
-	const [statusGame, setStatusGame] = useState(false)
+	const [matchDayData, setMatchDayData] = useState<IMatchDayData>({ matchDay: {} as IMatchDay, matches: [] })
 	const [sending, setSending] = useState(false)
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(true)
 	const [viewCreateBets, setViewCreateBets] = useState(false)
-	const [isAvailable, setIsAvailable] = useState(true)
 
 
 	useEffect(() => {
@@ -30,13 +27,13 @@ export function AdminPanel() {
 	}, [])
 
 	const GetDay = async () => {
-		setLoading(true);
 		try {
 			const matchDayData = await getMatchDayData();
 			if (matchDayData) {
-				setMatchDay(matchDayData.matchDay)
-				setMatches(matchDayData.matches)
-				setResultByMatch(matchDayData.matchDay?.results as string[])
+				//setMatchDay(matchDayData.matchDay)
+				//setMatches(matchDayData.matches)
+				//setResultByMatch(matchDayData.matchDay?.results as string[])
+				setMatchDayData(matchDayData);
 			}
 		} catch (error) {
 
@@ -56,60 +53,76 @@ export function AdminPanel() {
 	const HandleCreate = async () => {
 		setViewCreateBets(true)
 	}
-	const HandleDeleteDayMatch = async () => {
 
+	const HandleDeleteDayMatch = async () => {
 
 	}
 
+	const handleSetResults = (value: string, index: number) => {
+		const results = [...matchDayData.matchDay.results as string[]]
+		results[index] = value;
+		setMatchDayData((prev) => ({ ...prev, matchDay: { ...prev.matchDay, results: results } }))
+	}
+	const handleSetStatus = (checked: boolean, type: 'isAvailable' | 'isFinishGame') => {
+		const matchDayStatus = { ...matchDayData.matchDay }
+		matchDayStatus[type] = checked
+		setMatchDayData((prev) => ({ ...prev, matchDay: { ...matchDayStatus } }))
+	}
+
+	console.log(matchDayData)
 
 	return (
 		<>
 			{viewCreateBets && <DialogCreatBets setView={setViewCreateBets} />}
 			<div className="flex flex-col gap-2 relative h-[calc(100svh-9rem)]">
-				{
-					<header className="flex flex-col">
-						<div className="flex justify-between items-center">
-							<h3 className="text-sky-500">{`Jornada ${matchDay?.day}`}</h3>
-							<Button label="Eliminar Jornada" severity="danger" icon="pi pi-trash" size="small" onClick={HandleDeleteDayMatch} />
-						</div>
-						<Divider type="dashed" />
-						<div className="flex flex-row gap-2.5 justify-around ">
-							<div className="flex gap-1.5 flex-col items-center">
-								<label className="text-sm">¿Jornada en Juego?</label>
-								<ToggleButton className="min-w-15" checked={statusGame} onChange={() => setStatusGame((prev) => !prev)} onLabel="Si" offLabel="No" />
+				{loading && <Loading height="267px" />}
+				{!loading &&
+					<div>
+						<header className="flex flex-col">
+							<div className="flex justify-between items-center">
+								<h3 className="text-sky-500">{`Jornada ${matchDayData.matchDay.day}`}</h3>
+								<Button label="Eliminar Jornada" severity="danger" icon="pi pi-trash" size="small" onClick={HandleDeleteDayMatch} />
 							</div>
-							<div className="flex gap-1.5 flex-col items-center">
-								<label className="text-sm">¿Participación abierta?</label>
-								<ToggleButton className="min-w-15" checked={isAvailable} onChange={() => setIsAvailable((prev) => !prev)} onLabel="Si" offLabel="No" />
+							<Divider type="dashed" />
+							<div className="flex flex-row gap-2.5 justify-around ">
+								<div className="flex gap-1.5 flex-col items-center">
+									<label className="text-sm">¿Jornada en Juego?</label>
+									<ToggleButton className="min-w-15" checked={matchDayData.matchDay.isFinishGame} onChange={(e) => handleSetStatus(e.target.value, "isFinishGame")} onLabel="Si" offLabel="No" />
+								</div>
+								<div className="flex gap-1.5 flex-col items-center">
+									<label className="text-sm">¿Participación abierta?</label>
+									<ToggleButton className="min-w-15" checked={matchDayData.matchDay.isAvailable} onChange={(e) => handleSetStatus(e.target.value, "isAvailable")} onLabel="Si" offLabel="No" />
+								</div>
 							</div>
-						</div>
-						<Divider type="dashed" />
-					</header>}
-				<article className="grid grid-cols-9 gap-1">
-					{matches.map((match, index) => (
-						<div key={match.awayTeam} className="flex flex-col max-w-12">
-							<div className="flex flex-col justify-center">
-								<span className="text-xs text-center">{TeamsLogos.find(logo => logo.id.toString() === match.homeTeam)?.abbName}</span>
-								<span className="text-xs text-center text-amber-300">{"vs"}</span>
-								<span className="text-xs text-center">{TeamsLogos.find(logo => logo.id.toString() === match.awayTeam)?.abbName}</span>
-							</div>
-							{resultsByMatch && (
-								<ButtonBet index={index} setResultMatch={setResultByMatch} resultMatches={resultsByMatch} actualPrediction={matchDay?.results[index] as string} />
-							)}
-						</div>
-					))}
-				</article>
+							<Divider type="dashed" />
+						</header>
+						<article className="grid grid-cols-9 gap-1">
+							{matchDayData?.matches.map((match, index) => (
+								<div key={match.awayTeam} className="flex flex-col max-w-12">
+									<div className="flex flex-col justify-center">
+										<span className="text-xs text-center">{TeamsLogos.find(logo => logo.id.toString() === match.homeTeam)?.abbName}</span>
+										<span className="text-xs text-center text-amber-300">{"vs"}</span>
+										<span className="text-xs text-center">{TeamsLogos.find(logo => logo.id.toString() === match.awayTeam)?.abbName}</span>
+									</div>
+									{matchDayData.matchDay && (
+										<ButtonBet actualPrediction={matchDayData.matchDay?.results[index] as string} onChange={(value) => handleSetResults(value, index)} />
+									)}
+								</div>
+							))}
+						</article>
+					</div>
+				}
 				<Divider type="dashed" />
 				<footer className="flex justify-around">
 					<Button
 						label="Crear quiniela"
 						icon="pi pi-plus"
 						size="small"
-						disabled={false}
+						disabled={matchDayData!.matchDay!.results?.length > 0}
 						severity="success"
 						onClick={HandleCreate}
 						outlined />
-					{matchDay?.day !== 0 &&
+					{matchDayData.matchDay.day !== 0 &&
 						<Button
 							label={!sending ? "Actualizar" : "Enviando..."}
 							icon={sending ? "pi pi-spin pi-spinner-dotted" : "pi pi-refresh"}
