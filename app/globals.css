@@ -163,6 +163,10 @@ body {
 		}
 	}
 
+	&.p-button-link {
+		color: var(--primary-color);
+	}
+
 }
 
 

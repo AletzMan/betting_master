@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import styles from "./buttonbet.module.scss"
+import { Dispatch, SetStateAction, useState } from "react"
 
 const PREDICTIONS = ["-", "LV", "L", "E", "V"]
 
