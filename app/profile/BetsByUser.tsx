@@ -87,7 +87,7 @@ export function BetsByUser() {
             <header className="flex flex-col gap-2">
                 <div className="flex justify-between">
                     <Dropdown value={MatchDays[matchDay - 1]} options={MatchDays} placeholder="Seleccione Jornada" onChange={HandleChangeDay} />
-                    <Button onClick={HandleGetData} icon="pi pi-refresh" outlined severity="secondary" size="small" label="Actualizar" raised />
+                    <Button onClick={HandleGetData} className="max-h-10" icon="pi pi-refresh" outlined severity="secondary" size="small" label="Actualizar" />
                 </div>
                 <Divider type="dashed" />
                 <div className="grid grid-cols-4 gap-1 w-full">
