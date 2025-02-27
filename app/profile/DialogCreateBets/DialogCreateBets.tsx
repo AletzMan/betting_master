@@ -114,7 +114,7 @@ export function DialogCreatBets({ setView }: Props) {
 		<Dialog style={{ width: '95svw', maxWidth: '550px', height: '95svh' }} header="Crear Quiniela" visible onHide={() => setView(false)}>
 			<section className=" flex flex-col  scrollbar">
 				<header className="flex gap-2.5 justify-between">
-					<Button onClick={HandleCreateMatchDay} label="Guardar" severity="success" loading={loading} loadingIcon="pi pi-spin pi-spinner-dotted" icon="pi pi-save" size="small" disabled={bettingMatches.length === 0} />
+					<Button onClick={HandleCreateMatchDay} label="Guardar" severity="success" text loading={loading} loadingIcon="pi pi-spin pi-spinner-dotted" icon="pi pi-save" size="small" disabled={bettingMatches.length === 0} />
 					<Button onClick={() => setResetView(true)} label="Reiniciar" severity="secondary" icon="pi pi-replay" size="small" disabled={bettingMatches.length === 0} />
 				</header>
 				<Divider type="dashed" />

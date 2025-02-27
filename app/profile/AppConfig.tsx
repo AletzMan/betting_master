@@ -10,7 +10,7 @@ export function AppConfig() {
             <Fieldset legend="Paginas visibles">
                 <div className="flex flex-col gap-2">
                     <label className="flex flex-row gap-2.5 items-center" >
-                        <Checkbox checked type="checkbox" />
+                        <Checkbox checked={false} type="checkbox" />
                         Quinielas
                     </label>
                     <label className="flex flex-row gap-2.5 items-center" >
@@ -18,7 +18,7 @@ export function AppConfig() {
                         Finales
                     </label>
                     <label className="flex flex-row gap-2.5 items-center" >
-                        <Checkbox checked type="checkbox" />
+                        <Checkbox checked={false} type="checkbox" />
                         Resultados
                     </label>
                     <label className="flex flex-row gap-2.5 items-center" >

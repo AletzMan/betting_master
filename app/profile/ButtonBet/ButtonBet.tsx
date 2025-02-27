@@ -10,8 +10,7 @@ interface Props {
 	actualPrediction: string
 }
 
-export function ButtonBet(props: Props) {
-	const { setResultMatch, index, resultMatches, actualPrediction } = props
+export function ButtonBet({ setResultMatch, index, resultMatches, actualPrediction }: Props) {
 	const [prediction, setPrediction] = useState(PREDICTIONS.indexOf(actualPrediction))
 
 	const HandleSetPrediction = () => {
@@ -28,7 +27,7 @@ export function ButtonBet(props: Props) {
 	}
 
 	return (
-		<button className={`${styles.button} ${prediction > 0 && styles.buttonActive}`} onClick={HandleSetPrediction}>
+		<button className={`flex items-center justify-center w-full aspect-square h-full text-xl border-1 border-(--surface-100) bg-(--surface-50) rounded-sm transition-all duration-200 hover:bg-(--surface-a) ${prediction > 0 && "bg-(--surface-b)"}`} onClick={HandleSetPrediction}>
 			{PREDICTIONS[prediction]}
 		</button>
 	)

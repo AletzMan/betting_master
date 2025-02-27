@@ -11,7 +11,7 @@ export default auth(async function middleware(request: NextRequest) {
 		return NextResponse.redirect(new URL('/login', request.url))
 	}
 	if (request.nextUrl.pathname.startsWith('/profile') && !cookie) {
-		return NextResponse.redirect(new URL('/login', request.url))
+		//return NextResponse.redirect(new URL('/login', request.url))
 	}
 	if (request.nextUrl.pathname.startsWith('/api/users') && !cookie) {
 		return NotAuthorizedError();

@@ -49,8 +49,6 @@ export const SettingsProfile = () => {
     const [errors, setErrors] = useState(EmptyErrors)
     const [statusNotifications, setStatusNotifications] = useState(false)
 
-    console.log(userSettings)
-
     useEffect(() => {
         if (session.status === "authenticated")
             setUserSettings(session.data?.user as UserSession)

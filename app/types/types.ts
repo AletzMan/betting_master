@@ -308,7 +308,7 @@ export interface IResultsMatches extends DocumentData {
 	isAvailable: boolean
 }
 
-export interface IMatchDay {
+export interface IMatchDays {
 	matches: ICurrentMatch[]
 	results: string[]
 	day: number
@@ -399,10 +399,24 @@ export interface UserSession {
 	emailVerified: Date | null;
 }
 
+export interface IMatchDay {
+	id: number
+	matches: string[]
+	season: string
+	day: number
+	isAvailable: boolean
+	isFinishGame: boolean
+	results: string[]
+}
+
 export interface IMatch {
 	homeTeam: string
 	awayTeam: string
 	matchDay?: number
 	status?: 'not started' | 'in progress' | 'finished'
 	startDate: Nullable<Date>
+}
+
+export interface IMatchesResponse {
+	response: IMatch[]
 }

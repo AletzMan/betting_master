@@ -20,6 +20,18 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
             return NotFoundError(); // MatchDay no encontrada
         }
 
+        const sortBy = request.nextUrl.searchParams.get("sortBy");
+        const sortOrder = request.nextUrl.searchParams.get("sortOrder");
+        console.log(sortBy, sortOrder)
+
+        // 2. Crear objeto orderBy
+        let orderBy = {};
+        if (sortBy && sortOrder) {
+            orderBy = {
+                [sortBy]: sortOrder.toLowerCase() === "desc" ? "desc" : "asc",
+            };
+        }
+
         // 2. Obtener los partidos por sus IDs
         const matches = await prisma.match.findMany({
             where: {
@@ -27,6 +39,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
                     in: matchDay.matches, // Usar el array de IDs de Match
                 },
             },
+            orderBy: orderBy, // Usar orderBy
         });
 
         if (matches && matches.length > 0) {
@@ -34,6 +47,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
         }
         return NotFoundError();
     } catch (error) {
+        console.error(error)
         return ServerError();
     }
 

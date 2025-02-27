@@ -113,7 +113,7 @@ export function AdminNotifications() {
                 ))}
             </div>
             <footer className="flex min-h-12 items-center pt-2">
-                <Button label={!sending ? "Enviar notificación" : "Sending..."} size="small" icon={sending ? "pi pi-spin pi-spinner-dotted" : "pi pi-send"} disabled={sending} />
+                <Button label={!sending ? "Enviar notificación" : "Sending..."} size="small" severity="info" icon={sending ? "pi pi-spin pi-spinner-dotted" : "pi pi-send"} disabled={sending} />
                 {/*<Button
                     props={{ onClick: HandleSendNotifications, disabled: sending }}
                     text={!sending ? "Enviar notificación" : "Sending..."}
