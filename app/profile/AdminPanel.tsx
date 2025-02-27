@@ -1,19 +1,17 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { DeleteMatchDay } from "@/config/firebase"
-import { ICurrentMatch, IMatch, IMatchDay, IMatchesResponse } from "@/types/types"
+import { ICurrentMatch, IMatchDay } from "@/types/types"
 import { ButtonBet } from "./ButtonBet/ButtonBet"
 import { TeamsLogos } from "@/constants/constants"
 import { DialogCreatBets } from "./DialogCreateBets/DialogCreateBets"
 import { enqueueSnackbar } from "notistack"
 import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
-import { InputSwitch } from "primereact/inputswitch"
-import axios from "axios"
-import { IMatchDayData, getMatchDayData } from "@/utils/fetchData"
+import { IMatchDayData, RevalidatePath, getMatchDayData } from "@/utils/fetchData"
 import { ToggleButton } from "primereact/togglebutton"
 import { Loading } from "@/components/Loading/Loading"
+import axios from "axios"
 
 export function AdminPanel() {
 	const [matchDayData, setMatchDayData] = useState<IMatchDayData>({ matchDay: {} as IMatchDay, matches: [] })
@@ -30,9 +28,6 @@ export function AdminPanel() {
 		try {
 			const matchDayData = await getMatchDayData();
 			if (matchDayData) {
-				//setMatchDay(matchDayData.matchDay)
-				//setMatches(matchDayData.matches)
-				//setResultByMatch(matchDayData.matchDay?.results as string[])
 				setMatchDayData(matchDayData);
 			}
 		} catch (error) {
@@ -45,8 +40,25 @@ export function AdminPanel() {
 
 	const HandleUpdate = async () => {
 		setSending(true)
-		setSending(false)
-		enqueueSnackbar("Quiniela actualizada correctamente", { variant: "success" })
+		try {
+			const response = await axios.patch(`/api/matchdays/${matchDayData.matchDay.id}`, {
+				isAvailable: matchDayData.matchDay.isAvailable,
+				isFinishGame: matchDayData.matchDay.isFinishGame,
+				results: matchDayData.matchDay.results
+			})
+			if (response.status === 200) {
+				RevalidatePath("matchDays")
+				RevalidatePath("macthes")
+				enqueueSnackbar("Quiniela actualizada correctamente", { variant: "success" })
+				const data: IMatchDay = response.data.data
+				setMatchDayData((prev) => ({ ...prev, matchDay: { ...prev.matchDay, results: data.results, isAvailable: data.isAvailable, isFinishGame: data.isFinishGame } }));
+			}
+		} catch (error) {
+			enqueueSnackbar("Error al actualizar", { variant: "error" })
+			console.error(error)
+		} finally {
+			setSending(false)
+		}
 
 	}
 
@@ -68,8 +80,6 @@ export function AdminPanel() {
 		matchDayStatus[type] = checked
 		setMatchDayData((prev) => ({ ...prev, matchDay: { ...matchDayStatus } }))
 	}
-
-	console.log(matchDayData)
 
 	return (
 		<>

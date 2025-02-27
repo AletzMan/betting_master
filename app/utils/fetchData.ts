@@ -2,11 +2,11 @@
 "use server"
 
 import { IMatch, IMatchDay } from "@/types/types"
+import { revalidateTag } from "next/cache"
 
 const pathURL = process.env.NEXTAUTH_URL
 
 
-import { revalidateTag } from "next/cache"
 
 export async function RevalidatePath(tag: string) {
     revalidateTag(tag)

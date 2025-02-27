@@ -169,6 +169,27 @@ body {
 
 }
 
+.p-inputswitch {
+	border-radius: 2em;
+
+	&.p-highlight {
+
+		.p-inputswitch-slider {
+			background: var(--primary-color);
+		}
+	}
+
+	.p-inputswitch-slider {
+		transition: all 0.2s;
+		background: var(--surface-100);
+		border-radius: 2em;
+
+		&::before {
+			border-radius: 2em;
+		}
+	}
+
+}
 
 .p-checkbox .p-checkbox-box {
 	border-radius: var(--border-radius);
