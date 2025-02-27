@@ -1,4 +1,4 @@
-import { IStatistics } from "@/app/types/StatisticsTypes";
+import { IStatistics } from "@/types/StatisticsTypes";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 

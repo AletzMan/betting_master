@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { MenuIcon, NotificationIcon } from "@/svg"
-import styles from "@/app/components/styles.module.scss"
+import styles from "@/components/styles.module.scss"
 import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
 import { useOrientation } from "@/hooks/useOrientation"

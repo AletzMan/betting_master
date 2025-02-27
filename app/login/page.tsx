@@ -1,5 +1,5 @@
 "use client"
-import { AppLogo } from "@/app/svg"
+import { AppLogo } from "@/svg"
 import { signIn } from "next-auth/react"
 import { Card } from "primereact/card"
 import { Divider } from "primereact/divider"

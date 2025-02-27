@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { useRef, useEffect, ReactSVGElement } from "react"
-import { TeamsLocalLogos, TeamsLogos } from "@/app/constants/constants"
+import { TeamsLocalLogos, TeamsLogos } from "@/constants/constants"
 import React from "react"
 
 export function TeamsSlides() {

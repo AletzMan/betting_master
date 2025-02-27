@@ -1,4 +1,4 @@
-import { BallIcon, LoadingIcon, LoadingTwoIcon } from "@/app/svg"
+import { BallIcon, LoadingIcon, LoadingTwoIcon } from "@/svg"
 import styles from "./loading.module.scss"
 
 export function Loading() {

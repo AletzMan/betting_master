@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies, headers } from "next/headers"
 import { auth } from "firebase-admin"
-import { InitApp } from "@/app/config/firebase-admin"
+import { InitApp } from "@/config/firebase-admin"
 import { FirebaseError } from "firebase/app"
 import { AuthCredential } from "firebase/auth"
 import { ErrorFactory } from "@firebase/util"

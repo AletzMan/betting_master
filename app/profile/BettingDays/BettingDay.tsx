@@ -1,7 +1,7 @@
-import { ArrowIcon } from "@/app/svg"
+import { ArrowIcon } from "@/svg"
 import styles from "./bettingday.module.scss"
 import { BetPrediction } from "../BetPrediction/BetPrediction"
-import { IBetsByDay } from "@/app/types/types"
+import { IBetsByDay } from "@/types/types"
 import { Dispatch, SetStateAction, useState } from "react"
 
 interface Props {

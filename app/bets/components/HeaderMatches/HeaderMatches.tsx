@@ -1,7 +1,7 @@
-import { FinishedIcon, UnstartedIcon } from "@/app/svg"
+import { FinishedIcon, UnstartedIcon } from "@/svg"
 import styles from "./headermatches.module.scss"
-import { ICurrentMatch } from "@/app/types/types"
-import { TeamsLogos } from "@/app/constants/constants"
+import { ICurrentMatch } from "@/types/types"
+import { TeamsLogos } from "@/constants/constants"
 
 interface PropsHeaderMatches {
 	match: ICurrentMatch

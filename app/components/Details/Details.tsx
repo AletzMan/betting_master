@@ -1,4 +1,4 @@
-import { ArrowUpIcon } from "@/app/svg"
+import { ArrowUpIcon } from "@/svg"
 import styles from "./styles.module.scss"
 
 interface Props {

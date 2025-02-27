@@ -1,5 +1,5 @@
-import { Dispatch, Fragment, ReactSVGElement, SetStateAction, useEffect, useRef, useState } from "react"
-import { NewMatch } from "./NewMatch/NewMatch"
+import { Dispatch, ReactSVGElement, SetStateAction, useEffect, useRef, useState } from "react"
+import { NewMatch } from "./NewMatch"
 import { useNewBet } from "@/config/zustand-store"
 import { TeamsLogosNews, TeamsNames } from "@/constants/constants"
 import { enqueueSnackbar } from "notistack"
@@ -30,14 +30,15 @@ const initError: IError = {
 }
 
 export function DialogCreatBets({ setView }: Props) {
-	const [errors, setErrors] = useState<IError>(initError)
+	const [errors, setErrors] = useState<IError>(initError);
 	const [viewNewBet, setViewNewBet] = useState(false);
 	const [resetView, setResetView] = useState(false);
 	const bettingMatches = useNewBet((state) => state.bettingMatches);
 	const setBettingMatches = useNewBet((state) => state.setBettingMatches);
 	const clearBettingMatches = useNewBet((state) => state.clearBettingMatches);
-	const [matchDay, setMatchDay] = useState(0)
-	const refMatches = useRef<HTMLElement | null>(null)
+	const [matchDay, setMatchDay] = useState(1);
+	const [loading, setLoading] = useState(false);
+	const refMatches = useRef<HTMLElement | null>(null);
 
 
 	useEffect(() => {
@@ -70,14 +71,20 @@ export function DialogCreatBets({ setView }: Props) {
 	}
 
 	const HandleCreateMatchDay = async () => {
+		setLoading(true);
 		try {
 			const response = await axios.post(`/api/matchdays`,
 				{
 					day: matchDay,
-					season: 'Clausura 2025',
+					season: getCurrentSeason(),
 					matches: bettingMatches
-				}
-			)
+				})
+			if (response.status === 201) {
+				enqueueSnackbar("Quiniela creada con exito", { variant: "success" });
+				setView(false);
+				clearBettingMatches();
+				setMatchDay(1);
+			}
 		} catch (error) {
 			console.log(error)
 			if (error instanceof AxiosError) {
@@ -94,6 +101,8 @@ export function DialogCreatBets({ setView }: Props) {
 					enqueueSnackbar("Existen campos vacíos o incompletos", { variant: "error" });
 				}
 			}
+		} finally {
+			setLoading(false);
 		}
 	}
 
@@ -105,33 +114,37 @@ export function DialogCreatBets({ setView }: Props) {
 		<Dialog style={{ width: '95svw', maxWidth: '550px', height: '95svh' }} header="Crear Quiniela" visible onHide={() => setView(false)}>
 			<section className=" flex flex-col  scrollbar">
 				<header className="flex gap-2.5 justify-between">
-					<Button onClick={HandleCreateMatchDay} label="Guardar" severity="success" icon="pi pi-save" size="small" disabled={bettingMatches.length === 0} />
+					<Button onClick={HandleCreateMatchDay} label="Guardar" severity="success" loading={loading} loadingIcon="pi pi-spin pi-spinner-dotted" icon="pi pi-save" size="small" disabled={bettingMatches.length === 0} />
 					<Button onClick={() => setResetView(true)} label="Reiniciar" severity="secondary" icon="pi pi-replay" size="small" disabled={bettingMatches.length === 0} />
 				</header>
 				<Divider type="dashed" />
 				<article className="flex flex-col">
-					<div className="flex w-full justify-between items-end">
-						<label className="flex flex-col gap-1 text-sm text-(--surface-500) ">
-							Jornada
-							<InputNumber
-								invalid={errors.day.isError}
-								size={2} value={matchDay}
-								onChange={(e) => {
-									setMatchDay(e.value ?? 0)
-									setErrors((prev) => {
-										const newErros = { ...prev, day: { isError: false, message: "" } }
-										return newErros
-									})
-								}}
-								showButtons min={0} max={25}
-								className="mr-2 max-h-10.5"
-								buttonLayout="horizontal"
-								decrementButtonClassName="p-button-primary"
-								incrementButtonClassName="p-button-primary"
-								incrementButtonIcon="pi pi-plus"
-								decrementButtonIcon="pi pi-minus" />
-						</label>
-						<Button label="Agregar partido" size="small" outlined raised severity="success" icon="pi pi-plus" onClick={() => setViewNewBet(true)} />
+					<div className="flex flex-col">
+						<span className="text-center bg-(--surface-e) rounded-sm">{getCurrentSeason()}</span>
+						<div className="flex w-full justify-between items-end">
+							<label className="flex flex-col gap-1 text-sm text-(--surface-500) ">
+								Jornada
+								<InputNumber
+									invalid={errors.day.isError}
+									size={2} value={matchDay}
+									onChange={(e) => {
+										setMatchDay(e.value ?? 0)
+										setErrors((prev) => {
+											const newErros = { ...prev, day: { isError: false, message: "" } }
+											return newErros
+										})
+									}}
+									showButtons min={1} max={25}
+									className="mr-2 max-h-10.5"
+									buttonLayout="horizontal"
+									disabled={bettingMatches.length > 0}
+									decrementButtonClassName="p-button-primary"
+									incrementButtonClassName="p-button-primary"
+									incrementButtonIcon="pi pi-plus"
+									decrementButtonIcon="pi pi-minus" />
+							</label>
+							<Button label="Agregar partido" size="small" outlined raised severity="success" disabled={matchDay === 0} icon="pi pi-plus" onClick={() => setViewNewBet(true)} />
+						</div>
 					</div>
 					<Divider type="dashed" />
 					<article className="flex flex-col justify-items-start gap-5 scrollbar h-[calc(100svh-22.5em)] pt-4" ref={refMatches}>
@@ -154,7 +167,7 @@ export function DialogCreatBets({ setView }: Props) {
 					</article>
 				</article>
 			</section>
-			<NewMatch viewNewBet={viewNewBet} setViewNewBet={setViewNewBet} />
+			<NewMatch viewNewBet={viewNewBet} setViewNewBet={setViewNewBet} matchDay={matchDay} />
 			<ConfirmDialog
 				visible={resetView}
 				accept={handleClearMatches}
@@ -174,3 +187,8 @@ export function DialogCreatBets({ setView }: Props) {
 	)
 }
 
+const getCurrentSeason = () => {
+	const date = new Date();
+	let season = date.getMonth() >= 0 && date.getMonth() <= 6 ? "Clausura" : "Apertura"
+	return `${season} ${date.getFullYear()}`
+}

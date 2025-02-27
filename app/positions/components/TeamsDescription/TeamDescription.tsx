@@ -1,4 +1,4 @@
-import { ITournament, Rank } from "@/app/types/types"
+import { ITournament, Rank } from "@/types/types"
 import styles from "./teamdescription.module.scss"
 import Image from "next/image"
 

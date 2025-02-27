@@ -1,6 +1,6 @@
 import { DOMAttributes, ButtonHTMLAttributes, HTMLAttributes } from 'react'
 import styles from './styles.module.scss'
-import { RefreshIcon } from '@/app/svg'
+import { RefreshIcon } from '@/svg'
 
 
 

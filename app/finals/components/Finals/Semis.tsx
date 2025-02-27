@@ -1,8 +1,8 @@
-import { IFinalsParticipants } from "@/app/types/types"
+import { IFinalsParticipants } from "@/types/types"
 import styles from "./finals.module.scss"
 import stylesGeneral from "../../finales.module.scss"
 import MatchFinals from "./MatchFinals"
-import { ArrowUpIcon, BracketIcon } from "@/app/svg"
+import { ArrowUpIcon, BracketIcon } from "@/svg"
 
 interface Props {
     participants: IFinalsParticipants[]

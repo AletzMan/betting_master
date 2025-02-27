@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import styles from "./headerpage.module.scss"
-import { AddIcon, StarIcon, WinnerIcon } from "@/app/svg"
-import { Button } from "@/app/components/Button/Button"
+import { AddIcon, StarIcon, WinnerIcon } from "@/svg"
+import { Button } from "@/components/Button/Button"
 
 interface Props {
 	isInTime: boolean

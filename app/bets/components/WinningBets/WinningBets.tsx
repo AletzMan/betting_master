@@ -1,8 +1,8 @@
 
 import ConfettiExplosion from "react-confetti-explosion"
 import styles from "./styles.module.scss"
-import { WinnerIcon } from "@/app/svg"
-import { IBetDocument, IUserInfo } from "@/app/types/types"
+import { WinnerIcon } from "@/svg"
+import { IBetDocument, IUserInfo } from "@/types/types"
 import Image from "next/image"
 import WinnerCard from "../WinnerCard/WinnerCard"
 

@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { TeamsNames, TeamsLogos } from "@/constants/constants"
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction, SyntheticEvent, useEffect, useState } from "react"
+import { TeamsNames } from "@/constants/constants"
+import { Dispatch, SetStateAction, useState } from "react"
 import { useNewBet } from "@/config/zustand-store"
-import { IMatch, Team, Teams } from "@/types/types"
-import { ComboBox } from "@/components/ComboBox/ComboBox"
+import { IMatch, Team } from "@/types/types"
 import { Calendar } from "primereact/calendar"
 import { Nullable } from "primereact/ts-helpers"
 import { ConfirmDialog } from "primereact/confirmdialog"
@@ -11,16 +10,16 @@ import { Dropdown } from "primereact/dropdown"
 import { Button } from "primereact/button"
 import { MatchSchema } from "@/validations/matchDaySchema"
 import { enqueueSnackbar } from "notistack"
-import axios from "axios"
 import { ZodError } from "zod"
 
 interface Props {
 	viewNewBet: boolean,
 	setViewNewBet: Dispatch<SetStateAction<boolean>>
+	matchDay: number
 }
 
-export function NewMatch({ viewNewBet, setViewNewBet }: Props) {
-	const [match, setMatch] = useState<IMatch>({ homeTeam: "", awayTeam: "", startDate: null })
+export function NewMatch({ viewNewBet, setViewNewBet, matchDay }: Props) {
+	const [match, setMatch] = useState<IMatch>({ homeTeam: "", awayTeam: "", startDate: null, matchDay })
 	const [errors, setErrors] = useState({ homeTeam: false, startDate: false, awayTeam: false })
 	const setBettingMatches = useNewBet((state) => state.setBettingMatches);
 	const bettingMatches = useNewBet((state) => state.bettingMatches);
@@ -30,13 +29,14 @@ export function NewMatch({ viewNewBet, setViewNewBet }: Props) {
 		try {
 			const validateData = await MatchSchema.parseAsync(match)
 			setBettingMatches([...bettingMatches, validateData]);
-			setViewNewBet(false)
-			setMatch({ homeTeam: "", awayTeam: "", startDate: new Date(), matchDay: 0, status: "not started" })
+			setMatch({ ...match, homeTeam: "", awayTeam: "", matchDay: 0, status: "not started" })
 			enqueueSnackbar("Partido agregado correctamente", { variant: "info" })
+			setViewNewBet(false)
 		} catch (error) {
 			if (error instanceof ZodError) {
 				enqueueSnackbar("Favor de llenar los campos requeridos", { variant: "error" })
 				const newErrors = { homeTeam: false, startDate: false, awayTeam: false }
+				console.log(error?.issues)
 				error?.issues?.map(issue => {
 					if (issue.path[0] === "homeTeam" || issue.path[0] === "awayTeam" || issue.path[0] === "startDate")
 						newErrors[issue.path[0]] = true
@@ -45,7 +45,6 @@ export function NewMatch({ viewNewBet, setViewNewBet }: Props) {
 			}
 		}
 	}
-
 	const handleSetTeam = (value: Team, team: 'homeTeam' | 'awayTeam') => {
 		setMatch((prev) => ({
 			...prev,
@@ -75,7 +74,9 @@ export function NewMatch({ viewNewBet, setViewNewBet }: Props) {
 			reject={() => setViewNewBet(false)}
 			content={({ headerRef, contentRef, footerRef, hide, message }) => (
 				<div className="flex flex-col items-center gap-3.5 w-full min-w-2xs p-5 bg-(--surface-a) rounded-b-md">
-					<span className="text-(--green-400) bg-[#07a52115] px-4 py-1 rounded-md">Nuevo partido</span>
+					<div className="flex flex-col gap-1.5">
+						<span className="flex gap-3 items-center text-(--yellow-400) text-center px-4 py-1 rounded-md"><i className="pi pi-file-plus"></i>{`Jornada ${matchDay}`}</span>
+					</div>
 					<div className="flex flex-col items-center gap-2 w-full" >
 						<label className="flex flex-col text-(--surface-400) text-sm w-full">
 							Local
@@ -90,7 +91,7 @@ export function NewMatch({ viewNewBet, setViewNewBet }: Props) {
 						</label>
 						<label className="flex flex-col w-full text-(--surface-400) text-sm">
 							Fecha
-							<Calendar invalid={errors.startDate} className="w-full" placeholder="Elige fecha" showTime hourFormat="24" touchUI value={match.startDate} onChange={(e) => handleSetDate(e.value)} />
+							<Calendar invalid={errors.startDate} className="w-full" minDate={new Date()} placeholder="Elige fecha" showTime hourFormat="24" touchUI value={match.startDate} onChange={(e) => handleSetDate(e.value)} />
 						</label>
 						<label className="flex flex-col text-(--surface-400) text-sm w-full">
 							Visitante
@@ -109,9 +110,11 @@ export function NewMatch({ viewNewBet, setViewNewBet }: Props) {
 							label="Cancel"
 							raised
 							severity="danger"
-							icon="pi pi-plus-circle"
+							icon="pi pi-times"
 							onClick={(event) => {
 								hide(event);
+								setMatch({ homeTeam: "", awayTeam: "", startDate: null, matchDay: 0, status: "not started" });
+								setErrors({ homeTeam: false, startDate: false, awayTeam: false });
 							}}
 							size="small" className="w-8rem"
 						/>
@@ -119,7 +122,7 @@ export function NewMatch({ viewNewBet, setViewNewBet }: Props) {
 							label="Agregar"
 							raised
 							severity="success"
-							icon="pi pi-plus-circle"
+							icon="pi pi-plus"
 							onClick={handleAddMatch}
 							size="small" className="w-8rem"
 						/>

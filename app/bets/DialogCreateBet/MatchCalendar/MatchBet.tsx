@@ -1,12 +1,12 @@
 import Image from "next/image"
 import styles from "./matchbet.module.scss"
-import { StadiumIcon } from "@/app/svg"
-import { Results } from "@/app/types/ResultsTypes"
-import { FormattedCulbNames } from "@/app/functions/functions"
+import { StadiumIcon } from "@/svg"
+import { Results } from "@/types/ResultsTypes"
+import { FormattedCulbNames } from "@/functions/functions"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { useBet } from "@/app/config/zustand-store"
-import { ICurrentMatch } from "@/app/types/types"
-import { TeamsLogos } from "@/app/constants/constants"
+import { useBet } from "@/config/zustand-store"
+import { ICurrentMatch } from "@/types/types"
+import { TeamsLogos } from "@/constants/constants"
 
 const options: Intl.DateTimeFormatOptions = { hour: "numeric", minute: "numeric" }
 

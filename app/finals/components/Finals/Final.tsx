@@ -1,10 +1,10 @@
 // @flow 
 
-import { IFinalsParticipants } from "@/app/types/types";
+import { IFinalsParticipants } from "@/types/types";
 import styles from "./finals.module.scss"
 import stylesGeneral from "../../finales.module.scss"
 import MatchFinals from "./MatchFinals";
-import { ArrowUpIcon, ProfileIcon, WinnerIcon } from "@/app/svg";
+import { ArrowUpIcon, ProfileIcon, WinnerIcon } from "@/svg";
 
 
 interface Props {

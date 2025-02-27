@@ -1,6 +1,6 @@
-import { Rank } from "@/app/types/StatisticsTypes"
+import { Rank } from "@/types/StatisticsTypes"
 import styles from "./playerstatistics.module.scss"
-import { IOptions } from "@/app/types/types"
+import { IOptions } from "@/types/types"
 
 interface Props {
 	player: Rank

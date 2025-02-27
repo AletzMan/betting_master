@@ -1,6 +1,6 @@
-import { ViewIcon } from "@/app/svg"
+import { ViewIcon } from "@/svg"
 import styles from "./betprediction.module.scss"
-import { IBet } from "@/app/types/types"
+import { IBet } from "@/types/types"
 import { ViewBets } from "../ViewBets/ViewBets"
 import { useState } from "react"
 

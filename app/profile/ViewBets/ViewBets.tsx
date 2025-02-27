@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import styles from "./viewbets.module.scss"
-import { IBet, IResultsMatches } from "@/app/types/types"
-import { GetResultsByDay } from "@/app/config/firebase"
-import { FinishedIcon, LiveIcon, LoseIcon, WinnerIcon } from "@/app/svg"
-import { Loading } from "@/app/components/Loading/Loading"
+import { IBet, IResultsMatches } from "@/types/types"
+import { GetResultsByDay } from "@/config/firebase"
+import { FinishedIcon, LiveIcon, LoseIcon, WinnerIcon } from "@/svg"
+import { Loading } from "@/components/Loading/Loading"
 
 interface PropsViewBets {
 	bet: IBet

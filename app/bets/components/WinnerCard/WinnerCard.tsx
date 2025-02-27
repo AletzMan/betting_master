@@ -1,8 +1,8 @@
-import { WinnerIcon } from "@/app/svg"
+import { WinnerIcon } from "@/svg"
 import styles from "./styles.module.scss"
 import Image from "next/image"
-import { IUserInfo } from "@/app/types/types"
-import { TeamsLogos } from "@/app/constants/constants"
+import { IUserInfo } from "@/types/types"
+import { TeamsLogos } from "@/constants/constants"
 
 interface Props {
     participant: IUserInfo

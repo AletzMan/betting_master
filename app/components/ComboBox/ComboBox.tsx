@@ -2,7 +2,7 @@
 
 import { useState, MouseEvent, Dispatch, SetStateAction, useRef } from "react"
 import styles from "./combobox.module.scss"
-import { ArrowUpIcon, CheckTwoIcon, LoadingIcon } from "@/app/svg"
+import { ArrowUpIcon, CheckTwoIcon, LoadingIcon } from "@/svg"
 
 interface props {
 	options: {

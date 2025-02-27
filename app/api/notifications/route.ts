@@ -1,5 +1,5 @@
-import { SendMailNotification } from "@/app/services/mailer/mailer"
-import { notificationsMailSchema } from "@/app/validations/notificationsMailSchema"
+import { SendMailNotification } from "@/services/mailer/mailer"
+import { notificationsMailSchema } from "@/validations/notificationsMailSchema"
 import axios from "axios"
 import { NextRequest, NextResponse } from "next/server"
 

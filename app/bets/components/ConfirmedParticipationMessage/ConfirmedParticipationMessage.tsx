@@ -1,10 +1,10 @@
-import { IBetData, IBetDataDocument, IBetDocument, IUserInfo } from "@/app/types/types"
+import { IBetData, IBetDataDocument, IBetDocument, IUserInfo } from "@/types/types"
 import styles from "../NoPaidMessage/nopaidmessage.module.scss"
-import { ConvertToPrice } from "@/app/functions/functions"
+import { ConvertToPrice } from "@/functions/functions"
 import { IMyBets } from "../../page"
-import { ViewIcon } from "@/app/svg"
+import { ViewIcon } from "@/svg"
 import { useState } from "react"
-import { TeamsLogos } from "@/app/constants/constants"
+import { TeamsLogos } from "@/constants/constants"
 
 interface props {
     user: IUserInfo

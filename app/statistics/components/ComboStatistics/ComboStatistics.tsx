@@ -2,8 +2,8 @@
 import { ChangeEvent, useEffect, useState } from "react"
 import styles from "../../statistics.module.scss"
 import { useRouter, useSearchParams } from "next/navigation"
-import { ComboBox } from "@/app/components/ComboBox/ComboBox"
-import { Tournaments, TournamentsInitYear } from "@/app/constants/constants"
+import { ComboBox } from "@/components/ComboBox/ComboBox"
+import { Tournaments, TournamentsInitYear } from "@/constants/constants"
 
 export function ComboStatistics() {
 	const params = useSearchParams()

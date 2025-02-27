@@ -1,5 +1,5 @@
 "use client"
-import { useConnectedUsers } from "@/app/hooks/useConnectedUsers"
+import { useConnectedUsers } from "@/hooks/useConnectedUsers"
 import styles from "./styles.module.scss"
 
 

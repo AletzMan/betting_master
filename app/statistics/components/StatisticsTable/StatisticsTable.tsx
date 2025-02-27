@@ -1,8 +1,8 @@
-import { IStatistics } from "@/app/types/StatisticsTypes"
+import { IStatistics } from "@/types/StatisticsTypes"
 import axios from "axios"
 import { PlayerStatistics } from "../PlayerStatistics/PlayerStatistics"
-import { STATISTICS_OPTIONS } from "@/app/constants/constants"
-import { SearchParams } from "@/app/types/appTypes"
+import { STATISTICS_OPTIONS } from "@/constants/constants"
+import { SearchParams } from "@/types/appTypes"
 
 const GetStatistics = async (tournament: string | string[] | undefined, type: string | string[] | undefined) => {
 	try {

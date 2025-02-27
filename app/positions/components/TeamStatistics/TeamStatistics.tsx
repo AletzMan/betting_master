@@ -1,4 +1,4 @@
-import { Rank } from "@/app/types/types"
+import { Rank } from "@/types/types"
 import styles from "./teamstatistics.module.scss"
 
 interface PropsTeam {
@@ -19,9 +19,8 @@ export function TeamStatistics(props: PropsTeam) {
 				<span className={styles.statistics_for}>{team.standing.for}</span>
 				<span className={styles.statistics_against}>{team.standing.against}</span>
 				<span
-					className={`${styles.statistics_difference} ${differenceGoals < 0 && styles.statistics_differenceNeg} ${
-						differenceGoals > 0 && styles.statistics_differencePos
-					}`}
+					className={`${styles.statistics_difference} ${differenceGoals < 0 && styles.statistics_differenceNeg} ${differenceGoals > 0 && styles.statistics_differencePos
+						}`}
 				>
 					{differenceGoals}
 				</span>

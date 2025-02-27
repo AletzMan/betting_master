@@ -1,7 +1,7 @@
-import { GetFinalistTeams } from "@/app/config/firebase"
+import { GetFinalistTeams } from "@/config/firebase"
 import styles from "./quarters.module.scss"
 import { useEffect, useState } from "react"
-import { TeamsLocalLogos } from "@/app/constants/constants"
+import { TeamsLocalLogos } from "@/constants/constants"
 
 interface Props {
     qualifiedTeams: string[]
