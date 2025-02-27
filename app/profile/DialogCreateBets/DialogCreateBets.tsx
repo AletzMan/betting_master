@@ -147,7 +147,7 @@ export function DialogCreatBets({ setView }: Props) {
 						</div>
 					</div>
 					<Divider type="dashed" />
-					<article className="flex flex-col justify-items-start gap-5 scrollbar h-[calc(100svh-22.5em)] pt-4" ref={refMatches}>
+					<article className="flex flex-col justify-items-start gap-5 scrollbar h-[calc(100svh-24.5em)] pt-4" ref={refMatches}>
 						{errors.matches.isError && <Message text={errors.matches.message} severity="error" />}
 						{bettingMatches.map((match, index) => (
 							<div key={index} className="relative grid grid-cols-[2em_2em_repeat(2,1fr)_2em_3em] w-full bg-(--surface-0) border-1 border-(--surface-d) place-content-center place-items-center py-1 rounded-md transition-all duration-250 matchOfDay">
