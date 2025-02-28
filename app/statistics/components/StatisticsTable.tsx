@@ -1,6 +1,6 @@
 import { IStatistics } from "@/types/StatisticsTypes"
 import axios from "axios"
-import { PlayerStatistics } from "../PlayerStatistics/PlayerStatistics"
+import { PlayerStatistics } from "./PlayerStatistics"
 import { STATISTICS_OPTIONS } from "@/constants/constants"
 import { SearchParams } from "@/types/appTypes"
 

@@ -6,12 +6,14 @@ import { NextRequest, NextResponse } from "next/server";
 
 const URL_STATISTICS = "https://api.unidadeditorial.es/sports/v1/player-total-rank/sport/01/tournament/"
 
-export async function GET(request: NextRequest, context: any) {
-    const { params } = context
+export async function GET(request: NextRequest, { params }: { params: Promise<{ tournament: string, type: string }> }) {
+    const tournament = (await params).tournament
+    const type = (await params).type
 
 
     try {
-        const response = await axios.get<IStatistics>(`${URL_STATISTICS}${params.tournament}/sort/${params.type}/current/?site=2&mn=50`) //168  - Espana=0101 -Mexico=0159
+        console.log(`${URL_STATISTICS}${tournament}/sort/${type}/current/?site=2&mn=50`)
+        const response = await axios.get<IStatistics>(`${URL_STATISTICS}${tournament}/sort/${type}/current/?site=2&mn=50`) //168  - Espana=0101 -Mexico=0159
 
         return NextResponse.json({ data: response.data.data }, { status: 200 })
 

@@ -1,9 +1,8 @@
 "use client"
-import { ChangeEvent, useEffect, useState } from "react"
-import styles from "../../statistics.module.scss"
+import { useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { ComboBox } from "@/components/ComboBox/ComboBox"
 import { Tournaments, TournamentsInitYear } from "@/constants/constants"
+import { Dropdown } from "primereact/dropdown"
 
 export function ComboStatistics() {
 	const params = useSearchParams()
@@ -19,9 +18,9 @@ export function ComboStatistics() {
 	const SelectTournament = new Date().getMonth() < 6 ? Tournaments : TournamentsInitYear
 
 	return (
-		<header className={styles.header}>
-			<ComboBox options={Tournaments} selectOption={selectedTournament} setSelectOption={setSelectedTournament} />
-			<ComboBox options={Types} selectOption={selectedValue} setSelectOption={setSelectedValue} />
+		<header className="grid grid-cols-2 gap-2.5 w-full pr-2">
+			<Dropdown options={Tournaments} value={selectedTournament} optionLabel="name" onChange={(e) => setSelectedTournament(e.value)} />
+			<Dropdown options={Types} value={selectedValue} optionLabel="name" onChange={(e) => setSelectedValue(e.value)} />
 		</header>
 	)
 }
