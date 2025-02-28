@@ -1,7 +1,7 @@
-import { useMatches } from "@/app/hooks/useMatches"
+import { useMatches } from "@/hooks/useMatches"
 import styles from "./styles.module.scss"
 import { HeaderMatches } from "../HeaderMatches/HeaderMatches"
-import { IBetDocument } from "@/app/types/types"
+import { IBetDocument } from "@/types/types"
 import { Dispatch, SetStateAction } from "react"
 
 interface Props {

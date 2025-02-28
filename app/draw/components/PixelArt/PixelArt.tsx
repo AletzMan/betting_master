@@ -1,9 +1,9 @@
-import { useUser } from "@/app/config/zustand-store"
+import { useUser } from "@/config/zustand-store"
 import styles from "./styles.module.scss"
-import { ADMIN_ID } from "@/app/constants/constants"
-import { Button } from "@/app/components/Button/Button"
-import { StartedIcon } from "@/app/svg"
-import { WriteMustSpin } from "@/app/config/firebase"
+import { ADMIN_ID } from "@/constants/constants"
+import { Button } from "@/components/Button/Button"
+import { StartedIcon } from "@/svg"
+import { WriteMustSpin } from "@/config/firebase"
 
 export default function PixelArt() {
     const { user } = useUser()

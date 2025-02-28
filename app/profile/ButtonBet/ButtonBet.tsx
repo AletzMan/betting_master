@@ -4,31 +4,36 @@ import styles from "./buttonbet.module.scss"
 const PREDICTIONS = ["-", "LV", "L", "E", "V"]
 
 interface Props {
-	setResultMatch: Dispatch<SetStateAction<string[]>>
-	resultMatches: string[]
-	index: number
 	actualPrediction: string
+	onChange?: (value: string) => void
 }
 
-export function ButtonBet(props: Props) {
-	const { setResultMatch, index, resultMatches, actualPrediction } = props
+export function ButtonBet({ actualPrediction, onChange }: Props) {
 	const [prediction, setPrediction] = useState(PREDICTIONS.indexOf(actualPrediction))
 
 	const HandleSetPrediction = () => {
 		if (prediction === 4) {
 			setPrediction(0)
+			if (onChange) {
+				onChange(PREDICTIONS[0])
+			}
 		} else {
-			setPrediction((prev) => prev + 1)
-		}
-		if (resultMatches?.length > 0) {
-			let newArray = [...resultMatches]
-			newArray.splice(index, 1, PREDICTIONS[prediction + 1] || "-")
-			setResultMatch(newArray)
+			let newPrediction = prediction
+			newPrediction++
+			setPrediction(newPrediction)
+			if (onChange) {
+				onChange(PREDICTIONS[newPrediction])
+			}
 		}
 	}
 
 	return (
-		<button className={`${styles.button} ${prediction > 0 && styles.buttonActive}`} onClick={HandleSetPrediction}>
+		<button className={`flex items-center text-white text-shad justify-center w-full aspect-square h-full text-xl border-1 border-(--surface-100)  rounded-sm transition-all duration-200 
+		${prediction === 0 && "bg-(--yellow-700)"}
+		${prediction > 1 && "bg-(--green-700)"} 
+		${prediction === 1 && "bg-(--pink-700)"}`
+		}
+			onClick={HandleSetPrediction}>
 			{PREDICTIONS[prediction]}
 		</button>
 	)

@@ -1,8 +1,8 @@
-import { IFinalsParticipants, IStage } from "@/app/types/types"
+import { IFinalsParticipants, IStage } from "@/types/types"
 import styles from "./finals.module.scss"
 import Image from "next/image"
-import { TeamsLocalLogos } from "@/app/constants/constants"
-import { DeadIcon } from "@/app/svg"
+import { TeamsLocalLogos } from "@/constants/constants"
+import { DeadIcon } from "@/svg"
 
 interface Props {
     participants: IFinalsParticipants[]

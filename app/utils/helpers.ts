@@ -4,6 +4,15 @@ export const SmallDateLocal: Intl.DateTimeFormatOptions = {
     month: "long",
     day: "numeric", // Para usar el formato de 12 horas (AM/PM)
 }
+export const SmallDateLocalAndTime: Intl.DateTimeFormatOptions = {
+    timeZone: "America/Mexico_City",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+}
 
 export const FormattedDateUpcoming = (date: string) => {
     const newDate = date.split("/")

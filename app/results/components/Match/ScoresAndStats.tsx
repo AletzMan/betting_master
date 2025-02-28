@@ -1,9 +1,9 @@
 "use client"
-import { RedCardIcon, SoccerBallIcon } from "@/app/svg"
+import { RedCardIcon, SoccerBallIcon } from "@/svg"
 
 import styles from "./match.module.scss"
-import { DetailsData } from "@/app/types/DetailsMatch"
-import { DefineTypeGoal } from "@/app/functions/functions"
+import { DetailsData } from "@/types/DetailsMatch"
+import { DefineTypeGoal } from "@/functions/functions"
 
 interface PropsScores {
 	details: DetailsData

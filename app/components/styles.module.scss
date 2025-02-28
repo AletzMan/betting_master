@@ -1,0 +1,142 @@
+.notifications {
+    display: flex;
+    align-items: center;
+    justify-self: flex-end;
+    gap: 0.5em;
+    padding: 0 0.25em;
+    background-color: transparent;
+    border: none;
+    color: var(--foregroundColor);
+    animation: shake 4s infinite ease-in-out;
+
+    &_dot {
+        position: absolute;
+        bottom: 3px;
+        right: 5px;
+        width: 0.65em;
+        height: 0.65em;
+        background: red;
+        border-radius: 50%;
+    }
+
+
+    &_icon {
+        @keyframes shake {
+
+            0%,
+            10% {
+                transform: rotate(0deg);
+            }
+
+            15% {
+                transform: rotate(-15deg);
+            }
+
+            20% {
+                transform: rotate(15deg);
+            }
+
+            25% {
+                transform: rotate(-10deg);
+            }
+
+            30% {
+                transform: rotate(10deg);
+            }
+
+            35% {
+                transform: rotate(0deg);
+            }
+
+            66%,
+            100% {
+                transform: rotate(0deg);
+                /* Pausa de 3 segundos */
+            }
+        }
+    }
+}
+
+
+.main_fader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    transform: scale(0.4);
+    padding: 0em 0 0 0;
+
+    &Text {
+        font-size: 3em;
+        padding: 6.5em 0 0 0;
+        color: var(--primary-color);
+    }
+
+    &Loader {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        svg {
+            height: 300px;
+            display: block;
+            margin: 0 auto;
+
+            path {
+                animation-duration: 1s;
+                animation-name: pulse;
+                animation-iteration-count: infinite;
+                color: var(--primary-color);
+
+                &.path_7 {
+                    animation-delay: -1s
+                }
+
+                &.path_6 {
+                    animation-delay: -.875s
+                }
+
+                &.path_5 {
+                    animation-delay: -.75s
+                }
+
+                &.path_4 {
+                    animation-delay: -.625s
+                }
+
+                &.path_3 {
+                    animation-delay: -.5s
+                }
+
+                &.path_2 {
+                    animation-delay: -.375s
+                }
+
+                &.path_1 {
+                    animation-delay: -.25s
+                }
+
+                &.path_0 {
+                    animation-delay: -.125s
+                }
+            }
+        }
+    }
+}
+
+
+@keyframes pulse {
+    0% {
+        opacity: .1;
+    }
+
+    30% {
+        opacity: .8;
+    }
+
+    100% {
+        opacity: .1;
+    }
+}

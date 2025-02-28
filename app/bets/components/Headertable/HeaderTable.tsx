@@ -1,10 +1,10 @@
-import { ArrowIcon } from "@/app/svg"
+import { ArrowIcon } from "@/svg"
 import styles from "./styles.module.scss"
-import { ConvertToPrice } from "@/app/functions/functions"
+import { ConvertToPrice } from "@/functions/functions"
 import { ChangeEvent, Dispatch, SetStateAction } from "react"
-import { useMatches } from "@/app/hooks/useMatches"
-import { useSort } from "@/app/hooks/useSort"
-import { IBetDocument } from "@/app/types/types"
+import { useMatches } from "@/hooks/useMatches"
+import { useSort } from "@/hooks/useSort"
+import { IBetDocument } from "@/types/types"
 
 interface Props {
     hiddenNames: boolean

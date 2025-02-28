@@ -1,10 +1,10 @@
-import { SignIn } from "./components/SignIn/SignIn"
-import styles from "./page.module.css"
+
+import { News } from "./components/Home/News"
 
 export default function Home() {
 	return (
-		<main className={styles.main}>
-			<SignIn />
+		<main className="flex pt-15 pb-4  ">
+			<News />
 		</main>
 	)
 }

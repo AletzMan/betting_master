@@ -1,6 +1,6 @@
 import { SelectHTMLAttributes } from "react"
 import styles from "./styles.module.scss"
-import { ArrowUpIcon, CheckIcon, CloseIcon, SuccessIcon } from "@/app/svg"
+import { ArrowUpIcon, CheckIcon, CloseIcon, SuccessIcon } from "@/svg"
 
 interface Props {
     items: string[]

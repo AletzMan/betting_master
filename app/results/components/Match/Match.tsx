@@ -2,14 +2,14 @@
 "use client"
 import styles from "./match.module.scss"
 import Image from "next/image"
-import { FormattedCulbNames } from "@/app/functions/functions"
-import { Results } from "@/app/types/ResultsTypes"
-import { LoadingTwoIcon, StadiumIcon } from "@/app/svg"
+import { FormattedCulbNames } from "@/functions/functions"
+import { Results } from "@/types/ResultsTypes"
+import { LoadingTwoIcon, StadiumIcon } from "@/svg"
 import { ScoresAndStats } from "./ScoresAndStats"
 import { DialogDetails } from "./DialogDetails"
-import { GetMatchDetails } from "@/app/services/fetch_utils"
+import { GetMatchDetails } from "@/services/fetch_utils"
 import { useEffect, useState } from "react"
-import { DetailsData } from "@/app/types/DetailsMatch"
+import { DetailsData } from "@/types/DetailsMatch"
 
 interface PropsMatch {
 	eventData: Results

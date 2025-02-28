@@ -2,8 +2,8 @@
 "use client"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import styles from "./match.module.scss"
-import { DetailsData } from "@/app/types/DetailsMatch"
-import { FormattedCulbNames, GetListStats } from "@/app/functions/functions"
+import { DetailsData } from "@/types/DetailsMatch"
+import { FormattedCulbNames, GetListStats } from "@/functions/functions"
 import Image from "next/image"
 import { Field } from "./Field"
 import {
@@ -22,7 +22,7 @@ import {
 	ShotOutIcon,
 	VARIcon,
 	YellowCardIcon,
-} from "@/app/svg"
+} from "@/svg"
 import { Player } from "./Player"
 
 interface DialogProps {

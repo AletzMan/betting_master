@@ -1,4 +1,4 @@
-import { IFinalsParticipants } from "@/app/types/types"
+import { IFinalsParticipants } from "@/types/types"
 import styles from "./participant.module.scss"
 import Image from "next/image"
 

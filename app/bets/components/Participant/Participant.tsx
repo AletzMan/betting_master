@@ -1,12 +1,12 @@
-import { useMatches } from "@/app/hooks/useMatches"
+import { useMatches } from "@/hooks/useMatches"
 import styles from "./styles.module.scss"
 import { HeaderMatches } from "../HeaderMatches/HeaderMatches"
-import { IBetDocument } from "@/app/types/types"
+import { IBetDocument } from "@/types/types"
 import { Dispatch, Fragment, SetStateAction } from "react"
 import Image from "next/image"
-import { StarIcon, WinnerIcon } from "@/app/svg"
-import { useUser } from "@/app/config/zustand-store"
-import { useWinner } from "@/app/hooks/useWinner"
+import { StarIcon, WinnerIcon } from "@/svg"
+import { useUser } from "@/config/zustand-store"
+import { useWinner } from "@/hooks/useWinner"
 
 interface Props {
     bets: IBetDocument[]
