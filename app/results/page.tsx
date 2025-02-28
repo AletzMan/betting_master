@@ -10,7 +10,6 @@ import { Match } from "./components/Match/Match"
 import styles from "./results.module.scss"
 import { useEffect, useState } from "react"
 import { useOrientation } from "../hooks/useOrientation"
-import { ComboBox } from "../components/ComboBox/ComboBox"
 
 const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "2-digit", day: "2-digit" }
 
@@ -95,7 +94,7 @@ export default function ResultsPage() {
 					))}
 				</select>
 				<article className={styles.matches}>
-					{loading && <Loading />}
+					{loading && <Loading height="10em" />}
 					{!loading && results && results?.length > 0 && (
 						<>
 							<button className={styles.matches_refresh} onClick={HandleRefresh}>
