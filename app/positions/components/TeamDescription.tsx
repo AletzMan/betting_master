@@ -1,5 +1,4 @@
 import { ITournament, Rank } from "@/types/types"
-import styles from "./teamdescription.module.scss"
 import Image from "next/image"
 
 interface PropsTeam {
@@ -23,24 +22,25 @@ export function TeamDescription(props: PropsTeam) {
 	const { team, position, selectedLeague } = props
 	const isConference = selectedLeague.name !== "Liga MX" && selectedLeague.name !== "Premier League" && selectedLeague.name !== "Champions League"
 	return (
-		<article className={styles.team}>
+		<article className="flex -flex-rpw bg-(--surface-b)">
 			<div
-				className={`${styles.description} 
-				${position <= ClassifiedPositions[selectedLeague.name][0] && styles.description_qualifiers} 
-				${position > ClassifiedPositions[selectedLeague.name][0] && position <= ClassifiedPositions[selectedLeague.name][1] && styles.description_playoff}
-				${isConference && (position === ClassifiedPositions[selectedLeague.name][1] + 1) && styles.description_conference}
-				${(selectedLeague.name === "League 1" && position === 6) && styles.description_leagueone}`}
+				className={`grid grid-cols-[1em_2em_1fr] items-center gap-x-2 min-w-48 h-8 px-0.5 pr-2 pl-0.5 border-l-3
+				${position <= ClassifiedPositions[selectedLeague.name][0] ? "border-l-blue-500" :
+						position > ClassifiedPositions[selectedLeague.name][0] && position <= ClassifiedPositions[selectedLeague.name][1] ? "border-l-amber-500" :
+							isConference && (position === ClassifiedPositions[selectedLeague.name][1] + 1) ? "border-l-green-500" :
+								(selectedLeague.name === "League 1" && position === 6) ? "border-l-cyan-500" : "border-l-transparent"}
+				`}
 			>
-				<p className={styles.description_position}>{position}</p>
+				<p className="text-right text-sm text-(--surface-800)">{position}</p>
 				<Image
-					className={styles.description_logo}
+					className="w-6 h-6"
 					src={team.images.urlLogo[0]}
 					alt={`Imagen del logo del equipo ${team.fullName}`}
 					width={50}
 					height={50}
 					loading="lazy"
 				/>
-				<p className={styles.description_name}>{team.name}</p>
+				<p className="text-sm text-ellipsis text-wrap overflow-hidden">{team.name}</p>
 			</div>
 		</article>
 	)

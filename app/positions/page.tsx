@@ -1,14 +1,15 @@
 "use client"
 import styles from "./stats.module.scss"
 import { ITournament, LeagueMX } from "../types/types"
-import { TeamStatistics } from "./components/TeamStatistics/TeamStatistics"
-import { TeamDescription } from "./components/TeamsDescription/TeamDescription"
+import { TeamStatistics } from "./components/TeamStatistics"
+import { TeamDescription } from "./components/TeamDescription"
 import { ChangeEvent, useEffect, useState } from "react"
 import { GetStats } from "../services/fetch_utils"
 import { ArrowIcon } from "../svg"
 import { Loading } from "../components/Loading/Loading"
 import { useOrientation } from "../hooks/useOrientation"
 import { Tournaments } from "../constants/constants"
+import { Dropdown } from "primereact/dropdown"
 
 export default function PositionsPage() {
 	const [leagues, setLeagues] = useState<LeagueMX[]>([])
@@ -40,73 +41,44 @@ export default function PositionsPage() {
 
 
 
-	const HandleSelectTournament = (event: ChangeEvent<HTMLSelectElement>): void => {
-		const id = event.target.value
-		const name = event.target.options[event.target.selectedIndex].text
-		if (name === "Liga MX" || name === "Liga MX" || name === "Champions League" || name === "Premier League" || name === "La Liga" || name === "Bundesliga" || name === "Liga Holandesa" || name === "Serie A" || name === "League 1") {
-			const newValue: ITournament = { id, name }
-			setSelectLeague(newValue)
-		}
+	const handleSelectTournament = (value: ITournament): void => {
+		setSelectLeague(value)
 	}
+
 
 	return (
 		<>
-			<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
-				{loading && <Loading />}
+			<main className="flex items-center justify-center flex-col my-0 mx-auto pt-11 px-1 pb-4 w-full bg-(--surface-a) h-svh max-w-2xl">
+				{loading && <Loading height="20em" />}
 				{!loading && leagues.length > 0 && (
 					<>
-						<div className={styles.main_combobox}>
-							<select className={styles.main_select} value={selectedLeague.id} onChange={HandleSelectTournament}>
-								{Tournaments.map((tournament) => (
-									<option key={tournament.id} value={tournament.id}>
-										{tournament.name}
-									</option>
-								))}
-							</select>
-							<div className={styles.description}>
-								<div className={styles.description_container}>
+						<div className="flex justify-center gap-2 p-2 w-full">
+							<Dropdown className="min-w-40 text-xs" options={Tournaments} value={selectedLeague} optionLabel="name" onChange={(e) => handleSelectTournament(e.value)} />
+							<div className="flex flex-col justify-center overflow-hidden">
+								<div className={styles.description}>
 									{TitleClasification.filter(desc => desc.name === selectedLeague.name)[0].clasifications.map((description, index) => (
-										<div key={description} className={styles.description_group}>
-											<div className={`${styles.description_quad}  `}></div>
-											<span className={styles.description_text}>{description}</span>
+										<div key={description} className="flex flex-row items-center gap-2 py-1 px-2 rounded-md bg-(--surface-c)">
+											<div className={`w-4 h-4 rounded-xs ${index === 0 && "bg-blue-500"} ${index === 1 && "bg-amber-500"} ${index === 2 && "bg-green-500"} ${index === 3 && "bg-cyan-500"}`}></div>
+											<span className="text-xs">{description}</span>
 										</div>
 									))
 									}
 								</div>
 							</div>
 						</div>
-						{numberGroups > 1 && (
-							<div className={styles.group}>
-								<button
-									className={`${styles.group_button} ${styles.group_buttonPrev} ${selectedGroup < 1 && styles.group_buttonDisabled}`}
-									disabled={selectedGroup < 1}
-									onClick={() => HandleSelectGroup("-")}
-								>
-									<ArrowIcon className={styles.group_icon} />
-								</button>
-								<span className={styles.group_text}>{`Grupo ${selectedGroup + 1}`}</span>
-								<button
-									className={`${styles.group_button} ${styles.group_buttonNext}  ${selectedGroup > numberGroups - 2 && styles.group_buttonDisabled}`}
-									disabled={selectedGroup > numberGroups - 2}
-									onClick={() => HandleSelectGroup("+")}
-								>
-									<ArrowIcon className={styles.group_icon} />
-								</button>
-							</div>
-						)}
-						<div key={leagues[selectedGroup]?.id} className={`${styles.table} scrollbar`}>
-							<section className={styles.table_description}>
-								<div className={` ${styles.table_titlesClub}`}>
-									<span className={`${styles.table_titlesText} ${styles.table_titlesTextClub}`}>Club</span>
+						<div key={leagues[selectedGroup]?.id} className={`relative grid grid-cols-[12em_1fr]  max-w-svw items-center justify-start w-max my-0 mx-auto  h-[calc(100svh-6em)]  scrollbarXY `}>
+							<section className="sticky left-0 flex flex-col items-start gap-1 h-full z-2">
+								<div className={`sticky top-0 flex items-center justify-center text-center flex-col w-full max-w-48 py-1.5 px-1 bg-(--surface-d)`}>
+									<span className={`flex items-center justify-center w-full h-6 text-sm font-medium text-(--primary-color) text-center rounded-sm `}>Club</span>
 								</div>
 								{leagues[selectedGroup]?.rank.map((team, index) => (
 									<TeamDescription key={team._id} team={team} position={index + 1} selectedLeague={selectedLeague} />
 								))}
 							</section>
-							<section className={styles.table_statistics}>
-								<div className={styles.table_titles}>
+							<section className="relative flex flex-col items-start gap-1 h-full max-w-68">
+								<div className="sticky top-0 grid grid-cols-[repeat(8,2em)] place-items-center text-center h-9 bg-(--surface-50) py-1 px-1 ">
 									{namesDescription.map((description) => (
-										<span className={styles.table_titlesText} key={description.id}>
+										<span className="flex items-center justify-center w-full h-6 text-sm font-medium text-(--primary-color) text-center rounded-sm " key={description.id}>
 											{description.name}
 										</span>
 									))}
@@ -117,8 +89,9 @@ export default function PositionsPage() {
 							</section>
 						</div>
 					</>
-				)}
-			</main>
+				)
+				}
+			</main >
 		</>
 	)
 }

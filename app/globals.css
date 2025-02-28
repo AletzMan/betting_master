@@ -38,19 +38,27 @@ body {
 	overflow-y: auto;
 }
 
-.scrollbar::-webkit-scrollbar {
+.scrollbarXY {
+	overflow-x: auto;
+	overflow-y: auto;
+}
+
+.scrollbar::-webkit-scrollbar,
+.scrollbarXY::-webkit-scrollbar {
 	width: 0.4em;
 	height: 0.4em;
 	background-color: var(--twitterTwo-color);
 }
 
-.scrollbar::-webkit-scrollbar-thumb {
+.scrollbar::-webkit-scrollbar-thumb,
+.scrollbarXY::-webkit-scrollbar-thumb {
 	border-radius: 1em;
 	background-color: var(--primary-color);
 	cursor: pointer;
 }
 
-.scrollbar::-webkit-scrollbar-corner {
+.scrollbar::-webkit-scrollbar-corner,
+.scrollbarXY::-webkit-scrollbar-corner {
 	background-color: var(--primaryColor);
 }
 
@@ -212,4 +220,35 @@ body {
 	outline-offset: 0;
 	border-color: var(--primary-color);
 	box-shadow: 0 0 3px 0px var(--primary-color);
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+	color: var(--primary-color);
+
+	&.p-focus {
+		background-color: var(--surface-d);
+	}
+}
+
+.p-dropdown-items-wrapper {
+
+	overflow-x: hidden;
+	overflow-y: auto;
+
+
+	&::-webkit-scrollbar {
+		width: 0.4em;
+		height: 0.4em;
+		background-color: var(--twitterTwo-color);
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 1em;
+		background-color: var(--primary-color);
+		cursor: pointer;
+	}
+
+	&::-webkit-scrollbar-corner {
+		background-color: var(--primaryColor);
+	}
 }

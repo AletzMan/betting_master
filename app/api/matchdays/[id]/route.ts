@@ -51,7 +51,6 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
                 ...updateMatchDay
             }
         })
-        console.log(response)
         if (response) {
             return SuccessUpdate(response);
         }
