@@ -1,23 +1,50 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
 import { InTimeToBet, TimeRemainig } from "../functions/functions"
 import { GetBetsByDay, GetCurrentMatchDay } from "../config/firebase"
-import { IBetDocument, IMatchDay } from "../types/types"
+import { IBetDocument, IMatch, IMatchDay } from "../types/types"
+import { IMatchDayData, getMatchDayData } from "@/utils/fetchData"
+import result from "postcss/lib/result"
 
 export function useMatches() {
-	const [matches, setMatches] = useState<IMatchDay>({} as IMatchDay)
 	const [loading, setLoading] = useState(true)
 	//const [bets, setBets] = useState<IBetDocument[]>([])
 	const [isInTime, setIsInTime] = useState({ available: false, time: "" })
+	const [matchDayData, setMatchDayData] = useState<IMatchDayData>({ matchDay: {} as IMatchDay, matches: [] })
 
-	useEffect(() => {
+	/*useEffect(() => {
 		GetMatches()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [])*/
+
+
 
 	useEffect(() => {
-		if (matches.matches?.length > 0 && matches.matches[0]?.status === "Sin comenzar") {
+		GetDay()
+	}, [])
+
+	const GetDay = async () => {
+		try {
+			const matchDayData = await getMatchDayData();
+			if (matchDayData) {
+				setMatchDayData(matchDayData);
+				const isTime = InTimeToBet(matchDayData.matches[0].startDate as Date)
+				setIsInTime({ ...isInTime, available: isTime })
+			}
+		} catch (error) {
+
+		} finally {
+			setLoading(false);
+		}
+	}
+
+
+
+	useEffect(() => {
+		if (matchDayData.matches.length > 0 && matchDayData.matches[0].status === "not started") {
 			const intervalRemaining = setInterval(() => {
-				const time = TimeRemainig(matches.matches[0].startDate)
+				console.log()
+				const time = TimeRemainig(matchDayData.matches[0].startDate as Date)
 				//const isTime = InTimeToBet(matches.matches[0]?.startDate)
 				const isTime = true
 				setIsInTime({ available: isTime, time: time })
@@ -25,9 +52,9 @@ export function useMatches() {
 
 			return () => clearInterval(intervalRemaining)
 		}
-	}, [matches])
+	}, [matchDayData])
 
-	const GetMatches = async () => {
+	/*const GetMatches = async () => {
 		const currentMonth = new Date().getMonth() + 1
 		const tournament = currentMonth < 7 ? "0168" : "0159"
 		const result = await GetCurrentMatchDay(tournament)
@@ -41,18 +68,20 @@ export function useMatches() {
 				isAvailable: false,
 				isFinishGame: false,
 			}
-			setMatches(emptyMatches)
+			//setMatches(emptyMatches)
 			setIsInTime({ available: false, time: "" })
 		} else {
-			setMatches(result)
+			//setMatches(result)
 			const isTime = InTimeToBet(result.matches[0].startDate)
 			setIsInTime({ ...isInTime, available: isTime })
 		}
 		setLoading(false)
-	}
+	}*/
+
 	return {
 		loading,
-		matches,
+		matches: matchDayData.matches,
+		matchDayInfo: matchDayData.matchDay,
 		//bets,
 		isInTime,
 		//setBets,

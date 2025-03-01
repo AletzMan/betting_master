@@ -99,3 +99,63 @@
         color: #ac0000;
     }
 }
+
+
+.options {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    column-gap: 0.5em;
+    height: 2.5em;
+    padding: 0.9em 0.15em 0.9em 0.35em;
+    width: 100%;
+    opacity: 1;
+
+    &_one {
+        animation: animateOptionsOne linear 4s infinite;
+        /* Reducimos la duración a 4 segundos */
+
+        @keyframes animateOptionsOne {
+            0% {
+                transform: translateY(100%);
+                /* Posición inicial */
+            }
+
+            50% {
+                transform: translateY(-80%);
+                /* Se desliza completamente hacia arriba */
+            }
+
+            50.01%,
+            100% {
+                transform: translateY(80%);
+                /* Se reposiciona debajo del contenedor */
+            }
+        }
+    }
+
+    &_two {
+        animation: animateOptionsTwo linear 4s infinite;
+        /* Reducimos la duración a 4 segundos */
+
+        @keyframes animateOptionsTwo {
+
+            0%,
+            50% {
+                transform: translateY(80%);
+                /* Inicialmente debajo del contenedor */
+            }
+
+            50.01% {
+                transform: translateY(100%);
+                /* Se desliza desde abajo */
+            }
+
+            100% {
+                transform: translateY(-80%);
+                /* Se desliza completamente hacia arriba */
+            }
+        }
+    }
+
+}

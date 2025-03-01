@@ -8,7 +8,7 @@ const { auth } = NextAuth(authConfig)
 export default auth(async function middleware(request: NextRequest) {
 	let cookie = request.cookies.get('authjs.session-token')
 	if (request.nextUrl.pathname.startsWith('/bets') && !cookie) {
-		return NextResponse.redirect(new URL('/login', request.url))
+		//return NextResponse.redirect(new URL('/login', request.url))
 	}
 	if (request.nextUrl.pathname.startsWith('/profile') && !cookie) {
 		//return NextResponse.redirect(new URL('/login', request.url))

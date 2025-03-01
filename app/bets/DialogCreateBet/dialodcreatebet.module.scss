@@ -4,7 +4,6 @@
     justify-content: center;
     top: 0;
     width: calc(100svw - 0.5em);
-    height: 100svh;
     padding: 0.25em;
     z-index: 5;
     border: none;
@@ -13,7 +12,6 @@
 
     &_main {
         position: relative;
-        max-height: 100svh;
         background-color: var(--backgroundColor);
         width: 100%;
         max-width: 35em;

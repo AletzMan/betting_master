@@ -9,10 +9,32 @@ import { BetSchema } from "@/validations/betSchema";
 
 export async function GET(request: NextRequest) {
 
-    const response = await prisma?.bet.findMany()
+    const bets = await prisma.bet.findMany({
+        include: {
+            userInfo: true,
+        },
+    });
 
-    if (response) {
-        return SuccessResponse(response);
+    const betsWithPredictions = await Promise.all(
+        bets.map(async (bet) => {
+            console.log(bet.predictionIds)
+            const predictions = await prisma.prediction.findMany({
+                where: {
+                    id: {
+                        in: bet.predictionIds,
+                    },
+                },
+            });
+            console.log(predictions)
+            return {
+                ...bet,
+                predictions: predictions,
+            };
+        })
+    );
+
+    if (betsWithPredictions) {
+        return SuccessResponse(betsWithPredictions);
     }
     return NotFoundError();
 }

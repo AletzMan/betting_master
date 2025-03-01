@@ -214,7 +214,7 @@ export const GetMatchesOfTheDay = async () => {
 
 
 
-export const InTimeToBet = (dateFirstMatch: string) => {
+export const InTimeToBet = (dateFirstMatch: Date) => {
 	const dateMatch = new Date(dateFirstMatch).getTime()
 
 	const today = new Date().getTime()
@@ -228,7 +228,7 @@ export const InTimeToBet = (dateFirstMatch: string) => {
 	}
 }
 
-export const TimeRemainig = (dateFirstMatch: string) => {
+export const TimeRemainig = (dateFirstMatch: Date) => {
 	const dateMatch = new Date(dateFirstMatch).getTime()
 	const today = new Date().getTime()
 	const timeOut = dateMatch - today

@@ -285,16 +285,6 @@ export interface IHitsBet {
 	userInfo?: IUserInfo
 }
 
-export interface IBet {
-	id: string
-	uid: string
-	name: string
-	bets: IPredictions[]
-	matches: string[]
-	day: string
-	seasson: string
-	season: string
-}
 
 export interface IBetsByDay {
 	bets: IBet[]
@@ -419,4 +409,22 @@ export interface IMatch {
 
 export interface IMatchesResponse {
 	response: IMatch[]
+}
+
+export interface IBet {
+	id: string
+	uid: string
+	name: string
+	predictions: IPrediction[]
+	day: string
+	paid: boolean
+	season: string
+	tournament: string
+	userInfo: UserSession
+
+}
+
+export interface IPrediction {
+	id: string
+	prediction: 'L' | 'V' | 'E'
 }
