@@ -88,7 +88,11 @@ export function DialogCreatBets({ setView }: Props) {
 		} catch (error) {
 			console.log(error)
 			if (error instanceof AxiosError) {
-				const newErrors = { ...errors }
+				const newErrors = {
+					matches: { isError: false, message: "" },
+					day: { isError: false, message: "" },
+					season: { isError: false, message: "" },
+				}
 				if (error.response?.status === 422) {
 					const errorArray: ZodIssue[] = error?.response?.data.issues
 					errorArray.map(issue => {

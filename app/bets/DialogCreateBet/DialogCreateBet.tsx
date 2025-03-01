@@ -17,7 +17,7 @@ import { Divider } from "primereact/divider"
 import { InputText } from "primereact/inputtext"
 import { TeamsLogosNews } from "@/constants/constants"
 import { useSession } from "next-auth/react"
-import { ZodError } from "zod"
+import { ZodError, ZodIssue } from "zod"
 
 interface DialogProps {
 	matches: IMatch[]
@@ -38,14 +38,14 @@ interface IBetErrors {
 	},
 }
 
-const EmptyBetErrors = { name: { isError: false, message: "" }, predictions: { isError: false, message: "", index: 0 } }
+const EmptyBetErrors: IBetErrors = { name: { isError: false, message: "" }, predictions: { isError: false, message: "", index: 0 } }
 
 const EmptyBetPredictions = ["", "", "", "", "", "", "", "", ""
 ]
 
 export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps) {
 	const session = useSession();
-	const { bets, setBets, setIsEmpty, error, typeError, setTypeError, setError } = useBet();
+	const { bets, setBets, setIsEmpty, typeError, setTypeError } = useBet();
 	const [errors, setErrors] = useState<IBetErrors>(EmptyBetErrors);
 	const [name, setName] = useState("");
 	const [betSentSuccessfully, setBetSentSuccessfully] = useState(false);
@@ -65,7 +65,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 	const HandleStatusDialog = (status: boolean) => {
 		setOpen(status)
 		setBets(EmptyBetPredictions)
-		setError(false)
+		//setError(false)
 		setIsEmpty(false)
 		setTypeError("")
 		setName("")
@@ -88,89 +88,38 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 			}
 		} catch (error) {
 			if (error instanceof AxiosError) {
+				const newErrors: IBetErrors = { name: { isError: false, message: "" }, predictions: { isError: false, message: "", index: 0 } }
 				if (error.response?.status === 422) {
-					const errorZod: ZodError = error.response?.data;
-					const newErrors: IBetErrors = { ...EmptyBetErrors }
-					errorZod.issues.forEach(issue => {
-						if (issue.path[0] === 'name') {
-							newErrors.name.isError = true;
-							newErrors.name.message = issue.message;
-						}
-						if (issue.path[0] === 'predictions') {
-							newErrors.predictions.isError = true;
-							newErrors.predictions.message = issue.message;
-							newErrors.predictions.index = issue.path[1] as number;
+					const issues: ZodIssue[] = error?.response?.data.issues
+					console.log(issues)
+					issues.forEach(issue => {
+						if (issue.path[0] === "name" || issue.path[0] === "predictions") {
+							newErrors[issue.path[0]].isError = true
+							newErrors[issue.path[0]].message = issue.message
+							if (issue.path[0] === "predictions") {
+								newErrors.predictions.index = issue.path[1] as number;
+							}
 						}
 					})
 					enqueueSnackbar("Hay errores. Revise los campos marcados.", { variant: "error" })
-					setErrors(newErrors);
+					console.log(newErrors)
 				}
+				setErrors(newErrors);
 			}
 			console.error(error)
 
 		}
-		/*setLoading(true)
-		const results = await GetResultsByDay(matches[0]!.matchDay!.toString(), new Date().getMonth() < 6 ? "0168" : "0159")
-		if (results.isAvailable === false) {
-			enqueueSnackbar("Tiempo agotado para enviar", { variant: "error" })
-			setOpen(false)
-			router.push("/bets")
-			router.refresh()
-			router.replace("/bets")
-			return
-		}
-		try {
-
-
-			const response = await axios.get("/api/login")
-			if (response.status === 200) {
-				const userInfo = response.data.userInfo
-				if (bets.some((bet) => bet.prediction === "")) {
-					setIsEmpty(true)
-					setTypeError("empty")
-					setError(true)
-					enqueueSnackbar(Object.entries(Errors).find((error) => error[0] === "empty")?.[1], { variant: "error" })
-				} else if (name === "") {
-					setTypeError("name_empty")
-					setError(true)
-					enqueueSnackbar(Object.entries(Errors).find((error) => error[0] === "name_empty")?.[1], { variant: "error" })
-				} else if (name.length < 5) {
-					setTypeError("name_short")
-					setError(true)
-					enqueueSnackbar(Object.entries(Errors).find((error) => error[0] === "name_short")?.[1], { variant: "error" })
-				} else {
-					const response = AbbNameMatches(matches)
-					const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), matches: response, userInfo, seasson: new Date().getMonth() < 6 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, season: new Date().getMonth() < 6 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, paid: false, tournament: matches.season })
-					if (result === "OK") {
-						enqueueSnackbar("Quiniela creada correctamente", { variant: "success" })
-						setBetSentSuccessfully(true)
-						setBets(EmptyBetPredictions)
-						setError(false)
-						setName("")
-						setOpen(false)
-					}
-				}
-			}
-		} catch (error) {
-			console.error(error)
-			await signOut(auth)
-			router.push("/auth/login")
-			router.refresh()
-		}
-		setLoading(false)
-		*/
 	}
 
 	const HandleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
-		setErrors((prev) => ({
-			...prev,
-			name: { isError: false, message: "" },
-		}));
-		if (e.currentTarget.value.length < 13) {
-			setName(e.currentTarget.value)
-		}
-		setTypeError("")
-		setError(false)
+		const newName = e.currentTarget.value;
+
+		console.log(newName)
+		setName(newName)
+		setErrors((prev) => {
+			const newErros = { ...prev, name: { isError: false, message: "" } }
+			return newErros
+		})
 	}
 
 	return (
