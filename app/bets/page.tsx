@@ -68,13 +68,13 @@ export default function BetsPage() {
 
 	useEffect(() => {
 		GetBets();
-	}, [])
+	}, [session])
 
 	const GetBets = async () => {
 		const response = await getBetsByDay();
 		setBets(response)
-		if (session) {
-			console.log(session)
+		console.log(session)
+		if (session.status === "authenticated") {
 			const arrayMyBets = response?.filter(bet => bet.uid === (session.data?.user as UserSession).id)
 			if (arrayMyBets) {
 				const newMyBets: IMyBets = {
@@ -122,7 +122,7 @@ export default function BetsPage() {
 		}
 	
 	*/
-
+	console.log(myBets)
 	return (
 		<main className='flex flex-col items-center gap-1 pt-10 h-svh bg-(--surface-c)'>
 			{openDialog && matches &&

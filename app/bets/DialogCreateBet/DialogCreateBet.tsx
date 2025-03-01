@@ -1,19 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Dispatch, SetStateAction, MouseEvent, useState, ChangeEvent, useEffect, useRef } from "react"
-import styles from "./dialodcreatebet.module.scss"
 import { MatchBet } from "./MatchCalendar/MatchBet"
 import { useBet, useUser } from "@/config/zustand-store"
-import { AddBet, GetResultsByDay, auth } from "@/config/firebase"
-import { CancelLogo, ExitLogo, FinishedIcon, HelpIcon, LoadingIcon, SendIcon, ViewIcon } from "@/svg"
+import { GetResultsByDay, auth } from "@/config/firebase"
 import { Loading } from "@/components/Loading/Loading"
-import { AbbNameMatches } from "@/functions/functions"
-import { IMatch, IMatchDay, IPredictions } from "@/types/types"
+import { IMatch, IPredictions } from "@/types/types"
 import axios from "axios"
 import { enqueueSnackbar } from "notistack"
 import { useRouter } from "next/navigation"
 import { signOut } from "firebase/auth"
 import { IMyBets } from "../page"
-import { TextField } from "@/components/TextFiled/TextFiled"
 import { Dialog } from "primereact/dialog"
 import { OverlayPanel } from "primereact/overlaypanel"
 import { Button } from "primereact/button"
@@ -42,7 +38,6 @@ const EmptyBetPredictions: IPredictions[] = [
 
 export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps) {
 	const router = useRouter()
-	const { user } = useUser()
 	const { bets, setBets, setIsEmpty, error, typeError, setTypeError, setError } = useBet()
 	const [name, setName] = useState("")
 	const [betSentSuccessfully, setBetSentSuccessfully] = useState(false)
@@ -70,7 +65,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 
 	const HandleSendBet = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
-		setLoading(true)
+		/*setLoading(true)
 		const results = await GetResultsByDay(matches[0]!.matchDay!.toString(), new Date().getMonth() < 6 ? "0168" : "0159")
 		if (results.isAvailable === false) {
 			enqueueSnackbar("Tiempo agotado para enviar", { variant: "error" })
@@ -100,7 +95,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 					setError(true)
 					enqueueSnackbar(Object.entries(Errors).find((error) => error[0] === "name_short")?.[1], { variant: "error" })
 				} else {
-					/*const response = AbbNameMatches(matches)
+					const response = AbbNameMatches(matches)
 					const result = await AddBet({ id: crypto.randomUUID(), uid: user.uid, name, bets, day: matches.day.toString(), matches: response, userInfo, seasson: new Date().getMonth() < 6 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, season: new Date().getMonth() < 6 ? `Clausura ${new Date().getFullYear()}` : `Apertura ${new Date().getFullYear()}`, paid: false, tournament: matches.season })
 					if (result === "OK") {
 						enqueueSnackbar("Quiniela creada correctamente", { variant: "success" })
@@ -109,7 +104,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 						setError(false)
 						setName("")
 						setOpen(false)
-					}*/
+					}
 				}
 			}
 		} catch (error) {
@@ -119,6 +114,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 			router.refresh()
 		}
 		setLoading(false)
+		*/
 	}
 
 	const HandleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -132,47 +128,50 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 	return (
 		<Dialog className="w-[calc(100svw-1em)] max-w-150" onHide={() => setOpen(false)} visible={open}>
 			<div className="flex justify-between w-full py-1.5 z-10">
-				{!myBets.hasBets &&
+				{myBets.hasBets &&
 					<>
 						<Button label="Ver mis quinielas" icon="pi pi-eye" size="small" outlined raised severity="secondary" onClick={(e) => myBetsRef.current?.toggle(e)} />
-						<OverlayPanel ref={myBetsRef}   >
-							<header className="flex flex-row gap-3">
-								{matches.map((match, index) => (
-									<div key={match.awayTeam} className="flex flex-col items-center">
-										<p className="text-xs">{TeamsLogosNews.find(team => team.id.toString() === match.homeTeam)?.abbName}</p>
-										<p className="text-xs">vs</p>
-										<p className="text-xs">{TeamsLogosNews.find(team => team.id.toString() === match.awayTeam)?.abbName}</p>
-									</div>
-								))}
-							</header>
-							{
-
-								myBets.bets.map(bet => (
-									<div key={bet.id} className={styles.mybets_bet}>
-										<span className={styles.mybets_title}>{bet.name}</span>
-										<article>
-
-											<main className={styles.mybets_main}>
-												{bets.map((result, index) => (
-													<div key={index} className={styles.mybets_mainResult} >
-														<p className={styles.mybets_mainText}>{result.prediction}</p>
-													</div>
-												))}
-											</main>
-										</article>
-									</div >
-								))
-							}
-
+						<OverlayPanel ref={myBetsRef} >
+							<div>
+								<header className="flex flex-row gap-1.5">
+									{matches.map((match, index) => (
+										<div key={match.awayTeam} className="flex flex-col items-center bg-(--surface-d) px-0.5">
+											<p className="text-xs">{TeamsLogosNews.find(team => team.id.toString() === match.homeTeam)?.abbName}</p>
+											<p className="text-xs">vs</p>
+											<p className="text-xs">{TeamsLogosNews.find(team => team.id.toString() === match.awayTeam)?.abbName}</p>
+										</div>
+									))}
+								</header>
+								{
+									myBets.bets.map(bet => (
+										<div key={bet.id} className="flex flex-col gap-1.5 pt-1.5 border-t-1 border-t-(--surface-d) mt-1.5 ">
+											<span className="text-xs px-1.5 font-normal text-(--cyan-400) py-0.5 bg-(--surface-c) max-w-30">{bet.name}</span>
+											<article className="w-full">
+												<main className="flex flex-row gap-1.5 w-full">
+													{bet.predictions.map((prediction, index) => (
+														<div key={prediction.id} className="w-full">
+															<p className="text-white text-center bg-lime-700 rounded-sm">{prediction.prediction}</p>
+														</div>
+													))}
+												</main>
+											</article>
+										</div >
+									))
+								}
+							</div>
 						</OverlayPanel>
 					</>}
 				<Button className="" icon="pi pi-question-circle" size="small" severity="info" onClick={(e) => infoRef.current?.toggle(e)} />
 				<OverlayPanel ref={infoRef}>
-					<p className={styles.help_message}>{`En cada partido, selecciona tu predicción haciendo clic en uno de los tres recuadros disponibles:`}</p>
-					<p className={styles.help_message}>{`'L' para victoria del equipo local`}</p>
-					<p className={styles.help_message}>{`'E' para empate `}</p>
-					<p className={styles.help_message}>{`'V' para victoria del equipo visitante.`}</p>
-					<p className={styles.help_message}>{`Asegúrate de elegir una opción para todos los partidos antes de guardar tu quiniela.`}</p>
+					<div className="flex flex-col gap-2">
+						<p className="text-sm">{`Para cada partido, elige tu pronóstico haciendo clic en una de las tres opciones:`}</p>
+						<ul className="flex flex-col gap-1">
+							<li className="flex flex-row gap-1.5 text-sm font-light list-disc ml-6"><span className="text-center rounded-sm w-5 h-5 bg-(--surface-d)">L</span><span>{`Para victoria del equipo local`}</span></li>
+							<li className="flex flex-row gap-1.5 text-sm font-light list-disc ml-6"><span className="text-center rounded-sm w-5 h-5 bg-(--surface-d)">E</span><span>{`Para empate `}</span></li>
+							<li className="flex flex-row gap-1.5 text-sm font-light list-disc ml-6"><span className="text-center rounded-sm w-5 h-5 bg-(--surface-d)">V</span><span>{`Para victoria del equipo visitante.`}</span></li>
+						</ul>
+						<p className="text-sm">{`Asegúrate de elegir una opción para todos los partidos antes de guardar tu quiniela.`}</p>
+					</div>
 				</OverlayPanel>
 			</div>
 			<main className="flex flex-col">
@@ -209,15 +208,17 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 				</header>
 				{loading && <Loading height="10em" />}
 				{!betSentSuccessfully && !loading &&
-					<div className={`h-[calc(100svh-18em)] scrollbar pt-2`}>
+					<div className={`h-[calc(100svh-18em)] scrollbar mt-2`}>
 						<header className="sticky top-0 flex flex-row justify-around w-full py-2 bg-(--surface-b) rounded-b-sm z-2">
-							<p className={styles.dialog_matchesHeaderTitle}>Local</p>
-							<p className={styles.dialog_matchesHeaderTitle}>Empate</p>
-							<p className={styles.dialog_matchesHeaderTitle}>Visitante</p>
+							<p className="uppercase font-bold text-sm">Local</p>
+							<p className="uppercase font-bold text-sm">Empate</p>
+							<p className="uppercase font-bold text-sm">Visitante</p>
 						</header>
-						{/*bets.length > 0 && matches.map((match, index) =>
-							 <MatchBet key={match.homeTeam} matchData={match} numberMatch={index} />
-						)*/}
+						<div className="flex flex-col gap-1 mt-1">
+							{bets.length > 0 && matches.map((match, index) =>
+								<MatchBet key={match.homeTeam} matchData={match} numberMatch={index} />
+							)}
+						</div>
 					</div>
 				}
 				{betSentSuccessfully && (
