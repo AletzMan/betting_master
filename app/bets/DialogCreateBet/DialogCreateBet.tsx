@@ -5,7 +5,7 @@ import { useBet, useUser } from "@/config/zustand-store"
 import { GetResultsByDay, auth } from "@/config/firebase"
 import { Loading } from "@/components/Loading/Loading"
 import { IMatch, IPredictions } from "@/types/types"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { enqueueSnackbar } from "notistack"
 import { useRouter } from "next/navigation"
 import { signOut } from "firebase/auth"
@@ -16,6 +16,8 @@ import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
 import { InputText } from "primereact/inputtext"
 import { TeamsLogosNews } from "@/constants/constants"
+import { useSession } from "next-auth/react"
+import { ZodError } from "zod"
 
 interface DialogProps {
 	matches: IMatch[]
@@ -24,31 +26,37 @@ interface DialogProps {
 	myBets: IMyBets
 }
 
-const EmptyBetPredictions: IPredictions[] = [
-	{ id: "", prediction: "" },
-	{ id: "", prediction: "" },
-	{ id: "", prediction: "" },
-	{ id: "", prediction: "" },
-	{ id: "", prediction: "" },
-	{ id: "", prediction: "" },
-	{ id: "", prediction: "" },
-	{ id: "", prediction: "" },
-	{ id: "", prediction: "" },
+interface IBetErrors {
+	name: {
+		isError: boolean,
+		message: string
+	},
+	predictions: {
+		isError: boolean,
+		message: string,
+		index: number
+	},
+}
+
+const EmptyBetErrors = { name: { isError: false, message: "" }, predictions: { isError: false, message: "", index: 0 } }
+
+const EmptyBetPredictions = ["", "", "", "", "", "", "", "", ""
 ]
 
 export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps) {
-	const router = useRouter()
-	const { bets, setBets, setIsEmpty, error, typeError, setTypeError, setError } = useBet()
-	const [name, setName] = useState("")
-	const [betSentSuccessfully, setBetSentSuccessfully] = useState(false)
-	const [loading, setLoading] = useState(false)
+	const session = useSession();
+	const { bets, setBets, setIsEmpty, error, typeError, setTypeError, setError } = useBet();
+	const [errors, setErrors] = useState<IBetErrors>(EmptyBetErrors);
+	const [name, setName] = useState("");
+	const [betSentSuccessfully, setBetSentSuccessfully] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const infoRef = useRef<OverlayPanel | null>(null);
 	const myBetsRef = useRef<OverlayPanel | null>(null);
 
 	useEffect(() => {
-		let newBets: IPredictions[] = []
+		let newBets: string[] = []
 		for (let index = 0; index < matches.length; index++) {
-			newBets.push({ id: crypto.randomUUID(), prediction: "" })
+			newBets.push("")
 		}
 		setBets(newBets)
 	}, [])
@@ -64,7 +72,43 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 	}
 
 	const HandleSendBet = async (e: MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault()
+		e.preventDefault();
+		try {
+			const response = await axios.post('/api/bets', {
+				uid: session.data?.user?.id,
+				day: matches[0].matchDay?.toString(),
+				name: name,
+				predictions: bets,
+				season: "Clausura 2025",
+				tournament: "Liga MX"
+
+			})
+			if (response.status === 201) {
+				enqueueSnackbar("Quiniela creada correctamente", { variant: "success" })
+			}
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				if (error.response?.status === 422) {
+					const errorZod: ZodError = error.response?.data;
+					const newErrors: IBetErrors = { ...EmptyBetErrors }
+					errorZod.issues.forEach(issue => {
+						if (issue.path[0] === 'name') {
+							newErrors.name.isError = true;
+							newErrors.name.message = issue.message;
+						}
+						if (issue.path[0] === 'predictions') {
+							newErrors.predictions.isError = true;
+							newErrors.predictions.message = issue.message;
+							newErrors.predictions.index = issue.path[1] as number;
+						}
+					})
+					enqueueSnackbar("Hay errores. Revise los campos marcados.", { variant: "error" })
+					setErrors(newErrors);
+				}
+			}
+			console.error(error)
+
+		}
 		/*setLoading(true)
 		const results = await GetResultsByDay(matches[0]!.matchDay!.toString(), new Date().getMonth() < 6 ? "0168" : "0159")
 		if (results.isAvailable === false) {
@@ -118,6 +162,10 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 	}
 
 	const HandleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+		setErrors((prev) => ({
+			...prev,
+			name: { isError: false, message: "" },
+		}));
 		if (e.currentTarget.value.length < 13) {
 			setName(e.currentTarget.value)
 		}
@@ -180,9 +228,9 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 					<form className="flex flex-col gap-2.5">
 						<div className="flex flex-col">
 							<label className="text-cyan-600 pl-1" htmlFor="username">Nombre</label>
-							<InputText id="username" className="p-inputtext-sm" type="text" value={name} onChange={HandleChangeName} placeholder="" aria-describedby="username-help" />
-							<small className="text-gray-500 pl-1" id="username-help">
-								Nombre de 4 a 8 caracteres
+							<InputText invalid={errors.name.isError} id="username" className="p-inputtext-sm" type="text" value={name} onChange={HandleChangeName} placeholder="" aria-describedby="username-help" />
+							<small className={`pl-1 ${errors.name.isError ? "text-(--danger-color)" : "text-gray-500 "}`} id="username-help">
+								{errors.name.isError ? errors.name.message : "Nombre de 4 a 8 caracteres"}
 							</small>
 						</div>
 						<div className="flex justify-between">

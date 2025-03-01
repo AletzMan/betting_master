@@ -122,7 +122,7 @@ export default function BetsPage() {
 		}
 	
 	*/
-	console.log(myBets)
+
 	return (
 		<main className='flex flex-col items-center gap-1 pt-10 h-svh bg-(--surface-c)'>
 			{openDialog && matches &&

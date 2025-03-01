@@ -306,3 +306,7 @@ body {
 		border-bottom-color: var(--surface-0);
 	}
 }
+
+.p-inputtext.p-invalid.p-component {
+	border-color: var(--danger-color);
+}
