@@ -7,9 +7,10 @@ import React from "react"
 interface PropsMatch {
 	matchData: IMatch
 	numberMatch: number
+	invalid?: boolean
 }
 
-export function MatchBet({ matchData, numberMatch }: PropsMatch) {
+export function MatchBet({ matchData, numberMatch, invalid }: PropsMatch) {
 	const setBets = useBet((state) => state.setBets);
 	const bets = useBet((state) => state.bets);
 	const isEmpty = useBet((state) => state.isEmpty);

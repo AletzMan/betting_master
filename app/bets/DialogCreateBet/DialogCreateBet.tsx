@@ -65,7 +65,6 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 	const HandleStatusDialog = (status: boolean) => {
 		setOpen(status)
 		setBets(EmptyBetPredictions)
-		//setError(false)
 		setIsEmpty(false)
 		setTypeError("")
 		setName("")
@@ -81,7 +80,6 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 				predictions: bets,
 				season: "Clausura 2025",
 				tournament: "Liga MX"
-
 			})
 			if (response.status === 201) {
 				enqueueSnackbar("Quiniela creada correctamente", { variant: "success" })
@@ -102,12 +100,10 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 						}
 					})
 					enqueueSnackbar("Hay errores. Revise los campos marcados.", { variant: "error" })
-					console.log(newErrors)
 				}
 				setErrors(newErrors);
 			}
 			console.error(error)
-
 		}
 	}
 
