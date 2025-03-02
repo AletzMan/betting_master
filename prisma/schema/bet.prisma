@@ -8,5 +8,5 @@ model Bet {
     paid          Boolean
     tournament    String
     userInfo      User?    @relation(fields: [userInfoId], references: [id])
-    userInfoId    String?  @unique
+    userInfoId    String
 }

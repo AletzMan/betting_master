@@ -11,5 +11,5 @@ model User {
     last_login    DateTime @default(now())
     notifications Boolean  @default(false)
 
-    Bet Bet?
+    Bet Bet[]
 }
