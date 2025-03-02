@@ -24,12 +24,6 @@ export const useUser = create(
 interface BetState {
 	bets: string[]
 	setBets: (value: string[]) => void
-	isEmpty: boolean
-	setIsEmpty: (value: boolean) => void
-	error: boolean
-	setError: (value: boolean) => void
-	typeError: "empty" | "name_short" | "name_empty" | ""
-	setTypeError: (value: "empty" | "name_short" | "name_empty" | "") => void
 }
 
 const EmptyBets: string[] = []
@@ -37,12 +31,6 @@ const EmptyBets: string[] = []
 export const useBet = create<BetState>((set) => ({
 	bets: EmptyBets,
 	setBets: (value: string[]) => set({ bets: value }),
-	isEmpty: false,
-	setIsEmpty: (value: boolean) => set({ isEmpty: value }),
-	error: false,
-	setError: (value: boolean) => set({ error: value }),
-	typeError: "",
-	setTypeError: (value: "empty" | "name_short" | "name_empty" | "") => set({ typeError: value }),
 }))
 
 interface INewBet {
