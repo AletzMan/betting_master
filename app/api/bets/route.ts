@@ -69,6 +69,7 @@ export async function POST(request: NextRequest) {
             data: {
                 ...betDataWithoutPredictions,
                 paid: false,
+                userInfoId: betDataWithoutPredictions.uid,
                 predictionIds: predictionIds,
             },
         });
