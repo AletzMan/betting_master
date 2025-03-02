@@ -34,18 +34,18 @@ interface IBetErrors {
 	predictions: {
 		isError: boolean,
 		message: string,
-		index: number
+		index: number[]
 	},
 }
 
-const EmptyBetErrors: IBetErrors = { name: { isError: false, message: "" }, predictions: { isError: false, message: "", index: 0 } }
+const EmptyBetErrors: IBetErrors = { name: { isError: false, message: "" }, predictions: { isError: false, message: "", index: [] } }
 
 const EmptyBetPredictions = ["", "", "", "", "", "", "", "", ""
 ]
 
 export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps) {
 	const session = useSession();
-	const { bets, setBets, setIsEmpty, typeError, setTypeError } = useBet();
+	const { bets, setBets } = useBet();
 	const [errors, setErrors] = useState<IBetErrors>(EmptyBetErrors);
 	const [name, setName] = useState("");
 	const [betSentSuccessfully, setBetSentSuccessfully] = useState(false);
@@ -56,21 +56,21 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 	useEffect(() => {
 		let newBets: string[] = []
 		for (let index = 0; index < matches.length; index++) {
-			newBets.push("")
+			newBets.push("");
 		}
-		setBets(newBets)
+		setBets(newBets);
 	}, [])
 
 
-	const HandleStatusDialog = (status: boolean) => {
-		setOpen(status)
-		setBets(EmptyBetPredictions)
-		setIsEmpty(false)
-		setTypeError("")
-		setName("")
+	const handleStatusDialog = (status: boolean) => {
+		setOpen(status);
+		setBets(EmptyBetPredictions);
+		setName("");
+		setErrors({ name: { isError: false, message: "" }, predictions: { isError: false, message: "", index: [] } });
 	}
 
-	const HandleSendBet = async (e: MouseEvent<HTMLButtonElement>) => {
+	const handleSendBet = async (e: MouseEvent<HTMLButtonElement>) => {
+		setLoading(true);
 		e.preventDefault();
 		try {
 			const response = await axios.post('/api/bets', {
@@ -80,37 +80,42 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 				predictions: bets,
 				season: "Clausura 2025",
 				tournament: "Liga MX"
-			})
+			});
 			if (response.status === 201) {
-				enqueueSnackbar("Quiniela creada correctamente", { variant: "success" })
+				enqueueSnackbar("Quiniela creada correctamente", { variant: "success" });
+				handleStatusDialog(false)
 			}
 		} catch (error) {
 			if (error instanceof AxiosError) {
-				const newErrors: IBetErrors = { name: { isError: false, message: "" }, predictions: { isError: false, message: "", index: 0 } }
+				const newErrors: IBetErrors = { name: { isError: false, message: "" }, predictions: { isError: false, message: "", index: [] } }
 				if (error.response?.status === 422) {
-					const issues: ZodIssue[] = error?.response?.data.issues
-					console.log(issues)
+					const issues: ZodIssue[] = error?.response?.data.issues;
 					issues.forEach(issue => {
 						if (issue.path[0] === "name" || issue.path[0] === "predictions") {
-							newErrors[issue.path[0]].isError = true
-							newErrors[issue.path[0]].message = issue.message
+							newErrors[issue.path[0]].isError = true;
+							newErrors[issue.path[0]].message = issue.message;
 							if (issue.path[0] === "predictions") {
-								newErrors.predictions.index = issue.path[1] as number;
+								newErrors.predictions.index.push(issue.path[1] as number);
 							}
 						}
 					})
-					enqueueSnackbar("Hay errores. Revise los campos marcados.", { variant: "error" })
+					if (newErrors.name.isError) {
+						enqueueSnackbar("Hay errores. Revise los campos marcados.", { variant: "error" });
+					} else {
+						enqueueSnackbar(`Debes completar ${newErrors.predictions.index.length} partidos más.`, { variant: "error" });
+					}
 				}
 				setErrors(newErrors);
 			}
-			console.error(error)
+			console.error(error);
+		} finally {
+			setLoading(false);
 		}
 	}
 
-	const HandleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
 		const newName = e.currentTarget.value;
 
-		console.log(newName)
 		setName(newName)
 		setErrors((prev) => {
 			const newErros = { ...prev, name: { isError: false, message: "" } }
@@ -173,7 +178,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 					<form className="flex flex-col gap-2.5">
 						<div className="flex flex-col">
 							<label className="text-cyan-600 pl-1" htmlFor="username">Nombre</label>
-							<InputText invalid={errors.name.isError} id="username" className="p-inputtext-sm" type="text" value={name} onChange={HandleChangeName} placeholder="" aria-describedby="username-help" />
+							<InputText invalid={errors.name.isError} id="username" className="p-inputtext-sm" type="text" value={name} maxLength={13} onChange={handleChangeName} placeholder="" aria-describedby="username-help" />
 							<small className={`pl-1 ${errors.name.isError ? "text-(--danger-color)" : "text-gray-500 "}`} id="username-help">
 								{errors.name.isError ? errors.name.message : "Nombre de 4 a 8 caracteres"}
 							</small>
@@ -181,7 +186,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 						<div className="flex justify-between">
 							<Button
 								className="min-w-32"
-								onClick={HandleSendBet}
+								onClick={handleSendBet}
 								disabled={loading}
 								severity="success"
 								size="small"
@@ -190,8 +195,9 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 							/>
 							<Button
 								className="min-w-32"
-								onClick={() => HandleStatusDialog(false)}
+								onClick={() => handleStatusDialog(false)}
 								disabled={loading}
+								type="button"
 								label="Cancelar"
 								severity="danger"
 								size="small"
@@ -201,15 +207,15 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 				</header>
 				{loading && <Loading height="10em" />}
 				{!betSentSuccessfully && !loading &&
-					<div className={`h-[calc(100svh-18em)] scrollbar mt-2`}>
-						<header className="sticky top-0 flex flex-row justify-around w-full py-2 bg-(--surface-b) rounded-b-sm z-2">
+					<div className={`h-[calc(100svh-18em)] scrollbar mt-2 pr-1.5`}>
+						<header className="sticky top-0 grid grid-cols-3 place-items-center w-full py-2 bg-(--surface-b) rounded-b-sm z-2">
 							<p className="uppercase font-bold text-sm">Local</p>
 							<p className="uppercase font-bold text-sm">Empate</p>
 							<p className="uppercase font-bold text-sm">Visitante</p>
 						</header>
 						<div className="flex flex-col gap-1 mt-1">
 							{bets.length > 0 && matches.map((match, index) =>
-								<MatchBet key={match.homeTeam} matchData={match} numberMatch={index} />
+								<MatchBet key={match.homeTeam} matchData={match} numberMatch={index} invalid={errors.predictions.index.includes(index)} />
 							)}
 						</div>
 					</div>

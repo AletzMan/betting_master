@@ -2,7 +2,7 @@ import styles from "@/bets/bets.module.scss"
 import { useBet } from "@/config/zustand-store"
 import { IMatch } from "@/types/types"
 import { TeamsLogos } from "@/constants/constants"
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 interface PropsMatch {
 	matchData: IMatch
@@ -11,17 +11,22 @@ interface PropsMatch {
 }
 
 export function MatchBet({ matchData, numberMatch, invalid }: PropsMatch) {
+	const [invalidInternal, setInvalidInternal] = useState(invalid);
 	const setBets = useBet((state) => state.setBets);
 	const bets = useBet((state) => state.bets);
-	const isEmpty = useBet((state) => state.isEmpty);
+
+	useEffect(() => {
+		setInvalidInternal(invalid)
+	}, [invalid])
 
 	const HandleChangePrediction = (typePrediction: string) => {
-		const newBets = bets.map((bet, index) => (index === numberMatch ? typePrediction : bet))
-		setBets(newBets)
+		const newBets = bets.map((bet, index) => (index === numberMatch ? typePrediction : bet));
+		setInvalidInternal(false);
+		setBets(newBets);
 	}
 
 	return (
-		<div className={` grid grid-cols-[2.5em_1fr_2.5em_1fr_2.5em] items-center justify-center  w-full border-1 bg-(--gray-900) border-(--surface-d) rounded-sm hover:bg-(--surface-hover) gap-x-2 px-2 py-2 ${isEmpty && bets[numberMatch] === "" && styles.predictionsEmpty}`}>
+		<div className={` grid grid-cols-[2.5em_1fr_2.5em_1fr_2.5em] items-center justify-center  w-full border-1 bg-(--gray-900) rounded-sm hover:bg-(--surface-hover) gap-x-2 px-2 py-2 ${invalidInternal ? "border-[#FF000085]" : "border-(--surface-d)"}`}>
 			<div className="flex items-center justify-center relative bg-(--surface-b) w-10 h-10 border-1 border-(--surface-d) rounded-sm hover:bg-(--cyan-900)">
 				<input
 					className="w-10 h-10 opacity-0 z-2 cursor-pointer"
