@@ -3,6 +3,7 @@ import { GetResults } from "../services/fetch_utils"
 import { StatsTeam, StatsTeam2 } from "../types/DetailsMatch"
 import { Results } from "../types/ResultsTypes"
 import {
+	IBet,
 	IBetDocument,
 	IBetsByDay,
 	ICurrentMatch,
@@ -272,55 +273,12 @@ export const GroupObjectByProperty = (objects: IBetDocument[], property: string)
 			name: object.name,
 			day: object.day,
 			season: object.season,
+			paid: object.paid,
 		})
 	})
 	return newObject
 }
 
-export const SortByHits = (
-	order: "asc" | "des",
-	betsArray: IBetDocument[],
-	results: string[]
-): IHitsBet[] => {
-	let orderBets: IHitsBet[] = []
-	if (results.length > 0) {
-		for (let index = 0; index < betsArray.length; index++) {
-			let hits = 0
-			betsArray[index].bets.forEach((betMatch, index) => {
-				if (betMatch.prediction === results[index]) {
-					hits++
-				}
-			})
-			orderBets.push({
-				id: betsArray[index].id,
-				uid: betsArray[index].uid,
-				name: betsArray[index].name,
-				bets: betsArray[index].bets,
-				matches: [],
-				hits,
-				day: betsArray[index].day,
-				seasson: betsArray[index].seasson,
-				paid: betsArray[index].paid,
-				tournament: betsArray[index].tournament,
-				userInfo: betsArray[index].userInfo,
-			})
-		}
-
-		orderBets.sort((a, b) => {
-			if (a.hits > b.hits) {
-				if (order === "des") return -1
-				if (order === "asc") return 1
-			}
-			if (a.hits < b.hits) {
-				if (order === "des") return 1
-				if (order === "asc") return -1
-			}
-			// a must be equal to b
-			return 0
-		})
-	}
-	return orderBets
-}
 
 import { Teams } from "../types/types"
 

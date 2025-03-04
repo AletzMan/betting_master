@@ -9,7 +9,7 @@ import { MatchDaySchema } from "@/validations/matchDaySchema";
 export async function GET(request: NextRequest) {
 
     const response = await prisma?.matchDay.findMany()
-
+    console.log("GetData")
     return SuccessResponse(response);
 }
 

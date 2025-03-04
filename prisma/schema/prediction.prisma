@@ -1,4 +1,5 @@
 model Prediction {
-  id         String @id @default(uuid())
-  prediction String
+  id          String @id @unique()
+  prediction  String
+  matchNumber Int
 }

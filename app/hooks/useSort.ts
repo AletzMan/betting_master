@@ -1,34 +1,14 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { SortByHits } from "../functions/functions"
-import { IBetDocument, IUserAndState } from "../types/types"
+import { IBet, IBetDocument, IUserAndState } from "../types/types"
 
 export function useSort(
 	results: string[],
-	bets: IBetDocument[] | null,
-	setFilterBets: Dispatch<SetStateAction<IBetDocument[] | null>>
+	bets: IBet[] | null,
+	setFilterBets: Dispatch<SetStateAction<IBet[] | null>>
 ) {
-	const [orderBets, setOrderBets] = useState<"name" | "asc" | "des" | "normal" | "myBets" | "">(
-		""
-	)
+	const [orderBets, setOrderBets] = useState<"name" | "asc" | "des" | "normal" | "myBets" | "">("")
 	const [user, setUser] = useState<string>("")
 
-	useEffect(() => {
-		if (bets && setFilterBets && bets.length > 0) {
-			if (orderBets === "asc") {
-				const newOrder = SortByHits("asc", bets, results)
-				setFilterBets(newOrder)
-			} else if (orderBets === "des") {
-				const newOrder = SortByHits("des", bets, results)
-				setFilterBets(newOrder)
-			} else if (orderBets === "name") {
-				SortByName()
-			} else if (orderBets === "normal") {
-				SortNormal()
-			} else if (orderBets === "myBets") {
-				FiltertMyBets()
-			}
-		}
-	}, [orderBets])
 
 	const SortByName = () => {
 		if (bets && setFilterBets) {

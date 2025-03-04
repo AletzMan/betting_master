@@ -7,6 +7,7 @@ import { UserSchema } from "@/validations/userSchema";
 import { ZodError } from "zod";
 import { BetSchema } from "@/validations/betSchema";
 import Error from "next/error";
+import { randomUUID } from "crypto";
 
 export async function GET(request: NextRequest) {
 
@@ -51,10 +52,12 @@ export async function POST(request: NextRequest) {
 
         // 2. Crear las Predictions
         const createdPredictions = await Promise.all(
-            validatedBetData.predictions.map(async (prediction) => {
+            validatedBetData.predictions.map(async (prediction, index) => {
                 return prisma.prediction.create({
                     data: {
                         prediction: prediction,
+                        matchNumber: index,
+                        id: randomUUID()
                     },
                 });
             })

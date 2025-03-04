@@ -18,6 +18,23 @@ export interface IMatchDayData {
     matches: IMatch[]
 }
 
+export const getMatchDayInfo = async (): Promise<IMatchDay | null> => {
+    let matchDay: IMatchDay[] = []
+
+    try {
+        const response = await fetch(`${pathURL}api/matchdays`, { cache: "force-cache", next: { revalidate: 30000, tags: ['matchDayInfo'] } })
+        if (response.status === 200) {
+            const responseMatchDay = await response.json()
+            matchDay = responseMatchDay.response
+        }
+        return matchDay[0]
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
+
 export const getMatchDayData = async (): Promise<IMatchDayData | null> => {
     let matchDay: IMatchDay[] = []
     let matches: IMatch[] = []

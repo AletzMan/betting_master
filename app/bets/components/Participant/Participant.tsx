@@ -1,4 +1,4 @@
-import { useMatches } from "@/hooks/useMatches"
+import { useMatches } from "@/hooks/useDataBets"
 import styles from "./styles.module.scss"
 import { HeaderMatches } from "../HeaderMatches/HeaderMatches"
 import { IBetDocument } from "@/types/types"

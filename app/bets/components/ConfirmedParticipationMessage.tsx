@@ -1,5 +1,5 @@
 import { IBet, UserSession } from "@/types/types"
-import { IMyBets } from "../../page"
+import { IMyBets } from "../page"
 import { useState } from "react"
 import { TeamsLogosNews } from "@/constants/constants"
 import { Dialog } from "primereact/dialog"

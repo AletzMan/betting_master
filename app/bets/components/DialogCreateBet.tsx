@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Dispatch, SetStateAction, MouseEvent, useState, ChangeEvent, useEffect, useRef } from "react"
-import { MatchBet } from "./MatchCalendar/MatchBet"
+import { MatchBet } from "./MatchBet"
 import { useBet, useUser } from "@/config/zustand-store"
 import { GetResultsByDay, auth } from "@/config/firebase"
 import { Loading } from "@/components/Loading/Loading"
@@ -9,7 +9,6 @@ import axios, { AxiosError } from "axios"
 import { enqueueSnackbar } from "notistack"
 import { useRouter } from "next/navigation"
 import { signOut } from "firebase/auth"
-import { IMyBets } from "../page"
 import { Dialog } from "primereact/dialog"
 import { OverlayPanel } from "primereact/overlaypanel"
 import { Button } from "primereact/button"
@@ -18,6 +17,7 @@ import { InputText } from "primereact/inputtext"
 import { TeamsLogosNews } from "@/constants/constants"
 import { useSession } from "next-auth/react"
 import { ZodError, ZodIssue } from "zod"
+import { IMyBets } from "./MainPage"
 
 interface DialogProps {
 	matches: IMatch[]
@@ -207,7 +207,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 				</header>
 				{loading && <Loading height="10em" />}
 				{!betSentSuccessfully && !loading &&
-					<div className={`h-[calc(100svh-18em)] scrollbar mt-2 pr-1.5`}>
+					<div className={`h-[calc(100svh-21em)] scrollbar mt-2 pr-1.5`}>
 						<header className="sticky top-0 grid grid-cols-3 place-items-center w-full py-2 bg-(--surface-b) rounded-b-sm z-2">
 							<p className="uppercase font-bold text-sm">Local</p>
 							<p className="uppercase font-bold text-sm">Empate</p>
