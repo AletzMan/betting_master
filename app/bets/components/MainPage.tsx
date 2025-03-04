@@ -47,8 +47,6 @@ export default function MainPage() {
     const [viewCreateBets, setViewCreateBets] = useState(false)
     const { orderBets } = useSort(bets);
 
-    console.log(bets)
-    console.log(orderBets)
     return (
         <main className='flex flex-col items-center gap-1 pt-10 h-svh bg-(--surface-c)'>
             {!loading && <>
@@ -59,14 +57,14 @@ export default function MainPage() {
 
                 {matchDayInfo && matchDayInfo!.results?.length > 0 &&
                     <>
-                        <section className={`relative grid w-full pr-1 max-w-max border-1 border-transparent rounded-md transition-all ease-in-out delay-150 ${hiddenNames ? "grid-cols-[2em_1fr]" : "grid-cols-[13em_1fr]"} scrollbar`}>
-                            <div className="sticky left-0 gap-y-1 flex flex-col bg-(--surface-b) h-96 z-3">
+                        <section className={`relative grid w-full gap-1 pr-1 max-w-max border-1 border-transparent scrollbarXY  bg-(--surface-b) rounded-md transition-all ease-in-out delay-150 ${hiddenNames ? "grid-cols-[2.5em_1fr]" : "grid-cols-[13em_1fr]"}  `}>
+                            <div className="sticky left-0 gap-y-1 flex flex-col bg-(--surface-b) z-3 border-r-1 border-r-(--surface-d) h-full">
                                 <HeaderTable hiddenNames={hiddenNames} setHiddenNames={setHiddenNames} matchDayData={{ matchDay: matchDayInfo, matches: matches }} totalBets={bets?.length || 0} />
                                 {orderBets?.map((bet, index) => (
-                                    <Participant key={bet.id} bets={bets} bet={bet} index={index} hiddenNames={hiddenNames} selectRanges={selectRanges} setSelectRanges={setSelectRanges} />
+                                    <Participant key={bet.id} bets={bets} bet={bet} index={index} hiddenNames={hiddenNames} selectRanges={selectRanges} setSelectRanges={setSelectRanges} matchDayInfo={matchDayInfo} />
                                 ))}
                             </div>
-                            {/*<BettingsTable bets={bets} filterBets={orderBets} selectRanges={selectRanges} setSelectRanges={setSelectRanges} />*/}
+                            {<BettingsTable bets={bets} filterBets={orderBets} selectRanges={selectRanges} setSelectRanges={setSelectRanges} />}
                         </section>
                     </>
                 }
