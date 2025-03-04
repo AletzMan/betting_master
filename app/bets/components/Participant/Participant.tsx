@@ -47,7 +47,7 @@ export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNa
                     {!hiddenNames && <span className={styles.participant_name}>{bet.name}</span>}
                     <div className="grid grid-cols-[1em_1em] gap-1.5">
                         {session.data?.user?.id === bet.uid && <i className="pi pi-star-fill text-purple-500" />}
-                        {winner?.includes(bet.id) && <i className="pi pi-trophy text-yellow-400" />}
+                        {winner?.includes(bet.id) && <i className="pi pi-trophy text-yellow-400 col-start-2" />}
                     </div>
                 </div>
             }
