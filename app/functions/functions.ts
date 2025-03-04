@@ -261,16 +261,19 @@ export const AbbNameMatches = (matches: IMatchDay): string[] => {
 
 
 export const sortByHits = (
-	order: "asc" | "des",
+	order: "asc" | "desc",
 	betsArray: IBet[],
 	results: string[]
 ): IHitsBet[] => {
 	let orderBets: IHitsBet[] = []
+
 	if (results.length > 0) {
 		for (let index = 0; index < betsArray.length; index++) {
 			let hits = 0
-			betsArray.forEach((betMatch, index) => {
-				if (betMatch.predictions[index].prediction === results[index]) {
+			console.log(results)
+			console.log(betsArray)
+			betsArray[index].predictions.forEach((predictions, index) => {
+				if (predictions.prediction === results[index]) {
 					hits++
 				}
 			})
@@ -279,7 +282,6 @@ export const sortByHits = (
 				uid: betsArray[index].uid,
 				name: betsArray[index].name,
 				bets: betsArray[index].predictions,
-				matches: [],
 				hits,
 				day: betsArray[index].day,
 				season: betsArray[index].season,
@@ -291,11 +293,11 @@ export const sortByHits = (
 
 		orderBets.sort((a, b) => {
 			if (a.hits > b.hits) {
-				if (order === "des") return -1
+				if (order === "desc") return -1
 				if (order === "asc") return 1
 			}
 			if (a.hits < b.hits) {
-				if (order === "des") return 1
+				if (order === "desc") return 1
 				if (order === "asc") return -1
 			}
 			// a must be equal to b
