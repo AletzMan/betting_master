@@ -16,7 +16,9 @@ export function useWinner(bets: IBet[] | null, results: string[]) {
 	const GetWinner = (betsArray: IBet[]) => {
 		let winners = [] as string[]
 		try {
-			const OrderBets = sortByHits("des", betsArray, results)
+
+			const OrderBets = sortByHits("desc", betsArray, results)
+
 			const newBets = OrderBets.filter(
 				(bets) => bets.hits >= OrderBets[0].hits && bets.hits !== 0
 			)
