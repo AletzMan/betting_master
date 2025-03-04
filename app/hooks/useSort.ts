@@ -18,8 +18,13 @@ export function useSort(
 	useEffect(() => {
 		if (searchParams.has("sortBy")) {
 			const sortBy = searchParams.get("sortBy")
+			const order = searchParams.get("order")
 			if (sortBy === "name") {
-				sortByName();
+				if (searchParams.has("order")) {
+					sortByName(order === "asc" ? "desc" : "asc");
+				} else {
+					sortByName("desc");
+				}
 			}
 		}
 	}, [searchParams])
@@ -27,20 +32,17 @@ export function useSort(
 
 
 
-	const sortByName = () => {
+	const sortByName = (order: "asc" | "desc") => {
 		if (bets) {
-			let newOrder = [...bets]
-			newOrder?.sort((a, b) => {
-				if (a.name > b.name) {
-					return 1
-				}
-				if (a.name < b.name) {
-					return -1
-				}
-				// a must be equal to b
-				return 0
-			})
-			setOrderBets(newOrder)
+			let newOrder = [...bets];
+
+			newOrder.sort((a, b) => {
+				const comparison = a.name.localeCompare(b.name);
+				return order === "desc" ? comparison : -comparison;
+			});
+
+			console.log(newOrder);
+			setOrderBets(newOrder);
 		}
 	}
 
