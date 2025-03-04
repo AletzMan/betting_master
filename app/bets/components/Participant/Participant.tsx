@@ -1,7 +1,7 @@
 
 import styles from "./styles.module.scss"
 import { HeaderMatches } from "../HeaderMatches/HeaderMatches"
-import { IBet, IBetDocument } from "@/types/types"
+import { IBet, IBetDocument, IMatchDay } from "@/types/types"
 import { Dispatch, Fragment, SetStateAction } from "react"
 import Image from "next/image"
 import { StarIcon, WinnerIcon } from "@/svg"
@@ -9,6 +9,7 @@ import { useUser } from "@/config/zustand-store"
 import { useWinner } from "@/hooks/useWinner"
 import { useDataBets } from "@/hooks/useDataBets"
 import { Avatar } from "primereact/avatar"
+import { useSession } from "next-auth/react"
 
 interface Props {
     bets: IBet[] | null
@@ -17,11 +18,11 @@ interface Props {
     hiddenNames: boolean
     selectRanges: { row: number, column: number } | null
     setSelectRanges: Dispatch<SetStateAction<{ row: number, column: number } | null>>
+    matchDayInfo: IMatchDay
 }
 
-export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNames, index }: Props) {
-    const { user } = useUser()
-    const { matches, matchDayInfo } = useDataBets()
+export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNames, index, matchDayInfo }: Props) {
+    const session = useSession()
     const { winner } = useWinner(bets, matchDayInfo.results)
 
     const HandleSelectRow = (row: number, column: number) => {
@@ -35,19 +36,18 @@ export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNa
         <>
             {bet.paid &&
                 <div
-                    className={`grid grid-cols-[2em_1fr_3em] items-center justify-start h-8 px-1 rounded-xs bg-(--surface-e) overflow-hidden ${selectRanges?.row === index && styles.participant_select} 
-												${user.uid === bet.uid && styles.participant_current}`}
+                    className={`grid grid-cols-[2.5em_1fr_2.5em] gap-1.5 items-center justify-start h-9 px-1 rounded-xs bg-(--surface-f) overflow-hidden ${selectRanges?.row === index && styles.participant_select} 
+												${session.data?.user?.id === bet.uid && styles.participant_current}`}
 
                     onClick={() => HandleSelectRow(index, -1)}
                     onMouseLeave={HandleUnselectRow}
                 >
-
-                    <Avatar className={styles.participant_photoImage} image={bet.userInfo?.image} shape="circle" size="large" />
-
+                    {<Avatar className="border-1 border-(--primary-color)" image={bet.userInfo.image} shape="circle" size="normal" />}
+                    {/*<Image src={bet.userInfo.image} width={20} height={20} alt={`Imagen de perfil de ${bet.userInfo.name}`} />*/}
                     {!hiddenNames && <span className={styles.participant_name}>{bet.name}</span>}
-                    <div className={styles.participant_hits}>
-                        {user.uid === bet.uid && <StarIcon className={styles.participant_hitsIcon} />}
-                        {winner?.includes(bet.id) && <WinnerIcon className={styles.participant_winIcon} />}
+                    <div className="grid grid-cols-[1em_1em] gap-1.5">
+                        {session.data?.user?.id === bet.uid && <i className="pi pi-star-fill text-purple-500" />}
+                        {winner?.includes(bet.id) && <i className="pi pi-trophy text-yellow-400" />}
                     </div>
                 </div>
             }
