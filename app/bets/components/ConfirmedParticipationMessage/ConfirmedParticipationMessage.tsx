@@ -1,70 +1,88 @@
-import { IBetData, IBetDataDocument, IBetDocument, IUserInfo } from "@/types/types"
-import styles from "../NoPaidMessage/nopaidmessage.module.scss"
-import { ConvertToPrice } from "@/functions/functions"
+import { IBet, UserSession } from "@/types/types"
 import { IMyBets } from "../../page"
-import { ViewIcon } from "@/svg"
 import { useState } from "react"
-import { TeamsLogos } from "@/constants/constants"
+import { TeamsLogosNews } from "@/constants/constants"
+import { Dialog } from "primereact/dialog"
+import { IMatchDayData } from "@/utils/fetchData"
+import { Button } from "primereact/button"
+import { Tag } from "primereact/tag"
+import { Card } from "primereact/card"
+import { Divider } from "primereact/divider"
+import { Message } from "primereact/message"
 
 interface props {
-    user: IUserInfo
-    bets: IBetDocument[]
+    matchDayData: IMatchDayData | null
+    user: UserSession
+    bets: IBet[] | null
     myBets: IMyBets
 }
 
 export interface IPreviewDialog {
     open: boolean
-    bets: IBetData
+    bets: IBet
 }
 
-export function ConfirmedParticipationMessage({ user, bets, myBets }: props) {
-    const [dialog, setDialog] = useState<IPreviewDialog>({ open: false, bets: {} as IBetData })
+export function ConfirmedParticipationMessage({ user, bets, myBets, matchDayData }: props) {
+    const [dialog, setDialog] = useState<IPreviewDialog>({ open: false, bets: {} as IBet })
 
     return (
-        <section className={styles.section}>
-            <h2 className={styles.section_bets}>¡Ya estas participando!</h2>
-            <p className={styles.section_textName}>{user.name}</p>
-            <p className={styles.section_text}>Las quinielas estaran visibles hasta el comienzo del primer partido</p>
-            <p className={styles.section_text}>Tu tienes <span className={styles.section_textInfoTwo}>{myBets.bets.length}</span> quiniela(s)</p>
-            {
-                <div className={styles.section_bets}>
-                    {myBets.bets.map((bet, index) => (
-                        <div className={styles.section_container} key={bet.id}>
-                            <p key={bet.id} className={styles.section_textPaid}>{`${bet.data.name}`}</p>
-                            <button className={styles.section_betsButton} onClick={() => setDialog({ open: true, bets: bet.data })}>
-                                <ViewIcon className={styles.section_betsButtonView} />
-                            </button>
-                        </div>
-                    ))}
-                </div>}
-            <p className={styles.section_text}>¡Suerte!</p>
-            {/*<p className={styles.section_textInfoTwo}>Monto acumulado: {ConvertToPrice(bets.length * 10.5)}</p>*/}
-            <p className={styles.section_textAccount}>Ingresa a tu Perfil y agrega tu cuenta de deposito para recibir tu pago en caso de ganar</p>
+        <Card className="scrollbar" header={
+            <div className="py-2 bg-green-700">
+                <p className="flex flex-row gap-2.5 w-full justify-center items-center text-lg font-bold text-center"><i className="pi pi-check-circle" />¡Ya estas participando!</p>
+                <h3 className="text-sm font-bold text-center">{user?.name}</h3>
+            </div>
+        }>
+            <div className="flex flex-col gap-3.5">
+                <p className="text-lg font-bold text-center mb-1.5">Tu tienes <span className="">{myBets.bets.length}</span> quiniela(s)</p>
+                <div className="flex flex-col gap-2 border-1 border-[#29aa0950] bg-[#29aa0920] rounded-md px-2 py-2">
+                    <div className="flex items-start gap-2">
+                        <i className="pi pi-clock text-lime-400 mt-1" />
+                        <p className="text-sm">Las quinielas estaran visibles hasta el comienzo del primer partido</p>
+                    </div>
+                    <Divider />
+                    <div className="flex flex-col justify-start gap-y-2 px-1 py-0.5">
+                        {myBets.bets.map((bet, index) => (
+                            <div key={bet.id} className="grid grid-cols-[1fr_4em] gap-2">
+                                <Tag className="w-full" severity="secondary" >{bet.name}</Tag>
+                                <Button className="w-full" onClick={() => setDialog({ open: true, bets: bet })} outlined raised severity="info" iconPos="right" size="small" icon="pi pi-eye" />
+                            </div>
+                        ))}
+                    </div>
+                    <p className="text-lg font-bold text-center text-lime-400">¡Suerte!</p >
+                </div>
+                {/*<p className={styles.section_textInfoTwo}>Monto acumulado: {ConvertToPrice(bets.length * 10.5)}</p>*/}
+                <Message severity="info" text="Ingresa a tu Perfil y agrega tu cuenta de deposito para recibir tu pago en caso de ganar" />
+                <a className="flex flex-row gap-2.5 items-center max-w-max self-center" href="/profile" target="_parent" rel="noopener noreferrer" >
+                    <i className="pi pi-user" />
+                    Ir a mi perfil
+                </a>
+            </div>
             {/*<p className={styles.section_textAccount}>Tambien puedes ver tus quinielas en tu perfil</p>*/}
             {dialog.open &&
-                <dialog className={styles.section_dialog} open onClick={() => setDialog({ open: false, bets: {} as IBetData })}>
-                    <section className={styles.section_dialogContainer}>
-                        <p className={styles.section_dialogTitle}>{dialog.bets.name}</p>
+                <Dialog className="max-w-[calc(100svw-1em)]" visible={dialog.open} onHide={() => setDialog({ open: false, bets: {} as IBet })}>
+                    <section className="flex flex-col gap-2.5">
+                        <Button className="self-end" icon="pi pi-times" text raised severity="danger" onClick={() => setDialog({ open: false, bets: {} as IBet })} />
+                        <Tag>{dialog.bets.name}</Tag>
                         <article>
-                            <header className={styles.section_dialogHeader}>
-                                {dialog.bets.matches.map((match, index) => (
-                                    <div key={match} className={styles.section_dialogMatch}>
-                                        <p className={styles.section_dialogText}>{match.split("-")[0]}</p>
-                                        <p className={styles.section_dialogText}>vs</p>
-                                        <p className={styles.section_dialogText}>{match.split("-")[1]}</p>
+                            <header className="flex flex-row">
+                                {matchDayData!.matches.map((match, index) => (
+                                    <div key={match.awayTeam} className="flex flex-col justify-center items-center text-sm font-semibold w-12 text-white border-t-1 border-t-(--surface-d)  border-l-1 border-l-(--surface-d)">
+                                        <p className="font-semibold">{TeamsLogosNews.find(team => team.id.toString() === match.homeTeam)?.abbName}</p>
+                                        <p className="font-semibold">vs</p>
+                                        <p className="font-semibold">{TeamsLogosNews.find(team => team.id.toString() === match.awayTeam)?.abbName}</p>
                                     </div>
                                 ))}
                             </header>
-                            <main className={styles.section_dialogMain}>
-                                {dialog.bets.bets.map((result, index) => (
-                                    <div key={index} className={styles.section_dialogResult} >
-                                        <p className={styles.section_dialogText}>{result.prediction}</p>
+                            <main className="flex flex-row">
+                                {dialog.bets.predictions.map((result, index) => (
+                                    <div key={index} className="flex flex-col justify-center px-0.5 items-center text-sm font-semibold w-12 text-white border-t-1 border-t-(--surface-d)  border-l-1 border-l-(--surface-d)  border-b-1 border-b-(--surface-d)" >
+                                        <p className="bg-lime-600 w-full text-center rounded-xs">{result.prediction}</p>
                                     </div>
                                 ))}
                             </main>
                         </article>
                     </section>
-                </dialog>}
-        </section>
+                </Dialog>}
+        </Card>
     )
 }

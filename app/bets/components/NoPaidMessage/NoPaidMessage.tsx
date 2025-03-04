@@ -1,4 +1,4 @@
-import { IBet, IUserInfo } from "@/types/types"
+import { IBet, IUserInfo, UserSession } from "@/types/types"
 import { IMyBets } from "../../page"
 import { ConvertToPrice } from "@/functions/functions"
 import { useEffect, useRef, useState } from "react"
@@ -17,7 +17,7 @@ import { TeamsLogosNews } from "@/constants/constants"
 interface Props {
     matchDayData: IMatchDayData
     myBets: IMyBets
-    user: IUserInfo
+    user: UserSession
 }
 
 interface IBets {
