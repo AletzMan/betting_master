@@ -1,13 +1,8 @@
 
 import styles from "./styles.module.scss"
-import { HeaderMatches } from "../HeaderMatches/HeaderMatches"
-import { IBet, IBetDocument, IMatchDay } from "@/types/types"
-import { Dispatch, Fragment, SetStateAction } from "react"
-import Image from "next/image"
-import { StarIcon, WinnerIcon } from "@/svg"
-import { useUser } from "@/config/zustand-store"
+import { IBet, IMatchDay } from "@/types/types"
+import { Dispatch, SetStateAction } from "react"
 import { useWinner } from "@/hooks/useWinner"
-import { useDataBets } from "@/hooks/useDataBets"
 import { Avatar } from "primereact/avatar"
 import { useSession } from "next-auth/react"
 
@@ -44,7 +39,7 @@ export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNa
                 >
                     {selectRanges?.row === index && <span className="absolute w-[120%] h-[110%] bg-[#ff00b320] "></span>}
 
-                    {<Avatar className="border-1 border-(--primary-color)" image={bet.userInfo.image} shape="circle" size="normal" />}
+                    {<Avatar className="border-2 border-(--primary-color)" image={bet.userInfo.image} shape="circle" size="normal" />}
                     {/*<Image src={bet.userInfo.image} width={20} height={20} alt={`Imagen de perfil de ${bet.userInfo.name}`} />*/}
                     {!hiddenNames && <span className="overflow-hidden whitespace-nowrap text-ellipsis h-6">{bet.name}</span>}
                     <div className="grid grid-cols-[1em_1em] gap-1.5">
