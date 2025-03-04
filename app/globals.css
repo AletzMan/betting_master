@@ -255,8 +255,8 @@ body {
 }
 
 .p-dialog {
-	max-height: 95svh;
-	min-height: 95svh;
+	/*max-height: 95svh;
+	min-height: 95svh;*/
 	overflow-y: hidden;
 }
 
@@ -278,6 +278,7 @@ body {
 	}
 }
 
+/*
 .p-overlaypanel {
 	background-color: var(--surface-0);
 	border-color: var(--surface-100);
@@ -306,9 +307,11 @@ body {
 		border-bottom-color: var(--surface-0);
 	}
 }
-
+*/
 .p-inputtext.p-invalid.p-component {
 	border-color: var(--danger-color);
+}
 
-
+.p-card-content {
+	padding: 0.25em 0;
 }

@@ -248,8 +248,8 @@ export const TimeRemainig = (dateFirstMatch: Date) => {
 export const AbbNameMatches = (matches: IMatchDay): string[] => {
 	let MatchesNames: string[] = []
 	for (let index = 0; index < matches.matches.length; index++) {
-		const homeTeam = TeamsLogos[matches.matches[index].teams.home].abbName
-		const awayTeam = TeamsLogos[matches.matches[index].teams.away].abbName
+		const homeTeam = TeamsLogos.find(team => team.id.toString() === matches!.matches[index][0])!.abbName
+		const awayTeam = TeamsLogos.find(team => team.id.toString() === matches!.matches[index][1])!.abbName
 		const nameMatch = `${homeTeam}-${awayTeam}`
 		MatchesNames.push(nameMatch)
 	}
@@ -270,11 +270,8 @@ export const GroupObjectByProperty = (objects: IBetDocument[], property: string)
 			id: object.id,
 			uid: object.uid,
 			name: object.name,
-			bets: object.bets,
-			matches: object.matches,
 			day: object.day,
 			season: object.season,
-			seasson: object.seasson,
 		})
 	})
 	return newObject

@@ -14,13 +14,12 @@ import { useSort } from "../hooks/useSort"
 import { HeaderMatches } from "./components/HeaderMatches/HeaderMatches"
 import { HeaderPage } from "./components/HeaderPage"
 import { useOrientation } from "../hooks/useOrientation"
-import { IBet, IBetDataDocument, IBetDocument, IMatchDay, IPredictions, UserSession } from "../types/types"
+import { IBet, IBetDataDocument, IBetDocument, IMatchDay, IPredictions, IUserInfo, UserSession } from "../types/types"
 import { GetBetsByIDGroup } from "../config/firebase"
 import Image from "next/image"
 import { SnackbarProvider } from "notistack"
 import { NoPaidMessage } from "./components/NoPaidMessage/NoPaidMessage"
 import { ConfirmedParticipationMessage } from "./components/ConfirmedParticipationMessage/ConfirmedParticipationMessage"
-import { Button } from '../components/Button/Button';
 import { WinningBets } from './components/WinningBets/WinningBets';
 import { BettingsTable } from './components/BettingsTable/BettingsTable';
 import { Participant } from './components/Participant/Participant';
@@ -28,6 +27,7 @@ import HeaderTable from './components/Headertable/HeaderTable';
 import { IMatchDayData, getBetsByDay, getMatchDayData } from '@/utils/fetchData';
 import { Card } from 'primereact/card';
 import { useSession } from 'next-auth/react';
+import { Button } from 'primereact/button';
 
 const Orders = [
 	{ id: "name", name: "Por nombre" },
@@ -57,8 +57,10 @@ export default function BetsPage() {
 	const [selectRanges, setSelectRanges] = useState<{ row: number; column: number } | null>(null)
 	const [hiddenNames, setHiddenNames] = useState(false)
 	const [winners, setWinners] = useState<IBetDocument[] | undefined>(undefined)
-	const [viewBets, setViewBets] = useState(false)*/
+	*/
+	const [viewBets, setViewBets] = useState(false)
 	const [myBets, setMyBets] = useState<IMyBets>(EmptyMyBets)
+	const [matchDayData, setMatchDayData] = useState<IMatchDayData | null>(null)
 	const [bets, setBets] = useState<IBet[] | null>(null)
 	const { matchDayInfo, matches, isInTime } = useMatches()
 	const [openDialog, setOpenDialog] = useState(false)
@@ -67,24 +69,35 @@ export default function BetsPage() {
 	const session = useSession()
 
 	useEffect(() => {
-		GetBets();
+		getBets();
+		getMatchData()
 	}, [session])
 
-	const GetBets = async () => {
-		const response = await getBetsByDay();
-		setBets(response)
-		console.log(session)
+	const getBets = async () => {
 		if (session.status === "authenticated") {
-			const arrayMyBets = response?.filter(bet => bet.uid === (session.data?.user as UserSession).id)
-			if (arrayMyBets) {
-				const newMyBets: IMyBets = {
-					bets: arrayMyBets,
-					hasBets: true,
-					isNotBetsPaid: arrayMyBets.some(bet => !bet.paid)
+			const response = await getBetsByDay();
+			if (response) {
+				setBets(response)
+				const arrayMyBets = response?.filter(bet => bet.uid === (session.data?.user as UserSession).id)
+				if (arrayMyBets) {
+					const newMyBets: IMyBets = {
+						bets: arrayMyBets,
+						hasBets: true,
+						isNotBetsPaid: arrayMyBets.some(bet => !bet.paid)
+					}
+					setMyBets(newMyBets);
 				}
-				setMyBets(newMyBets);
-			}
 
+			}
+		}
+	}
+
+	const getMatchData = async () => {
+		if (session.status === "authenticated") {
+			const response = await getMatchDayData();
+			if (response) {
+				setMatchDayData(response);
+			}
 		}
 	}
 
@@ -130,19 +143,16 @@ export default function BetsPage() {
 			}
 			<HeaderPage isInTime={matchDayInfo.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />
 
-
+			{matchDayData && <NoPaidMessage myBets={myBets} user={session.data?.user as IUserInfo} matchDayData={matchDayData} />}
 		</main>
-		/*<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
-			{openDialog && matches &&
-				<DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matchDayData.matchDay} myBets={myBets} />
-			}
+		/*<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}> 
 			{matches?.results?.length > 0 && !isLandscape && !matches.isFinishGame &&
 				<HeaderPage isInTime={matches?.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />
 			}
 			{loading && <Loading />}
 			{matches.isFinishGame &&
-				<div className={styles.buttonView}>
-					<Button props={{ onClick: () => setViewBets(prev => !prev) }} icon={<ViewIcon className='' />} text={viewBets ? 'Ver ganadores' : 'Ver quinielas'} />
+				<div className="px-2">
+					<Button onClick={() => setViewBets(prev => !prev)} severity='info' icon="pi pi-eye" size='small' label={viewBets ? 'Ver ganadores' : 'Ver quinielas'} />
 				</div>
 			}
 			{(!matches.isFinishGame || viewBets) && <>
