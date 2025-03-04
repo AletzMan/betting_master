@@ -1,18 +1,18 @@
-import { useMatches } from "@/hooks/useDataBets"
+import { useDataBets } from "@/hooks/useDataBets"
 import styles from "./styles.module.scss"
 import { HeaderMatches } from "../HeaderMatches/HeaderMatches"
-import { IBetDocument } from "@/types/types"
+import { IBet, IBetDocument } from "@/types/types"
 import { Dispatch, SetStateAction } from "react"
 
 interface Props {
     bets: IBetDocument[]
-    filterBets: IBetDocument[] | null
+    filterBets: IBet[] | null
     selectRanges: { row: number, column: number } | null
     setSelectRanges: Dispatch<SetStateAction<{ row: number, column: number } | null>>
 }
 
 export function BettingsTable({ bets, filterBets, selectRanges, setSelectRanges }: Props) {
-    const { matches } = useMatches()
+    const { matches, matchDayInfo } = useDataBets()
 
     const HandleSelectRow = (row: number, column: number) => {
         setSelectRanges({ row, column })
@@ -24,11 +24,11 @@ export function BettingsTable({ bets, filterBets, selectRanges, setSelectRanges 
 
     return (
         <>
-            {matches.results &&
+            {matchDayInfo.results &&
 
                 <div className={styles.betsTable}>
                     <ul className={styles.matches}>
-                        {matches?.matches && matches?.matches?.length > 0 && matches.matches?.map((match, index) => <HeaderMatches key={match.id} match={match} index={index} />)}
+                        {matchDayInfo?.matches && matchDayInfo?.matches?.length > 0 && matchDayInfo.matches?.map((match, index) => <HeaderMatches key={match} match={match} index={index} />)}
                     </ul>
                     <div className={styles.betsTable_container}>
                         {bets !== undefined &&

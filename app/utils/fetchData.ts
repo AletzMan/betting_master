@@ -79,7 +79,7 @@ const arrayBets: IBet[] = [
         "day": "10",
         "name": "Chicharron",
         "season": "Clausura 2025",
-        "paid": false,
+        "paid": true,
         "tournament": "Liga MX",
         "userInfo": {
             "id": "4e01ce90-026a-4eff-af68-6e4e4dd5dcd6",
@@ -149,7 +149,7 @@ const arrayBets: IBet[] = [
         "day": "15",
         "name": "Quiniela 3",
         "season": "Clausura 2026",
-        "paid": false,
+        "paid": true,
         "tournament": "La Liga",
         "userInfo": {
             "id": "4e01ce90-026a-4eff-af68-6e4e4dd5dcd6",

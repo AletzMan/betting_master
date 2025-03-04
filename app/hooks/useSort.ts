@@ -1,17 +1,34 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { IBet, IBetDocument, IUserAndState } from "../types/types"
+import { useSearchParams } from "next/navigation";
 
 export function useSort(
-	results: string[],
 	bets: IBet[] | null,
-	setFilterBets: Dispatch<SetStateAction<IBet[] | null>>
 ) {
-	const [orderBets, setOrderBets] = useState<"name" | "asc" | "des" | "normal" | "myBets" | "">("")
+	const searchParams = useSearchParams();
+	const [orderBets, setOrderBets] = useState<IBet[] | null>(bets)
 	const [user, setUser] = useState<string>("")
+
+	useEffect(() => {
+		if (bets)
+			setOrderBets(bets)
+	}, [bets])
+
+	useEffect(() => {
+		if (searchParams.has("sortBy")) {
+			const sortBy = searchParams.get("sortBy")
+			if (sortBy === "name") {
+				sortByName();
+			}
+		}
+	}, [searchParams])
+
+
 
 
 	const sortByName = () => {
-		if (bets && setFilterBets) {
+		if (bets) {
 			let newOrder = [...bets]
 			newOrder?.sort((a, b) => {
 				if (a.name > b.name) {
@@ -23,12 +40,12 @@ export function useSort(
 				// a must be equal to b
 				return 0
 			})
-			setFilterBets(newOrder)
+			setOrderBets(newOrder)
 		}
 	}
 
 	const sortNormal = () => {
-		if (bets && setFilterBets) {
+		if (bets) {
 			let newOrder = [...bets]
 			newOrder?.sort((a, b) => {
 				if (a.uid > b.uid) {
@@ -40,14 +57,14 @@ export function useSort(
 				// a must be equal to b
 				return 0
 			})
-			setFilterBets(newOrder)
+			setOrderBets(newOrder)
 		}
 	}
 
 	const filtertMyBets = () => {
-		if (bets && setFilterBets) {
+		if (bets) {
 			const newOrder = bets.filter((bet) => bet.uid === user)
-			setFilterBets(newOrder)
+			setOrderBets(newOrder)
 		}
 	}
 

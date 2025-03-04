@@ -1,11 +1,15 @@
 "use client"
 import { IBet, IBetDocument } from "@/types/types"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import HeaderTable from "./HeaderTable"
 import { DialogCreateBet } from "./DialogCreateBet"
 import { HeaderPage } from "./HeaderPage"
 import { Loading } from "@/components/Loading/Loading"
 import { useDataBets } from "@/hooks/useDataBets"
+import { useSearchParams } from "next/navigation"
+import { useSort } from "@/hooks/useSort"
+import { Participant } from "./Participant/Participant"
+import { BettingsTable } from "./BettingsTable/BettingsTable"
 
 const Orders = [
     { id: "name", name: "Por nombre" },
@@ -26,6 +30,7 @@ const EmptyMyBets: IMyBets = {
 }
 
 export default function MainPage() {
+
     /*
     const { winner } = useWinner(bets, matches.results)
     const { setOrderBets, setUser } = useSort(matches.results, bets, setFilterBets)
@@ -34,14 +39,16 @@ export default function MainPage() {
     const [winners, setWinners] = useState<IBetDocument[] | undefined>(undefined)
     */
     const [selectRanges, setSelectRanges] = useState<{ row: number; column: number } | null>(null)
-    const [filterBets, setFilterBets] = useState<IBet[] | null>(null)
     const [hiddenNames, setHiddenNames] = useState(false)
     const [viewBets, setViewBets] = useState(false)
     const { matchDayInfo, matches, isInTime, bets, myBets, loading } = useDataBets()
     const [openDialog, setOpenDialog] = useState(false)
     const [sending, setSending] = useState(false)
     const [viewCreateBets, setViewCreateBets] = useState(false)
+    const { orderBets } = useSort(bets);
 
+    console.log(bets)
+    console.log(orderBets)
     return (
         <main className='flex flex-col items-center gap-1 pt-10 h-svh bg-(--surface-c)'>
             {!loading && <>
@@ -53,13 +60,13 @@ export default function MainPage() {
                 {matchDayInfo && matchDayInfo!.results?.length > 0 &&
                     <>
                         <section className={`relative grid w-full pr-1 max-w-max border-1 border-transparent rounded-md transition-all ease-in-out delay-150 ${hiddenNames ? "grid-cols-[2em_1fr]" : "grid-cols-[13em_1fr]"} scrollbar`}>
-                            <div className="">
+                            <div className="sticky left-0 gap-y-1 flex flex-col bg-(--surface-b) h-96 z-3">
                                 <HeaderTable hiddenNames={hiddenNames} setHiddenNames={setHiddenNames} matchDayData={{ matchDay: matchDayInfo, matches: matches }} totalBets={bets?.length || 0} />
-                                {/*filterBets?.map((bet, index) => (
-								<Participant key={bet.id} bets={bets} bet={bet} index={index} hiddenNames={hiddenNames} selectRanges={selectRanges} setSelectRanges={setSelectRanges} />
-							))*/}
+                                {orderBets?.map((bet, index) => (
+                                    <Participant key={bet.id} bets={bets} bet={bet} index={index} hiddenNames={hiddenNames} selectRanges={selectRanges} setSelectRanges={setSelectRanges} />
+                                ))}
                             </div>
-                            {/*<BettingsTable bets={bets} filterBets={filterBets} selectRanges={selectRanges} setSelectRanges={setSelectRanges} />*/}
+                            {/*<BettingsTable bets={bets} filterBets={orderBets} selectRanges={selectRanges} setSelectRanges={setSelectRanges} />*/}
                         </section>
                     </>
                 }

@@ -258,27 +258,52 @@ export const AbbNameMatches = (matches: IMatchDay): string[] => {
 	return MatchesNames
 }
 
-export const GroupObjectByProperty = (objects: IBetDocument[], property: string) => {
-	let newObject: Record<string, IBetsByDay> = {}
-	objects.forEach((object) => {
-		if (!newObject.hasOwnProperty(object.day)) {
-			newObject[object.day] = {
-				bets: [],
-			}
+
+
+export const sortByHits = (
+	order: "asc" | "des",
+	betsArray: IBet[],
+	results: string[]
+): IHitsBet[] => {
+	let orderBets: IHitsBet[] = []
+	if (results.length > 0) {
+		for (let index = 0; index < betsArray.length; index++) {
+			let hits = 0
+			betsArray.forEach((betMatch, index) => {
+				if (betMatch.predictions[index].prediction === results[index]) {
+					hits++
+				}
+			})
+			orderBets.push({
+				id: betsArray[index].id,
+				uid: betsArray[index].uid,
+				name: betsArray[index].name,
+				bets: betsArray[index].predictions,
+				matches: [],
+				hits,
+				day: betsArray[index].day,
+				season: betsArray[index].season,
+				paid: betsArray[index].paid,
+				tournament: betsArray[index].tournament,
+				userInfo: betsArray[index].userInfo,
+			})
 		}
 
-		newObject[object.day].bets.push({
-			id: object.id,
-			uid: object.uid,
-			name: object.name,
-			day: object.day,
-			season: object.season,
-			paid: object.paid,
+		orderBets.sort((a, b) => {
+			if (a.hits > b.hits) {
+				if (order === "des") return -1
+				if (order === "asc") return 1
+			}
+			if (a.hits < b.hits) {
+				if (order === "des") return 1
+				if (order === "asc") return -1
+			}
+			// a must be equal to b
+			return 0
 		})
-	})
-	return newObject
+	}
+	return orderBets
 }
-
 
 import { Teams } from "../types/types"
 

@@ -278,11 +278,11 @@ export interface IHitsBet {
 	name: string
 	bets: IPredictions[]
 	matches: string[]
-	seasson: string
+	season: string
 	paid: boolean
 	tournament: string
 	hits: number
-	userInfo?: IUserInfo
+	userInfo?: UserSession
 }
 
 
@@ -378,7 +378,7 @@ export interface UserSession {
 	uid: string;
 	name: string;
 	email: string;
-	image?: string;
+	image: string;
 	notifications?: boolean;
 	color?: string;
 	account?: string;

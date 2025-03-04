@@ -1,16 +1,18 @@
-import { useMatches } from "@/hooks/useDataBets"
+
 import styles from "./styles.module.scss"
 import { HeaderMatches } from "../HeaderMatches/HeaderMatches"
-import { IBetDocument } from "@/types/types"
+import { IBet, IBetDocument } from "@/types/types"
 import { Dispatch, Fragment, SetStateAction } from "react"
 import Image from "next/image"
 import { StarIcon, WinnerIcon } from "@/svg"
 import { useUser } from "@/config/zustand-store"
 import { useWinner } from "@/hooks/useWinner"
+import { useDataBets } from "@/hooks/useDataBets"
+import { Avatar } from "primereact/avatar"
 
 interface Props {
-    bets: IBetDocument[]
-    bet: IBetDocument
+    bets: IBet[] | null
+    bet: IBet
     index: number
     hiddenNames: boolean
     selectRanges: { row: number, column: number } | null
@@ -19,8 +21,8 @@ interface Props {
 
 export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNames, index }: Props) {
     const { user } = useUser()
-    const { matches } = useMatches()
-    const { winner } = useWinner(bets, matches.results)
+    const { matches, matchDayInfo } = useDataBets()
+    const { winner } = useWinner(bets, matchDayInfo.results)
 
     const HandleSelectRow = (row: number, column: number) => {
         setSelectRanges({ row, column })
@@ -33,15 +35,15 @@ export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNa
         <>
             {bet.paid &&
                 <div
-                    className={`${styles.participant} ${selectRanges?.row === index && styles.participant_select} 
+                    className={`grid grid-cols-[2em_1fr_3em] items-center justify-start h-8 px-1 rounded-xs bg-(--surface-e) overflow-hidden ${selectRanges?.row === index && styles.participant_select} 
 												${user.uid === bet.uid && styles.participant_current}`}
-                    key={bet.id}
+
                     onClick={() => HandleSelectRow(index, -1)}
                     onMouseLeave={HandleUnselectRow}
                 >
-                    <picture className={styles.participant_photo}>
-                        <Image className={styles.participant_photoImage} src={bet.userInfo?.photo || "/user-icon.png"} width={22} height={22} alt={`Foto de perfil de ${bet.userInfo?.name}`} />
-                    </picture>
+
+                    <Avatar className={styles.participant_photoImage} image={bet.userInfo?.image} shape="circle" size="large" />
+
                     {!hiddenNames && <span className={styles.participant_name}>{bet.name}</span>}
                     <div className={styles.participant_hits}>
                         {user.uid === bet.uid && <StarIcon className={styles.participant_hitsIcon} />}
