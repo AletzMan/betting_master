@@ -10,6 +10,9 @@
 	--danger-color: #f42c2c;
 	--success-color: #7ac024;
 	--contrast-color: #e3e3e3;
+	--pending-color: #6d5d00;
+	--finished-color: #166d00;
+	--started-color: #680400;
 	--border-radius: 0.2em !important;
 }
 
@@ -44,14 +47,23 @@ body {
 	overflow-y: auto;
 }
 
+.scrollbarX {
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+
+
 .scrollbar::-webkit-scrollbar,
+.scrollbarX::-webkit-scrollbar,
 .scrollbarXY::-webkit-scrollbar {
 	width: 0.4em;
 	height: 0.4em;
-	background-color: var(--twitterTwo-color);
+	background-color: var(--surface-a);
 }
 
 .scrollbar::-webkit-scrollbar-thumb,
+.scrollbarX::-webkit-scrollbar-thumb,
 .scrollbarXY::-webkit-scrollbar-thumb {
 	border-radius: 1em;
 	background-color: var(--primary-color);
@@ -59,8 +71,9 @@ body {
 }
 
 .scrollbar::-webkit-scrollbar-corner,
+.scrollbarX::-webkit-scrollbar-corner,
 .scrollbarXY::-webkit-scrollbar-corner {
-	background-color: var(--primaryColor);
+	background-color: var(--primary-color);
 }
 
 .sectionContainer {

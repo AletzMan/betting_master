@@ -1,11 +1,10 @@
 import { useDataBets } from "@/hooks/useDataBets"
-import styles from "./styles.module.scss"
 import { HeaderMatches } from "../HeaderMatches/HeaderMatches"
-import { IBet, IBetDocument } from "@/types/types"
+import { IBet } from "@/types/types"
 import { Dispatch, SetStateAction } from "react"
 
 interface Props {
-    bets: IBetDocument[]
+    bets: IBet[] | null
     filterBets: IBet[] | null
     selectRanges: { row: number, column: number } | null
     setSelectRanges: Dispatch<SetStateAction<{ row: number, column: number } | null>>
@@ -25,28 +24,27 @@ export function BettingsTable({ bets, filterBets, selectRanges, setSelectRanges 
     return (
         <>
             {matchDayInfo.results &&
-
-                <div className={styles.betsTable}>
-                    <ul className={styles.matches}>
-                        {matchDayInfo?.matches && matchDayInfo?.matches?.length > 0 && matchDayInfo.matches?.map((match, index) => <HeaderMatches key={match} match={match} index={index} />)}
+                <div className="  flex flex-col w-full h-full gap-y-0  bg-(--surface-b)">
+                    <ul className="sticky top-0 grid grid-cols-[repeat(9,2.5em)] gap-x-1 mr-1 bg-(--surface-d) w-max">
+                        {matches && matches?.length > 0 && matches?.map((match, index) => <HeaderMatches key={match.awayTeam} match={match} index={index} />)}
                     </ul>
-                    <div className={styles.betsTable_container}>
+                    <div className="flex flex-col pt-1 pr-1 gap-y-1 ">
                         {bets !== undefined &&
                             filterBets?.map((bet, indexOne) => (
                                 <>
                                     {bet.paid &&
-                                        <ul className={styles.betsTable_bets} key={bet.name}>
-                                            {bet?.bets?.map((betInfo, index) => (
+                                        <ul className="grid grid-cols-[repeat(9,2.5em)] gap-x-1 w-full" key={bet.name}>
+                                            {bet.predictions?.map((betInfo, index) => (
                                                 <li
                                                     key={betInfo.id}
-                                                    className={`${styles.betsTable_betsBet} ${selectRanges?.column === index && styles.betsTable_betsBetSelectColumn} 
-                                            ${selectRanges?.row === indexOne && styles.betsTable_betsBetSelectRow}`}
+                                                    className={`flex items-center justify-center w-full h-9 ${selectRanges?.column === index && ""} 
+                                                                ${selectRanges?.row === indexOne && ""}`}
                                                     onClick={() => HandleSelectRow(indexOne, index)}
                                                     onMouseLeave={HandleUnselectRow}
                                                 >
                                                     <span
-                                                        className={` ${matches.results[index] === betInfo.prediction ? styles.betsTable_betsBetWin : styles.betsTable_betsBetNoWin} 
-																		${matches.results[index] === betInfo.prediction && matches.matches[index].status === "En juego" && styles.betsTable_betsBetPreWin}
+                                                        className={`flex items-center justify-center w-full h-full rounded-md text-white ${matchDayInfo.results[index] === betInfo.prediction && matches[index].status === "finished" ? "bg-lime-600" : "bg-gray-700"} 
+																		 
 																		`}
                                                     >
                                                         {betInfo.prediction}
