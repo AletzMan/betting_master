@@ -35,8 +35,9 @@ export function useDataBets() {
 
 
 	useEffect(() => {
-		getData()
-	}, [])
+		if (session)
+			getData()
+	}, [session])
 
 	const getData = async () => {
 		setLoading(true)
