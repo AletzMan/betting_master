@@ -61,7 +61,7 @@ export default function HeaderTable({ hiddenNames, setHiddenNames, matchDayData,
                                 <option value="hits">Por aciertos</option>
                             </select>
                             <button className="flex items-center justify-center w-11 h-11 bg-(--surface-b) rounded-md border-2 border-(--surface-d)" onClick={handleOrder}>
-                                {orderAsc ? <i className="pi pi-sort-amount-down"></i> : <i className="pi pi-sort-amount-up"></i>}
+                                {!orderAsc ? <i className="pi pi-sort-amount-down"></i> : <i className="pi pi-sort-amount-up"></i>}
                             </button>
                         </div>
                     </div>
