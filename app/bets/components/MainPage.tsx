@@ -54,7 +54,7 @@ export default function MainPage() {
                     <>
                         <section className={`relative grid w-full pr-1 max-w-max border-1 border-transparent rounded-md transition-all ease-in-out delay-150 ${hiddenNames ? "grid-cols-[2em_1fr]" : "grid-cols-[13em_1fr]"} scrollbar`}>
                             <div className="">
-                                <HeaderTable hiddenNames={hiddenNames} setFilterBets={setFilterBets} setHiddenNames={setHiddenNames} matchDayData={{ matchDay: matchDayInfo, matches: matches }} totalBets={bets?.length || 0} />
+                                <HeaderTable hiddenNames={hiddenNames} setHiddenNames={setHiddenNames} matchDayData={{ matchDay: matchDayInfo, matches: matches }} totalBets={bets?.length || 0} />
                                 {/*filterBets?.map((bet, index) => (
 								<Participant key={bet.id} bets={bets} bet={bet} index={index} hiddenNames={hiddenNames} selectRanges={selectRanges} setSelectRanges={setSelectRanges} />
 							))*/}

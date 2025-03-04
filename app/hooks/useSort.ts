@@ -10,7 +10,7 @@ export function useSort(
 	const [user, setUser] = useState<string>("")
 
 
-	const SortByName = () => {
+	const sortByName = () => {
 		if (bets && setFilterBets) {
 			let newOrder = [...bets]
 			newOrder?.sort((a, b) => {
@@ -27,7 +27,7 @@ export function useSort(
 		}
 	}
 
-	const SortNormal = () => {
+	const sortNormal = () => {
 		if (bets && setFilterBets) {
 			let newOrder = [...bets]
 			newOrder?.sort((a, b) => {
@@ -44,7 +44,7 @@ export function useSort(
 		}
 	}
 
-	const FiltertMyBets = () => {
+	const filtertMyBets = () => {
 		if (bets && setFilterBets) {
 			const newOrder = bets.filter((bet) => bet.uid === user)
 			setFilterBets(newOrder)
