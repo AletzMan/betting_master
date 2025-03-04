@@ -277,7 +277,6 @@ export interface IHitsBet {
 	day: string
 	name: string
 	bets: IPredictions[]
-	matches: string[]
 	season: string
 	paid: boolean
 	tournament: string
@@ -426,5 +425,6 @@ export interface IBet {
 
 export interface IPrediction {
 	id: string
+	matchNumber: number
 	prediction: 'L' | 'V' | 'E'
 }
