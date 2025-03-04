@@ -36,15 +36,17 @@ export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNa
         <>
             {bet.paid &&
                 <div
-                    className={`grid grid-cols-[2.5em_1fr_2.5em] gap-1.5 items-center justify-start h-9 px-1 rounded-xs bg-(--surface-f) overflow-hidden ${selectRanges?.row === index && styles.participant_select} 
+                    className={`relative grid grid-cols-[2.5em_1fr_2.5em] gap-1.5 items-center justify-start h-9 px-1 rounded-xs bg-(--surface-f) overflow-hidden ${selectRanges?.row === index && styles.participant_select} 
 												${session.data?.user?.id === bet.uid && styles.participant_current}`}
 
                     onClick={() => HandleSelectRow(index, -1)}
                     onMouseLeave={HandleUnselectRow}
                 >
+                    {selectRanges?.row === index && <span className="absolute w-[120%] h-[110%] bg-[#ff00b320] "></span>}
+
                     {<Avatar className="border-1 border-(--primary-color)" image={bet.userInfo.image} shape="circle" size="normal" />}
                     {/*<Image src={bet.userInfo.image} width={20} height={20} alt={`Imagen de perfil de ${bet.userInfo.name}`} />*/}
-                    {!hiddenNames && <span className={styles.participant_name}>{bet.name}</span>}
+                    {!hiddenNames && <span className="overflow-hidden whitespace-nowrap text-ellipsis h-6">{bet.name}</span>}
                     <div className="grid grid-cols-[1em_1em] gap-1.5">
                         {session.data?.user?.id === bet.uid && <i className="pi pi-star-fill text-purple-500" />}
                         {winner?.includes(bet.id) && <i className="pi pi-trophy text-yellow-400 col-start-2" />}

@@ -49,7 +49,7 @@ export default function HeaderTable({ hiddenNames, setHiddenNames, matchDayData,
     return (
         <>
             {matchDayData?.matches &&
-                <div className="sticky top-0 flex flex-col h-24 w-full bg-(--surface-d) z-3 overflow-hidden">
+                <div className="sticky top-0 flex flex-col h-24 w-full bg-(--surface-d) z-5 overflow-hidden">
                     <div className="flex flex-col items-center justify-between w-full">
                         {!hiddenNames && <span className="text-amber-400">Monto: {(ConvertToPrice(totalBets * 13.5))}</span>}
                         {matchDayData.matches.length > 0 && <p className={`font-semibold ${hiddenNames ? "text-transparent" : "text-white"}`}>{`Jornada ${matchDayData.matchDay.day}`}</p>}
