@@ -43,7 +43,7 @@ export default function MainPage() {
                     <HeaderPage isAvailable={matchDayInfo.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />
                 }
                 {matchDayInfo.isFinishGame &&
-                    <div className="px-2">
+                    <div className="px-2 mt-2 mb-0.5">
                         <Button onClick={() => setViewBets(prev => !prev)} severity='info' icon="pi pi-eye" size='small' label={viewBets ? 'Ver ganadores' : 'Ver quinielas'} />
                     </div>
                 }

@@ -8,7 +8,7 @@
 		"Courier New", monospace;
 	--primary-color: #3abbea !important;
 	--danger-color: #f42c2c;
-	--danger-color: #f42c2c;
+	--success-color: #65c313;
 	--info-color: #1488ee;
 	--warning-color: #ffa600;
 	--contrast-color: #e3e3e3;
@@ -19,6 +19,7 @@
 	--row-select-color: #ae00ff40;
 	--background-warning-color: #ffa60020;
 	--background-info-color: #1488ee20;
+	--animate-scale: animate-scale 3.5s ease-in-out infinite alternate;
 }
 
 
@@ -332,4 +333,30 @@ body {
 
 .p-card-content {
 	padding: 0.25em 0;
+}
+
+@keyframes animate-scale {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	2% {
+		transform: rotate(3deg);
+	}
+
+	4% {
+		transform: rotate(-3deg);
+	}
+
+	6% {
+		transform: rotate(1deg);
+	}
+
+	8% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(0deg);
+	}
 }

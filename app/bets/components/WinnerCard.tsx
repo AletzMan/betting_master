@@ -20,7 +20,7 @@ export default function WinnerCard({ participant, name_bet, name_team }: Props) 
 
 
         <div
-            className={`relative rounded-xl overflow-hidden transition-opacity duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+            className={`relative rounded-xl overflow-hidden transition-opacity duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"} animate-(--animate-scale)`}
             style={{
                 width: "150px", height: "200px"
             }}
