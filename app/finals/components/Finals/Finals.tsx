@@ -7,7 +7,7 @@ import ConfettiExplosion from "react-confetti-explosion"
 import Image from "next/image"
 import { WinnerIcon } from "@/svg"
 import { TeamsLogos } from "@/constants/constants"
-import WinnerCard from "@/bets/components/WinnerCard/WinnerCard"
+import WinnerCard from "@/bets/components/WinnerCard"
 import Fireworks, { FireworksHandlers } from "@fireworks-js/react"
 import { useRef } from "react"
 

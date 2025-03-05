@@ -270,8 +270,6 @@ export const sortByHits = (
 	if (results.length > 0) {
 		for (let index = 0; index < betsArray.length; index++) {
 			let hits = 0
-			console.log(results)
-			console.log(betsArray)
 			betsArray[index].predictions.forEach((predictions, index) => {
 				if (predictions.prediction === results[index]) {
 					hits++

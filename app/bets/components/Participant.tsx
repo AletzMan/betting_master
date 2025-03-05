@@ -1,10 +1,9 @@
-
-import styles from "./styles.module.scss"
 import { IBet, IMatchDay } from "@/types/types"
 import { Dispatch, SetStateAction } from "react"
 import { useWinner } from "@/hooks/useWinner"
 import { Avatar } from "primereact/avatar"
 import { useSession } from "next-auth/react"
+import Image from "next/image"
 
 interface Props {
     bets: IBet[] | null
@@ -31,16 +30,16 @@ export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNa
         <>
             {bet.paid &&
                 <div
-                    className={`relative grid grid-cols-[2.5em_1fr_2.5em] gap-1.5 items-center justify-start h-9 px-1 rounded-xs bg-(--surface-f) overflow-hidden ${selectRanges?.row === index && styles.participant_select} 
-												${session.data?.user?.id === bet.uid && styles.participant_current}`}
+                    className={`relative grid grid-cols-[2em_1fr_2.5em] gap-1 items-center justify-start h-9 px-1 bg-(--surface-f) border-1 border-gray-700 rounded-xs overflow-hidden  
+												${hiddenNames && (winner?.includes(bet.id) ? "border-yellow-500" : session.data?.user?.id === bet.uid ? "border-purple-500" : "border-gray-700")}`}
 
                     onClick={() => HandleSelectRow(index, -1)}
                     onMouseLeave={HandleUnselectRow}
                 >
                     {selectRanges?.row === index && <span className="absolute w-[120%] h-[110%] bg-[#ff00b320] "></span>}
 
-                    {<Avatar className="border-2 border-(--primary-color)" image={bet.userInfo.image} shape="circle" size="normal" />}
-                    {/*<Image src={bet.userInfo.image} width={20} height={20} alt={`Imagen de perfil de ${bet.userInfo.name}`} />*/}
+                    {/*<Avatar className="border-2 border-(--primary-color)" image={bet.userInfo.image} shape="circle" size="normal" />*/}
+                    {<Image className="rounded-full border-2 border-(--primary-color) object-cover max-h-7" blurDataURL="/user-icon.png" src={bet.userInfo.image} width={28} height={28} alt={`Imagen de perfil de ${bet.userInfo.name}`} />}
                     {!hiddenNames && <span className="overflow-hidden whitespace-nowrap text-ellipsis h-6">{bet.name}</span>}
                     <div className="grid grid-cols-[1em_1em] gap-1.5">
                         {session.data?.user?.id === bet.uid && <i className="pi pi-star-fill text-purple-500" />}

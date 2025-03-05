@@ -27,11 +27,6 @@ export function useDataBets() {
 	const [myBets, setMyBets] = useState<IMyBets>(EmptyMyBets)
 	const session = useSession()
 
-	/*useEffect(() => {
-		GetMatches()
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])*/
-
 
 
 	useEffect(() => {
