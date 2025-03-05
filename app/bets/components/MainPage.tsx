@@ -15,7 +15,6 @@ import { NoPaidMessage } from "./NoPaidMessage"
 import { useSession } from "next-auth/react"
 import { ConfirmedParticipationMessage } from "./ConfirmedParticipationMessage"
 import { Card } from "primereact/card"
-import { NotFoundIcon } from "@/svg"
 
 
 export interface IMyBets {
