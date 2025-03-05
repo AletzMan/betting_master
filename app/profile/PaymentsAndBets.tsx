@@ -2,7 +2,7 @@
 "use client"
 import { useState, MouseEvent } from "react"
 import { DeleteBet, GetBetsByIDGroup, UpdateBetByUser } from "@/config/firebase"
-import { IBetDataDocument } from "@/types/types"
+import { IBet, IBetDataDocument } from "@/types/types"
 import { enqueueSnackbar } from "notistack"
 import { Button } from "primereact/button"
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown"
@@ -12,45 +12,50 @@ import { Avatar } from "primereact/avatar"
 import { Badge } from "primereact/badge"
 import { ScrollPanel } from "primereact/scrollpanel"
 import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox"
+import { getBetsByDay } from "@/utils/fetchData"
 
 interface IBetsByUser {
     uid: string,
-    bets: IBetDataDocument[]
+    bets: IBet[]
 }
 
 const EmptyBetsBtID = [{
     uid: "",
-    bets: [] as IBetDataDocument[]
+    bets: [] as IBet[]
 }]
 
-export function BetsByUser() {
+export function PaymentsAndBets() {
     const [matchDay, setMatchDay] = useState<number>(0)
-    const [bets, setBets] = useState<IBetDataDocument[]>([])
-    const [betsByID, setBetsByID] = useState<IBetsByUser[]>(EmptyBetsBtID)
+    const [bets, setBets] = useState<IBet[]>([])
+    const [betsByID, setBetsByID] = useState<IBetsByUser[] | null>(null)
 
 
 
     const GetBets = async () => {
         if (matchDay) {
-            const documents = await GetBetsByIDGroup(matchDay.toString())
-
-            setBets(documents)
-            let newGroup: IBetsByUser[] = []
-            documents.forEach((bet) => {
-                const userID = bet.data.uid
-                const betID = bet.id
-                const found = newGroup.find((group) => group.uid === userID)
-                if (found) {
-                    newGroup.map((group) => {
-                        if (group.uid === userID) {
-                            group.bets.push({ id: betID, data: bet.data })
-                        }
-                    })
-                } else {
-                    newGroup.push({ uid: userID, bets: [{ id: betID, data: bet.data }] })
-                }
-            })
-            setBetsByID(newGroup)
+            const response = await getBetsByDay();
+            if (response) {
+                setBets(response)
+                const arrayBetsbyID: IBetsByUser[] = []
+                response.map(bet => {
+                    const userID = bet.uid
+                    const betID = bet.id
+                    const found = arrayBetsbyID.find((group) => group.uid === userID)
+                    if (found) {
+                        arrayBetsbyID.map((group) => {
+                            if (group.uid === userID) {
+                                group.uid = userID
+                                group.bets.push(bet)
+                            }
+                        })
+                    } else {
+                        const newBet: IBet[] = []
+                        newBet.push(bet)
+                        arrayBetsbyID.push({ uid: userID, bets: newBet })
+                    }
+                })
+                setBetsByID(arrayBetsbyID)
+            }
         }
     }
 
@@ -97,38 +102,38 @@ export function BetsByUser() {
                     </div>
                     <div className="bg-(--surface-c) border-1 border-(--surface-d)" >
                         <h3 className="text-center text-sky-500 font-semibold">Pagadas</h3>
-                        <p className="text-center">{bets.filter((bet) => bet.data.paid).length}</p>
+                        <p className="text-center">{bets.filter((bet) => bet.paid).length}</p>
                     </div>
                     <div className="bg-(--surface-c) border-1 border-(--surface-d)" >
                         <h3 className="text-center text-sky-500 font-semibold">Monto</h3>
-                        <p className="text-center">$ {bets.filter((bet) => bet.data.paid).length * 13.5}</p>
+                        <p className="text-center">$ {bets.filter((bet) => bet.paid).length * 13.5}</p>
                     </div>
                     <div className="bg-(--surface-c) border-1 border-(--surface-d)" >
                         <h3 className="text-center text-sky-500 font-semibold">Ganancia</h3>
-                        <p className="text-center">$ {bets.filter((bet) => bet.data.paid).length * 1.5}</p>
+                        <p className="text-center">$ {bets.filter((bet) => bet.paid).length * 1.5}</p>
                     </div>
                 </div>
             </header>
             <ScrollPanel style={{ width: '100%', height: '400px' }} >
                 <Accordion className="flex flex-col "  /*className={`${styles.bets_bet} ${betsByID[index].bets.find(betdata => !betdata.data.paid)?.data ? styles.bets_betNoPaid : styles.bets_betPaid}`}*/>
-                    {betsByID[0]?.uid && betsByID?.map((bet, index) => (
+                    {betsByID && betsByID![0]?.uid && betsByID?.map((bet, index) => (
                         <AccordionTab key={bet.uid}
                             header={
                                 <div className="flex items-center justify-between ">
                                     <div className="flex gap-3 items-center">
-                                        <Avatar size="normal" image={bet?.bets[0]?.data.userInfo?.photo || "/user_icon.png"} shape="circle" />
-                                        <span className="text-xs">{bet?.bets[0]?.data.userInfo?.name}</span>
+                                        <Avatar size="normal" image={bet?.bets[0]?.userInfo?.image || "/user_icon.png"} shape="circle" />
+                                        <span className="text-xs">{bet?.bets[0]?.userInfo?.name}</span>
                                     </div>
-                                    <Badge value={bet.bets.length} severity={betsByID[index].bets.find(betdata => !betdata.data.paid)?.data ? "danger" : "success"}></Badge>
+                                    <Badge value={bet.bets.length} severity={betsByID[index].bets.find(betdata => !betdata.paid)?.paid ? "danger" : "success"}></Badge>
                                 </div>
                             }>
                             <div className="flex flex-col gap-2">
                                 {bet.bets.map((bet, index) => (
                                     <div key={index} className=" flex items-center justify-between bg-(--surface-c) px-2 py-1">
-                                        <p className="text-sm">{bet.data.name}</p>
+                                        <p className="text-sm">{bet.name}</p>
                                         <div className="flex items-center justify-center gap-1.5">
-                                            <Checkbox type="checkbox" checked={bet.data.paid} onChange={(e) => HandleCheck(e, bet.id)} />
-                                            <Button className="" onClick={() => HandleDelete(bet.id, bet.data.name)} icon="pi pi-trash" size="small" text raised />
+                                            <Checkbox type="checkbox" checked={bet.paid} onChange={(e) => HandleCheck(e, bet.id)} />
+                                            <Button className="" onClick={() => HandleDelete(bet.id, bet.name)} icon="pi pi-trash" size="small" text raised />
                                         </div>
                                     </div>
                                 ))}

@@ -284,6 +284,41 @@ const arrayBets: IBet[] = [
         ]
     },
     {
+        "id": "bet1sd2",
+        "uid": "6b7c8d9e-0f1a-2b3c-4d5e-6f7a8b9c0d1e",
+        "day": "18",
+        "name": "Minidudev",
+        "season": "Clausura 2026",
+        "paid": true,
+        "tournament": "Serie A",
+        "userInfo": {
+            "id": "6b7c8d9e-0f1a-2b3c-4d5e-6f7a8b9c0d1e",
+            "name": "Miguel Duran",
+            "email": "laura.gomez@example.com",
+            "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/ff538181-5311-4b24-8765-48630db88a93-profile_image-150x150.png",
+            "color": "#ff9800",
+            "account": "premium",
+            "total_bets": 15,
+            "bets_won": 10,
+            "finals_won": 5,
+            "last_login": new Date("2025-03-04T18:20:00.000Z"),
+            "emailVerified": new Date("2024-07-01T09:00:00.000Z"),
+            "uid": "",
+            "notifications": false
+        },
+        "predictions": [
+            { "id": "r1", "prediction": "V", "matchNumber": 0 },
+            { "id": "r2", "prediction": "E", "matchNumber": 1 },
+            { "id": "r3", "prediction": "L", "matchNumber": 2 },
+            { "id": "r4", "prediction": "V", "matchNumber": 3 },
+            { "id": "r5", "prediction": "L", "matchNumber": 4 },
+            { "id": "r6", "prediction": "V", "matchNumber": 5 },
+            { "id": "r7", "prediction": "E", "matchNumber": 6 },
+            { "id": "r8", "prediction": "L", "matchNumber": 7 },
+            { "id": "r9", "prediction": "V", "matchNumber": 8 }
+        ]
+    },
+    {
         "id": "bet14",
         "uid": "7e8f9a0b-1c2d-3e4f-5a6b-7c8d9e0f1a2b",
         "day": "22",

@@ -3,7 +3,7 @@
 import styles from "./profile.module.scss"
 import { AdminPanel } from "./AdminPanel"
 import { SettingsProfile } from "./SettingsProfile"
-import { BetsByUser } from "./BetsByUser"
+import { PaymentsAndBets } from "./PaymentsAndBets"
 import AdminFinals from "./AdminFinals"
 import { AppConfig } from "./AppConfig"
 import { AdminNotifications } from "./AdminNotifications"
@@ -40,7 +40,7 @@ export default function ProfilePage() {
 					<AdminNotifications />
 				</TabPanel>
 				<TabPanel header="Pagos" leftIcon="pi pi-dollar  mr-2">
-					<BetsByUser />
+					<PaymentsAndBets />
 				</TabPanel>
 				<TabPanel header="Sorteo" leftIcon="pi pi-gift  mr-2">
 					<AdminFinals />
