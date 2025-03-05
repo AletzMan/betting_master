@@ -39,7 +39,7 @@ export default function MainPage() {
                 {openDialog && matches &&
                     <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matches} myBets={myBets} />
                 }
-                {matchDayInfo?.results?.length > 0 && !matchDayInfo.isFinishGame &&
+                {matchDayInfo?.results?.length > 0 && !matchDayInfo.isFinishGame && matches?.length > 0 &&
                     <HeaderPage isAvailable={matchDayInfo.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />
                 }
                 {matchDayInfo.isFinishGame &&
@@ -77,8 +77,23 @@ export default function MainPage() {
                             }
                         </>
                     )}
-                    {matches?.length === 0 && <div className="">No se ha creado la quiniela de la semana <NotFoundIcon className="" /></div>}
+                    {matches?.length === 0 &&
+                        <div className="flex items-center justify-center flex-col gap-4 px-2 py-4 max-w-80 rounded-md mt-5 bg-(--background-info-color) border-1 border-(--info-color)">
+                            <i className="pi pi-info-circle text-(--info-color)" style={{ fontSize: "3em" }} />
+                            <div>
+                                <p className="text-balance text-center text-white">¡La quiniela de la semana aún no ha sido creada!</p>
+                                <p className="text-center text-white">  Mantente atento, pronto podrás participar</p>
+                            </div>
+                        </div>
+                    }
                 </>}
+                {!matchDayInfo.isFinishGame && orderBets?.length === 0 && matches?.length > 0 &&
+                    <div className="flex flex-col items-center justify-center px-4 py-2 gap-4 max-w-64 bg-(--background-warning-color) rounded-md border-1 border-(--warning-color) mt-3.5">
+                        <i className="pi pi-exclamation-circle text-(--warning-color)" style={{ fontSize: "3em" }} />
+                        <p className="text-center">¡Ups! Parece que los partidos ya empezaron y nadie ha creado una quiniela.</p>
+                    </div>
+
+                }
                 {matchDayInfo.isFinishGame && !viewBets &&
                     <WinningBets bets={bets} matches={matchDayInfo} />
                 }

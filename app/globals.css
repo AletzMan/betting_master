@@ -8,13 +8,17 @@
 		"Courier New", monospace;
 	--primary-color: #3abbea !important;
 	--danger-color: #f42c2c;
-	--success-color: #7ac024;
+	--danger-color: #f42c2c;
+	--info-color: #1488ee;
+	--warning-color: #ffa600;
 	--contrast-color: #e3e3e3;
 	--pending-color: #6d5d00;
 	--finished-color: #166d00;
 	--started-color: #680400;
 	--border-radius: 0.2em !important;
 	--row-select-color: #ae00ff40;
+	--background-warning-color: #ffa60020;
+	--background-info-color: #1488ee20;
 }
 
 

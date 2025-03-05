@@ -61,7 +61,7 @@ export const getMatchDayData = async (): Promise<IMatchDayData | null> => {
 
 export const getBetsByDay = async (): Promise<IBet[] | null> => {
     try {
-        let bets: IBet[] = []
+        let bets: IBet[] = arrayBets
         /*const response = await fetch(`${pathURL}api/bets`, { cache: 'force-cache', next: { revalidate: 30000, tags: ['bets'] } })
         if (response.status === 200) {
             const responseBets = await response.json();
