@@ -26,7 +26,7 @@ export function BettingsTable({ filterBets, selectRanges, setSelectRanges, match
 
         <div className="  flex flex-col w-full h-full gap-y-0  bg-(--surface-b)">
             <ul className="sticky top-0 grid grid-cols-[repeat(9,2.5em)] gap-x-1 mr-1 bg-(--surface-d) w-max z-3">
-                {matches && matches?.length > 0 && matches?.map((match, index) => <HeaderMatches key={match.awayTeam} match={match} index={index} />)}
+                {matches && matches?.length > 0 && matches?.map((match, index) => <HeaderMatches key={match.awayTeam} match={match} index={index} matchDayInfo={matchDayInfo} />)}
             </ul>
             <div className="flex flex-col pt-1 pr-1 gap-y-1 ">
                 {filterBets && filterBets!.length > 0 &&
@@ -43,7 +43,7 @@ export function BettingsTable({ filterBets, selectRanges, setSelectRanges, match
                                         >
                                             {(selectRanges?.column === index || selectRanges?.row === indexOne) && <span className="absolute w-[110%] h-[110%] bg-[#ff00b320] "></span>}
                                             <span
-                                                className={`flex items-center justify-center w-full h-full rounded-md text-white font-bold  ${matchDayInfo.results[index] === betInfo.prediction && matches[index].status === "finished" ? "bg-lime-600" : "bg-gray-700"} 
+                                                className={`flex items-center justify-center w-full h-full rounded-md text-white font-bold  ${matchDayInfo.results[index] === betInfo.prediction && matchDayInfo.results[index] !== "-" ? "bg-lime-600" : "bg-gray-700"} 
 																		 
 																		`}
                                             >

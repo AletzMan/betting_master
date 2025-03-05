@@ -59,10 +59,10 @@ export default function MainPage() {
                             <p className="text-center">¡No te quedes fuera!</p>
                         </Card>
                     }
-                    {myBets.hasBets && bets && bets.length > 0 && !myBets?.isNotBetsPaid && matches[0].status === "not started" &&
+                    {myBets.hasBets && bets && bets.length > 0 && !myBets?.isNotBetsPaid && matchDayInfo.results[0] === "-" &&
                         <ConfirmedParticipationMessage user={session.data?.user as UserSession} bets={bets} myBets={myBets} matchDayData={{ matchDay: matchDayInfo, matches: matches }} />
                     }
-                    {!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets && bets.length > 0 && matches[0]?.status !== "not started" && (
+                    {!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets && bets.length > 0 && matchDayInfo.results[0] !== "-" && (
                         <>
                             {matchDayInfo && matchDayInfo!.results?.length > 0 &&
                                 <>

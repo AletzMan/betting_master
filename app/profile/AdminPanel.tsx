@@ -146,29 +146,3 @@ export function AdminPanel() {
 	)
 }
 
-const GetFinishAndLiveMatches = (results: string[]): number[][] => {
-	let arrayIndex: number[][] = [[], []]
-	for (let index = 0; index < results.length; index++) {
-		if (results[index] !== "-" && results[index] !== "LV") {
-			arrayIndex[0].push(index)
-		} else if (results[index] === "LV") {
-			arrayIndex[1].push(index)
-		}
-	}
-	return arrayIndex
-}
-
-const UpdateStatusMatches = (matches: ICurrentMatch[], results: string[]) => {
-	const ArrayIndexModified = GetFinishAndLiveMatches(results)
-	let newMatches = [...matches]
-	matches.forEach((match, index) => {
-		if (ArrayIndexModified[0].includes(index)) {
-			newMatches[index].status = "Finalizado"
-		} else if (ArrayIndexModified[1].includes(index)) {
-			newMatches[index].status = "En juego"
-		} else {
-			newMatches[index].status = "Sin comenzar"
-		}
-	})
-	return newMatches
-}

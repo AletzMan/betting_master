@@ -5,6 +5,7 @@ import { prisma } from "@/lib/db";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ZodError } from "zod";
 import { MatchDayPatchSchema } from "@/validations/matchDayPatchSchema";
+import { MatchUpdateSchema } from "@/validations/matchUpdateSchema";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ matchid: string }> }) {
     try {
@@ -38,14 +39,15 @@ export async function DELETE(request: NextRequest, context: any) {
 
 }
 
-export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ matchid: string, id: string }> }) {
     try {
         const data = await request.json()
-        const updateMatch = await MatchDayPatchSchema.parseAsync(data)
-        const id = (await params).id
-
+        const updateMatch = await MatchUpdateSchema.parseAsync(data)
+        const matchid = (await params).matchid
+        const id = Number((await params).id)
         const response = await prisma?.match.update({
-            where: { id: id }, data: {
+            where: { id: matchid, AND: { matchDay: id } },
+            data: {
                 ...updateMatch
             }
         })
@@ -66,6 +68,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         if (error instanceof ZodError) {
             return UnprocessableEntityError(error.issues);
         }
+        console.log(error)
         return ServerError();
     }
 
