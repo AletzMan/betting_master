@@ -80,38 +80,16 @@ export function useDataBets() {
 		if (matchDayData.matches.length > 0 && matchDayData.matchDay.results[0] === "-") {
 			const intervalRemaining = setInterval(() => {
 				const time = TimeRemainig(matchDayData.matches[0].startDate as Date)
-				//const isTime = InTimeToBet(matches.matches[0]?.startDate)
-				const isTime = true
+				const isTime = InTimeToBet(matchDayData.matches[0]?.startDate as Date)
 				setIsInTime({ available: isTime, time: time })
 			}, 1000)
 
 			return () => clearInterval(intervalRemaining)
+		} else {
+			setIsInTime({ available: false, time: "-" })
 		}
 	}, [matchDayData])
 
-	/*const GetMatches = async () => {
-		const currentMonth = new Date().getMonth() + 1
-		const tournament = currentMonth < 7 ? "0168" : "0159"
-		const result = await GetCurrentMatchDay(tournament)
-
-		if (result === undefined) {
-			const emptyMatches: IMatchDay = {
-				day: 0,
-				matches: [],
-				tournament: "",
-				results: [],
-				isAvailable: false,
-				isFinishGame: false,
-			}
-			//setMatches(emptyMatches)
-			setIsInTime({ available: false, time: "" })
-		} else {
-			//setMatches(result)
-			const isTime = InTimeToBet(result.matches[0].startDate)
-			setIsInTime({ ...isInTime, available: isTime })
-		}
-		setLoading(false)
-	}*/
 
 	return {
 		loading,
@@ -120,6 +98,5 @@ export function useDataBets() {
 		bets,
 		myBets,
 		isInTime,
-		//setBets,
 	}
 }
