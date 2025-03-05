@@ -242,7 +242,7 @@ export const TimeRemainig = (dateFirstMatch: Date) => {
 	const timeRemainig = `${remainingHours.toString().padStart(2, "0")}:${remainingMinutes
 		.toString()
 		.padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`
-
+	console.log(timeRemainig)
 	return timeRemainig
 }
 

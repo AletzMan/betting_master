@@ -10,7 +10,7 @@ interface Props {
 
 export function HeaderPage({ isAvailable, setOpenDialog, timeFirstMatch }: Props) {
 
-
+	console.log(timeFirstMatch)
 	return (
 		<header className="grid grid-cols-[0.6fr_1fr_0.8fr] py-1 px-1 w-full">
 			{isAvailable &&
