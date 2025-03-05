@@ -26,7 +26,12 @@ export function HeaderMatches({ match, index, matchDayInfo }: PropsHeaderMatches
 					<span className="text-xs font-bold">{TeamsLogos.find(team => team.id.toString() === match.awayTeam)?.abbName}</span>
 					{React.cloneElement(TeamsLogos.find(team => team.id.toString() === match.awayTeam)?.logo as React.ReactElement, { className: "absolute -bottom-2 -right-2 w-7 h-7 object-fit" })}
 					{(matchDayInfo.results[index] !== "-" && matchDayInfo.results[index] !== "LV") && <i className="pi pi-check-circle absolute top-0.5 right-0.5 text-green-300" style={{ fontSize: "0.9em" }} />}
-					{matchDayInfo.results[index] === "LV" && <i className="pi pi-circle-fill absolute top-0.5 right-0.5 text-red-500 animate-ping" style={{ fontSize: "0.9em" }} />}
+					{matchDayInfo.results[index] === "LV" &&
+						<>
+							<i className="pi pi-circle-fill absolute top-[3px] right-[3px] text-red-500" style={{ fontSize: "0.7em" }} />
+							<i className="pi pi-circle-fill absolute top-0.5 right-0.5 text-red-500 animate-ping" style={{ fontSize: "0.9em" }} />
+						</>
+					}
 					{matchDayInfo.results[index] === "-" && <i className="pi pi-clock absolute top-0.5 right-0.5 text-yellow-300" style={{ fontSize: "0.9em" }} />}
 				</li>
 			}
