@@ -80,7 +80,7 @@ export function AdminPanel() {
 		matchDayStatus[type] = checked
 		setMatchDayData((prev) => ({ ...prev, matchDay: { ...matchDayStatus } }))
 	}
-
+	console.log(matchDayData)
 	return (
 		<>
 			{viewCreateBets && <DialogCreatBets setView={setViewCreateBets} />}
@@ -96,11 +96,11 @@ export function AdminPanel() {
 							<Divider type="dashed" />
 							<div className="flex flex-row gap-2.5 justify-around ">
 								<div className="flex gap-1.5 flex-col items-center">
-									<label className="text-sm">¿Jornada en Juego?</label>
+									<label className="text-sm">¿Jornada Finalizada?</label>
 									<ToggleButton className="min-w-15" checked={matchDayData.matchDay.isFinishGame} onChange={(e) => handleSetStatus(e.target.value, "isFinishGame")} onLabel="Si" offLabel="No" />
 								</div>
 								<div className="flex gap-1.5 flex-col items-center">
-									<label className="text-sm">¿Participación abierta?</label>
+									<label className="text-sm">¿Participación cerrada?</label>
 									<ToggleButton className="min-w-15" checked={matchDayData.matchDay.isAvailable} onChange={(e) => handleSetStatus(e.target.value, "isAvailable")} onLabel="Si" offLabel="No" />
 								</div>
 							</div>
