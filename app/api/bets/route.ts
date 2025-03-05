@@ -19,7 +19,6 @@ export async function GET(request: NextRequest) {
 
     const betsWithPredictions = await Promise.all(
         bets.map(async (bet) => {
-            console.log(bet.predictionIds)
             const predictions = await prisma.prediction.findMany({
                 where: {
                     id: {
@@ -27,7 +26,6 @@ export async function GET(request: NextRequest) {
                     },
                 },
             });
-            console.log(predictions)
             return {
                 ...bet,
                 predictions: predictions,
@@ -46,8 +44,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         const data = await request.json()
-        // 1. Validar los datos de la apuesta
-        console.log(data)
+        // 1. Validar los datos de la apuesta 
         const validatedBetData = BetSchema.parse(data);
 
         // 2. Crear las Predictions

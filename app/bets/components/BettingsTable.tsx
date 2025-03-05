@@ -21,7 +21,6 @@ export function BettingsTable({ filterBets, selectRanges, setSelectRanges, match
         setSelectRanges(null)
     }
 
-    console.log(filterBets)
 
     return (
 

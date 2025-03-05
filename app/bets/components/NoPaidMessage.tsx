@@ -1,5 +1,4 @@
 import { IBet, IUserInfo, UserSession } from "@/types/types"
-import { IMyBets } from "../page"
 import { ConvertToPrice } from "@/functions/functions"
 import { useEffect, useRef, useState } from "react"
 import { DeleteBet } from "@/config/firebase"
@@ -13,6 +12,7 @@ import { OverlayPanel } from "primereact/overlaypanel"
 import { Divider } from "primereact/divider"
 import { Dialog } from "primereact/dialog"
 import { TeamsLogosNews } from "@/constants/constants"
+import { IMyBets } from "./MainPage"
 
 interface Props {
     matchDayData: IMatchDayData
@@ -38,7 +38,6 @@ export const NoPaidMessage = ({ myBets, user, matchDayData }: Props) => {
         setBets({ betsPaid, betsNotPaid })
     }, [myBets])
 
-    console.log(bets)
 
     const handleDeleteBet = async (id: string, name: string) => {
         const responseDeleted = confirm(`¿Estas seguro de eliminar la quiniela? \n ${name}`)

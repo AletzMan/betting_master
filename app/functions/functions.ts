@@ -279,7 +279,7 @@ export const sortByHits = (
 				id: betsArray[index].id,
 				uid: betsArray[index].uid,
 				name: betsArray[index].name,
-				bets: betsArray[index].predictions,
+				predictions: betsArray[index].predictions,
 				hits,
 				day: betsArray[index].day,
 				season: betsArray[index].season,

@@ -2,23 +2,33 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { IBet, IBetDocument, IUserAndState } from "../types/types"
 import { useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { sortByHits } from "@/functions/functions";
 
 export function useSort(
 	bets: IBet[] | null,
+	results: string[]
 ) {
 	const searchParams = useSearchParams();
 	const [orderBets, setOrderBets] = useState<IBet[] | null>(bets)
-	const [user, setUser] = useState<string>("")
+	const session = useSession()
 
 	useEffect(() => {
 		if (bets)
 			setOrderBets(bets)
-	}, [bets])
+	}, [bets, searchParams])
 
 	useEffect(() => {
 		if (searchParams.has("sortBy")) {
 			const sortBy = searchParams.get("sortBy")
 			const order = searchParams.get("order")
+			if (sortBy === "normal") {
+				if (searchParams.has("order")) {
+					sortNormal(order === "asc" ? "desc" : "asc");
+				} else {
+					sortNormal("desc");
+				}
+			}
 			if (sortBy === "name") {
 				if (searchParams.has("order")) {
 					sortByName(order === "asc" ? "desc" : "asc");
@@ -26,8 +36,33 @@ export function useSort(
 					sortByName("desc");
 				}
 			}
+			if (sortBy === "myBets") {
+				if (searchParams.has("order")) {
+					filtertMyBets(order === "asc" ? "desc" : "asc");
+				} else {
+					filtertMyBets("desc");
+				}
+			}
+			if (sortBy === "hits") {
+				if (searchParams.has("order") && bets) {
+					const betsHits = sortByHits(order === "asc" ? "desc" : "asc", bets, results);
+
+					const newOrder = betsHits.map((bet, index) => {
+						return bets.find(betSearch => betSearch.id === bet.id)
+					})
+					setOrderBets(newOrder as IBet[]);
+				} else {
+					if (bets) {
+						const betsHits = sortByHits("desc", bets, results);
+						const newOrder = betsHits.map((bet, index) => {
+							return bets.find(betSearch => betSearch.id === bet.id)
+						})
+						setOrderBets(newOrder as IBet[]);
+					}
+				}
+			}
 		}
-	}, [searchParams])
+	}, [searchParams, bets])
 
 
 
@@ -41,38 +76,34 @@ export function useSort(
 				return order === "desc" ? comparison : -comparison;
 			});
 
-			console.log(newOrder);
 			setOrderBets(newOrder);
 		}
 	}
 
-	const sortNormal = () => {
+	const sortNormal = (order: "asc" | "desc") => {
 		if (bets) {
 			let newOrder = [...bets]
-			newOrder?.sort((a, b) => {
-				if (a.uid > b.uid) {
-					return -1
-				}
-				if (a.uid < b.uid) {
-					return 1
-				}
-				// a must be equal to b
-				return 0
-			})
+			newOrder.sort((a, b) => {
+				const comparison = a.userInfo.name.localeCompare(b.userInfo.name);
+				return order === "desc" ? comparison : -comparison;
+			});
 			setOrderBets(newOrder)
 		}
 	}
 
-	const filtertMyBets = () => {
+	const filtertMyBets = (order: "asc" | "desc") => {
 		if (bets) {
-			const newOrder = bets.filter((bet) => bet.uid === user)
-			setOrderBets(newOrder)
+			const newOrder = bets.filter((bet) => bet.uid === session.data?.user?.id)
+			const sort = newOrder.sort((a, b) => {
+				const comparison = a.name.localeCompare(b.name);
+				return order === "desc" ? comparison : -comparison;
+			});
+			setOrderBets(sort)
 		}
 	}
 
 	return {
 		orderBets,
 		setOrderBets,
-		setUser,
 	}
 }

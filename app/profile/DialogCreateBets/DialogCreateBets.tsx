@@ -86,7 +86,7 @@ export function DialogCreatBets({ setView }: Props) {
 				setMatchDay(1);
 			}
 		} catch (error) {
-			console.log(error)
+			console.error(error)
 			if (error instanceof AxiosError) {
 				const newErrors = {
 					matches: { isError: false, message: "" },

@@ -1,5 +1,4 @@
 import { IBet, UserSession } from "@/types/types"
-import { IMyBets } from "../page"
 import { useState } from "react"
 import { TeamsLogosNews } from "@/constants/constants"
 import { Dialog } from "primereact/dialog"
@@ -9,6 +8,7 @@ import { Tag } from "primereact/tag"
 import { Card } from "primereact/card"
 import { Divider } from "primereact/divider"
 import { Message } from "primereact/message"
+import { IMyBets } from "./MainPage"
 
 interface props {
     matchDayData: IMatchDayData | null

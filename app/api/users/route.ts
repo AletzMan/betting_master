@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
         return DefaultError("Error al crear el registro");
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
         if (error instanceof PrismaClientKnownRequestError) {
             if (error.code === "P2002") {
                 return ConflictError();

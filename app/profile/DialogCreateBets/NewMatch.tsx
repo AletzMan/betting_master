@@ -36,7 +36,7 @@ export function NewMatch({ viewNewBet, setViewNewBet, matchDay }: Props) {
 			if (error instanceof ZodError) {
 				enqueueSnackbar("Favor de llenar los campos requeridos", { variant: "error" })
 				const newErrors = { homeTeam: false, startDate: false, awayTeam: false }
-				console.log(error?.issues)
+				console.error(error?.issues)
 				error?.issues?.map(issue => {
 					if (issue.path[0] === "homeTeam" || issue.path[0] === "awayTeam" || issue.path[0] === "startDate")
 						newErrors[issue.path[0]] = true

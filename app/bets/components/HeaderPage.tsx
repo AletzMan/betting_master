@@ -3,27 +3,28 @@ import styles from "@/bets/bets.module.scss"
 import { Button } from "primereact/button"
 
 interface Props {
-	isInTime: boolean
+	isAvailable: boolean
 	setOpenDialog: Dispatch<SetStateAction<boolean>>
 	timeFirstMatch: string
 }
 
-export function HeaderPage({ isInTime, setOpenDialog, timeFirstMatch }: Props) {
+export function HeaderPage({ isAvailable, setOpenDialog, timeFirstMatch }: Props) {
 
 
 	return (
-		<header className="grid grid-cols-[0.6fr_1fr_0.8fr] py-1.5 px-1 w-full">
-			{isInTime &&
+		<header className="grid grid-cols-[0.6fr_1fr_0.8fr] py-1 px-1 w-full">
+			{isAvailable &&
 				<Button
 					label="Crear"
 					icon="pi pi-plus-circle"
 					size="small"
 					severity="success"
 					onClick={() => setOpenDialog(true)}
+					style={{ maxHeight: "2.2em" }}
 				/>
 			}
-			{!isInTime && <p className="col-span-2 col-start-1 w-max text-sm py-0.5 px-2 rounded-sm border-1 border-red-600 bg-red-950">Tiempo agotado para enviar</p>}
-			{isInTime &&
+			{!isAvailable && <p className="flex items-center justify-center col-span-2 col-start-1 w-max text-sm py-0.5 px-2 rounded-sm border-1 border-red-600 bg-red-950">Tiempo agotado para enviar</p>}
+			{isAvailable &&
 				<p className="col-span-1 col-start-2 flex flex-col text-center justify-center text-sm">
 					<span>{!timeFirstMatch.includes("-") ? "Se cierra en" : ""}</span>
 					{!timeFirstMatch.includes("-") && <span className="text-lime-500">{` ${(timeFirstMatch)}`}</span>}

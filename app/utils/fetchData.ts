@@ -29,7 +29,7 @@ export const getMatchDayInfo = async (): Promise<IMatchDay | null> => {
         }
         return matchDay[0]
     } catch (error) {
-        console.log(error)
+        console.error(error)
         return null
     }
 }
@@ -52,7 +52,7 @@ export const getMatchDayData = async (): Promise<IMatchDayData | null> => {
         }
         return { matchDay: matchDay[0], matches: matches }
     } catch (error) {
-        console.log(error)
+        console.error(error)
         return null
     }
 }
@@ -499,7 +499,7 @@ const arrayBets: IBet[] = [
         "day": "11",
         "name": "RitaCetina",
         "season": "Apertura 2029",
-        "paid": false,
+        "paid": true,
         "tournament": "Superliga Argentina",
         "userInfo": {
             "id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
@@ -569,7 +569,7 @@ const arrayBets: IBet[] = [
         "day": "4",
         "name": "CRSiente",
         "season": "Apertura 2029",
-        "paid": false,
+        "paid": true,
         "tournament": "Primeira Liga",
         "userInfo": {
             "id": "3e4f5a6b-7c8d-9e0f-1a2b-3c4d5e6f7a8b",

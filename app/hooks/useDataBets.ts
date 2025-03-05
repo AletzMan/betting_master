@@ -79,7 +79,6 @@ export function useDataBets() {
 	useEffect(() => {
 		if (matchDayData.matches.length > 0 && matchDayData.matches[0].status === "not started") {
 			const intervalRemaining = setInterval(() => {
-				console.log()
 				const time = TimeRemainig(matchDayData.matches[0].startDate as Date)
 				//const isTime = InTimeToBet(matches.matches[0]?.startDate)
 				const isTime = true
