@@ -43,21 +43,19 @@ export function ConfirmedParticipationMessage({ user, bets, myBets, matchDayData
                     <div className="flex flex-col justify-start gap-y-2 px-1 py-0.5">
                         {myBets.bets.map((bet, index) => (
                             <div key={bet.id} className="grid grid-cols-[1fr_4em] gap-2">
-                                <Tag className="w-full" severity="secondary" >{bet.name}</Tag>
-                                <Button className="w-full" onClick={() => setDialog({ open: true, bets: bet })} outlined raised severity="info" iconPos="right" size="small" icon="pi pi-eye" />
+                                <Tag className="w-full" severity="success" >{bet.name}</Tag>
+                                <Button className="w-full" onClick={() => setDialog({ open: true, bets: bet })} outlined raised severity="success" iconPos="right" size="small" icon="pi pi-eye" />
                             </div>
                         ))}
                     </div>
                     <p className="text-lg font-bold text-center text-lime-400">¡Suerte!</p >
                 </div>
-                {/*<p className={styles.section_textInfoTwo}>Monto acumulado: {ConvertToPrice(bets.length * 10.5)}</p>*/}
                 <Message severity="info" text="Ingresa a tu Perfil y agrega tu cuenta de deposito para recibir tu pago en caso de ganar" />
                 <a className="flex flex-row gap-2.5 items-center max-w-max self-center" href="/profile" target="_parent" rel="noopener noreferrer" >
                     <i className="pi pi-user" />
                     Ir a mi perfil
                 </a>
             </div>
-            {/*<p className={styles.section_textAccount}>Tambien puedes ver tus quinielas en tu perfil</p>*/}
             {dialog.open &&
                 <Dialog className="max-w-[calc(100svw-1em)]" visible={dialog.open} onHide={() => setDialog({ open: false, bets: {} as IBet })}>
                     <section className="flex flex-col gap-2.5">

@@ -43,7 +43,8 @@ export function BettingsTable({ filterBets, selectRanges, setSelectRanges, match
                                         >
                                             {(selectRanges?.column === index || selectRanges?.row === indexOne) && <span className="absolute w-[110%] h-[110%] bg-(--row-select-color) "></span>}
                                             <span
-                                                className={`flex items-center justify-center w-full h-full rounded-md text-white font-bold  ${matchDayInfo.results[index] === betInfo.prediction && matchDayInfo.results[index] !== "-" ? "bg-lime-600" : "bg-gray-700"} 
+                                                className={`flex items-center justify-center w-full h-full rounded-md text-white font-bold  
+                                                ${matchDayInfo.results[index] === betInfo.prediction && matchDayInfo.results[index] !== "-" ? "bg-lime-600 inset-shadow-lime-900/90 inset-shadow-sm" : "bg-gray-700 inset-shadow-gray-900/90 inset-shadow-sm"} 
 																		 
 																		`}
                                             >
