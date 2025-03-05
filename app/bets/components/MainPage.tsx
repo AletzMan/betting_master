@@ -31,8 +31,6 @@ export default function MainPage() {
     const [viewBets, setViewBets] = useState(false)
     const { matchDayInfo, matches, isInTime, bets, myBets, loading } = useDataBets()
     const [openDialog, setOpenDialog] = useState(false)
-    const [sending, setSending] = useState(false)
-    const [viewCreateBets, setViewCreateBets] = useState(false)
     const { orderBets } = useSort(bets, matchDayInfo.results);
 
     return (

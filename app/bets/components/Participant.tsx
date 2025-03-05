@@ -36,7 +36,7 @@ export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNa
                     onClick={() => HandleSelectRow(index, -1)}
                     onMouseLeave={HandleUnselectRow}
                 >
-                    {selectRanges?.row === index && <span className="absolute w-[120%] h-[110%] bg-[#ff00b320] "></span>}
+                    {selectRanges?.row === index && <span className="absolute w-[120%] h-[110%] bg-(--row-select-color)"></span>}
 
                     {/*<Avatar className="border-2 border-(--primary-color)" image={bet.userInfo.image} shape="circle" size="normal" />*/}
                     {<Image className="rounded-full border-2 border-(--primary-color) object-cover max-h-7" blurDataURL="/user-icon.png" src={bet.userInfo.image} width={28} height={28} alt={`Imagen de perfil de ${bet.userInfo.name}`} />}

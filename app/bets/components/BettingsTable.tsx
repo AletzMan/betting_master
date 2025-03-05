@@ -41,7 +41,7 @@ export function BettingsTable({ filterBets, selectRanges, setSelectRanges, match
                                             onClick={() => HandleSelectRow(indexOne, index)}
                                             onMouseLeave={HandleUnselectRow}
                                         >
-                                            {(selectRanges?.column === index || selectRanges?.row === indexOne) && <span className="absolute w-[110%] h-[110%] bg-[#ff00b320] "></span>}
+                                            {(selectRanges?.column === index || selectRanges?.row === indexOne) && <span className="absolute w-[110%] h-[110%] bg-(--row-select-color) "></span>}
                                             <span
                                                 className={`flex items-center justify-center w-full h-full rounded-md text-white font-bold  ${matchDayInfo.results[index] === betInfo.prediction && matchDayInfo.results[index] !== "-" ? "bg-lime-600" : "bg-gray-700"} 
 																		 

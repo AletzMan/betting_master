@@ -50,7 +50,7 @@ export function useDataBets() {
 		const matchDayData = await getMatchDayData();
 		if (matchDayData) {
 			setMatchDayData(matchDayData);
-			const isTime = InTimeToBet(matchDayData.matches[0].startDate as Date)
+			const isTime = InTimeToBet(matchDayData.matches[0].startDate)
 			setIsInTime({ ...isInTime, available: isTime })
 		}
 	}

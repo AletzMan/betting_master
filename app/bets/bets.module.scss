@@ -1,194 +1,93 @@
-.main {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    margin: 0 auto;
-    height: 100svh;
-    padding: 2.6em 0.5em 1em 0.5em;
-    width: 100%;
-    max-width: var(--max-width);
-    overflow: hidden;
-    box-sizing: border-box;
+ .options {
+     position: absolute;
+     display: flex;
+     align-items: center;
+     column-gap: 0.5em;
+     height: 2.5em;
+     padding: 0.9em 0.15em 0.9em 0.35em;
+     width: 100%;
+     opacity: 1;
 
-    @media (width < 700px) {
-        width: 100svw;
-        padding: 2.6em 0.5em 1em 0;
-    }
+     &_one {
+         animation: animateOptionsOne linear 4s infinite;
+         /* Reducimos la duración a 4 segundos */
 
-    &_landscape {
-        padding: 2.5em 0.5em 0.5em 0.5em;
+         @keyframes animateOptionsOne {
+             0% {
+                 transform: translateY(100%);
+                 /* Posición inicial */
+             }
 
-    }
+             50% {
+                 transform: translateY(-80%);
+                 /* Se desliza completamente hacia arriba */
+             }
 
-    &_table {
-        position: relative;
-        display: grid;
-        grid-template-columns: 13em 1fr;
-        width: 100%;
-        padding: 0 0 0.25em 0;
-        max-width: max-content;
-        border: 1px solid transparent;
-        border-radius: var(--borderRadius);
-        transition: all 0.3s ease-in-out;
+             50.01%,
+             100% {
+                 transform: translateY(80%);
+                 /* Se reposiciona debajo del contenedor */
+             }
+         }
+     }
 
-        &Hidden {
-            grid-template-columns: 2em 1fr;
-        }
+     &_two {
+         animation: animateOptionsTwo linear 4s infinite;
+         /* Reducimos la duración a 4 segundos */
 
-    }
+         @keyframes animateOptionsTwo {
 
-}
+             0%,
+             50% {
+                 transform: translateY(80%);
+                 /* Inicialmente debajo del contenedor */
+             }
 
+             50.01% {
+                 transform: translateY(100%);
+                 /* Se desliza desde abajo */
+             }
 
+             100% {
+                 transform: translateY(-80%);
+                 /* Se desliza completamente hacia arriba */
+             }
+         }
+     }
 
-.headerTable {
-    position: sticky;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.25em;
-    //overflow: hidden;
-    z-index: 3;
-    background-color: var(--background-text);
-
-
-}
-
-.empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    row-gap: 0.5em;
-    padding: 1em 2em;
-    margin: 1em 0 0 0;
-    border-radius: var(--borderRadius);
-    color: var(--foregroundColor);
-    background-color: var(--hover-link);
-
-    &_bets {
-        text-wrap: balance;
-        font-size: 1.1em;
-    }
-
-    &_text {
-        font-size: 0.85em;
-        font-weight: 300;
-        text-align: center;
-        color: var(--foregroundColor);
-    }
-}
-
-.nomatches {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1em;
-    background-color: var(--borderTwoColor);
-    border-radius: var(--borderRadius);
-    padding: 0.5em 1em;
-    margin: 2em 0 0 0;
-
-    &_icon {
-        width: 5em;
-        height: 5em;
-        color: #ac0000;
-    }
-}
+ }
 
 
-.options {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    column-gap: 0.5em;
-    height: 2.5em;
-    padding: 0.9em 0.15em 0.9em 0.35em;
-    width: 100%;
-    opacity: 1;
+ .prediction_Letter {
+     position: absolute;
+     font-size: 1.3em;
+     font-weight: 700;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     width: 100%;
+     height: 100%;
+     background-color: var(--cyan-500);
+     z-index: 1;
+     opacity: 0;
+     border-radius: 0.1em;
+     animation: animationLetter 0.45s both ease-in-out;
 
-    &_one {
-        animation: animateOptionsOne linear 4s infinite;
-        /* Reducimos la duración a 4 segundos */
+     @keyframes animationLetter {
+         0% {
+             opacity: 0;
+             transform: scale(1);
+         }
 
-        @keyframes animateOptionsOne {
-            0% {
-                transform: translateY(100%);
-                /* Posición inicial */
-            }
+         60% {
+             opacity: 1;
+             transform: scale(1.1);
+         }
 
-            50% {
-                transform: translateY(-80%);
-                /* Se desliza completamente hacia arriba */
-            }
+         100% {
+             opacity: 1;
+             transform: scale(1);
+         }
+     }
 
-            50.01%,
-            100% {
-                transform: translateY(80%);
-                /* Se reposiciona debajo del contenedor */
-            }
-        }
-    }
-
-    &_two {
-        animation: animateOptionsTwo linear 4s infinite;
-        /* Reducimos la duración a 4 segundos */
-
-        @keyframes animateOptionsTwo {
-
-            0%,
-            50% {
-                transform: translateY(80%);
-                /* Inicialmente debajo del contenedor */
-            }
-
-            50.01% {
-                transform: translateY(100%);
-                /* Se desliza desde abajo */
-            }
-
-            100% {
-                transform: translateY(-80%);
-                /* Se desliza completamente hacia arriba */
-            }
-        }
-    }
-
-}
-
-
-.prediction_Letter {
-    position: absolute;
-    font-size: 1.3em;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background-color: var(--cyan-500);
-    z-index: 1;
-    opacity: 0;
-    border-radius: 0.1em;
-    animation: animationLetter 0.45s both ease-in-out;
-
-    @keyframes animationLetter {
-        0% {
-            opacity: 0;
-            transform: scale(1);
-        }
-
-        60% {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-}
+ }

@@ -1,3 +1,4 @@
+import { Nullable } from "primereact/ts-helpers"
 import { TeamsLogos, TeamsNames } from "../constants/constants"
 import { GetResults } from "../services/fetch_utils"
 import { StatsTeam, StatsTeam2 } from "../types/DetailsMatch"
@@ -215,18 +216,22 @@ export const GetMatchesOfTheDay = async () => {
 
 
 
-export const InTimeToBet = (dateFirstMatch: Date) => {
-	const dateMatch = new Date(dateFirstMatch).getTime()
+export const InTimeToBet = (dateFirstMatch: Nullable<Date>) => {
+	if (dateFirstMatch) {
 
-	const today = new Date().getTime()
-	const timeOut = dateMatch - today
-	const remainingHours = timeOut / 1000 / 60 / 60
+		const dateMatch = new Date(dateFirstMatch).getTime()
 
-	if (remainingHours > 0) {
-		return true
-	} else {
-		return false
+		const today = new Date().getTime()
+		const timeOut = dateMatch - today
+		const remainingHours = timeOut / 1000 / 60 / 60
+
+		if (remainingHours > 0) {
+			return true
+		} else {
+			return false
+		}
 	}
+	return false
 }
 
 export const TimeRemainig = (dateFirstMatch: Date) => {
