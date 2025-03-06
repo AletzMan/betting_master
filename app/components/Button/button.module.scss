@@ -9,11 +9,11 @@
     min-width: 6em;
     width: max-content;
     column-gap: 0.5em;
-    border-radius: var(--borderRadius);
-    color: var(--tertiaryColor);
-    background-color: var(--primaryColor);
+    border-radius: var(--border-radius-md);
+    color: var(--text-color);
+    background-color: var(--primary-color);
     transition: all 0.3s ease-in-out;
-    font-family: var(--font-montserrat);
+    font-family: var(--font-jost);
     cursor: pointer;
 
     &>svg {
@@ -26,11 +26,11 @@
     }
 
     &_secondary {
-        color: var(--secondaryColor);
-        background-color: var(--foregroundSecondColor);
+        color: var(--text-color);
+        background-color: var(--surface-e);
 
         &:hover {
-            background-color: var(--foregroundColor);
+            background-color: var(--surface-100);
         }
     }
 
@@ -42,7 +42,7 @@
     }
 
     &_error {
-        color: var(--foregroundColor);
+        color: var(--text-color);
         background-color: #bc0505;
 
         &:hover {
@@ -51,7 +51,7 @@
     }
 
     &_success {
-        color: var(--foregroundColor);
+        color: var(--text-color);
         background-color: #078f17;
 
         &:hover {

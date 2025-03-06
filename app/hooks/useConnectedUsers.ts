@@ -4,9 +4,10 @@ import { GetDataRealDataTime, UpdatedRealDataTime, database } from "../config/fi
 import { useUser } from "../config/zustand-store"
 import { IFinalsParticipants } from "../types/types"
 import { onChildChanged, onValue, ref } from "firebase/database"
+import { useSession } from "next-auth/react"
 
 export function useConnectedUsers() {
-    const { user } = useUser()
+    const session = useSession()
     const [participants, setParticipants] = useState<IFinalsParticipants[]>([])
     const [participantsOnline, setParticipantsOnline] = useState<{ [key: string]: string }>({})
 
@@ -63,14 +64,14 @@ export function useConnectedUsers() {
     const StatusUserConnection = async (status: 'IN' | 'OUT') => {
         const response = await GetDataRealDataTime("participants_connected")
         if (!response) {
-            await UpdatedRealDataTime({ [`${user.uid}`]: user.uid }, `participants_connected/`)
+            await UpdatedRealDataTime({ [`${session.data?.user?.id}`]: session.data?.user?.id }, `participants_connected/`)
         } else if (status === 'IN') {
             const usersConnected: string[] = Object.values(response)
-            if (!usersConnected.includes(user.uid)) {
-                await UpdatedRealDataTime({ [`${user.uid}`]: user.uid }, `participants_connected/`)
+            if (!usersConnected.includes(session.data?.user?.id as string)) {
+                await UpdatedRealDataTime({ [`${session.data?.user?.id}`]: session.data?.user?.id }, `participants_connected/`)
             }
         } else if (status === 'OUT') {
-            await UpdatedRealDataTime({ [`${user.uid}`]: null }, `participants_connected/`)
+            await UpdatedRealDataTime({ [`${session.data?.user?.id}`]: null }, `participants_connected/`)
         }
     }
 

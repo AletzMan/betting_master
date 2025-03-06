@@ -1,27 +1,22 @@
 "use client"
 import { useEffect, useState } from "react"
 import { AddFinalParticipant, GetFinalParticipants, GetFinalistTeams } from "../config/firebase"
-import { useOrientation } from "../hooks/useOrientation"
-import { IFinalsParticipants, IUser, IUserInfo } from "../types/types"
+import { IFinalsParticipants } from "../types/types"
 import QuarterFinals from "./components/Quarterfinals"
 import { enqueueSnackbar } from "notistack"
-import styles from "./finales.module.scss"
-import axios from "axios"
-import { LoadingTwoIcon, LuckIcon } from "../svg"
 import Participant from "./components/Participant/Participant"
 import Finals from "./components/Finals/Finals"
 import { Loading } from "../components/Loading/Loading"
 import { UsernameColors } from "../constants/constants"
 import { useSession } from "next-auth/react"
 import { Button } from "primereact/button"
+import { Message } from "primereact/message"
 
 export default function Page() {
     const session = useSession()
-    const { isLandscape } = useOrientation()
     const [loading, setLoading] = useState(false)
     const [loadingPage, setLoadingPage] = useState(true)
     const [participants, setParticipants] = useState<IFinalsParticipants[]>()
-    //const [userLogin, setUserLogin] = useState<IUserInfo>()
     const [isParticipating, setIsParticipating] = useState(false)
     const [qualifiedTeams, setQualifiedTeams] = useState<string[]>([])
 
@@ -29,8 +24,7 @@ export default function Page() {
     useEffect(() => {
         GetQualifiedTeams()
         GetParticipants()
-        //GetUserLogin()
-    }, [loading])
+    }, [loading, session])
 
     useEffect(() => {
         if (session.status === "authenticated") {
@@ -62,23 +56,13 @@ export default function Page() {
 
 
 
-    const GetUserLogin = async (): Promise<IUserInfo | null> => {
-        const response = await axios.get("/api/login")
-        if (response.status === 200) {
-            const userInfo = response.data.userInfo as IUserInfo
-            //setUserLogin(userInfo)
-            return userInfo
-        }
-        return null
-    }
 
 
     async function HandleAddParticipant() {
-        //const userInfo = await GetUserLogin()
-        if (session) {
+        if (session && session.data?.user) {
             setLoading(true)
             const newParticipant: IFinalsParticipants = {
-                id: session.data?.user!.id as string,
+                id: session.data?.user.id as string,
                 team: "",
                 position_team: 0,
                 progress_stage: ["quarter"],
@@ -100,26 +84,28 @@ export default function Page() {
             }
         }
     }
-
+    console.log(isParticipating, qualifiedTeams, participants, loadingPage, session)
     return (
         <main className="flex flex-col items-center justify-start my-0 mx-auto h-svh pt-[2.85em] px-2 pb-4 w-[calc(100svw-1em)] max-w-4xl overflow-hidden">
+
             {!loadingPage && <>
                 {isParticipating && qualifiedTeams.length === 8 &&
                     <>
                         {participants && participants?.length <= 8 && participants.some(participant => participant.team === "") ?
                             <>
                                 <QuarterFinals qualifiedTeams={qualifiedTeams} />
-                                <div className={styles.participants}>
-                                    <h3 className={styles.participants_title}>Participantes</h3>
-                                    <div className={styles.participants_container}>
+                                <div className="flex flex-col gap-4 w-full">
+                                    <h3 className="text-lime-400 w-full text-center">Participantes</h3>
+                                    <div className="grid grid-cols-2 gap-1.5 justify-start items-start w-full ">
                                         {participants?.map(participant => (
                                             <Participant key={participant.id} participant={participant} />
                                         ))}
                                     </div>
                                 </div>
-                                <p className="text-lg">¡Participantes completos! El sorteo comienza pronto.</p>
+                                {participants?.length === 8 && <p className="text-lg text-balance text-center">¡Participantes completos! El sorteo comienza pronto.</p>}
                             </> :
                             <>
+                                sdsdsds
                                 {participants && <Finals participants={participants} />}
                             </>
 
@@ -149,8 +135,8 @@ export default function Page() {
                                 </div>}
                             {participants && participants?.length < 8 && <Button onClick={HandleAddParticipant} disabled={loading} label={loading ? "Cargando" : "Quiero participar"} severity="success" size="small" icon="pi pi-sparkles" />}
                         </>
-                        : <div>
-                            {participants && participants?.length < 8 && <p className="text-lg">¡Tu participación ha sido registrada! El sorteo se llevará a cabo una vez que se completen los 8 participantes.</p>}
+                        : <div className="mt-8">
+                            {participants && participants?.length < 8 && <Message className="text-lg" text="¡Tu participación ha sido registrada! El sorteo se llevará a cabo una vez que se completen los 8 participantes." />}
                         </div>
                     }
                 </>

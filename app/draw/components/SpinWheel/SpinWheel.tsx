@@ -138,7 +138,7 @@ export default function SpinWheel() {
         const updateParticipatns = await GetParticipants()
         if (session!.data!.user!.id === ADMIN_ID) {
             try {
-                const uidParticipants = updateParticipatns.map(participant => participant.user_info.uid)
+                const uidParticipants = updateParticipatns.map(participant => participant.user_info.id)
                 const newOrder = ShuffleArray(uidParticipants)
                 const response = await GetDataRealDataTime("has_started")
                 const responseRoulette = await GetDataRealDataTime("roulette")
@@ -164,7 +164,7 @@ export default function SpinWheel() {
         await WriteMustSpin(false, "countdown")
         await WriteMustSpin(false, "has_started")
         await WriteMustSpin(false, "has_finished")
-        const uidParticipants = updateParticipatns.map(participant => participant.user_info.uid)
+        const uidParticipants = updateParticipatns.map(participant => participant.user_info.id)
         const newOrder = ShuffleArray(uidParticipants)
         await UpdatedRealDataTime({ current_team: "", missing_participants: newOrder, missing_teams: updateTeams.teams, current_participant: newOrder[0], must_spin: false, prizeNumber: 0 }, "roulette")
     }
@@ -285,7 +285,7 @@ export default function SpinWheel() {
                     </div>
                     <section className={styles.participants}>
                         <span className={styles.participants_title}>Es el turno de:</span>
-                        <span className={styles.participants_name}>{`${participants.find(participant => participant.user_info.uid === statusDraw.current_participant)?.user_info.name}`}</span>
+                        <span className={styles.participants_name}>{`${participants.find(participant => participant.user_info.id === statusDraw.current_participant)?.user_info.name}`}</span>
                         {statusDraw.current_team && <span className={styles.participants_team}>{statusDraw.current_team}</span>}
                     </section>
                 </aside>

@@ -356,7 +356,7 @@ export const AddFinalParticipant = async (data: IFinalsParticipants) => {
 	const year = new Date().getFullYear()
 
 	try {
-		const docRef = await setDoc(doc(db, `finalsparticipants`, `${data.user_info.uid}`), data)
+		const docRef = await setDoc(doc(db, `finalsparticipants`, `${data.user_info.id}`), data)
 		return "OK"
 	} catch (e) {
 		console.error("Error adding document: ", e)

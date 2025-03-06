@@ -1,14 +1,5 @@
 .header {
-    display: flex;
-    flex-direction: row;
-    padding: 0.25em 0 0.5em 0.5em;
-    gap: 2em;
 
-    &_users {
-        display: flex;
-        flex-direction: row;
-        gap: 0.5em;
-    }
 
     &_picture {
         position: relative;
@@ -52,7 +43,7 @@
                 font-size: 0.8em;
                 padding: 0.1em 0.3em;
                 color: rgb(1, 9, 16);
-                background-color: var(--foregroundSecondColor);
+                background-color: var(--text-color);
                 border-radius: 0.25em;
                 animation: animOnline 2s ease-in-out both;
                 z-index: 15;
@@ -92,7 +83,7 @@
         max-width: 2em;
         max-height: 2em;
         border-radius: 3em;
-        border: 1px solid var(--foregroundSecondColor);
+        border: 2px solid var(--surface-600);
         transition: all 0.3s ease-in-out;
     }
 

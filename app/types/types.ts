@@ -354,7 +354,7 @@ export interface IFinalsParticipants {
 	position_team: number
 	progress_stage: IStage[]
 	team: string
-	user_info: IUserInfo
+	user_info: IUser
 }
 
 
@@ -376,7 +376,6 @@ export interface IUser {
 
 export interface UserSession {
 	id: string;
-	uid: string;
 	name: string;
 	email: string;
 	image: string;

@@ -6,12 +6,12 @@
     grid-template-rows: 1fr 2.5em;
     gap: 0.5em;
     padding: 0.25em;
-    border: 1px solid var(--borderColor);
-    border-radius: var(--borderRadius);
+    border: 1px solid var(--surface-c);
+    border-radius: var(--border-radius-md);
     z-index: 6;
     width: calc(100svw - 1em);
     transition: all 0.4s ease-in-out;
-    background-color: var(--secondaryColor);
+    background-color: var(--surface-b);
 
 
     &_inactive {
@@ -29,10 +29,10 @@
         gap: 0.5em;
         padding: 0.5em 0.75em;
         border-radius: 0.25em 0.25em 0 0;
-        border: 1px dashed var(--borderColor);
+        border: 1px dashed var(--surface-d);
         background-color: #090909;
         opacity: 0.8;
-        background-image: radial-gradient(#252525 0.45px, #090909 0.45px);
+        background-image: radial-gradient(var(--surface-100) 0.45px, var(--surface-0) 0.45px);
         background-size: 9px 9px;
     }
 }
@@ -47,7 +47,7 @@
     padding: 0;
     border: none;
     border-radius: 3em;
-    background-color: var(--secondaryColor);
+    background-color: var(--surface-e);
 
     &_inactive {
         transform: translateY(50svh);
@@ -61,7 +61,7 @@
         width: 3em;
         height: 3em;
         transform: scaleX(-1);
-        color: var(--primaryColor);
+        color: var(--primary-color);
     }
 
     &_count {
@@ -109,16 +109,16 @@
     max-width: 90%;
     gap: 0.15em;
     align-self: flex-start;
-    background-color: var(--fourthColor);
+    background-color: var(--surface-d);
 
     &_name {
         font-size: 0.7em;
-        color: var(--primaryColor);
+        color: var(--primary-color);
     }
 
     &_message {
         font-size: 0.8em;
-        color: var(--foregroundColor);
+        color: var(--surface-900);
     }
 
     &_local {
@@ -140,7 +140,6 @@
 
         &>.user_name {
             text-align: end;
-            color: var(--foregroundSecondColor);
         }
     }
 
@@ -155,7 +154,7 @@
             border-style: solid;
             border-width: 9px 10px 0 0;
             transform: rotate(90deg);
-            border-color: var(--fourthColor) transparent transparent transparent;
+            border-color: var(--surface-d) transparent transparent transparent;
         }
 
     }

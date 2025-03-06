@@ -4,9 +4,9 @@
     position: relative;
     height: 100%;
     width: 100%;
-    border: 1px solid var(--borderColor);
-    border-radius: var(--borderRadius);
-    background-color: var(--secondaryColor);
+    border: 1px solid var(--surface-d);
+    border-radius: var(--border-radius-md);
+    background-color: var(--surface-b);
 
     &_footer {
         display: flex;
@@ -78,7 +78,7 @@
         padding: 0.15em 0.5em;
         max-width: 10em;
         text-align: center;
-        color: var(--foregorunddColor);
+        color: var(--text-color);
         font-weight: 500;
         border: 1px dashed #dddddd55;
         border-radius: 0.1em;
@@ -90,7 +90,7 @@
         height: 60svw;
         max-width: 25em;
         max-height: 25em;
-        background-color: var(--secondaryColor);
+        background-color: var(--primary-color);
         border-radius: 100%;
         box-shadow: 0 0 2px 1px #FFFFFF40 inset;
     }
@@ -103,15 +103,15 @@
     grid-template-rows: 0.8em 1.5em 3em;
     place-items: center center;
     gap: 0.25em;
-    background-color: #101010;
-    border: 1px solid var(--borderTwoColor);
+    background-color: var(--surface-a);
+    border: 1px solid var(--surface-c);
     width: 100%;
     padding: 0.25em;
 
     &_name {
         width: 6em;
         font-size: 1em;
-        color: var(--primaryColor);
+        color: var(--primary-color);
         text-align: center;
         width: 100%;
     }
@@ -121,10 +121,10 @@
         font-weight: 600;
         opacity: 1;
         padding: 0.15em 0.5em;
-        color: var(--foregroundColor);
-        border-radius: var(--borderRadius);
+        color: var(--text-color);
+        border-radius: var(--border-radius-md);
         background: linear-gradient(-15deg, #544b01, #998a02, #544b01);
-        border: 1px dashed var(--borderColor);
+        border: 1px dashed var(--surface-d);
         animation: apperInitial 0.5s ease-in-out both;
         text-shadow: 0 0 3px #101010;
 

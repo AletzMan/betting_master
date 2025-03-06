@@ -1,24 +1,24 @@
 .input {
-    background-color: var(--secondaryColor);
-    border: 1px solid var(--borderColor);
+    background-color: var(--surface-a);
+    border: 1px solid var(--surface-d);
     font-size: 1em;
     padding: 0.5em 0.75em;
-    border-radius: var(--borderRadius);
-    color: var(--foregroundColor);
+    border-radius: var(--border-radius);
+    color: var(--text-color);
     font-family: var(--font-family);
     width: 100%;
-    accent-color: var(--primaryColor);
+    accent-color: var(--primary-color);
 
     &::placeholder {
-        color: var(--borderColor);
+        color: var(--surface-400);
     }
 
     &:checked {
-        accent-color: var(--primaryColor);
+        accent-color: var(--primary-color);
     }
 
     &:focus {
-        outline: 1px solid var(--primaryColor);
+        outline: 1px solid var(--primary-color);
     }
 
 }
