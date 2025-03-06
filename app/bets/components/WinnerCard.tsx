@@ -1,10 +1,10 @@
 import Image from "next/image"
-import { UserSession } from "@/types/types"
+import { IUser, UserSession } from "@/types/types"
 import { TeamsLogos } from "@/constants/constants"
 import { useEffect, useState } from "react"
 
 interface Props {
-    participant: UserSession
+    participant: UserSession | IUser
     name_bet?: string
     name_team?: string
 }

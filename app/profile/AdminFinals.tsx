@@ -44,7 +44,7 @@ export default function AdminFinals() {
             await WriteMustSpin(false, "has_finished")
             await WriteMustSpin(false, "has_started")
             await WriteMustSpin(false, "countdown")
-            const response = await UpdateFinalParticipants(data.partcipants[index].user_info.uid, { team: "", progress_stage: ['quarter'], position_team: 0 })
+            const response = await UpdateFinalParticipants(data.partcipants[index].user_info.id, { team: "", progress_stage: ['quarter'], position_team: 0 })
             if (response === "FAIL") {
                 enqueueSnackbar("No se pudo restablecer los datos, intente mas tarde", { variant: "error" })
                 break
@@ -212,7 +212,7 @@ export default function AdminFinals() {
 
     const HandleSaveStage = async () => {
         for (let index = 0; index < data.position_stages.length; index++) {
-            const response = await UpdateFinalParticipants(data.partcipants[index].user_info.uid, { progress_stage: data.position_stages[index] })
+            const response = await UpdateFinalParticipants(data.partcipants[index].user_info.id, { progress_stage: data.position_stages[index] })
             if (response === "OK") {
                 enqueueSnackbar("Equipos finalistas guardados", { variant: "success" })
             } else {
@@ -246,13 +246,13 @@ export default function AdminFinals() {
                 </div>
                 <div className="flex flex-col gap-1.5 h-full">
                     {data.partcipants.map(participant => (
-                        <div key={participant.user_info.uid} className="h-10.5 flex items-center justify-center relative" >
+                        <div key={participant.user_info?.id} className="h-10.5 flex items-center justify-center relative" >
                             <button className={styles.participants_button}>
                                 <ViewIcon className={styles.participants_icon} />
                             </button>
                             <div className={styles.participants_user} >
                                 <span className={styles.participants_name}>{participant.user_info.name?.split(" ")[0]}</span>
-                                <img className={styles.participants_photo} src={participant.user_info.photo || "/user_photo.png"} alt={`Foto de perfil de ${participant.user_info.name}`} />
+                                <img className={styles.participants_photo} src={participant.user_info.image || "/user_photo.png"} alt={`Foto de perfil de ${participant.user_info.name}`} />
                             </div>
                         </div>
                     ))}
