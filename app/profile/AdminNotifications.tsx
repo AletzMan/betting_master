@@ -60,8 +60,8 @@ export function AdminNotifications() {
         }
     }
 
-    const HandleDeleteUser = async (uid: string) => {
-        const responseDelete = confirm("Desea eliminar al usuario")
+    const HandleDeleteUser = async (uid: string, name: string) => {
+        const responseDelete = confirm(`Desea eliminar al usuario: \n${name}`)
         if (responseDelete) {
             const response = await DeleteUser(uid)
             if (response === "OK") {
@@ -118,7 +118,7 @@ export function AdminNotifications() {
                             <div className={styles.users_options}>
                                 <button className={styles.users_mail} onClick={() => HandleUpdateNotification(user.id, user.notifications || false)}><NotificationIcon className={`${styles.users_iconNoti} ${user.notifications && styles.users_iconNotiActive}`} /></button>
                                 <button className={styles.users_mail} > <EmailIcon className={styles.users_iconEmail} /></button>
-                                <button className={styles.users_delete} onClick={() => HandleDeleteUser(user.id)}><DeleteIcon className={styles.users_iconDelete} /></button>
+                                <button className={styles.users_delete} onClick={() => HandleDeleteUser(user.id, user.name)}><DeleteIcon className={styles.users_iconDelete} /></button>
                             </div>
                         </article>
                     ))}

@@ -2,7 +2,7 @@
 
 :root {
 	--max-width: 850px;
-	--borderRadius: 12px;
+	--border-radius-md: 8px;
 	--font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono",
 		"Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono",
 		"Courier New", monospace;
