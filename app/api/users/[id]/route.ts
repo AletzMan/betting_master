@@ -4,6 +4,7 @@ import { ConflictError, NotFoundError, ServerError, UnprocessableEntityError } f
 import { UserSchema } from "@/validations/userSchema";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ZodError } from "zod";
+import { UserUpdateSchema } from "@/validations/userUpdateSchema";
 
 export async function GET(request: NextRequest, context: any) {
     try {
@@ -44,7 +45,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     try {
         const id = (await params).id
         const data = await request.json()
-        const newUser = await UserSchema.parseAsync(data)
+        const newUser = await UserUpdateSchema.parseAsync(data)
 
         const response = await prisma?.user.update({
             where: { id: id }, data: {
