@@ -131,7 +131,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 	}
 
 	return (
-		<Dialog className="w-[calc(100svw-1em)] max-w-150" onHide={() => setOpen(false)} visible={open}>
+		<Dialog className="w-[calc(100svw-1em)] max-w-150" onHide={() => setOpen(false)} visible={open} style={{ minHeight: "90svh" }}>
 			<div className="flex justify-between w-full py-1.5 z-10">
 				{myBets.hasBets &&
 					<>

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { DeleteBet } from "@/config/firebase"
 import { useSnackbar } from "notistack"
 import { IPreviewDialog } from "./ConfirmedParticipationMessage"
-import { IMatchDayData } from "@/utils/fetchData"
+import { IMatchDayData, RevalidatePath, deleteBetByID } from "@/utils/fetchData"
 import { Card } from "primereact/card"
 import { Tag } from "primereact/tag"
 import { Button } from "primereact/button"
@@ -13,6 +13,7 @@ import { Divider } from "primereact/divider"
 import { Dialog } from "primereact/dialog"
 import { TeamsLogosNews } from "@/constants/constants"
 import { IMyBets } from "./MainPage"
+import { useUpdateBets } from "@/config/zustand-store"
 
 interface Props {
     matchDayData: IMatchDayData
@@ -31,6 +32,7 @@ export const NoPaidMessage = ({ myBets, user, matchDayData }: Props) => {
     const [dialog, setDialog] = useState<IPreviewDialog>({ open: false, bets: {} as IBet })
     const opAccountInfo = useRef<OverlayPanel | null>(null);
     const opAccountBets = useRef<OverlayPanel | null>(null);
+    const setUpdateBets = useUpdateBets((state) => state.setUpdateBets)
 
     useEffect(() => {
         const betsPaid = myBets.bets.filter(bet => bet.paid)
@@ -40,13 +42,17 @@ export const NoPaidMessage = ({ myBets, user, matchDayData }: Props) => {
 
 
     const handleDeleteBet = async (id: string, name: string) => {
-        const responseDeleted = confirm(`¿Estas seguro de eliminar la quiniela? \n ${name}`)
-        if (responseDeleted) {
-            const response = await DeleteBet(id)
-            if (response === "OK") {
-                enqueueSnackbar("Quiniela eliminada", { variant: "success" })
-                location.reload()
-            }
+        const deleted = confirm(`¿Estás seguro de eliminar esta quiniela? \n ${name}`)
+        if (!deleted) return
+        const response = await deleteBetByID(id)
+        console.log(response)
+        if (response) {
+            setUpdateBets(true)
+            enqueueSnackbar("Quiniela eliminida exitosamente", { variant: "success" })
+            RevalidatePath("bets")
+            setTimeout(() => {
+                setUpdateBets(false)
+            }, 100);
         }
     }
 
