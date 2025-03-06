@@ -47,11 +47,10 @@ export default function Page() {
         const data = await GetFinalParticipants()
         if (data.length > 0) {
             setParticipants(data)
-            setLoadingPage(false)
         } else {
             setParticipants([])
-            setLoadingPage(false)
         }
+        setLoadingPage(false)
     }
 
 
@@ -84,11 +83,10 @@ export default function Page() {
             }
         }
     }
-    console.log(isParticipating, qualifiedTeams, participants, loadingPage, session)
+
     return (
         <main className="flex flex-col items-center justify-start my-0 mx-auto h-svh pt-[2.85em] px-2 pb-4 w-[calc(100svw-1em)] max-w-4xl overflow-hidden">
-
-            {!loadingPage && <>
+            {!loadingPage && session.status === "authenticated" && <>
                 {isParticipating && qualifiedTeams.length === 8 &&
                     <>
                         {participants && participants?.length <= 8 && participants.some(participant => participant.team === "") ?
@@ -107,13 +105,10 @@ export default function Page() {
                             <>
                                 {participants && <Finals participants={participants} />}
                             </>
-
-
                         }
                     </>
                 }
                 {qualifiedTeams.length === 8 && <>
-
                     {!isParticipating ?
                         <>
                             <QuarterFinals qualifiedTeams={qualifiedTeams} />
@@ -145,7 +140,7 @@ export default function Page() {
                 }
             </>
             }
-            {loadingPage && <Loading height="12em" />}
+            {loadingPage && session.status === "loading" && <Loading height="12em" />}
         </main>
     )
 }

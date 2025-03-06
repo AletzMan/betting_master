@@ -1,5 +1,4 @@
 import { IFinalsParticipants } from "@/types/types"
-import styles from "./finals.module.scss"
 import Quarters from "./Quarters"
 import Semis from "./Semis"
 import { Final } from "./Final"
@@ -23,7 +22,7 @@ export default function Finals({ participants }: Props) {
 
     return (
 
-        <div className={`${styles.finals} scrollbar`}>
+        <div className={`relative flex flex-col gap-3 w-full pt-3 scrollbar`}>
             {winner.length === 1 &&
                 <>
                     <Fireworks style={{
@@ -36,14 +35,12 @@ export default function Finals({ participants }: Props) {
                         zIndex: 15,
                         pointerEvents: "none"
                     }} />
-
-                    {<h3 className={styles.winners_title}>GANADOR</h3>}
-                    {<section className={styles.winners}>
+                    {<section className="flex flex-wrap flex-row justify-center gap-3 p-2">
                         <WinnerCard participant={winner[0].user_info} name_team={winner[0].team} />
                     </section>}
                 </>
             }
-            <Accordion activeIndex={(filterQuarters.length === 8 && filterSemi.length !== 4) ? 2 : filterSemi.length === 4 ? 1 : 0} >
+            <Accordion activeIndex={(filterQuarters.length === 8 && filterSemi.length !== 4) ? 2 : (filterSemi.length === 4 && filterFinal.length !== 2) ? 1 : 0} >
                 <AccordionTab disabled={filterFinal.length !== 2} header={<div className="flex flex-row items-center gap-2.5"><i className="pi pi-play-circle" />Final</div>} >
                     <Final participants={filterFinal} />
                 </AccordionTab>
