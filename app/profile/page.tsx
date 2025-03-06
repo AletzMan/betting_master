@@ -1,20 +1,18 @@
 
 "use client"
-import styles from "./profile.module.scss"
 import { AdminPanel } from "./AdminPanel"
 import { SettingsProfile } from "./SettingsProfile"
 import { PaymentsAndBets } from "./PaymentsAndBets"
 import AdminFinals from "./AdminFinals"
 import { AppConfig } from "./AppConfig"
 import { AdminNotifications } from "./AdminNotifications"
-import { useUser } from "../config/zustand-store"
 import { TabPanel, TabView } from "primereact/tabview"
-import { AdminIcon, ProfileIcon } from "../svg"
+import { useSession } from "next-auth/react"
 
 const ADMIN_UID = process.env.NEXT_PUBLIC_ADMIN_UID
 
 export default function ProfilePage() {
-	const { user } = useUser()
+	const session = useSession()
 
 	return (
 		<main className={`sectionContainer scrollbar`}>
@@ -30,21 +28,21 @@ export default function ProfilePage() {
 				<TabPanel header="Perfil" leftIcon="pi pi-user mr-2">
 					<SettingsProfile />
 				</TabPanel>
-				<TabPanel header="Quiniela" leftIcon="pi pi-cog  mr-2">
+				{session.data?.user?.id === ADMIN_UID && <TabPanel header="Quiniela" leftIcon="pi pi-cog  mr-2">
 					<AdminPanel />
-				</TabPanel>
-				<TabPanel header="Ajustes" leftIcon="pi pi-cog  mr-2">
+				</TabPanel>}
+				{session.data?.user?.id === ADMIN_UID && <TabPanel header="Ajustes" leftIcon="pi pi-cog  mr-2">
 					<AppConfig />
-				</TabPanel>
-				<TabPanel header="Notificaciones" leftIcon="pi pi-bell  mr-2">
+				</TabPanel>}
+				{session.data?.user?.id === ADMIN_UID && <TabPanel header="Notificaciones" leftIcon="pi pi-bell  mr-2">
 					<AdminNotifications />
-				</TabPanel>
-				<TabPanel header="Pagos" leftIcon="pi pi-dollar  mr-2">
+				</TabPanel>}
+				{session.data?.user?.id === ADMIN_UID && <TabPanel header="Pagos" leftIcon="pi pi-dollar  mr-2">
 					<PaymentsAndBets />
-				</TabPanel>
-				<TabPanel header="Sorteo" leftIcon="pi pi-gift  mr-2">
+				</TabPanel>}
+				{session.data?.user?.id === ADMIN_UID && <TabPanel header="Sorteo" leftIcon="pi pi-gift  mr-2">
 					<AdminFinals />
-				</TabPanel>
+				</TabPanel>}
 			</TabView>
 		</main>
 	)
