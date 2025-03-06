@@ -43,22 +43,17 @@ export default function Finals({ participants }: Props) {
                     </section>}
                 </>
             }
-            <Accordion activeIndex={0} >
-                {filterQuarters.length === 2 &&
-                    <AccordionTab header={<div className="flex flex-row items-center gap-2.5"><i className="pi pi-play-circle" />Semi Finales</div>} >
-                        <Final participants={filterFinal} />
-                    </AccordionTab>
-                }
-                {filterQuarters.length === 4 &&
-                    <AccordionTab header={<div className="flex flex-row items-center gap-2.5"><i className="pi pi-play-circle" />Semi Finales</div>} >
-                        <Semis participants={filterSemi} />
-                    </AccordionTab>
-                }
-                {filterQuarters.length === 8 &&
-                    <AccordionTab header={<div className="flex flex-row items-center gap-2.5"><i className="pi pi-play-circle" />Cuartos de Final</div>} >
-                        <Quarters participants={filterQuarters} />
-                    </AccordionTab>
-                }
+            <Accordion activeIndex={(filterQuarters.length === 8 && filterSemi.length !== 4) ? 2 : filterSemi.length === 4 ? 1 : 0} >
+                <AccordionTab disabled={filterFinal.length !== 2} header={<div className="flex flex-row items-center gap-2.5"><i className="pi pi-play-circle" />Final</div>} >
+                    <Final participants={filterFinal} />
+                </AccordionTab>
+                <AccordionTab disabled={filterSemi.length !== 4} header={<div className="flex flex-row items-center gap-2.5"><i className="pi pi-play-circle" />Semi Finales</div>} >
+                    <Semis participants={filterSemi} />
+                </AccordionTab>
+
+                <AccordionTab disabled={filterQuarters.length !== 8} header={<div className="flex flex-row items-center gap-2.5"><i className="pi pi-play-circle" />Cuartos de Final</div>} >
+                    <Quarters participants={filterQuarters} />
+                </AccordionTab>
             </Accordion>
         </div>
     )

@@ -16,8 +16,12 @@ export default function Semis({ participants }: Props) {
     return (
 
         <div className={styles.matches}>
-            <MatchFinals participants={participants} index={[0, 3]} />
-            <MatchFinals participants={participants} index={[1, 2]} />
+            {participants.length === 4 &&
+                <>
+                    <MatchFinals participants={participants} index={[0, 3]} />
+                    <MatchFinals participants={participants} index={[1, 2]} />
+                </>
+            }
         </div>
     )
 }

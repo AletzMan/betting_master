@@ -203,7 +203,9 @@ export default function AdminFinals() {
 
     const HandleOnChangeStage = (event: DropdownChangeEvent, position_team: number) => {
         const stage = event.value as IStage
+        console.log(stage)
         const newValue = [...data.position_stages]
+        console.log(newValue)
         newValue[position_team - 1] = PositionStage[stage]
         setData({ ...data, position_stages: newValue })
         //setSelectedStage(newValue)
@@ -220,6 +222,8 @@ export default function AdminFinals() {
             }
         }
     }
+
+    console.log(data)
 
     return (
         <div className="flex flex-col gap-2 relative h-[calc(100svh-8rem)]">

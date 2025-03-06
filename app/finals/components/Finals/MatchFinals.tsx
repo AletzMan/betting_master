@@ -26,7 +26,7 @@ export default function MatchFinals({ participants, index }: Props) {
                 </span>
                 {indexWon === 1 && canAdvance &&
                     <div className="flex items-center absolute h-full">
-                        <DeadIcon className="w-16 h-16" />
+                        <DeadIcon className="w-16 h-16 text-[#FF000090]" />
                     </div>
                 }
             </div>
@@ -46,7 +46,7 @@ export default function MatchFinals({ participants, index }: Props) {
                 </span>
                 {indexWon === 0 && canAdvance &&
                     <div className="flex items-center absolute h-full">
-                        <DeadIcon className="w-16 h-16" />
+                        <DeadIcon className="w-16 h-16 text-[#FF0000A0]" />
                     </div>
                 }
             </div>
