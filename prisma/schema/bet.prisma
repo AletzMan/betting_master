@@ -7,6 +7,6 @@ model Bet {
     season        String
     paid          Boolean
     tournament    String
-    userInfo      User?    @relation(fields: [userInfoId], references: [id])
+    userInfo      User?    @relation(fields: [userInfoId], references: [id], onDelete: Cascade)
     userInfoId    String
 }

@@ -36,6 +36,21 @@ export const getAllUsers = async (): Promise<IUser[] | null> => {
     }
 }
 
+export const deleteUserByID = async (id: string): Promise<IUser[] | null> => {
+    try {
+        const response = await axios.delete(`${pathURL}api/users/${id}`)
+        console.log(response)
+        if (response.status === 200) {
+            let users: IUser[] = response.data
+            return users
+        }
+        return null
+    } catch (error) {
+        console.error(error)
+        return null
+    }
+}
+
 export const getMatchDayInfo = async (): Promise<IMatchDay | null> => {
     let matchDay: IMatchDay[] = []
 

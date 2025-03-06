@@ -31,11 +31,12 @@ export const SuccessUpdate = (data: unknown) => {
 	)
 }
 
-export const SuccessDelete = () => {
+export const SuccessDelete = (data: unknown) => {
 	return NextResponse.json(
 		{
 			error: false,
 			message: "Deleted successfully",
+			data: data
 		},
 		{ status: 200 }
 	)

@@ -3,14 +3,14 @@
 import styles from "./profile.module.scss"
 import { DeleteIcon, EmailIcon, NotificationIcon } from "@/svg"
 import { MouseEvent, useState } from "react"
-import { DeleteUser, GetCurrentMatchDay, GetUsers, UpdateNotificationUser } from "@/config/firebase"
+import { GetUsers, UpdateNotificationUser } from "@/config/firebase"
 import { SendNotifications } from "@/services/fetch_utils"
-import { IUser, UserSession } from "@/types/types"
+import { IUser } from "@/types/types"
 import { SmallDateLocal } from "@/utils/helpers"
 import { enqueueSnackbar } from "notistack"
 import { Button } from "primereact/button"
 import Image from "next/image"
-import { getAllUsers, getMatchDayInfo } from "@/utils/fetchData"
+import { RevalidatePath, deleteUserByID, getAllUsers, getMatchDayInfo } from "@/utils/fetchData"
 import { Loading } from "@/components/Loading/Loading"
 
 
@@ -63,11 +63,15 @@ export function AdminNotifications() {
     const HandleDeleteUser = async (uid: string, name: string) => {
         const responseDelete = confirm(`Desea eliminar al usuario: \n${name}`)
         if (responseDelete) {
-            const response = await DeleteUser(uid)
-            if (response === "OK") {
+            const response = await deleteUserByID(uid)
+            if (response) {
                 enqueueSnackbar("Usuario eliminado correctamente", { variant: "success" })
-                const response = await GetUsers()
-                setUsersData(response)
+                RevalidatePath("users")
+                setUsersData((prevData) =>
+                    prevData!.filter(user =>
+                        user.id !== uid
+                    )
+                )
             } else {
                 enqueueSnackbar("Error al eliminar el usuario", { variant: "error" })
             }

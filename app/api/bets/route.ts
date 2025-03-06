@@ -3,10 +3,8 @@ import { prisma } from "@/lib/db";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { BadRequestError, ConflictError, DefaultError, NotFoundError, ServerError, UnprocessableEntityError } from "../_services/errors";
 import { SuccessCreate, SuccessResponse } from "../_services/successfulResponses";
-import { UserSchema } from "@/validations/userSchema";
 import { ZodError } from "zod";
 import { BetSchema } from "@/validations/betSchema";
-import Error from "next/error";
 import { randomUUID } from "crypto";
 
 export async function GET(request: NextRequest) {

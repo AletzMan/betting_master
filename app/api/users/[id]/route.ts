@@ -22,28 +22,29 @@ export async function GET(request: NextRequest, context: any) {
 
 }
 
-export async function DELETE(request: NextRequest, context: any) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
 
-        const { id } = context.params
+        const id = (await params).id
 
         const response = await prisma?.user.delete({ where: { id: id } })
 
         if (response) {
-            return SuccessDelete();
+            return SuccessDelete(response);
         }
         return NotFoundError();
     } catch (error) {
+        console.error(error)
         return ServerError();
     }
 
 }
 
-export async function PUT(request: NextRequest, context: any) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
+        const id = (await params).id
         const data = await request.json()
         const newUser = await UserSchema.parseAsync(data)
-        const { id } = context.params
 
         const response = await prisma?.user.update({
             where: { id: id }, data: {
