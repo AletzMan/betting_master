@@ -3,14 +3,13 @@
 import styles from "./profile.module.scss"
 import { DeleteIcon, EmailIcon, NotificationIcon } from "@/svg"
 import { MouseEvent, useState } from "react"
-import { GetUsers, UpdateNotificationUser } from "@/config/firebase"
 import { SendNotifications } from "@/services/fetch_utils"
 import { IUser } from "@/types/types"
 import { SmallDateLocal } from "@/utils/helpers"
 import { enqueueSnackbar } from "notistack"
 import { Button } from "primereact/button"
 import Image from "next/image"
-import { RevalidatePath, deleteUserByID, getAllUsers, getMatchDayInfo } from "@/utils/fetchData"
+import { RevalidatePath, deleteUserByID, getAllUsers, getMatchDayInfo, updateUserByID } from "@/utils/fetchData"
 import { Loading } from "@/components/Loading/Loading"
 
 
@@ -79,11 +78,17 @@ export function AdminNotifications() {
     }
 
     const HandleUpdateNotification = async (uid: string, notifications: boolean) => {
-        const response = await UpdateNotificationUser(uid, !notifications)
-        if (response === "OK") {
+        const response = await updateUserByID(uid, { notifications: notifications })
+        if (response) {
             enqueueSnackbar("Usuario actualizado correctamente", { variant: "success" })
-            const responseUsers = await GetUsers()
-            setUsersData(responseUsers)
+            RevalidatePath("users")
+            setUsersData((prevData) =>
+                prevData!.map(user =>
+                    user.id === uid ? response : user
+                )
+            )
+        } else {
+            enqueueSnackbar("No se pudo actualizar el usuario. Por favor, inténtalo de nuevo más tarde.", { variant: "error" })
         }
     }
 
@@ -120,7 +125,7 @@ export function AdminNotifications() {
                                 </div>
                             </div>
                             <div className={styles.users_options}>
-                                <button className={styles.users_mail} onClick={() => HandleUpdateNotification(user.id, user.notifications || false)}><NotificationIcon className={`${styles.users_iconNoti} ${user.notifications && styles.users_iconNotiActive}`} /></button>
+                                <button className={styles.users_mail} onClick={() => HandleUpdateNotification(user.id, !user.notifications || false)}><NotificationIcon className={`${styles.users_iconNoti} ${user.notifications && styles.users_iconNotiActive}`} /></button>
                                 <button className={styles.users_mail} > <EmailIcon className={styles.users_iconEmail} /></button>
                                 <button className={styles.users_delete} onClick={() => HandleDeleteUser(user.id, user.name)}><DeleteIcon className={styles.users_iconDelete} /></button>
                             </div>
@@ -130,7 +135,7 @@ export function AdminNotifications() {
             }
             {loading && <Loading height="12em" />}
             <footer className="flex min-h-12 items-center pt-2">
-                {usersData && <Button label={!sending ? "Enviar notificación" : "Sending..."} size="small" severity="info" icon={sending ? "pi pi-spin pi-spinner-dotted" : "pi pi-send"} disabled={sending} />}
+                {usersData && <Button label={!sending ? "Enviar notificación" : "Sending..."} size="small" severity="info" icon={sending ? "pi pi-spin pi-spinner-dotted" : "pi pi-send"} disabled={sending} onClick={HandleSendNotifications} />}
                 {/*<Button
                     props={{ onClick: HandleSendNotifications, disabled: sending }}
                     text={!sending ? "Enviar notificación" : "Sending..."}

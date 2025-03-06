@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server"
 import {
 	INews,
-	IStatusResponse,
+	IUser,
 	IUserInfo,
-	IUserSettings,
 	LeagueMX,
 	ResponseStatsLeagueMX,
-	StatsLeagueMX,
 } from "../types/types"
 import axios from "axios"
 import { ResponseDataResults, Results } from "../types/ResultsTypes"
@@ -155,7 +153,7 @@ export const GetNewsLigaMX = async (): Promise<INews[]> => {
 }
 
 
-export const SendNotifications = async (users: IUserSettings[], day: string): Promise<number> => {
+export const SendNotifications = async (users: IUser[], day: string): Promise<number> => {
 	try {
 		const emails = users.map(user => user.email)
 		const response = await axios.post(

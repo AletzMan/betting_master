@@ -13,13 +13,15 @@ import Participant from "./components/Participant/Participant"
 import Finals from "./components/Finals/Finals"
 import { Loading } from "../components/Loading/Loading"
 import { UsernameColors } from "../constants/constants"
+import { useSession } from "next-auth/react"
 
 export default function Page() {
+    const session = useSession()
     const { isLandscape } = useOrientation()
     const [loading, setLoading] = useState(false)
     const [loadingPage, setLoadingPage] = useState(true)
     const [participants, setParticipants] = useState<IFinalsParticipants[]>()
-    const [userLogin, setUserLogin] = useState<IUserInfo>()
+    //const [userLogin, setUserLogin] = useState<IUserInfo>()
     const [isParticipating, setIsParticipating] = useState(false)
     const [qualifiedTeams, setQualifiedTeams] = useState<string[]>([])
 
@@ -27,16 +29,16 @@ export default function Page() {
     useEffect(() => {
         GetQualifiedTeams()
         GetParticipants()
-        GetUserLogin()
+        //GetUserLogin()
     }, [loading])
 
     useEffect(() => {
-        if (userLogin) {
-            if (participants?.some(participant => participant.user_info?.uid === userLogin?.uid)) {
+        if (session.status === "authenticated") {
+            if (participants?.some(participant => participant.user_info?.uid === session.data.user?.id)) {
                 setIsParticipating(true)
             }
         }
-    }, [userLogin, participants])
+    }, [session, participants])
 
     const GetQualifiedTeams = async () => {
         const teams = await GetFinalistTeams()
@@ -64,7 +66,7 @@ export default function Page() {
         const response = await axios.get("/api/login")
         if (response.status === 200) {
             const userInfo = response.data.userInfo as IUserInfo
-            setUserLogin(userInfo)
+            //setUserLogin(userInfo)
             return userInfo
         }
         return null
@@ -123,7 +125,7 @@ export default function Page() {
                     {!isParticipating ?
                         <>
                             <QuarterFinals qualifiedTeams={qualifiedTeams} />
-                            {participants !== undefined && userLogin !== undefined &&
+                            {participants !== undefined && session.status === "authenticated" &&
                                 <div className={styles.finals}>
                                     <article>
                                         {participants?.length === 8 && <p className={styles.main_message}>Participación cerrada. Se ha alcanzado el limite de jugadores.</p>}
@@ -145,7 +147,7 @@ export default function Page() {
                 }
             </>
             }
-            {loadingPage && <Loading />}
+            {loadingPage && <Loading height="12em" />}
         </main>
     )
 }

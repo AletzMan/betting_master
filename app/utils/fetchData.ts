@@ -2,6 +2,7 @@
 "use server"
 
 import { IBet, IMatch, IMatchDay, IUser, UserSession } from "@/types/types"
+import { UserType } from "@/validations/userUpdateSchema"
 import axios from "axios"
 import { revalidateTag } from "next/cache"
 
@@ -42,6 +43,23 @@ export const deleteUserByID = async (id: string): Promise<IUser[] | null> => {
         console.log(response)
         if (response.status === 200) {
             let users: IUser[] = response.data
+            return users
+        }
+        return null
+    } catch (error) {
+        console.error(error)
+        return null
+    }
+}
+
+export const updateUserByID = async (id: string, data: UserType): Promise<IUser | null> => {
+    try {
+        const response = await axios.patch(`${pathURL}api/users/${id}`, {
+            ...data
+        })
+        console.log(response.data)
+        if (response.status === 200) {
+            let users: IUser = response.data.data
             return users
         }
         return null

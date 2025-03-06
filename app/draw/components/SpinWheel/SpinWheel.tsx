@@ -17,6 +17,7 @@ import PixelArt from "../PixelArt/PixelArt"
 import { CountdownCircleTimer, OnComplete } from "react-countdown-circle-timer"
 import { ShuffleArray } from "@/utils/helpers"
 import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 
 interface IStatusDraw {
     has_started: boolean
@@ -44,7 +45,7 @@ const dataOP: WheelData[] = [
 
 export default function SpinWheel() {
     const router = useRouter()
-    const { user } = useUser()
+    const session = useSession()
     const { participants } = useConnectedUsers()
     const [data, setData] = useState<WheelData[]>(dataOP)
     const [statusDraw, setStatusDraw] = useState<IStatusDraw>({ has_started: false, has_finished: false, current_participant: "", current_team: "", missing_teams: [], missing_participants: [], prizeNumber: 0, must_spin: false })
@@ -135,7 +136,7 @@ export default function SpinWheel() {
         const updateTeams = await GetTeams()
         setTeams(updateTeams.teams)
         const updateParticipatns = await GetParticipants()
-        if (user.uid === ADMIN_ID) {
+        if (session!.data!.user!.id === ADMIN_ID) {
             try {
                 const uidParticipants = updateParticipatns.map(participant => participant.user_info.uid)
                 const newOrder = ShuffleArray(uidParticipants)
@@ -198,7 +199,7 @@ export default function SpinWheel() {
 
     const handleSpinClick = async () => {
         try {
-            if (!statusDraw.must_spin && statusDraw.current_participant === user.uid) {
+            if (!statusDraw.must_spin && statusDraw.current_participant === session!.data!.user!.id) {
                 const newPrizeNumber = Math.floor(Math.random() * data.length)
                 if (newPrizeNumber >= 0) {
                     await UpdatedRealDataTime({ must_spin: true, prizeNumber: newPrizeNumber }, "roulette")
@@ -213,7 +214,7 @@ export default function SpinWheel() {
     const HandleOnStop = async () => {
         try {
 
-            if (statusDraw.current_participant === user.uid) {
+            if (statusDraw.current_participant === session!.data!.user!.id) {
                 let newData = [...data]
                 const deleteData = newData.splice(statusDraw.prizeNumber, 1)
                 const newTeam = deleteData[0].option
@@ -237,7 +238,7 @@ export default function SpinWheel() {
                         }
                     }
                     await WriteMustSpin(newData, "dataTeams")
-                    const responseUpdate = await UpdateFinalParticipants(user.uid, { team: newTeam, position_team: teams.indexOf(newTeam) + 1, progress_stage: ["quarter"] })
+                    const responseUpdate = await UpdateFinalParticipants(session!.data!.user!.id, { team: newTeam, position_team: teams.indexOf(newTeam) + 1, progress_stage: ["quarter"] })
                 }
             }
         } catch (error) {
@@ -262,7 +263,7 @@ export default function SpinWheel() {
         <div className={styles.draw}>
             {started && !finished && <>
                 <aside className={styles.teams}>
-                    {user.uid === ADMIN_ID && <Button className={styles.teams_reset} props={{ onClick: HandleResetInitialInfo }} text="" icon={<ResetIcon className="" />} />}
+                    {session!.data!.user!.id === ADMIN_ID && <Button className={styles.teams_reset} props={{ onClick: HandleResetInitialInfo }} text="" icon={<ResetIcon className="" />} />}
                     <div className={styles.teams_roulette}>
                         {data && <Wheel
                             mustStartSpinning={statusDraw?.must_spin}
@@ -289,11 +290,11 @@ export default function SpinWheel() {
                     </section>
                 </aside>
                 <footer className={styles.draw_footer}>
-                    <Button className={statusDraw.current_participant === user.uid ? styles.draw_button : ""}
-                        type={statusDraw.current_participant === user.uid ? "success" : "secondary"}
-                        text={statusDraw.current_participant === user.uid ? statusDraw.must_spin ? "¡Suerte!" : "¡Es tu turno!" : statusDraw.missing_participants?.includes(user.uid) ? "Esperando tu turno" : "¡Ya participaste!"}
-                        props={{ onClick: handleSpinClick, disabled: statusDraw.current_participant !== user.uid || statusDraw.must_spin }}
-                        icon={statusDraw.current_participant === user.uid ? statusDraw.must_spin ? <LuckIcon className="" /> : <TargetIcon className="" /> : statusDraw.missing_participants?.includes(user.uid) ? <AwaitIcon className="" /> : <CheckIcon className="" />} />
+                    <Button className={statusDraw.current_participant === session!.data!.user!.id ? styles.draw_button : ""}
+                        type={statusDraw.current_participant === session!.data!.user!.id ? "success" : "secondary"}
+                        text={statusDraw.current_participant === session!.data!.user!.id ? statusDraw.must_spin ? "¡Suerte!" : "¡Es tu turno!" : statusDraw.missing_participants?.includes(session!.data!.user!.id as string) ? "Esperando tu turno" : "¡Ya participaste!"}
+                        props={{ onClick: handleSpinClick, disabled: statusDraw.current_participant !== session!.data!.user!.id || statusDraw.must_spin }}
+                        icon={statusDraw.current_participant === session!.data!.user!.id ? statusDraw.must_spin ? <LuckIcon className="" /> : <TargetIcon className="" /> : statusDraw.missing_participants?.includes(session!.data!.user!.id as string) ? <AwaitIcon className="" /> : <CheckIcon className="" />} />
                 </footer>
             </>}
             {!started && !finished &&
