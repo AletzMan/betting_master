@@ -1,7 +1,7 @@
 
 "use server"
 
-import { IBet, IMatch, IMatchDay } from "@/types/types"
+import { IBet, IMatch, IMatchDay, IUser, UserSession } from "@/types/types"
 import axios from "axios"
 import { revalidateTag } from "next/cache"
 
@@ -17,6 +17,23 @@ export async function RevalidatePath(tag: string) {
 export interface IMatchDayData {
     matchDay: IMatchDay
     matches: IMatch[]
+}
+
+export const getAllUsers = async (): Promise<IUser[] | null> => {
+    try {
+        const response = await fetch(`${pathURL}api/users`, { cache: "force-cache", next: { revalidate: 60000, tags: ['users'] } })
+        console.log(response)
+        if (response.status === 200) {
+            const responseUsers = await response.json()
+            console.log(responseUsers)
+            let users: IUser[] = responseUsers.response
+            return users
+        }
+        return null
+    } catch (error) {
+        console.error(error)
+        return null
+    }
 }
 
 export const getMatchDayInfo = async (): Promise<IMatchDay | null> => {

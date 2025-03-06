@@ -5,44 +5,53 @@ import { DeleteIcon, EmailIcon, NotificationIcon } from "@/svg"
 import { MouseEvent, useState } from "react"
 import { DeleteUser, GetCurrentMatchDay, GetUsers, UpdateNotificationUser } from "@/config/firebase"
 import { SendNotifications } from "@/services/fetch_utils"
-import { UserSession } from "@/types/types"
+import { IUser, UserSession } from "@/types/types"
 import { SmallDateLocal } from "@/utils/helpers"
 import { enqueueSnackbar } from "notistack"
 import { Button } from "primereact/button"
 import Image from "next/image"
+import { getAllUsers, getMatchDayInfo } from "@/utils/fetchData"
+import { Loading } from "@/components/Loading/Loading"
 
 
 export function AdminNotifications() {
     const [sending, setSending] = useState(false)
-    const [usersData, setUsersData] = useState<UserSession[]>([])
+    const [loading, setLoading] = useState(false)
+    const [usersData, setUsersData] = useState<IUser[] | null>(null)
     const [viewDetails, setViewDetails] = useState<number | null>(null)
     const [day, setDay] = useState(0)
 
     const HandleSendNotifications = async () => {
-        const usersWithNotification = usersData.filter(users => users.notifications)
-        if (usersWithNotification.length > 0) {
-            const response = await SendNotifications(usersWithNotification, day.toString())
-            if (response) {
-                enqueueSnackbar("Notificación enviada correctamente", { variant: "success" })
+        if (usersData) {
+            const usersWithNotification = usersData.filter(users => users.notifications)
+            if (usersWithNotification.length > 0) {
+                const response = await SendNotifications(usersWithNotification, day.toString())
+                if (response) {
+                    enqueueSnackbar("Notificación enviada correctamente", { variant: "success" })
+                } else {
+                    enqueueSnackbar("Error al enviar la notificación, favor de intentarlo mas tarde", { variant: "error" })
+                }
             } else {
-                enqueueSnackbar("Error al enviar la notificación, favor de intentarlo mas tarde", { variant: "error" })
+                enqueueSnackbar("No hay usuario con notificaciones activas", { variant: "error" })
             }
-        } else {
-            enqueueSnackbar("No hay usuario con notificaciones activas", { variant: "error" })
         }
     }
 
     const HandleRefreshUsers = async () => {
-        const response = await GetUsers()
-        setUsersData(response)
-        const currentMonth = new Date().getMonth() + 1
-        const tournament = currentMonth < 7 ? "0168" : "0159"
-        const result = await GetCurrentMatchDay(tournament)
-        setDay(result.day)
+        setLoading(true)
+        const response = await getAllUsers()
+        if (response) {
+            setUsersData(response)
+            const result = await getMatchDayInfo()
+            if (result)
+                setDay(result?.day)
+        }
+        setLoading(false)
     }
 
-    const HandleViewDetails = (e: MouseEvent<HTMLButtonElement>, index: number): void => {
-        if ((e.target as HTMLElement).tagName === "BUTTON") {
+    const HandleViewDetails = (e: MouseEvent<HTMLElement>, index: number): void => {
+        console.log((e.target as HTMLElement).tagName)
+        if ((e.target as HTMLElement).tagName === "ARTICLE") {
             if (index === viewDetails) {
                 setViewDetails(null)
             } else {
@@ -73,47 +82,51 @@ export function AdminNotifications() {
             setUsersData(responseUsers)
         }
     }
+
     return (
 
         <div className="flex flex-col gap-2 relative h-[calc(100svh-9rem)] ">
             <header className="flex items-center justify-end pb-1">
                 <Button onClick={HandleRefreshUsers} icon="pi pi-refresh" severity="secondary" size="small" outlined label="Actualizar" />
             </header>
-            <div className="flex flex-col gap-1 scrollbar">
-                {usersData.map((user, index) => (
-                    <button className={`${styles.users_user} ${viewDetails === index && styles.users_userActive}`} key={user.uid} onClick={(e) => HandleViewDetails(e, index)}>
-                        <div className={styles.users_data} >
-                            <Image className={styles.users_photo} src={user.image || ""} alt={`Imagen de perfil de ${user.name}`} width={70} height={70} />
-                            <div className={styles.users_group} >
-                                <span className={styles.users_name}>{user.name}</span>
-                                <span className={styles.users_email}>{user.email}</span>
+            {!loading &&
+                <div className="flex flex-col gap-1 scrollbar">
+                    {usersData && usersData.map((user, index) => (
+                        <article className={`${styles.users_user} ${viewDetails === index && styles.users_userActive}`} key={user.id} onClick={(e) => HandleViewDetails(e, index)}>
+                            <div className={styles.users_data} >
+                                <Image className={styles.users_photo} src={user.image || ""} alt={`Imagen de perfil de ${user.name}`} width={70} height={70} />
+                                <div className={styles.users_group} >
+                                    <span className={styles.users_name}>{user.name}</span>
+                                    <span className={styles.users_email}>{user.email}</span>
+                                </div>
+                                <span className={styles.users_date}>{new Date(user?.last_login as Date).toLocaleDateString("es-MX", SmallDateLocal)}</span>
                             </div>
-                            <span className={styles.users_date}>{new Date(user?.last_login as Date).toLocaleDateString("es-MX", SmallDateLocal)}</span>
-                        </div>
-                        <div className={styles.users_stats}>
-                            <div className={styles.users_bets}>
-                                <span className={styles.users_number}>{user.total_bets}</span>
-                                <span className={styles.users_label}>quinielas</span>
+                            <div className={styles.users_stats}>
+                                <div className={styles.users_bets}>
+                                    <span className={styles.users_number}>{user.total_bets}</span>
+                                    <span className={styles.users_label}>quinielas</span>
+                                </div>
+                                <div className={styles.users_bets}>
+                                    <span className={styles.users_number}>{user.bets_won}</span>
+                                    <span className={styles.users_label}>Ganadoras</span>
+                                </div>
+                                <div className={styles.users_bets}>
+                                    <span className={styles.users_number}>{user.finals_won}</span>
+                                    <span className={styles.users_label}>Finales</span>
+                                </div>
                             </div>
-                            <div className={styles.users_bets}>
-                                <span className={styles.users_number}>{user.bets_won}</span>
-                                <span className={styles.users_label}>Ganadoras</span>
+                            <div className={styles.users_options}>
+                                <button className={styles.users_mail} onClick={() => HandleUpdateNotification(user.id, user.notifications || false)}><NotificationIcon className={`${styles.users_iconNoti} ${user.notifications && styles.users_iconNotiActive}`} /></button>
+                                <button className={styles.users_mail} > <EmailIcon className={styles.users_iconEmail} /></button>
+                                <button className={styles.users_delete} onClick={() => HandleDeleteUser(user.id)}><DeleteIcon className={styles.users_iconDelete} /></button>
                             </div>
-                            <div className={styles.users_bets}>
-                                <span className={styles.users_number}>{user.finals_won}</span>
-                                <span className={styles.users_label}>Finales</span>
-                            </div>
-                        </div>
-                        <div className={styles.users_options}>
-                            <button className={styles.users_mail} onClick={() => HandleUpdateNotification(user.uid, user.notifications || false)}><NotificationIcon className={`${styles.users_iconNoti} ${user.notifications && styles.users_iconNotiActive}`} /></button>
-                            <button className={styles.users_mail} > <EmailIcon className={styles.users_iconEmail} /></button>
-                            <button className={styles.users_delete} onClick={() => HandleDeleteUser(user.uid)}><DeleteIcon className={styles.users_iconDelete} /></button>
-                        </div>
-                    </button>
-                ))}
-            </div>
+                        </article>
+                    ))}
+                </div>
+            }
+            {loading && <Loading height="12em" />}
             <footer className="flex min-h-12 items-center pt-2">
-                <Button label={!sending ? "Enviar notificación" : "Sending..."} size="small" severity="info" icon={sending ? "pi pi-spin pi-spinner-dotted" : "pi pi-send"} disabled={sending} />
+                {usersData && <Button label={!sending ? "Enviar notificación" : "Sending..."} size="small" severity="info" icon={sending ? "pi pi-spin pi-spinner-dotted" : "pi pi-send"} disabled={sending} />}
                 {/*<Button
                     props={{ onClick: HandleSendNotifications, disabled: sending }}
                     text={!sending ? "Enviar notificación" : "Sending..."}

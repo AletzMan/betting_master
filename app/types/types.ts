@@ -360,6 +360,20 @@ export interface IFinalsParticipants {
 
 
 
+export interface IUser {
+	id: string;
+	name: string;
+	email: string;
+	image: string;
+	color?: string;
+	account?: string;
+	total_bets?: number;
+	finals_won?: number;
+	last_login?: Date;
+	bets_won?: number;
+	notifications?: boolean;
+}
+
 export interface UserSession {
 	id: string;
 	uid: string;

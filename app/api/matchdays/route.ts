@@ -9,7 +9,6 @@ import { MatchDaySchema } from "@/validations/matchDaySchema";
 export async function GET(request: NextRequest) {
 
     const response = await prisma?.matchDay.findMany()
-    console.log("GetData")
     return SuccessResponse(response);
 }
 
@@ -20,7 +19,6 @@ export async function POST(request: NextRequest) {
         const newMatchData = await MatchDaySchema.parseAsync(data);
         const day = newMatchData.day;
         const matches = newMatchData.matches;
-        console.log(matches)
         // 1. Crear los partidos
         const createdMatches = await Promise.all(
             matches.map(async (match) => {
