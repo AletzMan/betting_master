@@ -6,6 +6,7 @@ import { IBet, IBetDocument, IMatch, IMatchDay, UserSession } from "../types/typ
 import { IMatchDayData, getBetsByDay, getMatchDayData } from "@/utils/fetchData"
 import result from "postcss/lib/result"
 import { useSession } from "next-auth/react"
+import { useUpdateBets } from "@/config/zustand-store"
 
 export interface IMyBets {
 	bets: IBet[]
@@ -26,13 +27,13 @@ export function useDataBets() {
 	const [matchDayData, setMatchDayData] = useState<IMatchDayData>({ matchDay: {} as IMatchDay, matches: [] })
 	const [myBets, setMyBets] = useState<IMyBets>(EmptyMyBets)
 	const session = useSession()
-
+	const updateBets = useUpdateBets((state) => state.updateBets)
 
 
 	useEffect(() => {
-		if (session)
+		if (session || updateBets)
 			getData()
-	}, [session])
+	}, [session, updateBets])
 
 	const getData = async () => {
 		setLoading(true)

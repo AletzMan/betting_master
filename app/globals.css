@@ -6,6 +6,7 @@
 	--font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono",
 		"Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono",
 		"Courier New", monospace;
+	--text-color: #ffffff;
 	--primary-color: #3abbea !important;
 	--danger-color: #f42c2c;
 	--success-color: #65c313;
@@ -297,36 +298,20 @@ body {
 	}
 }
 
-/*
-.p-overlaypanel {
-	background-color: var(--surface-0);
-	border-color: var(--surface-100);
+.p-badge {
+	color: var(--text-color);
+	text-shadow: 0 0 3px #000000;
 
-	&::before {
-		bottom: 100%;
-		left: calc(var(--overlayArrowLeft, 0) + 1.25rem);
-		content: " ";
-		height: 0;
-		width: 1em;
-		position: absolute;
-		margin-left: -10px;
-		pointer-events: none;
-		border-bottom-color: var(--surface-100);
+	&.p-badge-success {
+		background-color: var(--success-color);
 	}
 
-	&::after {
-		bottom: 100%;
-		left: calc(var(--overlayArrowLeft, 0) + 1.25rem);
-		content: " ";
-		height: 0;
-		width: 0;
-		margin-left: -8px;
-		position: absolute;
-		pointer-events: none;
-		border-bottom-color: var(--surface-0);
+	&.p-badge-danger {
+		background-color: var(--danger-color);
 	}
+
 }
-*/
+
 .p-inputtext.p-invalid.p-component {
 	border-color: var(--danger-color);
 }

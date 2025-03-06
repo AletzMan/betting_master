@@ -2,6 +2,7 @@
 "use server"
 
 import { IBet, IMatch, IMatchDay } from "@/types/types"
+import axios from "axios"
 import { revalidateTag } from "next/cache"
 
 const pathURL = process.env.NEXTAUTH_URL
@@ -22,7 +23,7 @@ export const getMatchDayInfo = async (): Promise<IMatchDay | null> => {
     let matchDay: IMatchDay[] = []
 
     try {
-        const response = await fetch(`${pathURL}api/matchdays`, { cache: "force-cache", next: { revalidate: 30000, tags: ['matchDayInfo'] } })
+        const response = await fetch(`${pathURL}api/matchdays`, { cache: "force-cache", next: { revalidate: 60000, tags: ['matchDayInfo'] } })
         if (response.status === 200) {
             const responseMatchDay = await response.json()
             matchDay = responseMatchDay.response
@@ -40,11 +41,11 @@ export const getMatchDayData = async (): Promise<IMatchDayData | null> => {
     let matches: IMatch[] = []
 
     try {
-        const response = await fetch(`${pathURL}api/matchdays`, { cache: "force-cache", next: { revalidate: 30000, tags: ['matchDays'] } })
+        const response = await fetch(`${pathURL}api/matchdays`, { cache: "force-cache", next: { revalidate: 60000, tags: ['matchDays'] } })
         if (response.status === 200) {
             const responseMatchDay = await response.json()
             matchDay = responseMatchDay.response
-            const responseMatches = await fetch(`${pathURL}api/matchdays/${matchDay[0].id}/matches?sortBy=startDate&sortOrder=asc`, { cache: "force-cache", next: { revalidate: 30000, tags: ['matches'] } })
+            const responseMatches = await fetch(`${pathURL}api/matchdays/${matchDay[0].id}/matches?sortBy=startDate&sortOrder=asc`, { cache: "force-cache", next: { revalidate: 60000, tags: ['matches'] } })
             if (responseMatches.status === 200) {
                 const matchesResponse = await responseMatches.json()
                 matches = matchesResponse.response
@@ -62,16 +63,49 @@ export const getMatchDayData = async (): Promise<IMatchDayData | null> => {
 export const getBetsByDay = async (): Promise<IBet[] | null> => {
     try {
         let bets: IBet[] = arrayBets
-        /*const response = await fetch(`${pathURL}api/bets`, { cache: 'force-cache', next: { revalidate: 30000, tags: ['bets'] } })
+        const response = await fetch(`${pathURL}api/bets`, { cache: 'force-cache', next: { revalidate: 60000, tags: ['bets'] } })
         if (response.status === 200) {
             const responseBets = await response.json();
             bets = responseBets.response;
-        }*/
+        }
         return bets;
     } catch (error) {
         return null;
     }
 }
+
+export const updateBetByID = async (id: string, isPaid: boolean): Promise<IBet | null> => {
+    try {
+        const response = await axios.patch(`${pathURL}api/bets/${id}`, {
+            paid: isPaid
+        })
+        console.log(response.data)
+        if (response.status === 200) {
+            return response.data.data
+        }
+        return null
+    } catch (error) {
+        console.error(error)
+        return null
+
+    }
+}
+
+export const deleteBetByID = async (id: string): Promise<boolean> => {
+    try {
+        const response = await axios.delete(`${pathURL}api/bets/${id}`)
+        console.log(response.data)
+        if (response.status === 200) {
+            return true
+        }
+        return false
+    } catch (error) {
+        console.error(error)
+        return false
+
+    }
+}
+
 const arrayBets: IBet[] = [
     {
         "id": "bet1",
@@ -289,7 +323,7 @@ const arrayBets: IBet[] = [
         "day": "18",
         "name": "Minidudev",
         "season": "Clausura 2026",
-        "paid": true,
+        "paid": false,
         "tournament": "Serie A",
         "userInfo": {
             "id": "6b7c8d9e-0f1a-2b3c-4d5e-6f7a8b9c0d1e",

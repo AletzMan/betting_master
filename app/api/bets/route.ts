@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
                 paid: false,
                 userInfoId: betDataWithoutPredictions.uid,
                 predictionIds: predictionIds,
-            },
+            }, include: { userInfo: true }
         });
         if (newBet) {
             return SuccessCreate(newBet);

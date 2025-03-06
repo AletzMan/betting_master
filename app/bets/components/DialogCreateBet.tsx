@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Dispatch, SetStateAction, MouseEvent, useState, ChangeEvent, useEffect, useRef } from "react"
 import { MatchBet } from "./MatchBet"
-import { useBet, useUser } from "@/config/zustand-store"
+import { useBet, useUpdateBets, useUser } from "@/config/zustand-store"
 import { GetResultsByDay, auth } from "@/config/firebase"
 import { Loading } from "@/components/Loading/Loading"
 import { IMatch, IPredictions } from "@/types/types"
@@ -18,6 +18,7 @@ import { TeamsLogosNews } from "@/constants/constants"
 import { useSession } from "next-auth/react"
 import { ZodError, ZodIssue } from "zod"
 import { IMyBets } from "./MainPage"
+import { RevalidatePath } from "@/utils/fetchData"
 
 interface DialogProps {
 	matches: IMatch[]
@@ -52,6 +53,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 	const [loading, setLoading] = useState(false);
 	const infoRef = useRef<OverlayPanel | null>(null);
 	const myBetsRef = useRef<OverlayPanel | null>(null);
+	const setUpdateBets = useUpdateBets((state) => state.setUpdateBets)
 
 	useEffect(() => {
 		let newBets: string[] = []
@@ -84,6 +86,11 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 			if (response.status === 201) {
 				enqueueSnackbar("Quiniela creada correctamente", { variant: "success" });
 				handleStatusDialog(false)
+				setUpdateBets(true)
+				RevalidatePath("bets")
+				setTimeout(() => {
+					setUpdateBets(false)
+				}, 100);
 			}
 		} catch (error) {
 			if (error instanceof AxiosError) {

@@ -33,6 +33,19 @@ export const useBet = create<BetState>((set) => ({
 	setBets: (value: string[]) => set({ bets: value }),
 }))
 
+
+
+interface IUpdateBets {
+	updateBets: boolean
+	setUpdateBets: (value: boolean) => void
+}
+
+
+export const useUpdateBets = create<IUpdateBets>((set) => ({
+	updateBets: false,
+	setUpdateBets: (value: boolean) => set({ updateBets: value }),
+}))
+
 interface INewBet {
 	bettingMatches: IMatch[]
 	setBettingMatches: (value: IMatch[]) => void
