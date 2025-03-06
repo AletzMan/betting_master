@@ -44,8 +44,16 @@ export default function Finals({ participants }: Props) {
                 </>
             }
             <Accordion activeIndex={0} >
-                {filterFinal.length === 2 && <Final participants={filterFinal} />}
-                {filterSemi.length === 4 && <Semis participants={filterSemi} />}
+                {filterQuarters.length === 2 &&
+                    <AccordionTab header={<div className="flex flex-row items-center gap-2.5"><i className="pi pi-play-circle" />Semi Finales</div>} >
+                        <Final participants={filterFinal} />
+                    </AccordionTab>
+                }
+                {filterQuarters.length === 4 &&
+                    <AccordionTab header={<div className="flex flex-row items-center gap-2.5"><i className="pi pi-play-circle" />Semi Finales</div>} >
+                        <Semis participants={filterSemi} />
+                    </AccordionTab>
+                }
                 {filterQuarters.length === 8 &&
                     <AccordionTab header={<div className="flex flex-row items-center gap-2.5"><i className="pi pi-play-circle" />Cuartos de Final</div>} >
                         <Quarters participants={filterQuarters} />

@@ -105,7 +105,6 @@ export default function Page() {
                                 {participants?.length === 8 && <p className="text-lg text-balance text-center">¡Participantes completos! El sorteo comienza pronto.</p>}
                             </> :
                             <>
-                                sdsdsds
                                 {participants && <Finals participants={participants} />}
                             </>
 
