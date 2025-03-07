@@ -2,7 +2,7 @@
 "use client"
 import { UserSession } from "@/types/types"
 import { useEffect, useState } from "react"
-import { GetInfoUser, SaveInfouser } from "@/config/firebase"
+import { SaveInfouser } from "@/config/firebase"
 import { enqueueSnackbar } from "notistack"
 import { profileSettingsSchema } from "@/validations/profileSettingsSchema"
 import { ZodError } from "zod"
@@ -18,7 +18,6 @@ import { Skeleton } from "primereact/skeleton"
 
 const EmptyUserSettings: UserSession = {
     id: "",
-    uid: "",
     account: "",
     name: "",
     email: "",
@@ -52,16 +51,8 @@ export const SettingsProfile = () => {
     useEffect(() => {
         if (session.status === "authenticated")
             setUserSettings(session.data?.user as UserSession)
-        //GetUserSettings()
     }, [session])
 
-    const GetUserSettings = async () => {
-        const response = await GetInfoUser(user.uid)
-        const newUserSettings = { ...response, uid: user.uid, name: user.name, email: user.email, photo: user.photo }
-        setUserSettings(newUserSettings)
-        setStatusNotifications(newUserSettings.notifications)
-        localStorage.setItem("bettingNotifications", `${newUserSettings.notifications}`)
-    }
 
     const HandleSave = async () => {
         try {
