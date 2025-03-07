@@ -59,19 +59,22 @@ export function useConnectedUsers() {
             unsubscribeparticipants()
             unsubscribeparticipantsOnline()
         }
-    }, [])
+    }, [session])
 
     const StatusUserConnection = async (status: 'IN' | 'OUT') => {
-        const response = await GetDataRealDataTime("participants_connected")
-        if (!response) {
-            await UpdatedRealDataTime({ [`${session.data?.user?.id}`]: session.data?.user?.id }, `participants_connected/`)
-        } else if (status === 'IN') {
-            const usersConnected: string[] = Object.values(response)
-            if (!usersConnected.includes(session.data?.user?.id as string)) {
+        if (session.status === "authenticated") {
+
+            const response = await GetDataRealDataTime("participants_connected")
+            if (!response) {
                 await UpdatedRealDataTime({ [`${session.data?.user?.id}`]: session.data?.user?.id }, `participants_connected/`)
+            } else if (status === 'IN') {
+                const usersConnected: string[] = Object.values(response)
+                if (!usersConnected.includes(session.data?.user?.id as string) && session.status === "authenticated") {
+                    await UpdatedRealDataTime({ [`${session.data?.user?.id}`]: session.data?.user?.id }, `participants_connected/`)
+                }
+            } else if (status === 'OUT') {
+                await UpdatedRealDataTime({ [`${session.data?.user?.id}`]: null }, `participants_connected/`)
             }
-        } else if (status === 'OUT') {
-            await UpdatedRealDataTime({ [`${session.data?.user?.id}`]: null }, `participants_connected/`)
         }
     }
 

@@ -18,6 +18,7 @@ import { CountdownCircleTimer, OnComplete } from "react-countdown-circle-timer"
 import { ShuffleArray } from "@/utils/helpers"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
+import { Loading } from "@/components/Loading/Loading"
 
 interface IStatusDraw {
     has_started: boolean
@@ -55,9 +56,8 @@ export default function SpinWheel() {
     const [finished, setFinished] = useState(false)
 
     useEffect(() => {
-        GetInitialInfo()
-
-
+        if (session.status === "authenticated")
+            GetInitialInfo()
         try {
             const messagesRef = ref(database, 'roulette')
             const unsubscribe = onChildAdded(messagesRef, (snapshot) => {
@@ -130,13 +130,13 @@ export default function SpinWheel() {
         }
 
 
-    }, [])
+    }, [session])
 
     const GetInitialInfo = async () => {
         const updateTeams = await GetTeams()
         setTeams(updateTeams.teams)
         const updateParticipatns = await GetParticipants()
-        if (session!.data!.user!.id === ADMIN_ID) {
+        if (session.status === "authenticated" && session!.data!.user!.id === ADMIN_ID) {
             try {
                 const uidParticipants = updateParticipatns.map(participant => participant.user_info.id)
                 const newOrder = ShuffleArray(uidParticipants)
@@ -172,13 +172,15 @@ export default function SpinWheel() {
     const GetTeams = async (): Promise<{ teams: string[], data: WheelData[] }> => {
         try {
             const response = await GetFinalistTeams()
+            const responseTeams: WheelData[] = await GetDataRealDataTime("dataTeams")
+            console.log(responseTeams)
             const newTeams = response.positions
             const dataTeams: WheelData[] = []
             if (response) {
                 newTeams.forEach(team => {
                     dataTeams.push({ option: team })
                 })
-                setData(dataTeams)
+                setData(responseTeams)
             }
             return { teams: response.positions, data: dataTeams }
         } catch (error) {
@@ -260,65 +262,68 @@ export default function SpinWheel() {
     }
 
     return (
-        <div className={styles.draw}>
-            {started && !finished && <>
-                <aside className={styles.teams}>
-                    {session!.data!.user!.id === ADMIN_ID && <Button className={styles.teams_reset} props={{ onClick: HandleResetInitialInfo }} text="" icon={<ResetIcon className="" />} />}
-                    <div className={styles.teams_roulette}>
-                        {data && <Wheel
-                            mustStartSpinning={statusDraw?.must_spin}
-                            prizeNumber={statusDraw?.prizeNumber}
-                            data={data}
-                            onStopSpinning={HandleOnStop}
-                            outerBorderWidth={3}
-                            innerBorderWidth={1}
-                            innerRadius={5}
-                            radiusLineWidth={2}
-                            outerBorderColor="#ffffff"
-                            innerBorderColor="#ffffff"
-                            backgroundColors={['#000000', '#dddddd', '#000000', '#dddddd', '#000000', '#dddddd', '#000000', '#dddddd']}
-                            textColors={['#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000']}
-                            fontSize={25}
-                            radiusLineColor="#ffffff"
-                            fontWeight={500} spinDuration={1}
-                        />}
-                    </div>
-                    <section className={styles.participants}>
-                        <span className={styles.participants_title}>Es el turno de:</span>
-                        <span className={styles.participants_name}>{`${participants.find(participant => participant.user_info.id === statusDraw.current_participant)?.user_info.name}`}</span>
-                        {statusDraw.current_team && <span className={styles.participants_team}>{statusDraw.current_team}</span>}
-                    </section>
-                </aside>
-                <footer className={styles.draw_footer}>
-                    <Button className={statusDraw.current_participant === session!.data!.user!.id ? styles.draw_button : ""}
-                        type={statusDraw.current_participant === session!.data!.user!.id ? "success" : "secondary"}
-                        text={statusDraw.current_participant === session!.data!.user!.id ? statusDraw.must_spin ? "¡Suerte!" : "¡Es tu turno!" : statusDraw.missing_participants?.includes(session!.data!.user!.id as string) ? "Esperando tu turno" : "¡Ya participaste!"}
-                        props={{ onClick: handleSpinClick, disabled: statusDraw.current_participant !== session!.data!.user!.id || statusDraw.must_spin }}
-                        icon={statusDraw.current_participant === session!.data!.user!.id ? statusDraw.must_spin ? <LuckIcon className="" /> : <TargetIcon className="" /> : statusDraw.missing_participants?.includes(session!.data!.user!.id as string) ? <AwaitIcon className="" /> : <CheckIcon className="" />} />
-                </footer>
-            </>}
-            {!started && !finished &&
-                <>
-                    <PixelArt />
-                    {countDown &&
-                        <div className={styles.countdown}>
-                            <CountdownCircleTimer
-                                isPlaying
-                                duration={10} strokeWidth={3}
-                                colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                                colorsTime={[7, 5, 2, 0]} initialRemainingTime={10} size={90} isSmoothColorTransition onComplete={HandleStarted}
-                            >
-                                {({ remainingTime }) => <span className={styles.countdown_number}>{remainingTime}</span>}
-                            </CountdownCircleTimer>
+        <>
+            {session.status === "authenticated" && <div className={styles.draw}>
+                {started && !finished && <>
+                    <aside className={styles.teams}>
+                        {session!.data!.user!.id === ADMIN_ID && <Button className={styles.teams_reset} props={{ onClick: HandleResetInitialInfo }} text="" icon={<ResetIcon className="" />} />}
+                        <div className={styles.teams_roulette}>
+                            {data && <Wheel
+                                mustStartSpinning={statusDraw?.must_spin}
+                                prizeNumber={statusDraw?.prizeNumber}
+                                data={data}
+                                onStopSpinning={HandleOnStop}
+                                outerBorderWidth={3}
+                                innerBorderWidth={1}
+                                innerRadius={5}
+                                radiusLineWidth={2}
+                                outerBorderColor="#ffffff"
+                                innerBorderColor="#ffffff"
+                                backgroundColors={['#000000', '#dddddd', '#000000', '#dddddd', '#000000', '#dddddd', '#000000', '#dddddd']}
+                                textColors={['#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000', '#ffffff', '#000000']}
+                                fontSize={25}
+                                radiusLineColor="#ffffff"
+                                fontWeight={500} spinDuration={1}
+                            />}
                         </div>
-                    }
-                </>
-            }
-            {finished && started &&
-                <>
-                    <span className={styles.messagefinal}>Felicidades!</span>
-                </>
-            }
-        </div>
+                        <section className={styles.participants}>
+                            <span className={styles.participants_title}>Es el turno de:</span>
+                            <span className={styles.participants_name}>{`${participants.find(participant => participant.user_info.id === statusDraw.current_participant)?.user_info.name}`}</span>
+                            {statusDraw.current_team && <span className={styles.participants_team}>{statusDraw.current_team}</span>}
+                        </section>
+                    </aside>
+                    <footer className={styles.draw_footer}>
+                        <Button className={statusDraw.current_participant === session!.data!.user!.id ? styles.draw_button : ""}
+                            type={statusDraw.current_participant === session!.data!.user!.id ? "success" : "secondary"}
+                            text={statusDraw.current_participant === session!.data!.user!.id ? statusDraw.must_spin ? "¡Suerte!" : "¡Es tu turno!" : statusDraw.missing_participants?.includes(session!.data!.user!.id as string) ? "Esperando tu turno" : "¡Ya participaste!"}
+                            props={{ onClick: handleSpinClick, disabled: statusDraw.current_participant !== session!.data!.user!.id || statusDraw.must_spin }}
+                            icon={statusDraw.current_participant === session!.data!.user!.id ? statusDraw.must_spin ? <LuckIcon className="" /> : <TargetIcon className="" /> : statusDraw.missing_participants?.includes(session!.data!.user!.id as string) ? <AwaitIcon className="" /> : <CheckIcon className="" />} />
+                    </footer>
+                </>}
+                {!started && !finished &&
+                    <>
+                        <PixelArt />
+                        {countDown &&
+                            <div className={styles.countdown}>
+                                <CountdownCircleTimer
+                                    isPlaying
+                                    duration={10} strokeWidth={3}
+                                    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                    colorsTime={[7, 5, 2, 0]} initialRemainingTime={10} size={90} isSmoothColorTransition onComplete={HandleStarted}
+                                >
+                                    {({ remainingTime }) => <span className={styles.countdown_number}>{remainingTime}</span>}
+                                </CountdownCircleTimer>
+                            </div>
+                        }
+                    </>
+                }
+                {finished && started &&
+                    <>
+                        <span className={styles.messagefinal}>Felicidades!</span>
+                    </>
+                }
+            </div>}
+            {session.status === "loading" && <Loading height="15em" />}
+        </>
     )
 }

@@ -1,14 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Dispatch, SetStateAction, MouseEvent, useState, ChangeEvent, useEffect, useRef } from "react"
 import { MatchBet } from "./MatchBet"
-import { useBet, useUpdateBets, useUser } from "@/config/zustand-store"
-import { GetResultsByDay, auth } from "@/config/firebase"
+import { useBet, useUpdateBets } from "@/config/zustand-store"
 import { Loading } from "@/components/Loading/Loading"
-import { IMatch, IPredictions } from "@/types/types"
+import { IMatch } from "@/types/types"
 import axios, { AxiosError } from "axios"
 import { enqueueSnackbar } from "notistack"
-import { useRouter } from "next/navigation"
-import { signOut } from "firebase/auth"
 import { Dialog } from "primereact/dialog"
 import { OverlayPanel } from "primereact/overlaypanel"
 import { Button } from "primereact/button"
@@ -16,9 +13,9 @@ import { Divider } from "primereact/divider"
 import { InputText } from "primereact/inputtext"
 import { TeamsLogosNews } from "@/constants/constants"
 import { useSession } from "next-auth/react"
-import { ZodError, ZodIssue } from "zod"
 import { IMyBets } from "./MainPage"
 import { RevalidatePath } from "@/utils/fetchData"
+import { ZodIssue } from "zod"
 
 interface DialogProps {
 	matches: IMatch[]

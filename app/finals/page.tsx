@@ -100,7 +100,9 @@ export default function Page() {
                                         ))}
                                     </div>
                                 </div>
-                                {participants?.length === 8 && <p className="text-lg text-balance text-center">¡Participantes completos! El sorteo comienza pronto.</p>}
+                                {participants?.length === 8 &&
+                                    <p className="text-[1em] text-balance text-center bg-(--background-success-color) rounded-sm mt-5 px-3 py-1">¡Participantes completos! El sorteo comienza pronto.</p>
+                                }
                             </> :
                             <>
                                 {participants && <Finals participants={participants} />}

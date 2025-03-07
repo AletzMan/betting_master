@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
 import { InTimeToBet, TimeRemainig } from "../functions/functions"
-import { GetBetsByDay, GetCurrentMatchDay } from "../config/firebase"
-import { IBet, IBetDocument, IMatch, IMatchDay, UserSession } from "../types/types"
+import { IBet, IMatchDay, UserSession } from "../types/types"
 import { IMatchDayData, getBetsByDay, getMatchDayData } from "@/utils/fetchData"
-import result from "postcss/lib/result"
 import { useSession } from "next-auth/react"
 import { useUpdateBets } from "@/config/zustand-store"
 
