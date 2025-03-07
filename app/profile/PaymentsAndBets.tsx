@@ -95,16 +95,17 @@ export function PaymentsAndBets() {
     const HandleGetData = async (event: MouseEvent<HTMLButtonElement>) => {
         await GetBets()
     }
-
+    console.log(betsByID)
     return (
         <div className="flex flex-col gap-2 relative h-[calc(100svh-9rem)]">
+
             <header className="flex flex-col gap-2">
                 <div className="flex justify-between">
                     <Dropdown value={MatchDays[matchDay - 1]} options={MatchDays} placeholder="Seleccione Jornada" onChange={HandleChangeDay} />
                     <Button onClick={HandleGetData} className="max-h-10" icon="pi pi-refresh" outlined severity="secondary" size="small" label="Actualizar" />
                 </div>
                 <Divider type="dashed" />
-                <div className="grid grid-cols-4 gap-1 w-full">
+                {betsByID && betsByID?.length > 0 && <div className="grid grid-cols-4 gap-1 w-full">
                     <div className="bg-(--surface-c) border-1 border-(--surface-d)"  >
                         <h3 className="text-center text-sky-500 font-semibold">Total</h3>
                         <p className="text-center">{bets.length}</p>
@@ -122,10 +123,12 @@ export function PaymentsAndBets() {
                         <p className="text-center">$ {bets.filter((bet) => bet.paid).length * 1.5}</p>
                     </div>
                 </div>
+                }
             </header>
-            <ScrollPanel style={{ width: '100%', height: '400px' }} >
+
+            {betsByID && betsByID?.length > 0 && <ScrollPanel style={{ width: '100%', height: '400px' }} >
                 <Accordion className="flex flex-col "  /*className={`${styles.bets_bet} ${betsByID[index].bets.find(betdata => !betdata.data.paid)?.data ? styles.bets_betNoPaid : styles.bets_betPaid}`}*/>
-                    {betsByID && betsByID?.map((bet, index) => (
+                    {betsByID?.map((bet, index) => (
                         <AccordionTab key={bet.uid}
                             header={
                                 <div className="flex items-center justify-between ">
@@ -150,7 +153,20 @@ export function PaymentsAndBets() {
                         </AccordionTab>
                     ))}
                 </Accordion>
-            </ScrollPanel>
+            </ScrollPanel>}
+            {betsByID?.length === 0 && matchDay !== 0 &&
+                <div className="flex flex-col items-center bg-(--background-warning-color) py-8 rounded-md border-1 border-amber-900 max-w-130 mx-auto w-full">
+                    <i className="pi pi-ban text-(--warning-color) mb-8" style={{ fontSize: "3.5em" }} />
+                    <p>Esta jornada aún no tiene quinielas.</p>
+                    <p>Envia un recordatorio a los usuarios para que creen las suyas.</p>
+                </div>
+            }
+            {betsByID?.length === 0 && matchDay === 0 &&
+                <div className="flex flex-col items-center bg-(--background-info-color) py-8 rounded-md border-1 border-cyan-900 max-w-130 mx-auto w-full">
+                    <i className="pi pi-info-circle text-(--warning-info-color) mb-8" style={{ fontSize: "3.5em" }} />
+                    <p>Elige la jornada para ver las quinielas creadas</p>
+                </div>
+            }
         </div>
     )
 }
