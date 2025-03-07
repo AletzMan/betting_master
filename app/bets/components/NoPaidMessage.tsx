@@ -1,7 +1,6 @@
-import { IBet, IUserInfo, UserSession } from "@/types/types"
+import { IBet, UserSession } from "@/types/types"
 import { ConvertToPrice } from "@/functions/functions"
 import { useEffect, useRef, useState } from "react"
-import { DeleteBet } from "@/config/firebase"
 import { useSnackbar } from "notistack"
 import { IPreviewDialog } from "./ConfirmedParticipationMessage"
 import { IMatchDayData, RevalidatePath, deleteBetByID } from "@/utils/fetchData"

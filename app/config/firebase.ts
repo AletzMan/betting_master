@@ -29,7 +29,7 @@ import {
 	IFinalsTeams,
 	IFinalsParticipants,
 	IResultsMatches,
-	IUserSettings,
+	UserSession,
 } from "../types/types"
 
 
@@ -53,204 +53,6 @@ export const GoogleProvider = new GoogleAuthProvider()
 export const TwitterProvider = new TwitterAuthProvider()
 export const FacebookProvider = new FacebookAuthProvider()
 
-
-export const GetBetsByDay = async (day: string) => {
-	const year = new Date().getFullYear()
-
-	let documets: IBetDocument[] | DocumentData = []
-	try {
-		const querySnapshot = await getDocs(collection(db, `bets`))
-		querySnapshot.forEach((doc) => {
-			documets.push(doc.data())
-		})
-		const documents = documets as IBetDocument[]
-
-		return documents
-	} catch (error) {
-		console.error(error)
-		return [] as IBetDocument[]
-	}
-}
-
-export const AddBet = async (bet: IBetDocument) => {
-	const year = new Date().getFullYear()
-
-	try {
-		const docRef = await addDoc(collection(db, `bets`), bet)
-		return "OK"
-	} catch (e) {
-		console.error("Error adding document: ", e)
-		return "FAIL"
-	}
-}
-
-
-
-export const GetBetsByUser = async (uid: string) => {
-	const year = new Date().getFullYear()
-
-	let documets: IBetDocument[] | DocumentData = []
-	try {
-		const querySnapshot = await getDocs(collection(db, `bets`))
-		querySnapshot.forEach((doc) => {
-			documets.push(doc.data())
-		})
-		const Bets = [...(documets as IBetDocument[])]
-
-		const filterByDay = Bets.filter((bet) => bet.uid === uid)
-
-		return filterByDay
-	} catch (error) {
-		console.error(error)
-		return [] as IBetDocument[]
-	}
-}
-
-
-export const GetResultsByDay = async (day: string, tournament: string) => {
-	const year = new Date().getFullYear()
-
-	try {
-		const querySnapshot = await getDoc(doc(db, `results`, `matchDay${day}${tournament}${year}`))
-		const documents = querySnapshot.data() as IResultsMatches
-
-		return documents
-	} catch (error) {
-		console.error(error)
-		return {} as IResultsMatches
-	}
-}
-
-export const AddResults = async (data: IResultsMatches, tournament: string) => {
-	const year = new Date().getFullYear()
-
-	try {
-		const docRef = await setDoc(
-			doc(db, `results`, `matchDay${data.day}${tournament}${year}`),
-			data
-		)
-		return "OK"
-	} catch (e) {
-		console.error("Error adding document: ", e)
-		return "FAIL"
-	}
-}
-
-export const AddMatchDay = async (data: IMatchDay, tournament: string, matchDay: number) => {
-	const year = new Date().getFullYear()
-	try {
-		const docRef = await setDoc(doc(db, `matchday`, `matchday${tournament}`), data)
-		return "OK"
-	} catch (e) {
-		console.error("Error adding document: ", e)
-		return "FAIL"
-	}
-}
-
-
-export const DeleteMatchDay = async (tournament: string) => {
-	try {
-		await deleteDoc(doc(db, `matchday`, `matchday${tournament}`))
-		return "OK"
-	} catch (e) {
-		console.error("Error deleting document: ", e)
-		return "FAIL"
-	}
-}
-
-
-export const UpdateResultsMatchDay = async (
-	data: string[],
-	matches: ICurrentMatch[],
-	tournament: string,
-	isAvailable: boolean,
-	isFinishGame: boolean
-) => {
-	const year = new Date().getFullYear()
-	try {
-		const docRef = await updateDoc(doc(db, `matchday`, `matchday${tournament}`), {
-			results: data,
-			matches,
-			isAvailable,
-			isFinishGame,
-		})
-		return "OK"
-	} catch (e) {
-		console.error("Error adding document: ", e)
-		return "FAIL"
-	}
-}
-
-export const GetCurrentMatchDay = async (tournament: string) => {
-	const year = new Date().getFullYear()
-
-	try {
-		const querySnapshot = await getDoc(doc(db, `matchday`, `matchday${tournament}`))
-		const documents = querySnapshot.data() as IMatchDay
-
-		return documents
-	} catch (error) {
-		console.error(error)
-		return {} as IMatchDay
-	}
-}
-
-export const GetInfoUser = async (id: string) => {
-	try {
-		const querySnapshot = await getDoc(doc(db, `users`, `${id}`))
-		const documents = querySnapshot.data() as IUserSettings
-		if (documents) {
-			return documents as IUserSettings
-		} else {
-			return { uid: "", account: "" } as IUserSettings
-		}
-		return documents
-	} catch (error) {
-		console.error(error)
-		return { uid: "", account: "" } as IUserSettings
-	}
-}
-
-export const GetUsers = async () => {
-	try {
-		let documents: IUserSettings[] = []
-		const querySnapshot = await getDocs(collection(db, `users`))
-		querySnapshot.forEach((doc) => {
-			documents.push(doc.data() as IUserSettings)
-		})
-		const users = [...(documents as IUserSettings[])]
-		return users
-	} catch (error) {
-		console.error(error)
-		return [] as IUserSettings[]
-	}
-}
-
-
-
-export const DeleteUser = async (uid: string) => {
-	try {
-		await deleteDoc(doc(db, `users`, `${uid}`))
-		return "OK"
-	} catch (e) {
-		console.error("Error deleting document: ", e)
-		return "FAIL"
-	}
-}
-
-export const UpdateNotificationUser = async (uid: string, notifications: boolean) => {
-	try {
-		const docRef = await updateDoc(doc(db, `users`, `${uid}`), {
-			notifications,
-		})
-		return "OK"
-	} catch (e) {
-		console.error(e)
-		console.error("Error adding document: ", e)
-		return "FAIL"
-	}
-}
-
 export const CreateNotification = async (id: string, data: {}) => {
 	try {
 		const docRef = await setDoc(doc(db, `users`, `${id}`), data)
@@ -261,56 +63,12 @@ export const CreateNotification = async (id: string, data: {}) => {
 	}
 }
 
-export const SaveInfouser = async (id: string, data: IUserSettings) => {
+export const SaveInfouser = async (id: string, data: UserSession) => {
 	try {
 		const docRef = await setDoc(doc(db, `users`, `${id}`), data)
 		return "OK"
 	} catch (e) {
 		console.error("Error adding document: ", e)
-		return "FAIL"
-	}
-}
-
-export const UpdateBetByUser = async (betId: string, paid: boolean) => {
-	const year = new Date().getFullYear()
-	try {
-		const docRef = await updateDoc(doc(db, `bets`, `${betId}`), {
-			paid,
-		})
-		return "OK"
-	} catch (e) {
-		console.error(e)
-		console.error("Error adding document: ", e)
-		return "FAIL"
-	}
-}
-
-export const GetBetsByIDGroup = async (day: string) => {
-	try {
-		let response: IBetDataDocument[] | DocumentData = []
-		const querySnapshot = await getDocs(collection(db, `bets`))
-		querySnapshot.forEach((doc) => {
-			const id = doc.id
-			const data = doc.data() as IBetData
-			response.push({ id, data } as IBetDataDocument)
-		})
-		const documents = response as IBetDataDocument[]
-
-		const filterByDay = documents.filter((document) => document.data.day === day)
-
-		return filterByDay
-	} catch (error) {
-		console.error(error)
-		return [] as IBetDataDocument[]
-	}
-}
-
-export const DeleteBet = async (betId: string) => {
-	try {
-		await deleteDoc(doc(db, `bets`, `${betId}`))
-		return "OK"
-	} catch (e) {
-		console.error("Error deleting document: ", e)
 		return "FAIL"
 	}
 }
