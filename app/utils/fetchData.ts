@@ -82,6 +82,24 @@ export const getMatchDayInfo = async (): Promise<IMatchDay | null> => {
 }
 
 
+export const deleteMatchDay = async (): Promise<IMatchDay | null> => {
+    let matchDay: IMatchDay | null = null
+
+    try {
+        const response = await fetch(`${pathURL}api/matchdays`, { method: "DELETE" })
+        if (response.status === 200) {
+            const responseMatchDay = await response.json()
+            console.log(responseMatchDay)
+            matchDay = responseMatchDay.response
+        }
+        return matchDay
+    } catch (error) {
+        console.error(error)
+        return null
+    }
+}
+
+
 export const getMatchDayData = async (): Promise<IMatchDayData | null> => {
     let matchDay: IMatchDay[] = []
     let matches: IMatch[] = []

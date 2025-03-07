@@ -62,7 +62,7 @@ export default function MainPage() {
                                 </div>
                             </Card>
                         }
-                        {myBets.hasBets && myBets.bets.length > 0 && !myBets?.isNotBetsPaid && matchDayInfo.results[0] === "-" &&
+                        {myBets.hasBets && myBets.bets.length > 0 && !myBets?.isNotBetsPaid && matchDayInfo.isAvailable &&
                             <ConfirmedParticipationMessage user={session.data?.user as UserSession} bets={matchDayInfo.bets} myBets={myBets} matchDayInfo={matchDayInfo} />
 
                         }
@@ -76,7 +76,7 @@ export default function MainPage() {
                             </Card>
 
                         }
-                        {!loading && !myBets?.isNotBetsPaid && myBets.hasBets && matchDayInfo.results[0] !== "-" && (
+                        {!loading && !myBets?.isNotBetsPaid && myBets.hasBets && !matchDayInfo.isAvailable && (
                             <>
                                 {matchDayInfo && matchDayInfo!.results?.length > 0 &&
                                     <>

@@ -78,7 +78,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
         })
 
         if (response) {
-            return SuccessDelete();
+            return SuccessDelete(response);
         }
         return NotFoundError();
     } catch (error) {

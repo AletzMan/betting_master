@@ -7,15 +7,21 @@ import { NotAuthorizedError } from "./app/api/_services/errors"
 const { auth } = NextAuth(authConfig)
 export default auth(async function middleware(request: NextRequest) {
 	let cookie = request.cookies.get('authjs.session-token')
+	const url = request.nextUrl.clone();
 	if (request.nextUrl.pathname.startsWith('/bets')) {
 		if (cookie) {
 			return NextResponse.next()
 		}
 		//return NotAuthorizedError();
-		return NextResponse.redirect(new URL('/login', request.url))
+		return NextResponse.redirect(new URL(`/login?callbackUrl=${encodeURIComponent(url.pathname)}`, request.url));
 	}
 	if (request.nextUrl.pathname.startsWith('/profile') && !cookie) {
-		//return NextResponse.redirect(new URL('/login', request.url))
+		if (cookie) {
+			console.log(request.referrer)
+			return NextResponse.next()
+		}
+		//return NotAuthorizedError();
+		return NextResponse.redirect(new URL(`/login?callbackUrl=${encodeURIComponent(url.pathname)}`, request.url));
 	}
 	if (request.nextUrl.pathname.startsWith('/api/users')) {
 		console.log(cookie)

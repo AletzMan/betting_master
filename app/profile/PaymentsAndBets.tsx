@@ -12,6 +12,7 @@ import { ScrollPanel } from "primereact/scrollpanel"
 import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox"
 import { deleteBetByID, getBetsByDay, updateBetByID } from "@/utils/fetchData"
 import Image from "next/image"
+import { Loading } from "@/components/Loading/Loading"
 
 interface IBetsByUser {
     uid: string,
@@ -19,9 +20,10 @@ interface IBetsByUser {
 }
 
 export function PaymentsAndBets() {
-    const [matchDay, setMatchDay] = useState<number>(0)
+    const [matchDay, setMatchDay] = useState<number | null>(null)
     const [bets, setBets] = useState<IBet[]>([])
     const [betsByID, setBetsByID] = useState<IBetsByUser[] | null>(null)
+    const [loading, setLaoding] = useState(false)
 
 
     useEffect(() => {
@@ -48,12 +50,15 @@ export function PaymentsAndBets() {
 
 
     const GetBets = async () => {
-        if (matchDay) {
-            const response = await getBetsByDay();
-            if (response) {
-                setBets(response)
-            }
+        setLaoding(true)
+        const response = await getBetsByDay();
+        if (response && response.length > 0) {
+            setBets(response)
+            setMatchDay(response[0].day)
+        } else {
+            setMatchDay(0)
         }
+        setLaoding(false)
     }
 
     const HandleCheck = async (e: CheckboxChangeEvent, id: string) => {
@@ -85,10 +90,10 @@ export function PaymentsAndBets() {
         }
     }
 
-    const HandleChangeDay = async (e: DropdownChangeEvent) => {
+    /*const HandleChangeDay = async (e: DropdownChangeEvent) => {
         const newValue = parseInt(e.value.split(" ")[1])
         setMatchDay(newValue)
-    }
+    }*/
 
     const HandleGetData = async (event: MouseEvent<HTMLButtonElement>) => {
         await GetBets()
@@ -99,7 +104,8 @@ export function PaymentsAndBets() {
 
             <header className="flex flex-col gap-2">
                 <div className="flex justify-between">
-                    <Dropdown value={MatchDays[matchDay - 1]} options={MatchDays} placeholder="Seleccione Jornada" onChange={HandleChangeDay} />
+                    <h1 className="text-lg text-emerald-400 font-bold">{matchDay !== 0 && matchDay !== null ? `Jornada ${matchDay}` : ""}</h1>
+                    {/*<Dropdown value={MatchDays[matchDay - 1]} options={MatchDays} placeholder="Seleccione Jornada" onChange={HandleChangeDay} />*/}
                     <Button onClick={HandleGetData} className="max-h-10" icon="pi pi-refresh" outlined severity="secondary" size="small" label="Actualizar" />
                 </div>
                 <Divider type="dashed" />
@@ -152,19 +158,22 @@ export function PaymentsAndBets() {
                     ))}
                 </Accordion>
             </ScrollPanel>}
-            {betsByID?.length === 0 && matchDay !== 0 &&
-                <div className="flex flex-col items-center bg-(--background-warning-color) py-8 rounded-md border-1 border-amber-900 max-w-130 mx-auto w-full">
-                    <i className="pi pi-ban text-(--warning-color) mb-8" style={{ fontSize: "3.5em" }} />
-                    <p>Esta jornada aún no tiene quinielas.</p>
-                    <p>Envia un recordatorio a los usuarios para que creen las suyas.</p>
-                </div>
-            }
-            {betsByID?.length === 0 && matchDay === 0 &&
-                <div className="flex flex-col items-center bg-(--background-info-color) py-8 rounded-md border-1 border-cyan-900 max-w-130 mx-auto w-full">
-                    <i className="pi pi-info-circle text-(--warning-info-color) mb-8" style={{ fontSize: "3.5em" }} />
-                    <p>Elige la jornada para ver las quinielas creadas</p>
-                </div>
-            }
+            {loading && <Loading height="14em" />}
+            {!loading && <>
+                {betsByID?.length === 0 && matchDay === 0 && matchDay !== null &&
+                    <div className="flex flex-col items-center bg-(--background-warning-color) py-8 rounded-md border-1 border-amber-900 max-w-130 mx-auto w-full">
+                        <i className="pi pi-ban text-(--warning-color) mb-8" style={{ fontSize: "3.5em" }} />
+                        <p>Esta jornada aún no tiene quinielas.</p>
+                        <p>Envia un recordatorio a los usuarios para que creen las suyas.</p>
+                    </div>
+                }
+                {betsByID?.length === 0 && matchDay === null &&
+                    <div className="flex flex-col items-center bg-(--background-info-color) py-8 rounded-md border-1 border-cyan-900 max-w-130 mx-auto w-full">
+                        <i className="pi pi-info-circle text-(--warning-info-color) mb-8" style={{ fontSize: "3.5em" }} />
+                        <p>Actualiza para ver quinielas creadas</p>
+                    </div>
+                }
+            </>}
         </div>
     )
 }

@@ -81,8 +81,54 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
     try {
-        const matchday = await prisma.matchDay.deleteMany()
+        // 1. Obtener todos los matchdays.
+        const matchdays = await prisma.matchDay.findMany();
 
+        // 2. Eliminar los registros relacionados en Match y Bet, y obtener los predictionIds.
+        const predictionIdsToDelete: string[] = [];
+        await Promise.all(matchdays.map(async (matchday) => {
+            // Obtener las bets que se van a eliminar
+            const betsToDelete = await prisma.bet.findMany({
+                where: {
+                    day: matchday.day,
+                },
+                include: { // Incluir las predictions
+                    predictions: true,
+                },
+            });
+
+            // Extraer los predictionIds de las bets
+            betsToDelete.forEach(bet => {
+                bet.predictions.forEach(prediction => {
+                    predictionIdsToDelete.push(prediction.id);
+                });
+            });
+
+            // Eliminar bets y matches
+            await prisma.bet.deleteMany({
+                where: {
+                    day: matchday.day,
+                },
+            });
+
+            await prisma.match.deleteMany({
+                where: {
+                    matchDay: matchday.day,
+                },
+            });
+        }));
+
+        // 3. Eliminar Predictions
+        await prisma.prediction.deleteMany({
+            where: {
+                id: {
+                    in: predictionIdsToDelete,
+                },
+            },
+        });
+
+        // 4. Eliminar MatchDay.
+        const matchday = await prisma.matchDay.deleteMany();
 
         if (matchday.count > 0) {
             return SuccessDelete(matchday);
@@ -90,6 +136,7 @@ export async function DELETE(request: NextRequest) {
             return NotFoundError();
         }
     } catch (error) {
+        console.log(error)
         return ServerError()
     }
 }

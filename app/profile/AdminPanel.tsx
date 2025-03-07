@@ -8,7 +8,7 @@ import { DialogCreatBets } from "./DialogCreateBets/DialogCreateBets"
 import { enqueueSnackbar } from "notistack"
 import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
-import { IMatchDayData, RevalidatePath, getMatchDayData, getMatchDayInfo } from "@/utils/fetchData"
+import { IMatchDayData, RevalidatePath, deleteMatchDay, getMatchDayData, getMatchDayInfo } from "@/utils/fetchData"
 import { ToggleButton } from "primereact/togglebutton"
 import { Loading } from "@/components/Loading/Loading"
 import axios from "axios"
@@ -69,7 +69,15 @@ export function AdminPanel() {
 	}
 
 	const HandleDeleteDayMatch = async () => {
-
+		const deleteDay = confirm("Desea eliminar la jornada actual? \nSe eliminaran los partidos y quinelas creadas")
+		if (deleteDay) {
+			const response = await deleteMatchDay()
+			if (response) {
+				enqueueSnackbar("Jornada eliminadoa exitosamente", { variant: "success" })
+			} else {
+				enqueueSnackbar("No se puede eliminar la joranda actual", { variant: "error" })
+			}
+		}
 	}
 
 	const handleSetResults = (value: string, index: number) => {
@@ -126,7 +134,7 @@ export function AdminPanel() {
 
 					</div>
 				}
-				{matchDayData === null &&
+				{matchDayData === null && !loading &&
 					<div className="flex flex-col items-center gap-6">
 						<i className="pi pi-ban text-red-600" style={{ fontSize: "4em" }} />
 						<p>No se ha creado la quiniela de la semana</p>
