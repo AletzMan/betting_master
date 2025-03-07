@@ -98,7 +98,7 @@ export default function MainPage() {
                             </div>
                         }
                     </>}
-                {!matchDayInfo.isFinishGame && orderBets?.length === 0 && matchDayInfo.matches?.length > 0 &&
+                {!matchDayInfo.isFinishGame && orderBets?.length === 0 && matchDayInfo.matches?.length > 0 && !isInTime.available &&
                     <div className="flex flex-col items-center justify-center px-4 py-2 gap-4 max-w-64 bg-(--background-warning-color) rounded-md border-1 border-(--warning-color) mt-3.5">
                         <i className="pi pi-exclamation-circle text-(--warning-color)" style={{ fontSize: "3em" }} />
                         <p className="text-center">¡Ups! Parece que los partidos ya empezaron y nadie ha creado una quiniela.</p>
