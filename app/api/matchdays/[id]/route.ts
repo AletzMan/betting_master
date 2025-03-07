@@ -31,7 +31,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
         const response = await prisma?.matchDay.delete({ where: { id: Number(id) } })
 
         if (response) {
-            return SuccessDelete();
+            return SuccessDelete(response);
         }
         return NotFoundError();
     } catch (error) {

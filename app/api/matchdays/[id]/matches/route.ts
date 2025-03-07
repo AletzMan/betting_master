@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ZodError } from "zod";
-import { MatchDayPatchSchema } from "@/validations/matchDayPatchSchema";
+import { MatchUpdateSchema } from "@/validations/matchUpdateSchema";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
@@ -71,7 +71,7 @@ export async function DELETE(request: NextRequest, context: any) {
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         const data = await request.json()
-        const updateMatch = await MatchDayPatchSchema.parseAsync(data)
+        const updateMatch = await MatchUpdateSchema.parseAsync(data)
         const id = (await params).id
 
         const response = await prisma?.match.update({

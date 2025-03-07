@@ -4,7 +4,6 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ZodError } from "zod";
-import { MatchDayPatchSchema } from "@/validations/matchDayPatchSchema";
 import { MatchUpdateSchema } from "@/validations/matchUpdateSchema";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ matchid: string }> }) {
@@ -30,7 +29,7 @@ export async function DELETE(request: NextRequest, context: any) {
         const response = await prisma?.match.delete({ where: { id: id } })
 
         if (response) {
-            return SuccessDelete();
+            return SuccessDelete(response);
         }
         return NotFoundError();
     } catch (error) {
