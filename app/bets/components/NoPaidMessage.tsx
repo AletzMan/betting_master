@@ -1,9 +1,9 @@
-import { IBet, UserSession } from "@/types/types"
+import { IBet, IMatchDay, UserSession } from "@/types/types"
 import { ConvertToPrice } from "@/functions/functions"
 import { useEffect, useRef, useState } from "react"
 import { useSnackbar } from "notistack"
 import { IPreviewDialog } from "./ConfirmedParticipationMessage"
-import { IMatchDayData, RevalidatePath, deleteBetByID } from "@/utils/fetchData"
+import { RevalidatePath, deleteBetByID } from "@/utils/fetchData"
 import { Card } from "primereact/card"
 import { Tag } from "primereact/tag"
 import { Button } from "primereact/button"
@@ -15,7 +15,7 @@ import { IMyBets } from "./MainPage"
 import { useUpdateBets } from "@/config/zustand-store"
 
 interface Props {
-    matchDayData: IMatchDayData
+    matchDayInfo: IMatchDay
     myBets: IMyBets
     user: UserSession
 }
@@ -25,7 +25,7 @@ interface IBets {
     betsNotPaid: IBet[]
 }
 
-export const NoPaidMessage = ({ myBets, user, matchDayData }: Props) => {
+export const NoPaidMessage = ({ myBets, user, matchDayInfo }: Props) => {
     const { enqueueSnackbar } = useSnackbar()
     const [bets, setBets] = useState<IBets>({ betsPaid: [], betsNotPaid: [] })
     const [dialog, setDialog] = useState<IPreviewDialog>({ open: false, bets: {} as IBet })
@@ -147,7 +147,7 @@ export const NoPaidMessage = ({ myBets, user, matchDayData }: Props) => {
                             <Tag>{dialog.bets.name}</Tag>
                             <article>
                                 <header className="flex flex-row">
-                                    {matchDayData.matches.map((match, index) => (
+                                    {matchDayInfo.matchesRel.map((match, index) => (
                                         <div key={match.awayTeam} className="flex flex-col justify-center items-center text-sm font-semibold w-12 text-white border-t-1 border-t-(--surface-d)  border-l-1 border-l-(--surface-d)">
                                             <p className="font-semibold">{TeamsLogosNews.find(team => team.id.toString() === match.homeTeam)?.abbName}</p>
                                             <p className="font-semibold">vs</p>

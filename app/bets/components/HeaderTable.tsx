@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ConvertToPrice } from "@/functions/functions"
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react"
-import { IMatchDayData } from "@/utils/fetchData"
 import { useRouter, useSearchParams } from "next/navigation"
+import { IMatchDay } from "@/types/types"
 
 interface Props {
     hiddenNames: boolean
     setHiddenNames: Dispatch<SetStateAction<boolean>>
-    matchDayData: IMatchDayData | null
+    matchDayInfo: IMatchDay | null
     totalBets: number
 }
 
-export default function HeaderTable({ hiddenNames, setHiddenNames, matchDayData, totalBets }: Props) {
+export default function HeaderTable({ hiddenNames, setHiddenNames, matchDayInfo, totalBets }: Props) {
     const route = useRouter()
     const searchParams = useSearchParams()
     const [orderAsc, setOrderAsc] = useState(true)
@@ -53,11 +53,11 @@ export default function HeaderTable({ hiddenNames, setHiddenNames, matchDayData,
 
     return (
         <>
-            {matchDayData?.matches &&
+            {matchDayInfo && matchDayInfo?.matches &&
                 <div className="sticky top-0 flex flex-col h-24 w-full bg-(--surface-d) z-5 overflow-hidden">
                     <div className="flex flex-col items-center justify-between w-full">
                         {!hiddenNames && <span className="text-amber-400">Monto: {(ConvertToPrice(totalBets * 13.5))}</span>}
-                        {matchDayData.matches.length > 0 && <p className={`font-semibold ${hiddenNames ? "text-transparent" : "text-white"}`}>{`Jornada ${matchDayData.matchDay.day}`}</p>}
+                        {matchDayInfo.matches.length > 0 && <p className={`font-semibold ${hiddenNames ? "text-transparent" : "text-white"}`}>{`Jornada ${matchDayInfo.day}`}</p>}
                         <div className="flex flex-row gap-0.5">
                             <select className="border-2 border-(--surface-d) max-h-11 rounded-md px-2 py-2 bg-(--surface-b)" value={new URLSearchParams(searchParams.toString()).get("sortBy") || "normal"} onChange={handleSort}>
                                 <option value="normal">Por participante</option>

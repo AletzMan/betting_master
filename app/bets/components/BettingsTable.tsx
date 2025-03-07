@@ -8,10 +8,9 @@ interface Props {
     selectRanges: { row: number, column: number } | null
     setSelectRanges: Dispatch<SetStateAction<{ row: number, column: number } | null>>
     matchDayInfo: IMatchDay,
-    matches: IMatch[]
 }
 
-export function BettingsTable({ filterBets, selectRanges, setSelectRanges, matches, matchDayInfo }: Props) {
+export function BettingsTable({ filterBets, selectRanges, setSelectRanges, matchDayInfo }: Props) {
 
     const HandleSelectRow = (row: number, column: number) => {
         setSelectRanges({ row, column })
@@ -26,7 +25,7 @@ export function BettingsTable({ filterBets, selectRanges, setSelectRanges, match
 
         <div className="  flex flex-col w-full h-full gap-y-0  bg-(--surface-b)">
             <ul className="sticky top-0 grid grid-cols-[repeat(9,2.5em)] gap-x-1 mr-1 bg-(--surface-d) w-max z-3">
-                {matches && matches?.length > 0 && matches?.map((match, index) => <HeaderMatches key={match.awayTeam} match={match} index={index} matchDayInfo={matchDayInfo} />)}
+                {matchDayInfo.matches && matchDayInfo.matchesRel?.length > 0 && matchDayInfo.matchesRel?.map((match, index) => <HeaderMatches key={match.awayTeam} match={match} index={index} matchDayInfo={matchDayInfo} />)}
             </ul>
             <div className="flex flex-col pt-1 pr-1 gap-y-1 ">
                 {filterBets && filterBets!.length > 0 &&

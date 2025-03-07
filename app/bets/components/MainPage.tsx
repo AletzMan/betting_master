@@ -28,17 +28,17 @@ export default function MainPage() {
     const [selectRanges, setSelectRanges] = useState<{ row: number; column: number } | null>(null)
     const [hiddenNames, setHiddenNames] = useState(false)
     const [viewBets, setViewBets] = useState(false)
-    const { matchDayInfo, matches, isInTime, bets, myBets, loading } = useDataBets()
+    const { matchDayInfo, isInTime, bets, myBets, loading } = useDataBets()
     const [openDialog, setOpenDialog] = useState(false)
-    const { orderBets } = useSort(bets, matchDayInfo.results);
+    const { orderBets } = useSort(bets, matchDayInfo?.results);
 
     return (
         <main className='flex flex-col items-center pt-[42.39px] h-svh bg-(--surface-c)'>
-            {!loading && session.status === "authenticated" && <>
-                {openDialog && matches &&
-                    <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matches} myBets={myBets} />
+            {!loading && session.status === "authenticated" && matchDayInfo && <>
+                {openDialog && matchDayInfo?.matchesRel &&
+                    <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matchDayInfo.matchesRel} myBets={myBets} />
                 }
-                {matchDayInfo?.results?.length > 0 && !matchDayInfo.isFinishGame && matches?.length > 0 &&
+                {matchDayInfo?.results?.length > 0 && !matchDayInfo.isFinishGame && matchDayInfo.matches?.length > 0 &&
                     <HeaderPage isAvailable={matchDayInfo.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />
                 }
                 {matchDayInfo.isFinishGame &&
@@ -49,16 +49,16 @@ export default function MainPage() {
                 {(!matchDayInfo.isFinishGame || viewBets) &&
                     <>
                         {myBets?.isNotBetsPaid && myBets.hasBets && bets && bets?.length > 0 &&
-                            <NoPaidMessage myBets={myBets} user={session.data?.user as UserSession} matchDayData={{ matchDay: matchDayInfo, matches: matches }} />
+                            <NoPaidMessage myBets={myBets} user={session.data?.user as UserSession} matchDayInfo={matchDayInfo} />
                         }
-                        {!myBets?.hasBets && !loading && matches.length > 0 && bets &&
+                        {!myBets?.hasBets && !loading && matchDayInfo.matches.length > 0 && bets &&
                             <Card className='max-w-3xs w-full' >
                                 <h2 className="text-center">¡Esperamos tu quiniela!</h2>
                                 <p className="text-center">¡No te quedes fuera!</p>
                             </Card>
                         }
                         {myBets.hasBets && bets && myBets.bets.length > 0 && !myBets?.isNotBetsPaid && matchDayInfo.results[0] === "-" &&
-                            <ConfirmedParticipationMessage user={session.data?.user as UserSession} bets={bets} myBets={myBets} matchDayData={{ matchDay: matchDayInfo, matches: matches }} />
+                            <ConfirmedParticipationMessage user={session.data?.user as UserSession} bets={bets} myBets={myBets} matchDayInfo={matchDayInfo} />
 
                         }
                         {myBets.bets.length === 0 &&
@@ -77,18 +77,18 @@ export default function MainPage() {
                                     <>
                                         <section className={`relative grid w-full gap-1 pr-1 max-w-max border-1 border-transparent scrollbarXY  bg-(--surface-b) rounded-md transition-all ease-in-out delay-150 ${hiddenNames ? "grid-cols-[2.5em_1fr]" : "grid-cols-[13em_1fr]"}  `}>
                                             <div className="sticky left-0 gap-y-1 flex flex-col bg-(--surface-b) pr-[1px] z-4 border-r-1 border-r-(--surface-d) h-full">
-                                                <HeaderTable hiddenNames={hiddenNames} setHiddenNames={setHiddenNames} matchDayData={{ matchDay: matchDayInfo, matches: matches }} totalBets={bets?.length || 0} />
+                                                <HeaderTable hiddenNames={hiddenNames} setHiddenNames={setHiddenNames} matchDayInfo={matchDayInfo} totalBets={bets?.length || 0} />
                                                 {orderBets?.map((bet, index) => (
                                                     <Participant key={bet.id} bets={bets} bet={bet} index={index} hiddenNames={hiddenNames} selectRanges={selectRanges} setSelectRanges={setSelectRanges} matchDayInfo={matchDayInfo} />
                                                 ))}
                                             </div>
-                                            {<BettingsTable filterBets={orderBets} selectRanges={selectRanges} setSelectRanges={setSelectRanges} matches={matches} matchDayInfo={matchDayInfo} />}
+                                            {<BettingsTable filterBets={orderBets} selectRanges={selectRanges} setSelectRanges={setSelectRanges} matchDayInfo={matchDayInfo} />}
                                         </section>
                                     </>
                                 }
                             </>
                         )}
-                        {matches?.length === 0 &&
+                        {matchDayInfo.matches?.length === 0 &&
                             <div className="flex items-center justify-center flex-col gap-4 px-2 py-4 max-w-80 rounded-md mt-5 bg-(--background-info-color) border-1 border-(--info-color)">
                                 <i className="pi pi-info-circle text-(--info-color)" style={{ fontSize: "3em" }} />
                                 <div>
@@ -98,7 +98,7 @@ export default function MainPage() {
                             </div>
                         }
                     </>}
-                {!matchDayInfo.isFinishGame && orderBets?.length === 0 && matches?.length > 0 &&
+                {!matchDayInfo.isFinishGame && orderBets?.length === 0 && matchDayInfo.matches?.length > 0 &&
                     <div className="flex flex-col items-center justify-center px-4 py-2 gap-4 max-w-64 bg-(--background-warning-color) rounded-md border-1 border-(--warning-color) mt-3.5">
                         <i className="pi pi-exclamation-circle text-(--warning-color)" style={{ fontSize: "3em" }} />
                         <p className="text-center">¡Ups! Parece que los partidos ya empezaron y nadie ha creado una quiniela.</p>

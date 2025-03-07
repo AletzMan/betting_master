@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { InTimeToBet, TimeRemainig } from "../functions/functions"
 import { IBet, IMatchDay, UserSession } from "../types/types"
-import { IMatchDayData, getBetsByDay, getMatchDayData } from "@/utils/fetchData"
+import { getBetsByDay, getMatchDayInfo } from "@/utils/fetchData"
 import { useSession } from "next-auth/react"
 import { useUpdateBets } from "@/config/zustand-store"
 
@@ -22,7 +22,7 @@ export function useDataBets() {
 	const [loading, setLoading] = useState(true)
 	const [bets, setBets] = useState<IBet[] | null>(null)
 	const [isInTime, setIsInTime] = useState({ available: false, time: "" })
-	const [matchDayData, setMatchDayData] = useState<IMatchDayData>({ matchDay: {} as IMatchDay, matches: [] })
+	const [matchDayData, setMatchDayData] = useState<IMatchDay | null>(null)
 	const [myBets, setMyBets] = useState<IMyBets>(EmptyMyBets)
 	const session = useSession()
 	const updateBets = useUpdateBets((state) => state.updateBets)
@@ -46,10 +46,10 @@ export function useDataBets() {
 	}
 
 	const getDay = async () => {
-		const matchDayData = await getMatchDayData();
+		const matchDayData = await getMatchDayInfo();
 		if (matchDayData) {
 			setMatchDayData(matchDayData);
-			const isTime = InTimeToBet(matchDayData.matches[0].startDate)
+			const isTime = InTimeToBet(matchDayData.matchesRel[0].startDate)
 			setIsInTime({ ...isInTime, available: isTime })
 		}
 	}
@@ -76,24 +76,25 @@ export function useDataBets() {
 
 
 	useEffect(() => {
-		if (matchDayData.matches.length > 0 && matchDayData.matchDay.results[0] === "-") {
-			const intervalRemaining = setInterval(() => {
-				const time = TimeRemainig(matchDayData.matches[0].startDate as Date)
-				const isTime = InTimeToBet(matchDayData.matches[0]?.startDate as Date)
-				setIsInTime({ available: isTime, time: time })
-			}, 1000)
+		if (matchDayData) {
+			if (matchDayData.matches.length > 0 && matchDayData.results[0] === "-") {
+				const intervalRemaining = setInterval(() => {
+					const time = TimeRemainig(matchDayData.matchesRel[0].startDate as Date)
+					const isTime = InTimeToBet(matchDayData.matchesRel[0]?.startDate as Date)
+					setIsInTime({ available: isTime, time: time })
+				}, 1000)
 
-			return () => clearInterval(intervalRemaining)
-		} else {
-			setIsInTime({ available: false, time: "-" })
+				return () => clearInterval(intervalRemaining)
+			} else {
+				setIsInTime({ available: false, time: "-" })
+			}
 		}
 	}, [matchDayData])
 
 
 	return {
 		loading,
-		matches: matchDayData.matches,
-		matchDayInfo: matchDayData.matchDay,
+		matchDayInfo: matchDayData,
 		bets,
 		myBets,
 		isInTime,

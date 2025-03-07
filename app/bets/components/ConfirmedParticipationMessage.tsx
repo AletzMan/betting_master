@@ -1,8 +1,7 @@
-import { IBet, UserSession } from "@/types/types"
+import { IBet, IMatchDay, UserSession } from "@/types/types"
 import { useState } from "react"
 import { TeamsLogosNews } from "@/constants/constants"
 import { Dialog } from "primereact/dialog"
-import { IMatchDayData } from "@/utils/fetchData"
 import { Button } from "primereact/button"
 import { Tag } from "primereact/tag"
 import { Card } from "primereact/card"
@@ -11,7 +10,7 @@ import { Message } from "primereact/message"
 import { IMyBets } from "./MainPage"
 
 interface props {
-    matchDayData: IMatchDayData | null
+    matchDayInfo: IMatchDay | null
     user: UserSession
     bets: IBet[] | null
     myBets: IMyBets
@@ -22,7 +21,7 @@ export interface IPreviewDialog {
     bets: IBet
 }
 
-export function ConfirmedParticipationMessage({ user, bets, myBets, matchDayData }: props) {
+export function ConfirmedParticipationMessage({ user, bets, myBets, matchDayInfo }: props) {
     const [dialog, setDialog] = useState<IPreviewDialog>({ open: false, bets: {} as IBet })
 
     return (
@@ -63,7 +62,7 @@ export function ConfirmedParticipationMessage({ user, bets, myBets, matchDayData
                         <Tag>{dialog.bets.name}</Tag>
                         <article>
                             <header className="flex flex-row">
-                                {matchDayData!.matches.map((match, index) => (
+                                {matchDayInfo!.matchesRel.map((match, index) => (
                                     <div key={match.awayTeam} className="flex flex-col justify-center items-center text-sm font-semibold w-12 text-white border-t-1 border-t-(--surface-d)  border-l-1 border-l-(--surface-d)">
                                         <p className="font-semibold">{TeamsLogosNews.find(team => team.id.toString() === match.homeTeam)?.abbName}</p>
                                         <p className="font-semibold">vs</p>

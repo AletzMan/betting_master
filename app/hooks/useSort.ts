@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { IBet, IBetDocument, IUserAndState } from "../types/types"
+import { useEffect, useState } from "react"
+import { IBet } from "../types/types"
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { sortByHits } from "@/functions/functions";
 
 export function useSort(
 	bets: IBet[] | null,
-	results: string[]
+	results: string[] | undefined
 ) {
 	const searchParams = useSearchParams();
 	const [orderBets, setOrderBets] = useState<IBet[] | null>(bets)
@@ -44,7 +44,7 @@ export function useSort(
 				}
 			}
 			if (sortBy === "hits") {
-				if (searchParams.has("order") && bets) {
+				if (searchParams.has("order") && bets && results) {
 					const betsHits = sortByHits(order === "asc" ? "desc" : "asc", bets, results);
 
 					const newOrder = betsHits.map((bet, index) => {
@@ -52,7 +52,7 @@ export function useSort(
 					})
 					setOrderBets(newOrder as IBet[]);
 				} else {
-					if (bets) {
+					if (bets && results) {
 						const betsHits = sortByHits("desc", bets, results);
 						const newOrder = betsHits.map((bet, index) => {
 							return bets.find(betSearch => betSearch.id === bet.id)
