@@ -12,7 +12,7 @@ export function HeaderPage({ isAvailable, setOpenDialog, timeFirstMatch }: Props
 
 	console.log(timeFirstMatch)
 	return (
-		<header className="grid grid-cols-[0.6fr_1fr_0.8fr] py-1 px-1 w-full">
+		<header className="grid grid-cols-[0.6fr_1fr_0.8fr] py-1 px-1 w-full bg-(--surface-c) max-w-4xl">
 			{isAvailable &&
 				<Button
 					label="Crear"
@@ -20,7 +20,7 @@ export function HeaderPage({ isAvailable, setOpenDialog, timeFirstMatch }: Props
 					size="small"
 					severity="success"
 					onClick={() => setOpenDialog(true)}
-					style={{ maxHeight: "2.2em" }}
+					style={{ maxHeight: "max-content" }}
 				/>
 			}
 			{!isAvailable && <p className="flex items-center justify-center col-span-2 col-start-1 w-max text-sm py-0.5 px-2 rounded-sm border-1 border-red-600 bg-red-950">Tiempo agotado para enviar</p>}
