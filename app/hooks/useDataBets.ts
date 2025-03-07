@@ -20,7 +20,6 @@ const EmptyMyBets: IMyBets = {
 
 export function useDataBets() {
 	const [loading, setLoading] = useState(true)
-	const [bets, setBets] = useState<IBet[] | null>(null)
 	const [isInTime, setIsInTime] = useState({ available: false, time: "" })
 	const [matchDayData, setMatchDayData] = useState<IMatchDay | null>(null)
 	const [myBets, setMyBets] = useState<IMyBets>(EmptyMyBets)
@@ -33,11 +32,14 @@ export function useDataBets() {
 			getData()
 	}, [session, updateBets])
 
+	useEffect(() => {
+		getBets();
+	}, [session, matchDayData])
+
 	const getData = async () => {
 		setLoading(true)
 		try {
 			await getDay();
-			await getBets();
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -56,17 +58,18 @@ export function useDataBets() {
 
 	const getBets = async () => {
 		if (session.status === "authenticated") {
-			const response = await getBetsByDay();
-			if (response) {
-				setBets(response)
-				const arrayMyBets = response?.filter(bet => bet.uid === (session.data?.user as UserSession).id)
+			if (matchDayData) {
+				const arrayMyBets = matchDayData.bets?.filter(bet => bet.uid === (session.data?.user as UserSession).id)
+				console.log(arrayMyBets)
 				if (arrayMyBets) {
 					const newMyBets: IMyBets = {
 						bets: arrayMyBets,
-						hasBets: true,
-						isNotBetsPaid: arrayMyBets.some(bet => !bet.paid)
+						hasBets: arrayMyBets.length > 0,
+						isNotBetsPaid: arrayMyBets.some(bet => bet.paid === false)
 					}
 					setMyBets(newMyBets);
+					console.log(newMyBets)
+					console.log(matchDayData)
 				}
 
 			}
@@ -95,7 +98,6 @@ export function useDataBets() {
 	return {
 		loading,
 		matchDayInfo: matchDayData,
-		bets,
 		myBets,
 		isInTime,
 	}

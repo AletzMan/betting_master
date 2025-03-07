@@ -1,15 +1,14 @@
 model Bet {
-    id            String       @id @default(uuid())
-    uid           String
-    day           Int // Ahora es un Int y se relaciona con MatchDay
-    name          String
-    predictionIds String[]     @unique // Array de IDs de Prediction
-    season        String
-    paid          Boolean
-    tournament    String
-    userInfo      User?        @relation(fields: [uid], references: [id], onDelete: Cascade)
-    MatchDay      MatchDay?    @relation(fields: [day], references: [id])
-    Prediction    Prediction[]
+    id          String       @id @default(uuid())
+    uid         String
+    day         Int
+    name        String
+    season      String
+    paid        Boolean
+    tournament  String
+    userInfo    User?        @relation(fields: [uid], references: [id], onDelete: Cascade)
+    MatchDay    MatchDay?    @relation(fields: [day], references: [day])
+    predictions Prediction[] // Relación con Predictions
 
     @@map("bets")
 }

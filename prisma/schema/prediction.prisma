@@ -1,8 +1,9 @@
 model Prediction {
-  id          String @id @unique()
+  id          String  @id @unique()
   prediction  String
   matchNumber Int
-  Bet         Bet?   @relation(fields: [id], references: [id], onDelete: Cascade)
+  bet         Bet?    @relation(fields: [betId], references: [id], onDelete: Cascade) // Clave foránea aquí
+  betId       String? // Campo para la clave foránea
 
   @@map("predictions")
 }

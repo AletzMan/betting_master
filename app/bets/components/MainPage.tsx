@@ -28,10 +28,11 @@ export default function MainPage() {
     const [selectRanges, setSelectRanges] = useState<{ row: number; column: number } | null>(null)
     const [hiddenNames, setHiddenNames] = useState(false)
     const [viewBets, setViewBets] = useState(false)
-    const { matchDayInfo, isInTime, bets, myBets, loading } = useDataBets()
+    const { matchDayInfo, isInTime, myBets, loading } = useDataBets()
     const [openDialog, setOpenDialog] = useState(false)
-    const { orderBets } = useSort(bets, matchDayInfo?.results);
-
+    const { orderBets } = useSort(matchDayInfo ? matchDayInfo.bets : null, matchDayInfo?.results);
+    console.log(matchDayInfo)
+    console.log(myBets)
     return (
         <main className='flex flex-col items-center pt-[42.39px] h-svh bg-(--surface-c)'>
             {!loading && session.status === "authenticated" && matchDayInfo && <>
@@ -48,20 +49,23 @@ export default function MainPage() {
                 }
                 {(!matchDayInfo.isFinishGame || viewBets) &&
                     <>
-                        {myBets?.isNotBetsPaid && myBets.hasBets && bets && bets?.length > 0 &&
+                        {myBets?.isNotBetsPaid && myBets.hasBets &&
                             <NoPaidMessage myBets={myBets} user={session.data?.user as UserSession} matchDayInfo={matchDayInfo} />
                         }
-                        {!myBets?.hasBets && !loading && matchDayInfo.matches.length > 0 && bets &&
+                        {!myBets?.hasBets && !matchDayInfo.isAvailable &&
                             <Card className='max-w-3xs w-full' >
-                                <h2 className="text-center">¡Esperamos tu quiniela!</h2>
-                                <p className="text-center">¡No te quedes fuera!</p>
+                                <div className="flex flex-col gap-2.5">
+                                    <h2 className="text-center">¡Ups! Parece que llegaste tarde</h2>
+                                    <p className="text-center">La jornada ya está en curso y las quinielas se han cerrado.</p>
+                                    <p className="text-center text-lime-400">¡No te pierdas la próxima oportunidad!</p>
+                                </div>
                             </Card>
                         }
-                        {myBets.hasBets && bets && myBets.bets.length > 0 && !myBets?.isNotBetsPaid && matchDayInfo.results[0] === "-" &&
-                            <ConfirmedParticipationMessage user={session.data?.user as UserSession} bets={bets} myBets={myBets} matchDayInfo={matchDayInfo} />
+                        {myBets.hasBets && myBets.bets.length > 0 && !myBets?.isNotBetsPaid && matchDayInfo.results[0] === "-" &&
+                            <ConfirmedParticipationMessage user={session.data?.user as UserSession} bets={matchDayInfo.bets} myBets={myBets} matchDayInfo={matchDayInfo} />
 
                         }
-                        {myBets.bets.length === 0 &&
+                        {myBets.bets.length === 0 && matchDayInfo.isAvailable &&
                             <Card>
                                 <div className="flex flex-col items-center justify-center gap-4">
                                     <i className="pi pi-trophy text-cyan-600" style={{ fontSize: "3em" }} />
@@ -71,15 +75,15 @@ export default function MainPage() {
                             </Card>
 
                         }
-                        {!loading && !myBets?.isNotBetsPaid && myBets.hasBets && bets && bets.length > 0 && matchDayInfo.results[0] !== "-" && (
+                        {!loading && !myBets?.isNotBetsPaid && myBets.hasBets && matchDayInfo.results[0] !== "-" && (
                             <>
                                 {matchDayInfo && matchDayInfo!.results?.length > 0 &&
                                     <>
                                         <section className={`relative grid w-full gap-1 pr-1 max-w-max border-1 border-transparent scrollbarXY  bg-(--surface-b) rounded-md transition-all ease-in-out delay-150 ${hiddenNames ? "grid-cols-[2.5em_1fr]" : "grid-cols-[13em_1fr]"}  `}>
                                             <div className="sticky left-0 gap-y-1 flex flex-col bg-(--surface-b) pr-[1px] z-4 border-r-1 border-r-(--surface-d) h-full">
-                                                <HeaderTable hiddenNames={hiddenNames} setHiddenNames={setHiddenNames} matchDayInfo={matchDayInfo} totalBets={bets?.length || 0} />
+                                                <HeaderTable hiddenNames={hiddenNames} setHiddenNames={setHiddenNames} matchDayInfo={matchDayInfo} totalBets={matchDayInfo.bets?.length || 0} />
                                                 {orderBets?.map((bet, index) => (
-                                                    <Participant key={bet.id} bets={bets} bet={bet} index={index} hiddenNames={hiddenNames} selectRanges={selectRanges} setSelectRanges={setSelectRanges} matchDayInfo={matchDayInfo} />
+                                                    <Participant key={bet.id} bets={matchDayInfo.bets} bet={bet} index={index} hiddenNames={hiddenNames} selectRanges={selectRanges} setSelectRanges={setSelectRanges} matchDayInfo={matchDayInfo} />
                                                 ))}
                                             </div>
                                             {<BettingsTable filterBets={orderBets} selectRanges={selectRanges} setSelectRanges={setSelectRanges} matchDayInfo={matchDayInfo} />}
@@ -106,10 +110,20 @@ export default function MainPage() {
 
                 }
                 {matchDayInfo.isFinishGame && !viewBets &&
-                    <WinningBets bets={bets} matches={matchDayInfo} />
+                    <WinningBets bets={matchDayInfo.bets} matches={matchDayInfo} />
                 }
 
             </>}
+            {!loading && matchDayInfo === null &&
+                <div className="flex items-center justify-center flex-col gap-4 px-2 py-4 max-w-80 rounded-md mt-5 bg-(--background-info-color) border-1 border-(--info-color)">
+                    <i className="pi pi-info-circle text-(--info-color)" style={{ fontSize: "3em" }} />
+                    <div>
+                        <p className="text-balance text-center text-white">¡La quiniela de la semana aún no ha sido creada!</p>
+                        <p className="text-center text-white">  Mantente atento, pronto podrás participar</p>
+                    </div>
+                </div>
+
+            }
             {
                 loading && <Loading height='20em' />
             }

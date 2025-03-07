@@ -50,10 +50,11 @@ export default function HeaderTable({ hiddenNames, setHiddenNames, matchDayInfo,
         setHiddenNames(prev => !prev)
     }
 
-
+    console.log(matchDayInfo)
+    console.log(totalBets)
     return (
         <>
-            {matchDayInfo && matchDayInfo?.matches &&
+            {matchDayInfo &&
                 <div className="sticky top-0 flex flex-col h-24 w-full bg-(--surface-d) z-5 overflow-hidden">
                     <div className="flex flex-col items-center justify-between w-full">
                         {!hiddenNames && <span className="text-amber-400">Monto: {(ConvertToPrice(totalBets * 13.5))}</span>}

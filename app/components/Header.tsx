@@ -71,7 +71,7 @@ export default function Header() {
 							<span className="absolute bottom-1.5 right-1.25 w-2.5 h-2.5 bg-red-600 rounded-xl"></span>
 						</button>
 					}
-					<div className="flex flex-row items-center justify-between gap-2 h-full pr-2 pl-2 w-max border-l-1 border-r-1 border-l-(--surface-d)  border-r-(--surface-d)">
+					{session.status && <div className="flex flex-row items-center justify-between gap-2 h-full pr-2 pl-2 w-max border-l-1 border-r-1 border-l-(--surface-d)  border-r-(--surface-d)">
 						{/*session.status === "authenticated" && <Avatar image={(session.data?.user as UserSession).image} shape="circle" size="normal" />*/}
 						{session.status === "authenticated" && <Image className="border-2 border-(--primary-color) rounded-full max-h-7 w-7" src={(session.data?.user as UserSession).image} alt="circle" width={25} height={25} />}
 						{session.status === "unauthenticated" && <Avatar image={"/user-icon.png"} shape="circle" size="normal" />}
@@ -81,7 +81,7 @@ export default function Header() {
 							{session.status === "unauthenticated" && <span className="text-xs font-medium">{"Invitado"}</span>}
 							{session.status === "loading" && <Skeleton height="20px" width="4em" />}
 						</div>
-					</div>
+					</div>}
 				</div>
 			</header>
 			<MenuPages />

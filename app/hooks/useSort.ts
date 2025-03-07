@@ -10,7 +10,7 @@ export function useSort(
 	results: string[] | undefined
 ) {
 	const searchParams = useSearchParams();
-	const [orderBets, setOrderBets] = useState<IBet[] | null>(bets)
+	const [orderBets, setOrderBets] = useState<IBet[] | null>(null)
 	const session = useSession()
 
 	useEffect(() => {
@@ -19,7 +19,7 @@ export function useSort(
 	}, [bets, searchParams])
 
 	useEffect(() => {
-		if (searchParams.has("sortBy")) {
+		if (searchParams.has("sortBy") && session.status === "authenticated") {
 			const sortBy = searchParams.get("sortBy")
 			const order = searchParams.get("order")
 			if (sortBy === "normal") {
@@ -62,7 +62,7 @@ export function useSort(
 				}
 			}
 		}
-	}, [searchParams, bets])
+	}, [searchParams, bets, session])
 
 
 
@@ -83,6 +83,7 @@ export function useSort(
 	const sortNormal = (order: "asc" | "desc") => {
 		if (bets) {
 			let newOrder = [...bets]
+
 			newOrder.sort((a, b) => {
 				const comparison = a.userInfo.name.localeCompare(b.userInfo.name);
 				return order === "desc" ? comparison : -comparison;

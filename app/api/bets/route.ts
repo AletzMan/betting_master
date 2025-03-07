@@ -8,68 +8,55 @@ import { BetSchema } from "@/validations/betSchema";
 import { randomUUID } from "crypto";
 
 export async function GET(request: NextRequest) {
+    try {
+        const bets = await prisma.bet.findMany({
+            include: {
+                userInfo: true,
+                predictions: true, // Incluir las predicciones relacionadas
+            },
+        });
 
-    const bets = await prisma.bet.findMany({
-        include: {
-            userInfo: true,
-        },
-    });
-
-    const betsWithPredictions = await Promise.all(
-        bets.map(async (bet) => {
-            const predictions = await prisma.prediction.findMany({
-                where: {
-                    id: {
-                        in: bet.predictionIds,
-                    },
-                },
-            });
-            return {
-                ...bet,
-                predictions: predictions,
-            };
-        })
-    );
-
-    if (betsWithPredictions) {
-        return SuccessResponse(betsWithPredictions);
+        if (bets) {
+            return SuccessResponse(bets);
+        }
+        return NotFoundError();
+    } catch (error) {
+        console.error("Error al obtener las apuestas:", error);
+        return ServerError();
     }
-    return NotFoundError();
 }
-
 
 
 export async function POST(request: NextRequest) {
     try {
-        const data = await request.json()
-        // 1. Validar los datos de la apuesta 
+        const data = await request.json();
         const validatedBetData = BetSchema.parse(data);
 
-        // 2. Crear las Predictions
         const createdPredictions = await Promise.all(
             validatedBetData.predictions.map(async (prediction, index) => {
                 return prisma.prediction.create({
                     data: {
                         prediction: prediction,
                         matchNumber: index,
-                        id: randomUUID()
+                        id: randomUUID(),
                     },
                 });
             })
         );
 
-        // 3. Obtener los IDs de las Predictions creadas
-        const predictionIds = createdPredictions.map((prediction) => prediction.id);
         const { predictions, ...betDataWithoutPredictions } = validatedBetData;
 
-        // 4. Crear la Bet con los predictionIds
         const newBet = await prisma.bet.create({
             data: {
                 ...betDataWithoutPredictions,
                 paid: false,
-                predictionIds: predictionIds,
-            }, include: { userInfo: true }
+                predictions: {
+                    connect: createdPredictions.map((prediction) => ({ id: prediction.id })),
+                },
+            },
+            include: { userInfo: true },
         });
+
         if (newBet) {
             return SuccessCreate(newBet);
         }

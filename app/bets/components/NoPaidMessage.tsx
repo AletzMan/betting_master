@@ -93,7 +93,7 @@ export const NoPaidMessage = ({ myBets, user, matchDayInfo }: Props) => {
                     <p className="text-sm font-bold mb-2">Total a pagar: <span className=" text-lg font-bold text-orange-400">{ConvertToPrice(bets.betsNotPaid.filter(betPaid => !betPaid.paid).length * 15)}</span></p>
                     <div className="flex items-start gap-2">
                         <i className="pi pi-clock text-orange-400 mt-1" />
-                        <p className="text-sm">Tienes hasta el comienzo del primer partido para pagar</p>
+                        <p className="text-sm">Tienes hasta 24 horas del el comienzo del primer partido para pagar</p>
                     </div>
                     <div className="flex items-start gap-2">
                         <i className="pi pi-info-circle text-orange-400  mt-1" />

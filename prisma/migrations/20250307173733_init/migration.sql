@@ -4,7 +4,6 @@ CREATE TABLE "bets" (
     "uid" TEXT NOT NULL,
     "day" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
-    "predictionIds" TEXT[],
     "season" TEXT NOT NULL,
     "paid" BOOLEAN NOT NULL,
     "tournament" TEXT NOT NULL,
@@ -42,6 +41,7 @@ CREATE TABLE "predictions" (
     "id" TEXT NOT NULL,
     "prediction" TEXT NOT NULL,
     "matchNumber" INTEGER NOT NULL,
+    "betId" TEXT,
 
     CONSTRAINT "predictions_pkey" PRIMARY KEY ("id")
 );
@@ -64,9 +64,6 @@ CREATE TABLE "users" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "bets_predictionIds_key" ON "bets"("predictionIds");
-
--- CreateIndex
 CREATE UNIQUE INDEX "matchdays_day_key" ON "matchdays"("day");
 
 -- CreateIndex
@@ -79,10 +76,10 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 ALTER TABLE "bets" ADD CONSTRAINT "bets_uid_fkey" FOREIGN KEY ("uid") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "bets" ADD CONSTRAINT "bets_day_fkey" FOREIGN KEY ("day") REFERENCES "matchdays"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "bets" ADD CONSTRAINT "bets_day_fkey" FOREIGN KEY ("day") REFERENCES "matchdays"("day") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "matches" ADD CONSTRAINT "matches_matchDay_fkey" FOREIGN KEY ("matchDay") REFERENCES "matchdays"("day") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "predictions" ADD CONSTRAINT "predictions_id_fkey" FOREIGN KEY ("id") REFERENCES "bets"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "predictions" ADD CONSTRAINT "predictions_betId_fkey" FOREIGN KEY ("betId") REFERENCES "bets"("id") ON DELETE CASCADE ON UPDATE CASCADE;

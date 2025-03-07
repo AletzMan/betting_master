@@ -14,7 +14,7 @@ import { Loading } from "@/components/Loading/Loading"
 import axios from "axios"
 
 export function AdminPanel() {
-	const [matchDayData, setMatchDayData] = useState<IMatchDay | null>()
+	const [matchDayData, setMatchDayData] = useState<IMatchDay | null>(null)
 	const [sending, setSending] = useState(false)
 	const [loading, setLoading] = useState(true)
 	const [viewCreateBets, setViewCreateBets] = useState(false)
@@ -123,12 +123,13 @@ export function AdminPanel() {
 								</div>
 							))}
 						</article>
-						{!matchDayData.day &&
-							<div className="flex flex-col items-center gap-6">
-								<i className="pi pi-ban text-red-600" style={{ fontSize: "4em" }} />
-								<p>No se ha creado la quiniela de la semana</p>
-							</div>
-						}
+
+					</div>
+				}
+				{matchDayData === null &&
+					<div className="flex flex-col items-center gap-6">
+						<i className="pi pi-ban text-red-600" style={{ fontSize: "4em" }} />
+						<p>No se ha creado la quiniela de la semana</p>
 					</div>
 				}
 				<Divider type="dashed" />
@@ -137,7 +138,7 @@ export function AdminPanel() {
 						label="Crear quiniela"
 						icon="pi pi-plus"
 						size="small"
-						disabled={!matchDayData || loading}
+						disabled={matchDayData !== null || loading}
 						severity="success"
 						onClick={HandleCreate}
 						outlined />

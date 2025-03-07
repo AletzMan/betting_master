@@ -8,7 +8,7 @@ import { MatchDaySchema } from "@/validations/matchDaySchema";
 
 export async function GET(request: NextRequest) {
 
-    const response = await prisma?.matchDay.findMany({ include: { matchesRel: true, bets: true } })
+    const response = await prisma?.matchDay.findMany({ include: { matchesRel: true, bets: { include: { userInfo: true } } } })
     return SuccessResponse(response);
 }
 
