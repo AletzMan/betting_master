@@ -1,4 +1,3 @@
-import { AdminIcon, ArrowUpIcon } from "@/svg"
 import { Fieldset } from "primereact/fieldset"
 import { Checkbox } from "primereact/checkbox"
 

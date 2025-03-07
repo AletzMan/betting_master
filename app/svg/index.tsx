@@ -2335,46 +2335,6 @@ export function BallIcon(props: IProps) {
 	)
 }
 
-export function LiveIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
-			<path
-				fill="currentColor"
-				d="M6.343 4.938a1 1 0 0 1 0 1.415a8.003 8.003 0 0 0 0 11.317a1 1 0 1 1-1.414 1.414c-3.907-3.906-3.907-10.24 0-14.146a1 1 0 0 1 1.414 0Zm12.732 0c3.906 3.907 3.906 10.24 0 14.146a1 1 0 0 1-1.415-1.414a8.003 8.003 0 0 0 0-11.317a1 1 0 0 1 1.415-1.415ZM9.31 7.812a1 1 0 0 1 0 1.414a3.92 3.92 0 0 0 0 5.544a1 1 0 1 1-1.415 1.414a5.92 5.92 0 0 1 0-8.372a1 1 0 0 1 1.415 0Zm6.958 0a5.92 5.92 0 0 1 0 8.372a1 1 0 0 1-1.414-1.414a3.92 3.92 0 0 0 0-5.544a1 1 0 0 1 1.414-1.414Zm-4.186 2.77a1.5 1.5 0 1 1 0 3a1.5 1.5 0 0 1 0-3Z"
-			/>
-		</svg>
-	)
-}
-
-export function StarIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 256 256">
-			<path
-				fill="currentColor"
-				d="M184.13 147.7a8.08 8.08 0 0 0-2.54 7.89l13.52 58.54a8 8 0 0 1-11.89 8.69l-51.1-31a7.93 7.93 0 0 0-8.24 0l-51.1 31a8 8 0 0 1-11.89-8.69l13.52-58.54a8.08 8.08 0 0 0-2.54-7.89l-45.11-39.35a8 8 0 0 1 4.54-14.07l59.46-5.14a8 8 0 0 0 6.67-4.88l23.23-55.36a8 8 0 0 1 14.68 0l23.23 55.36a8 8 0 0 0 6.67 4.88l59.46 5.14a8 8 0 0 1 4.54 14.07Z"
-				opacity=".2"
-			/>
-			<path
-				fill="currentColor"
-				d="M239.2 97.29a16 16 0 0 0-13.81-11L166 81.17l-23.28-55.36a15.95 15.95 0 0 0-29.44 0L90.07 81.17l-59.46 5.15a16 16 0 0 0-9.11 28.06l45.11 39.42l-13.52 58.54a16 16 0 0 0 23.84 17.34l51-31l51.11 31a16 16 0 0 0 23.84-17.34l-13.51-58.6l45.1-39.36a16 16 0 0 0 4.73-17.09Zm-15.22 5l-45.1 39.36a16 16 0 0 0-5.08 15.71L187.35 216l-51.07-31a15.9 15.9 0 0 0-16.54 0l-51 31l13.46-58.6a16 16 0 0 0-5.08-15.71L32 102.35a.37.37 0 0 1 0-.09l59.44-5.14a16 16 0 0 0 13.35-9.75L128 32.08l23.2 55.29a16 16 0 0 0 13.35 9.75l59.45 5.14v.07Z"
-			/>
-		</svg>
-	)
-}
-
-export function CircleIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="256" height="256" viewBox="0 0 256 256">
-			<g fill="currentColor">
-				<path d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96Z" opacity=".2" />
-				<path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88Z" />
-			</g>
-		</svg>
-	)
-}
 
 export function StartedIcon(props: IProps) {
 	const { className } = props
@@ -2385,269 +2345,13 @@ export function StartedIcon(props: IProps) {
 	)
 }
 
-export function SuccessIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="1em" height="1em" viewBox="0 0 48 48">
-			<defs><mask id="ipSCheckOne0"><g fill="none" strokeLinejoin="round" strokeWidth={4}>
-				<path fill="#fff" stroke="#fff" d="M24 44a19.94 19.94 0 0 0 14.142-5.858A19.94 19.94 0 0 0 44 24a19.94 19.94 0 0 0-5.858-14.142A19.94 19.94 0 0 0 24 4A19.94 19.94 0 0 0 9.858 9.858A19.94 19.94 0 0 0 4 24a19.94 19.94 0 0 0 5.858 14.142A19.94 19.94 0 0 0 24 44Z"></path><path stroke="#000" strokeLinecap="round" d="m16 24l6 6l12-12"></path></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSCheckOne0)">
-			</path></svg>
-	)
-}
 
-export function WinnerIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
-			<g fill="none" stroke="currentColor" strokeWidth="1.5">
-				<path d="M12 16c-5.76 0-6.78-5.74-6.96-10.294c-.051-1.266-.076-1.9.4-2.485c.475-.586 1.044-.682 2.183-.874A26.374 26.374 0 0 1 12 2c1.784 0 3.253.157 4.377.347c1.139.192 1.708.288 2.184.874c.476.586.45 1.219.4 2.485c-.18 4.553-1.2 10.294-6.96 10.294Z" />
-				<path strokeLinecap="round" strokeLinejoin="round" d="m11 8l1.5-1.5v4" />
-				<path d="m19 5l.949.316c.99.33 1.485.495 1.768.888c.283.393.283.915.283 1.958v.073c0 .86 0 1.291-.207 1.643c-.207.352-.584.561-1.336.98L17.5 12.5M5 5l-.949.316c-.99.33-1.485.495-1.768.888C2 6.597 2 7.12 2 8.162v.073c0 .86 0 1.291.207 1.643c.207.352.584.561 1.336.98L6.5 12.5" />
-				<path strokeLinecap="round" d="M12 16v3" />
-				<path strokeLinecap="round" strokeLinejoin="round" d="M15.5 22h-7l.34-1.696a1 1 0 0 1 .98-.804h4.36a1 1 0 0 1 .98.804L15.5 22Z" />
-				<path strokeLinecap="round" d="M18 22H6" />
-			</g>
-		</svg>
-	)
-}
-
-export function MenuIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
-			<g fill="none">
-				<path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z" />
-				<path
-					fill="currentColor"
-					d="M20 17.5a1.5 1.5 0 0 1 .144 2.993L20 20.5H4a1.5 1.5 0 0 1-.144-2.993L4 17.5h16Zm0-7a1.5 1.5 0 0 1 0 3H4a1.5 1.5 0 0 1 0-3h16Zm0-7a1.5 1.5 0 0 1 0 3H4a1.5 1.5 0 1 1 0-3h16Z"
-				/>
-			</g>
-		</svg>
-	)
-}
-
-export function ProfileIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width={24} height={24} viewBox="0 0 24 24">
-			<path fill="currentColor" fillRule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm10 5a1 1 0 0 1 1-1h3a1 1 0 1 1 0 2h-3a1 1 0 0 1-1-1m0 3a1 1 0 0 1 1-1h3a1 1 0 1 1 0 2h-3a1 1 0 0 1-1-1m0 3a1 1 0 0 1 1-1h3a1 1 0 1 1 0 2h-3a1 1 0 0 1-1-1m-8-5a3 3 0 1 1 6 0a3 3 0 0 1-6 0m1.942 4a3 3 0 0 0-2.847 2.051l-.044.133l-.004.012c-.042.126-.055.167-.042.195c.006.013.02.023.038.039c.032.025.08.064.146.155A1 1 0 0 0 6 17h6a1 1 0 0 0 .811-.415a.7.7 0 0 1 .146-.155c.019-.016.031-.026.038-.04c.014-.027 0-.068-.042-.194l-.004-.012l-.044-.133A3 3 0 0 0 10.059 14z" clipRule="evenodd">
-			</path>
-		</svg>
-	)
-}
-
-export function ResultsIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 100 100">
-			<path
-				fill="currentColor"
-				d="M92.11 21.929c0-.973-.789-1.761-1.761-1.761l-.006.001v-.005H44.465v.014a1.76 1.76 0 0 0-1.751 1.752h-.001v6.342c-.001.03-.009.057-.009.087c0 .972.788 1.76 1.761 1.761h45.878l.006.001c.973 0 1.761-.789 1.761-1.761v-6.431zm0 14.901c0-.973-.789-1.761-1.761-1.761l-.006.001v-.005H44.465v.014a1.76 1.76 0 0 0-1.751 1.752h-.001v6.343c-.001.03-.009.057-.009.087c0 .972.788 1.76 1.761 1.761h45.878v-.001l.006.001c.973 0 1.761-.789 1.761-1.761V36.83zM32.748 21.925a1.76 1.76 0 0 0-1.761-1.761c-.043 0-.084.01-.126.013H9.777c-.042-.003-.083-.013-.126-.013c-.973 0-1.761.789-1.761 1.761V43.26c0 .972.788 1.761 1.761 1.761h21.336c.973 0 1.761-.789 1.761-1.761V21.925zM92.11 56.744c0-.973-.789-1.761-1.761-1.761l-.006.001v-.005H44.465v.014a1.76 1.76 0 0 0-1.751 1.752h-.001v6.343c-.001.03-.009.057-.009.087c0 .972.788 1.761 1.761 1.761h45.878v-.001l.006.001c.973 0 1.761-.789 1.761-1.761v-6.431zm0 14.901c0-.973-.789-1.761-1.761-1.761l-.006.001v-.005H44.465v.014a1.76 1.76 0 0 0-1.751 1.752h-.001v6.342c-.001.03-.009.057-.009.087c0 .972.788 1.761 1.761 1.761h45.878v-.001l.006.001c.973 0 1.761-.789 1.761-1.761v-6.43zM32.748 56.74c0-.973-.788-1.762-1.761-1.762c-.043 0-.084.01-.126.013H9.777c-.042-.003-.083-.013-.126-.013c-.973 0-1.761.789-1.761 1.762v21.335c0 .972.789 1.761 1.761 1.761h21.336c.973 0 1.761-.789 1.761-1.761V56.74z"
-			/>
-		</svg>
-	)
-}
-
-export function PositionsIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
-			<g id="feListOrder0" fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
-				<g id="feListOrder1" fill="currentColor">
-					<path
-						id="feListOrder2"
-						d="M10 4h10a1 1 0 0 1 0 2H10a1 1 0 1 1 0-2Zm0 7h10a1 1 0 0 1 0 2H10a1 1 0 0 1 0-2Zm0 7h10a1 1 0 0 1 0 2H10a1 1 0 0 1 0-2ZM4.5 4a.5.5 0 0 1 0-1h1c.28 0 .5.22.5.5v3a.5.5 0 0 1-1 0V4.015L4.5 4Zm0 6h2c.28 0 .5.22.5.5v.5l-1.7 2h1.2c.28 0 .5.22.5.5s-.224.5-.5.5h-2c-.28 0-.5-.22-.5-.5V13l1.7-2H4.5c-.28 0-.5-.22-.5-.5s.199-.5.5-.5Zm2 11h-2a.5.5 0 1 1 0-1H6v-.5H4.5a.5.5 0 1 1 0-1H6V18H4.5a.5.5 0 1 1 0-1h2a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5Z"
-					/>
-				</g>
-			</g>
-		</svg>
-	)
-}
-
-export function BetsIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
-			<path
-				fill="currentColor"
-				fillRule="evenodd"
-				d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 18.375V5.625ZM21 9.375A.375.375 0 0 0 20.625 9h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5ZM10.875 18.75a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5ZM3.375 15h7.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375Zm0-3.75h7.5a.375.375 0 0 0 .375-.375v-1.5A.375.375 0 0 0 10.875 9h-7.5A.375.375 0 0 0 3 9.375v1.5c0 .207.168.375.375.375Z"
-				clipRule="evenodd"
-			/>
-		</svg>
-	)
-}
 
 export function LuckIcon(props: IProps) {
 	const { className } = props
 	return (
 		<svg className={className} width="1em" height="1em" viewBox="0 0 24 24">
 			<path fill="currentColor" d="M12 11.18c3.3-3 5-4.54 5-6.49C17 3.19 15.75 2 14.25 2c-.86 0-1.68.36-2.25 1c-.57-.64-1.39-1-2.31-1C8.19 2 7 3.25 7 4.75c0 1.89 1.7 3.43 5 6.43m-.82.82c-3-3.3-4.54-5-6.49-5C3.19 7 2 8.25 2 9.75c0 .86.36 1.68 1 2.25c-.64.57-1 1.39-1 2.31C2 15.81 3.25 17 4.75 17c1.89 0 3.43-1.7 6.43-5m1.65 0c2.99 3.3 4.53 5 6.48 5c1.5 0 2.69-1.25 2.69-2.75c0-.86-.36-1.68-1-2.25c.64-.57 1-1.39 1-2.31C22 8.19 20.75 7 19.25 7c-1.89 0-3.43 1.7-6.42 5m-.83.82c-3.3 3-5 4.54-5 6.49C7 20.81 8.25 22 9.75 22c.86 0 1.68-.36 2.25-1c.57.64 1.39 1 2.31 1c1.5 0 2.69-1.25 2.69-2.75c0-1.89-1.7-3.43-5-6.43" />
-		</svg>
-	)
-}
-
-export function AdminIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width={36} height={36} viewBox="0 0 36 36">
-			<circle cx={14.67} cy={8.3} r={6} fill="currentColor" className="clr-i-solid clr-i-solid-path-1"></circle>
-			<path fill="currentColor" d="M16.44 31.82a2.15 2.15 0 0 1-.38-2.55l.53-1l-1.09-.33a2.14 2.14 0 0 1-1.5-2.1v-2.05a2.16 2.16 0 0 1 1.53-2.07l1.09-.33l-.52-1a2.17 2.17 0 0 1 .35-2.52a19 19 0 0 0-2.32-.16A15.58 15.58 0 0 0 2 23.07v7.75a1 1 0 0 0 1 1z" className="clr-i-solid clr-i-solid-path-2"></path><path fill="currentColor" d="m33.7 23.46l-2-.6a6.7 6.7 0 0 0-.58-1.42l1-1.86a.35.35 0 0 0-.07-.43l-1.45-1.46a.38.38 0 0 0-.43-.07l-1.85 1a7.7 7.7 0 0 0-1.43-.6l-.61-2a.38.38 0 0 0-.36-.25h-2.08a.38.38 0 0 0-.35.26l-.6 2a7 7 0 0 0-1.45.61l-1.81-1a.38.38 0 0 0-.44.06l-1.47 1.44a.37.37 0 0 0-.07.44l1 1.82a7.2 7.2 0 0 0-.65 1.43l-2 .61a.36.36 0 0 0-.26.35v2.05a.36.36 0 0 0 .26.35l2 .61a7.3 7.3 0 0 0 .6 1.41l-1 1.9a.37.37 0 0 0 .07.44L19.16 32a.38.38 0 0 0 .44.06l1.87-1a7 7 0 0 0 1.4.57l.6 2.05a.38.38 0 0 0 .36.26h2.05a.38.38 0 0 0 .35-.26l.6-2.05a6.7 6.7 0 0 0 1.38-.57l1.89 1a.38.38 0 0 0 .44-.06L32 30.55a.38.38 0 0 0 .06-.44l-1-1.88a7 7 0 0 0 .57-1.38l2-.61a.39.39 0 0 0 .27-.35v-2.07a.4.4 0 0 0-.2-.36m-8.83 4.72a3.34 3.34 0 1 1 3.33-3.34a3.34 3.34 0 0 1-3.33 3.34" className="clr-i-solid clr-i-solid-path-3">
-			</path>
-			<path fill="none" d="M0 0h36v36H0z"></path>
-		</svg>
-	)
-}
-
-export function PaymentIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width={24} height={24} viewBox="0 0 24 24">
-			<path fill="currentColor" d="M4.308 18.616q-.667 0-1.141-.475q-.475-.475-.475-1.141V8.692q0-.212.144-.356t.357-.144t.356.144t.143.356V17q0 .23.192.423q.193.193.424.193h13.538q.213 0 .356.143q.144.144.144.357t-.144.356t-.356.144zm3-3q-.667 0-1.141-.475q-.475-.475-.475-1.141V6.846q0-.666.475-1.14t1.14-.475h12.385q.667 0 1.141.474t.475 1.141V14q0 .666-.475 1.14q-.474.476-1.14.476zm1-1q0-.672-.475-1.144Q7.36 13 6.693 13v1q0 .25.182.433t.433.183zm10.384 0h1q.25 0 .433-.183t.183-.433v-1q-.672 0-1.144.475q-.472.474-.472 1.14M13.5 12.424q.846 0 1.423-.577t.577-1.423T14.923 9T13.5 8.423T12.077 9t-.577 1.423t.577 1.423t1.423.577M6.692 7.846q.672 0 1.144-.474q.472-.475.472-1.141h-1q-.25 0-.433.183t-.183.432zm13.616 0v-1q0-.25-.183-.432t-.433-.183h-1q0 .671.475 1.143q.474.472 1.14.472">
-			</path>
-		</svg>
-	)
-}
-
-export function LotteryIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width={20} height={20} viewBox="0 0 20 20"><path fill="currentColor" d="M12.437 3.25A5 5 0 0 0 10.001 5a5 5 0 0 0-2.437-1.75A3 3 0 0 1 10.001 2c1.003 0 1.892.493 2.436 1.25m-8.81 7.97a6.504 6.504 0 0 1 5.85-5.2a4 4 0 1 0-5.85 5.199m12.747 0a4 4 0 1 0-5.85-5.199a6.504 6.504 0 0 1 5.85 5.199M15.5 12.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0m-7.5-2a.5.5 0 0 0 .5.5h2.24q-.154.22-.32.485c-.483.772-1.028 1.846-1.166 2.953a.5.5 0 1 0 .992.124c.112-.893.567-1.819 1.022-2.547a11 11 0 0 1 .843-1.168l.012-.014l.004-.004A.5.5 0 0 0 11.75 10H8.5a.5.5 0 0 0-.5.5">
-		</path></svg>
-	)
-}
-
-export function BetConfigIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width={20} height={20} viewBox="0 0 20 20"><path fill="currentColor" d="M12.92 2.873a2.975 2.975 0 0 1 4.207 4.207l-.669.669l-4.207-4.207zM11.544 4.25l-7.999 7.999a2.44 2.44 0 0 0-.655 1.194l-.878 3.95a.5.5 0 0 0 .597.597l3.926-.873a2.5 2.5 0 0 0 1.234-.678L8.207 16A5.5 5.5 0 0 1 15 9.207l.751-.75zm-.477 7.194a2 2 0 0 1-1.431 2.478l-.461.118a4.7 4.7 0 0 0 .01 1.016l.35.083a2 2 0 0 1 1.456 2.519l-.127.422q.387.307.835.518l.325-.344a2 2 0 0 1 2.91.002l.337.358q.44-.203.822-.498l-.156-.556a2 2 0 0 1 1.43-2.479l.46-.117a4.7 4.7 0 0 0-.01-1.017l-.348-.082a2 2 0 0 1-1.456-2.52l.126-.421a4.3 4.3 0 0 0-.835-.519l-.325.344a2 2 0 0 1-2.91-.001l-.337-.358a4.3 4.3 0 0 0-.821.497zM13.5 15.5a1 1 0 1 1 0-2a1 1 0 0 1 0 2">
-		</path></svg>
-	)
-}
-
-
-export function CrownIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="64" height="64" viewBox="0 0 64 64">
-			<g fillRule="evenodd">
-				<g fill="#c8832e">
-					<path d="M22.07 17.472c0 1.614-1.255 2.919-2.801 2.919c-1.55 0-2.801-1.305-2.801-2.919c0-1.612 1.251-2.923 2.801-2.923c1.547 0 2.801 1.31 2.801 2.923" />
-					<path d="M15.353 29.21s6.567-4.072 3.215-12.305c0 0 11.883 17.11 15.238 9.83c3.354-7.281-.979 8.885-1.258 9.32c-.279.439-5.871 4.808-5.871 4.808h-8.806L15.353 29.21" />
-					<ellipse cx="44.735" cy="17.472" rx="2.804" ry="2.919" />
-					<path d="M48.647 29.21s-6.571-4.072-3.215-12.305c0 0-11.884 17.11-15.24 9.83c-3.353-7.281.981 8.885 1.263 9.32c.274.439 5.867 4.808 5.867 4.808h8.81l2.515-11.653" />
-				</g>
-				<path
-					fill="#f79420"
-					d="M60.07 14.566c-2.146 0-3.884 1.907-3.884 4.263c0 .628.13 1.224.353 1.76c-6.01 3.454-11.595 8.788-11.595 8.788c-5.079 5.863-9.192-3.694-11.435-11.02c2.732-.771 4.757-3.488 4.757-6.73c0-3.843-2.836-6.958-6.338-6.958c-3.501 0-6.338 3.115-6.338 6.958c0 3.293 2.085 6.04 4.886 6.768c-2.248 7.327-6.354 16.843-11.42 10.987c0 0-5.585-5.334-11.601-8.788a4.562 4.562 0 0 0 .355-1.76c0-2.356-1.74-4.263-3.884-4.263c-2.145 0-3.884 1.907-3.884 4.263s1.74 4.265 3.884 4.265c.72 0 1.383-.229 1.963-.604c2.244 4.679 5.412 13.09 3.758 20.804c0 0 2.435 9.755 22.351 9.426c19.915.329 22.347-9.426 22.347-9.426c-1.652-7.711 1.515-16.12 3.761-20.804c.58.375 1.243.604 1.963.604c2.145 0 3.885-1.909 3.885-4.265s-1.739-4.264-3.884-4.264"
-				/>
-				<path
-					fill="#c8832e"
-					d="M32 54.955c-15.913.263-20.662-5.909-21.927-8.402a21.03 21.03 0 0 1-.424 3.347S12.084 59.653 32 59.328c19.915.325 22.347-9.428 22.347-9.428a21.011 21.011 0 0 1-.422-3.347c-1.265 2.493-6.01 8.665-21.925 8.402"
-				/>
-				<path
-					fill="#f19d43"
-					d="M31.1 52.614c2.858-14.365 4.01-29.03-.271-43.3c-.488-1.624-.616-3.138-.475-4.531c-2.74.769-4.765 3.486-4.765 6.734c0 3.293 2.085 6.05 4.886 6.766c-2.248 7.329-6.354 16.847-11.42 10.989c0 0-5.585-5.334-11.601-8.789a4.56 4.56 0 0 0 .355-1.761c0-2.352-1.74-4.261-3.884-4.261c-2.145 0-3.884 1.909-3.884 4.261c0 2.358 1.74 4.267 3.884 4.267c.72 0 1.383-.231 1.963-.604c2.244 4.676 5.412 13.09 3.758 20.801c0 0 2.375 9.447 21.454 9.431"
-				/>
-			</g>
-			<g fill="#fff">
-				<path d="m32 40.26l1.692 3.16l3.777.504l-2.737 2.456l.648 3.471L32 48.21l-3.376 1.641l.646-3.471l-2.734-2.456l3.774-.504z" />
-				<path d="M31.938 41.922a7.952 7.952 0 0 1 .096-1.598l-.031-.064l-1.691 3.158l-3.776.506l2.73 2.454l-.643 3.473l3.38-1.638l3.375 1.638l-.272-1.474c-1.927-1.679-3.073-4.01-3.168-6.455m13.272.053l1.04 1.933l2.312.312l-1.671 1.503l.389 2.131l-2.07-1l-2.07 1l.396-2.131l-1.674-1.503l2.318-.312z" />
-				<path d="M45.17 42.992a4.904 4.904 0 0 1 .061-.979l-.02-.039l-1.035 1.934l-2.315.311l1.674 1.504l-.393 2.131l2.069-1l2.069 1l-.166-.904c-1.181-1.031-1.884-2.463-1.944-3.958m-26.466-1.017l1.033 1.933l2.313.312l-1.673 1.503l.396 2.131l-2.069-1l-2.07 1l.396-2.131l-1.677-1.503l2.313-.312z" />
-				<path d="M18.662 42.992a4.317 4.317 0 0 1 .063-.979l-.021-.039l-1.038 1.934l-2.313.311l1.673 1.504l-.393 2.131l2.07-1l2.069 1l-.168-.904c-1.181-1.031-1.883-2.463-1.942-3.958" />
-			</g>
-		</svg>
-	)
-}
-
-export function GoogleLogo(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="48" height="48" viewBox="0 0 48 48">
-			<path
-				fill="#FFC107"
-				d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"
-			/>
-			<path
-				fill="#FF3D00"
-				d="m6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"
-			/>
-			<path
-				fill="#4CAF50"
-				d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"
-			/>
-			<path
-				fill="#1976D2"
-				d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"
-			/>
-		</svg>
-	)
-}
-
-export function ExitLogo(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="32" height="32" viewBox="0 0 32 32">
-			<path
-				fill="currentColor"
-				d="M28 4H4c-1.1 0-2 .9-2 2v20c0 1.1.9 2 2 2h24c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 11H17.8l3.6-3.6L20 10l-6 6l6 6l1.4-1.4l-3.6-3.6H28v9H12V6h16v9z"
-			/>
-		</svg>
-	)
-}
-
-export function CancelLogo(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="1em" height="1em" viewBox="0 0 24 24">
-			<path fill="currentColor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10s10-4.47 10-10S17.53 2 12 2m4.3 14.3a.996.996 0 0 1-1.41 0L12 13.41L9.11 16.3a.996.996 0 1 1-1.41-1.41L10.59 12L7.7 9.11A.996.996 0 1 1 9.11 7.7L12 10.59l2.89-2.89a.996.996 0 1 1 1.41 1.41L13.41 12l2.89 2.89c.38.38.38 1.02 0 1.41" />
-		</svg>
-	)
-}
-
-export function BallLogo(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="1em" height="1em" viewBox="0 0 512 512">
-			<path fill="currentColor" d="M255.03 33.813a229.242 229.242 0 0 0-5.5.03c-6.73.14-13.462.605-20.155 1.344c.333.166.544.32.47.438L204.78 75.063l73.907 49.437l-.125.188l70.625.28L371 79.282L342.844 52a225.62 225.62 0 0 0-49.47-14.78c-12.65-2.24-25.497-3.36-38.343-3.407zM190.907 88.25l-73.656 36.78l-13.813 98.407l51.344 33.657l94.345-43.438l14.875-76.5l-73.094-48.906zm196.344.344l-21.25 44.5l36.75 72.72l62.063 38.905l11.312-21.282c.225.143.45.403.656.75c-.77-4.954-1.71-9.893-2.81-14.782c-6.446-28.59-18.59-55.962-35.5-79.97c-9.07-12.872-19.526-24.778-31.095-35.5l-20.125-5.342zm-302.656 23c-6.906 8.045-13.257 16.56-18.938 25.5c-15.676 24.664-26.44 52.494-31.437 81.312A223.087 223.087 0 0 0 31 261l20.25 5.094l33.03-40.5L98.75 122.53l-14.156-10.936zm312.719 112.844l-55.813 44.75l-3.47 101.093l39.626 21.126l77.188-49.594l4.406-78.75l-.094.157l-61.844-38.783zm-140.844 6.406l-94.033 43.312l-1.218 76.625l89.155 57.376l68.938-36.437l3.437-101.75l-66.28-39.126zm-224.22 49.75c.91 8.436 2.29 16.816 4.156 25.094c6.445 28.59 18.62 55.96 35.532 79.968c3.873 5.5 8.02 10.805 12.374 15.938l-9.374-48.156l.124-.032l-27.03-68.844zm117.188 84.844l-51.532 8.156l10.125 52.094a225.067 225.067 0 0 0 27.314 20.437a226.31 226.31 0 0 0 46.687 22.594l62.626-13.69l-4.344-31.124l-90.875-58.47zm302.437.5l-64.22 41.25l-42 47.375l4.408 6.156c12.027-5.545 23.57-12.144 34.406-19.72c23.97-16.76 44.604-38.304 60.28-62.97c2.51-3.947 4.87-7.99 7.125-12.092zm-122.78 97.656l-79.94 9.625l-25.968 5.655c26.993 4 54.717 3.044 81.313-2.813c9.412-2.072 18.684-4.79 27.75-8.062l-3.156-4.406z" />
-		</svg>
-	)
-}
-
-export function UpdateLogo(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="1em" height="1em" viewBox="0 0 48 48">
-			<defs>
-				<mask id="ipSUpdateRotation0">
-					<g fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
-						<path fill="#fff" stroke="#fff" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20" />
-						<path stroke="#000" d="M33.542 27c-1.274 4.057-5.064 7-9.542 7c-4.477 0-8.268-2.943-9.542-7v6m19.084-18v6c-1.274-4.057-5.064-7-9.542-7c-4.477 0-8.268 2.943-9.542 7" />
-					</g>
-				</mask>
-			</defs>
-			<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSUpdateRotation0)" />
-		</svg>
-	)
-}
-
-export function UserLogo(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
-			<path
-				fill="currentColor"
-				d="M12 2.5a5.25 5.25 0 0 0-2.519 9.857a9.005 9.005 0 0 0-6.477 8.37a.75.75 0 0 0 .727.773H20.27a.75.75 0 0 0 .727-.772a9.005 9.005 0 0 0-6.477-8.37A5.25 5.25 0 0 0 12 2.5Z"
-			/>
-		</svg>
-	)
-}
-
-export function StatsIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
-			<path fill="currentColor" d="M21 21H3v-2h18v2zM8 10H4v7h4v-7zm6-7h-4v14h4V3zm6 3h-4v11h4V6z" />
 		</svg>
 	)
 }
@@ -2664,54 +2368,6 @@ export function CheckIcon(props: IProps) {
 	)
 }
 
-export function CheckTwoIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
-			<path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m5 12l5 5L20 7" />
-		</svg>
-	)
-}
-
-export function LogInIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
-			<path
-				fill="none"
-				stroke="currentColor"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-				strokeWidth="2"
-				d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4m-5-4l5-5l-5-5m5 5H3"
-			/>
-		</svg>
-	)
-}
-
-export function LogOutIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
-			<path
-				fill="currentColor"
-				d="M12 4.354v6.65h7.442L17.72 9.28a.75.75 0 0 1-.073-.977l.073-.084a.75.75 0 0 1 .976-.072l.084.072l2.997 2.998a.75.75 0 0 1 .073.976l-.073.084l-2.996 3.003a.75.75 0 0 1-1.134-.975l.072-.084l1.713-1.717h-7.431L12 19.25a.75.75 0 0 1-.88.738l-8.5-1.501a.75.75 0 0 1-.62-.739V5.75a.75.75 0 0 1 .628-.74l8.5-1.396a.75.75 0 0 1 .872.74Zm-3.498 7.145a1.002 1.002 0 1 0 0 2.005a1.002 1.002 0 0 0 0-2.005ZM13 18.502h.765l.102-.007a.75.75 0 0 0 .648-.744l-.007-4.25H13v5ZM13.002 10L13 8.725V5h.745a.75.75 0 0 1 .743.647l.007.101l.007 4.252h-1.5Z"
-			/>
-		</svg>
-	)
-}
-
-export function ArrowIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="24" height="24" viewBox="0 0 24 24">
-			<path
-				fill="currentColor"
-				d="M14.71 15.88L10.83 12l3.88-3.88a.996.996 0 1 0-1.41-1.41L8.71 11.3a.996.996 0 0 0 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0c.38-.39.39-1.03 0-1.42z"
-			/>
-		</svg>
-	)
-}
 
 export function ChatIcon(props: IProps) {
 	const { className } = props
@@ -3091,42 +2747,6 @@ export function EmailIcon(props: IProps) {
 	)
 }
 
-export function BracketIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width={24} height={24} viewBox="0 0 24 24">
-			<path fill="currentColor" d="M2 2v2h5v4H2v2h5c1.11 0 2-.89 2-2V7h5v10H9v-1c0-1.11-.89-2-2-2H2v2h5v4H2v2h5c1.11 0 2-.89 2-2v-1h5c1.11 0 2-.89 2-2v-4h6v-2h-6V7c0-1.11-.89-2-2-2H9V4c0-1.11-.89-2-2-2z"></path></svg>
-	)
-}
-
-export function HomeIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width={24} height={24} viewBox="0 0 24 24">
-			<path fill="currentColor" d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1">
-			</path></svg>
-	)
-}
-
-
-export function HelpIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width={48} height={48} viewBox="0 0 48 48">
-			<defs><mask id="ipSHelp0"><g fill="none"><path fill="#fff" stroke="#fff" strokeLinejoin="round" strokeWidth={4} d="M24 44a19.94 19.94 0 0 0 14.142-5.858A19.94 19.94 0 0 0 44 24a19.94 19.94 0 0 0-5.858-14.142A19.94 19.94 0 0 0 24 4A19.94 19.94 0 0 0 9.858 9.858A19.94 19.94 0 0 0 4 24a19.94 19.94 0 0 0 5.858 14.142A19.94 19.94 0 0 0 24 44Z"></path><path stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M24 28.625v-4a6 6 0 1 0-6-6"></path><path fill="#000" fillRule="evenodd" d="M24 37.625a2.5 2.5 0 1 0 0-5a2.5 2.5 0 0 0 0 5" clipRule="evenodd">
-			</path></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSHelp0)">
-			</path></svg>
-	)
-}
-
-export function CloseIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width={24} height={24} viewBox="0 0 24 24"><path fill="currentColor" fillRule="evenodd" d="M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0M7.293 16.707a1 1 0 0 1 0-1.414L10.586 12L7.293 8.707a1 1 0 0 1 1.414-1.414L12 10.586l3.293-3.293a1 1 0 1 1 1.414 1.414L13.414 12l3.293 3.293a1 1 0 0 1-1.414 1.414L12 13.414l-3.293 3.293a1 1 0 0 1-1.414 0" clipRule="evenodd">
-		</path></svg>
-	)
-}
-
 export function VARIcon(props: IProps) {
 	const { className } = props
 	return (
@@ -3163,43 +2783,6 @@ export function ViewIcon(props: IProps) {
 				fill="currentColor"
 				d="M30.94 15.66A16.69 16.69 0 0 0 16 5A16.69 16.69 0 0 0 1.06 15.66a1 1 0 0 0 0 .68A16.69 16.69 0 0 0 16 27a16.69 16.69 0 0 0 14.94-10.66a1 1 0 0 0 0-.68ZM16 22.5a6.5 6.5 0 1 1 6.5-6.5a6.51 6.51 0 0 1-6.5 6.5Z"
 			/>
-		</svg>
-	)
-}
-
-export function LoseIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="48" height="48" viewBox="0 0 48 48">
-			<mask id="ipTCloseOne0">
-				<g fill="none" stroke="#fff" strokeLinejoin="round" strokeWidth="4">
-					<path fill="#555" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z" />
-					<path strokeLinecap="round" d="M29.657 18.343L18.343 29.657m0-11.314l11.314 11.314" />
-				</g>
-			</mask>
-			<path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipTCloseOne0)" />
-		</svg>
-	)
-}
-
-export function FacebookIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="128" height="128" viewBox="0 0 128 128">
-			<rect width="118.35" height="118.35" x="4.83" y="4.83" fill="#3d5a98" rx="6.53" ry="6.53" />
-			<path
-				fill="#fff"
-				d="M86.48 123.17V77.34h15.38l2.3-17.86H86.48v-11.4c0-5.17 1.44-8.7 8.85-8.7h9.46v-16A126.56 126.56 0 0 0 91 22.7c-13.62 0-23 8.3-23 23.61v13.17H52.62v17.86H68v45.83z"
-			/>
-		</svg>
-	)
-}
-
-export function AddIcon(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} width="1em" height="1em" viewBox="0 0 24 24">
-			<path fill="currentColor" d="M3 6.25A3.25 3.25 0 0 1 6.25 3h11.5A3.25 3.25 0 0 1 21 6.25v11.5A3.25 3.25 0 0 1 17.75 21H6.25A3.25 3.25 0 0 1 3 17.75zm9.75 1.5a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5z" />
 		</svg>
 	)
 }
@@ -3291,27 +2874,6 @@ export function ShirtIcon(props: IProps) {
 	)
 }
 
-export function TwitterLogo(props: IProps) {
-	const { className } = props
-	return (
-		<svg className={className} viewBox="0 0 1668.56 1221.19" style={{ transform: "scale(1.6)" }}>
-			<path
-				stroke="#FFFFFF"
-				d="M1168.12,1056.56H511.72c-55.12,0-99.8-44.68-99.8-99.8V300.36c0-55.12,44.68-99.8,99.8-99.8h656.39
-			c55.12,0,99.8,44.68,99.8,99.8v656.39C1267.92,1011.88,1223.24,1056.56,1168.12,1056.56z"
-			/>
-			<g id="layer1" transform="translate(52.390088,-25.058597)">
-				<path
-					id="path1009"
-					fill="#FFFFFF"
-					d="M491.03,374.75L721.1,682.38L489.58,932.49h52.11l202.7-218.98l163.77,218.98h177.32
-				L842.46,607.56l215.5-232.81h-52.11L819.18,576.42L668.35,374.75H491.03z M567.66,413.14h81.46l359.72,480.97h-81.46L567.66,413.14
-				z"
-				/>
-			</g>
-		</svg>
-	)
-}
 
 export function BarcelonaLogo(props: IProps) {
 	const { className } = props
@@ -3952,26 +3514,6 @@ export function AppLogo(props: IProps) {
 	)
 }
 
-
-export function SaveIcon({ className }: { className?: string }) {
-	return (
-		<svg className={className} width="1em" height="1em" viewBox="0 0 512 512">
-			<path fill="currentColor" d="M380.44 32H64a32 32 0 0 0-32 32v384a32 32 0 0 0 32 32h384a32.09 32.09 0 0 0 32-32V131.56ZM112 176v-64h192v64Zm223.91 179.76a80 80 0 1 1-83.66-83.67a80.21 80.21 0 0 1 83.66 83.67" />
-		</svg>
-	)
-}
-
-
-
-export function EditIcon({ className }: { className?: string }) {
-	return (
-		<svg className={className} width="1em" height="1em" viewBox="0 0 24 24">
-			<path fill="currentColor" d="m18.988 2.012l3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287l-3-3L8 13z"></path>
-			<path fill="currentColor" d="M19 19H8.158c-.026 0-.053.01-.079.01c-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2z">
-			</path>
-		</svg>
-	)
-}
 
 
 export function DeleteIcon({ className }: { className?: string }) {

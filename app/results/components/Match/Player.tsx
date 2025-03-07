@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
-import { ChangeIcon, ExitLogo, InjuryIcon, RedCardIcon, ShirtIcon, SoccerBallIcon, YellowCardIcon } from "@/svg"
+import { ChangeIcon, InjuryIcon, RedCardIcon, ShirtIcon, SoccerBallIcon, YellowCardIcon } from "@/svg"
 import styles from "./match.module.scss"
-import { ActualLineup, ActualLineup2, AwayTeam3, AwayTeam6, HomeTeam3, HomeTeam6, RedCard, SubstitutesActualLineup, YellowCard } from "@/types/DetailsMatch"
+import { ActualLineup, ActualLineup2, AwayTeam3, HomeTeam3, RedCard, SubstitutesActualLineup, YellowCard } from "@/types/DetailsMatch"
 import { useEffect, useState } from "react"
 
 interface FormationData {
