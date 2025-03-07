@@ -111,13 +111,15 @@ export default function AdminFinals() {
     }
 
     const HandleSaveStage = async () => {
+        let status = false
         for (let index = 0; index < data.position_stages.length; index++) {
             const response = await UpdateFinalParticipants(data.partcipants[index].user_info.id, { progress_stage: data.position_stages[index] })
-            if (response === "OK") {
-                enqueueSnackbar("Equipos finalistas guardados", { variant: "success" })
-            } else {
-                enqueueSnackbar("Error al atualizar", { variant: "error" })
-            }
+            status = response === "OK"
+        }
+        if (status) {
+            enqueueSnackbar("Equipos finalistas guardados", { variant: "success" })
+        } else {
+            enqueueSnackbar("Error al atualizar", { variant: "error" })
         }
     }
 
@@ -127,31 +129,31 @@ export default function AdminFinals() {
                 <h2 className="text-center pl-4  text-sm text-amber-500">Equipos finalistas</h2>
                 <Button icon="pi pi-refresh" size="small" outlined label="Actualizar" severity="secondary" raised onClick={GetFinalTable} />
             </header>
-            <div className="flex gap-1.5 justify-between">
-                <div className="flex flex-col gap-1.5 w-full max-w-42">
+            <div className="flex gap-1 w-full">
+                <div className="flex flex-col gap-1.5 w-full max-w-46">
                     {
                         TeamsLocalNames.map((team, index) => index < 8 && (
-                            <div key={team} className="flex items-center gap-1 w-full ">
-                                <span className="flex items-center justify-center bg-(--surface-d) h-7 w-7 rounded-sm" >{index + 1}</span>
-                                <Dropdown className="w-full" placeholder="Seleccione" value={data.finalTeams[index]} options={TeamsLocalNames} onChange={(e) => HandleOnChangeTeam(e, index)} />
+                            <div key={team} className="grid grid-cols-[1.5em_1fr]   place-items-center  gap-1 w-full ">
+                                <span className="flex justify-center bg-(--surface-d) h-6 w-6 rounded-sm" >{index + 1}</span>
+                                <Dropdown className="w-full max-w-37" placeholder="Seleccione" value={data.finalTeams[index]} options={TeamsLocalNames} onChange={(e) => HandleOnChangeTeam(e, index)} />
                             </div>
                         ))
                     }
                 </div>
                 <div className="flex flex-col gap-1.5">
                     {data.partcipants.map((participant, index) => (
-                        <Dropdown key={participant.id} value={data.position_stages[index][data.position_stages[index].length - 1]} options={['quarter', 'half', 'final', 'winner']} onChange={(e) => HandleOnChangeStage(e, participant.position_team)} />
+                        <Dropdown className="max-w-32" key={participant.id} value={data.position_stages[index][data.position_stages[index].length - 1]} options={['quarter', 'half', 'final', 'winner']} onChange={(e) => HandleOnChangeStage(e, participant.position_team)} />
                     ))
                     }
                 </div>
-                <div className="flex flex-col gap-1.5 h-full">
+                <div className="flex flex-col justify-around gap-1.5 h-full">
                     {data.partcipants.map(participant => (
                         <div key={participant.user_info?.id} className="h-10.5 flex items-center justify-center relative" >
                             <button className={styles.participants_button}>
                                 <ViewIcon className={styles.participants_icon} />
                             </button>
                             <div className={styles.participants_user} >
-                                <span className={styles.participants_name}>{participant.user_info.name?.split(" ")[0]}</span>
+                                <span className="text-white shadow-2xl shadow-amber-500">{participant.user_info.name?.split(" ")[0]}</span>
                                 <img className={styles.participants_photo} src={participant.user_info.image || "/user_photo.png"} alt={`Foto de perfil de ${participant.user_info.name}`} />
                             </div>
                         </div>
