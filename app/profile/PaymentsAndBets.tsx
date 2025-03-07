@@ -13,6 +13,7 @@ import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox"
 import { deleteBetByID, getBetsByDay, updateBetByID } from "@/utils/fetchData"
 import Image from "next/image"
 import { Loading } from "@/components/Loading/Loading"
+import { Dialog } from "primereact/dialog"
 
 interface IBetsByUser {
     uid: string,
@@ -24,6 +25,7 @@ export function PaymentsAndBets() {
     const [bets, setBets] = useState<IBet[]>([])
     const [betsByID, setBetsByID] = useState<IBetsByUser[] | null>(null)
     const [loading, setLaoding] = useState(false)
+    const [updating, setUpdating] = useState(false)
 
 
     useEffect(() => {
@@ -61,7 +63,8 @@ export function PaymentsAndBets() {
         setLaoding(false)
     }
 
-    const HandleCheck = async (e: CheckboxChangeEvent, id: string) => {
+    const handleChangeStatusPaid = async (e: CheckboxChangeEvent, id: string) => {
+        setUpdating(true)
         const isPaid = e.checked
         const response = await updateBetByID(id, isPaid || false)
         if (response) {
@@ -74,6 +77,7 @@ export function PaymentsAndBets() {
         } else {
             enqueueSnackbar("Error al actualizar la quiniela", { variant: "error" })
         }
+        setUpdating(false)
     }
 
     const HandleDelete = async (id: string, name: string) => {
@@ -148,7 +152,7 @@ export function PaymentsAndBets() {
                                     <div key={bet.id} className=" flex items-center justify-between bg-(--surface-c) px-2 py-1">
                                         <p className="text-sm">{bet.name}</p>
                                         <div className="flex items-center justify-center gap-1.5">
-                                            <Checkbox type="checkbox" checked={bet.paid} onChange={(e) => HandleCheck(e, bet.id)} />
+                                            <Checkbox type="checkbox" checked={bet.paid} onChange={(e) => handleChangeStatusPaid(e, bet.id)} />
                                             <Button className="" onClick={() => HandleDelete(bet.id, bet.name)} icon="pi pi-trash" size="small" text raised />
                                         </div>
                                     </div>
@@ -174,6 +178,13 @@ export function PaymentsAndBets() {
                     </div>
                 }
             </>}
+            <Dialog visible={updating} onClick={() => setUpdating(true)} onHide={() => setUpdating(false)} modal content={
+                <div className="flex flex-column px-8 py-5 gap-4 backdrop-blur-md" style={{ borderRadius: '12px', backgroundImage: 'radial-gradient(circle at left top, transparent, transparent)' }}>
+                    <Loading height="13em" />
+                </div>
+            }>
+
+            </Dialog>
         </div>
     )
 }

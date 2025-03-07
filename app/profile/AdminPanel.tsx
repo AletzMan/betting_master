@@ -8,7 +8,7 @@ import { DialogCreatBets } from "./DialogCreateBets/DialogCreateBets"
 import { enqueueSnackbar } from "notistack"
 import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
-import { IMatchDayData, RevalidatePath, deleteMatchDay, getMatchDayData, getMatchDayInfo } from "@/utils/fetchData"
+import { RevalidatePath, deleteMatchDay, getMatchDayInfo } from "@/utils/fetchData"
 import { ToggleButton } from "primereact/togglebutton"
 import { Loading } from "@/components/Loading/Loading"
 import axios from "axios"
@@ -50,6 +50,7 @@ export function AdminPanel() {
 				if (response.status === 200) {
 					RevalidatePath("matchDays")
 					RevalidatePath("macthes")
+					RevalidatePath("matchDayInfo")
 					enqueueSnackbar("Quiniela actualizada correctamente", { variant: "success" })
 					const data: IMatchDay = response.data.data
 					setMatchDayData((prev) => ({ ...prev as IMatchDay, results: data.results, isAvailable: data.isAvailable, isFinishGame: data.isFinishGame }));

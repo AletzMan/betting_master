@@ -4,7 +4,7 @@ export const MatchSchema = z.object({
     homeTeam: z.string().min(1, "Equipo local es requerido"),
     awayTeam: z.string().min(1, "Equipo visitante es requerido"),
     status: z.enum(["not started", "in progress", "finished"]).default("not started"), // Validación para status
-    startDate: z.coerce.date().min(new Date(), "Por favor, elige una fecha a partir de mañana."), // Validación para startDate
+    startDate: z.coerce.date({ invalid_type_error: "Por favor, elige una fecha a partir de mañana.", required_error: "Campo de fecha equerido" }), // Validación para startDate
 });
 
 

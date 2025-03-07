@@ -84,7 +84,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 				enqueueSnackbar("Quiniela creada correctamente", { variant: "success" });
 				handleStatusDialog(false)
 				setUpdateBets(true)
-				RevalidatePath("bets")
+				RevalidatePath("matchDayInfo")
 				setTimeout(() => {
 					setUpdateBets(false)
 				}, 100);
@@ -184,7 +184,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 							<label className="text-cyan-600 pl-1" htmlFor="username">Nombre</label>
 							<InputText invalid={errors.name.isError} id="username" className="p-inputtext-sm" type="text" value={name} maxLength={13} onChange={handleChangeName} placeholder="" aria-describedby="username-help" />
 							<small className={`pl-1 ${errors.name.isError ? "text-(--danger-color)" : "text-gray-500 "}`} id="username-help">
-								{errors.name.isError ? errors.name.message : "Nombre de 4 a 8 caracteres"}
+								{errors.name.isError ? errors.name.message : "Nombre de 5 a 13 caracteres"}
 							</small>
 						</div>
 						<div className="flex justify-between">
