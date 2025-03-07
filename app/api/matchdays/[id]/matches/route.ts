@@ -9,7 +9,6 @@ import { MatchDayPatchSchema } from "@/validations/matchDayPatchSchema";
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         const id = (await params).id;
-        console.log(id);
 
         // 1. Obtener la MatchDay por su ID
         const matchDay = await prisma.matchDay.findUnique({
@@ -22,7 +21,6 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
         const sortBy = request.nextUrl.searchParams.get("sortBy");
         const sortOrder = request.nextUrl.searchParams.get("sortOrder");
-        console.log(sortBy, sortOrder)
 
         // 2. Crear objeto orderBy
         let orderBy = {};

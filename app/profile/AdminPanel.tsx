@@ -81,7 +81,7 @@ export function AdminPanel() {
 
 		setMatchDayData((prev) => ({ ...prev as IMatchDay, [`${type}`]: checked }))
 	}
-	console.log(matchDayData)
+
 	return (
 		<>
 			{viewCreateBets && <DialogCreatBets setView={setViewCreateBets} />}

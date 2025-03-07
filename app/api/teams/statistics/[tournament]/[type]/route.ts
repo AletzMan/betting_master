@@ -12,7 +12,6 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
 
     try {
-        console.log(`${URL_STATISTICS}${tournament}/sort/${type}/current/?site=2&mn=50`)
         const response = await axios.get<IStatistics>(`${URL_STATISTICS}${tournament}/sort/${type}/current/?site=2&mn=50`) //168  - Espana=0101 -Mexico=0159
 
         return NextResponse.json({ data: response.data.data }, { status: 200 })

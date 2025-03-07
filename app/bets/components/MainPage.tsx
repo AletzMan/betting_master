@@ -15,6 +15,7 @@ import { NoPaidMessage } from "./NoPaidMessage"
 import { useSession } from "next-auth/react"
 import { ConfirmedParticipationMessage } from "./ConfirmedParticipationMessage"
 import { Card } from "primereact/card"
+import { SadIcon } from "@/svg"
 
 
 export interface IMyBets {
@@ -31,8 +32,7 @@ export default function MainPage() {
     const { matchDayInfo, isInTime, myBets, loading } = useDataBets()
     const [openDialog, setOpenDialog] = useState(false)
     const { orderBets } = useSort(matchDayInfo ? matchDayInfo.bets : null, matchDayInfo?.results);
-    console.log(matchDayInfo)
-    console.log(myBets)
+
     return (
         <main className='flex flex-col items-center pt-[42.39px] h-svh bg-(--surface-c)'>
             {!loading && session.status === "authenticated" && matchDayInfo && <>
@@ -54,7 +54,8 @@ export default function MainPage() {
                         }
                         {!myBets?.hasBets && !matchDayInfo.isAvailable &&
                             <Card className='max-w-3xs w-full' >
-                                <div className="flex flex-col gap-2.5">
+                                <div className="flex flex-col items-center gap-2.5">
+                                    <SadIcon className="text-cyan-600 w-16 h-16" />
                                     <h2 className="text-center">¡Ups! Parece que llegaste tarde</h2>
                                     <p className="text-center">La jornada ya está en curso y las quinielas se han cerrado.</p>
                                     <p className="text-center text-lime-400">¡No te pierdas la próxima oportunidad!</p>
@@ -81,7 +82,7 @@ export default function MainPage() {
                                     <>
                                         <section className={`relative grid w-full gap-1 pr-1 max-w-max border-1 border-transparent scrollbarXY  bg-(--surface-b) rounded-md transition-all ease-in-out delay-150 ${hiddenNames ? "grid-cols-[2.5em_1fr]" : "grid-cols-[13em_1fr]"}  `}>
                                             <div className="sticky left-0 gap-y-1 flex flex-col bg-(--surface-b) pr-[1px] z-4 border-r-1 border-r-(--surface-d) h-full">
-                                                <HeaderTable hiddenNames={hiddenNames} setHiddenNames={setHiddenNames} matchDayInfo={matchDayInfo} totalBets={matchDayInfo.bets?.length || 0} />
+                                                <HeaderTable hiddenNames={hiddenNames} setHiddenNames={setHiddenNames} matchDayInfo={matchDayInfo} totalBets={matchDayInfo.bets.filter(bet => bet.paid).length} />
                                                 {orderBets?.map((bet, index) => (
                                                     <Participant key={bet.id} bets={matchDayInfo.bets} bet={bet} index={index} hiddenNames={hiddenNames} selectRanges={selectRanges} setSelectRanges={setSelectRanges} matchDayInfo={matchDayInfo} />
                                                 ))}

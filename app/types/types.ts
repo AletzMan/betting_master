@@ -433,7 +433,7 @@ export interface IBet {
 	name: string
 	predictions: IPrediction[]
 	paid: boolean
-	day: string
+	day: number
 	season: string
 	tournament: string
 	userInfo: UserSession

@@ -173,7 +173,6 @@ export default function SpinWheel() {
         try {
             const response = await GetFinalistTeams()
             const responseTeams: WheelData[] = await GetDataRealDataTime("dataTeams")
-            console.log(responseTeams)
             const newTeams = response.positions
             const dataTeams: WheelData[] = []
             if (response) {

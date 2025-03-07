@@ -21,8 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     session: { strategy: "jwt" },
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
-            // 1. Consultar la base de datos
-            console.log(user)
+            // 1. Consultar la base de datos 
             const dbUser = await prisma.user.findUnique({
                 where: { email: user.email as string },
             });

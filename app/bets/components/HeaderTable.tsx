@@ -50,8 +50,6 @@ export default function HeaderTable({ hiddenNames, setHiddenNames, matchDayInfo,
         setHiddenNames(prev => !prev)
     }
 
-    console.log(matchDayInfo)
-    console.log(totalBets)
     return (
         <>
             {matchDayInfo &&

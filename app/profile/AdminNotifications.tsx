@@ -49,7 +49,6 @@ export function AdminNotifications() {
     }
 
     const HandleViewDetails = (e: MouseEvent<HTMLElement>, index: number): void => {
-        console.log((e.target as HTMLElement).tagName)
         if ((e.target as HTMLElement).tagName === "ARTICLE") {
             if (index === viewDetails) {
                 setViewDetails(null)

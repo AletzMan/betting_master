@@ -60,7 +60,6 @@ export function useDataBets() {
 		if (session.status === "authenticated") {
 			if (matchDayData) {
 				const arrayMyBets = matchDayData.bets?.filter(bet => bet.uid === (session.data?.user as UserSession).id)
-				console.log(arrayMyBets)
 				if (arrayMyBets) {
 					const newMyBets: IMyBets = {
 						bets: arrayMyBets,
@@ -68,8 +67,6 @@ export function useDataBets() {
 						isNotBetsPaid: arrayMyBets.some(bet => bet.paid === false)
 					}
 					setMyBets(newMyBets);
-					console.log(newMyBets)
-					console.log(matchDayData)
 				}
 
 			}

@@ -247,7 +247,6 @@ export const TimeRemainig = (dateFirstMatch: Date) => {
 	const timeRemainig = `${remainingHours.toString().padStart(2, "0")}:${remainingMinutes
 		.toString()
 		.padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`
-	console.log(timeRemainig)
 	return timeRemainig
 }
 
@@ -272,7 +271,7 @@ export const sortByHits = (
 ): IHitsBet[] => {
 	let orderBets: IHitsBet[] = []
 
-	if (results.length > 0) {
+	if (results.length > 0 && betsArray) {
 		for (let index = 0; index < betsArray.length; index++) {
 			let hits = 0
 			betsArray[index].predictions.forEach((predictions, index) => {

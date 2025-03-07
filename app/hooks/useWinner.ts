@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
-import { IBet, IBetDocument, ICurrentMatch, IUserAndState } from "../types/types"
+import { IBet } from "../types/types"
 import { sortByHits } from "@/functions/functions"
 
 export function useWinner(bets: IBet[] | null, results: string[]) {
@@ -16,7 +16,6 @@ export function useWinner(bets: IBet[] | null, results: string[]) {
 	const GetWinner = (betsArray: IBet[]) => {
 		let winners = [] as string[]
 		try {
-
 			const OrderBets = sortByHits("desc", betsArray, results)
 
 			const newBets = OrderBets.filter(

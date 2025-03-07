@@ -43,7 +43,6 @@ export function PaymentsAndBets() {
                 arrayBetsbyID.push({ uid: userID, bets: newBet })
             }
         })
-        console.log(arrayBetsbyID)
         setBetsByID(arrayBetsbyID)
     }, [bets])
 
@@ -76,7 +75,6 @@ export function PaymentsAndBets() {
         const deleted = confirm(`¿Estás seguro de eliminar esta quiniela? \n ${name}`)
         if (!deleted) return
         const response = await deleteBetByID(id)
-        console.log(response)
         if (response) {
             setBets((prevBets) =>
                 prevBets.filter(bet =>
@@ -95,7 +93,7 @@ export function PaymentsAndBets() {
     const HandleGetData = async (event: MouseEvent<HTMLButtonElement>) => {
         await GetBets()
     }
-    console.log(betsByID)
+
     return (
         <div className="flex flex-col gap-2 relative h-[calc(100svh-9rem)]">
 

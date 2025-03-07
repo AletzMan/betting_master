@@ -44,7 +44,6 @@ export const NoPaidMessage = ({ myBets, user, matchDayInfo }: Props) => {
         const deleted = confirm(`¿Estás seguro de eliminar esta quiniela? \n ${name}`)
         if (!deleted) return
         const response = await deleteBetByID(id)
-        console.log(response)
         if (response) {
             setUpdateBets(true)
             enqueueSnackbar("Quiniela eliminida exitosamente", { variant: "success" })
