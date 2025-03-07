@@ -397,6 +397,8 @@ export interface IMatchDay {
 	isAvailable: boolean
 	isFinishGame: boolean
 	results: string[]
+	matchesRel: IMatch[]
+	bets: IBet[]
 }
 
 export interface IMatch {
@@ -417,7 +419,7 @@ export interface IHitsBet {
 	name: string
 	predictions: IPredictions[]
 	paid: boolean
-	day: string
+	day: number
 	season: string
 	tournament: string
 	hits: number
