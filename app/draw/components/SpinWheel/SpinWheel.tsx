@@ -252,7 +252,7 @@ export default function SpinWheel() {
         const sound = new Audio("https://github.com/AletzMan/ImagesStorage/raw/refs/heads/main/bettinggame/Wheel_Sound_Effect.mp3")
         sound.volume = 0
         setTimeout(() => {
-            //sound.play()
+            sound.play()
         }, 1150)
     }
 
