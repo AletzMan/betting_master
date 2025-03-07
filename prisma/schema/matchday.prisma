@@ -2,8 +2,12 @@ model MatchDay {
     id           Int      @id @default(autoincrement())
     matches      String[]
     season       String
-    day          Int
+    day          Int      @unique
     isAvailable  Boolean  @default(true)
     isFinishGame Boolean  @default(false)
     results      String[] @default(["-", "-", "-", "-", "-", "-", "-", "-", "-"])
+    bets         Bet[]
+    matchesRel   Match[]
+
+    @@map("matchdays")
 }

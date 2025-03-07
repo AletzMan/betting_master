@@ -120,6 +120,7 @@ export function DialogCreatBets({ setView }: Props) {
 				<header className="flex gap-2.5 justify-between">
 					<Button onClick={HandleCreateMatchDay} label="Guardar" severity="success" text loading={loading} loadingIcon="pi pi-spin pi-spinner-dotted" icon="pi pi-save" size="small" disabled={bettingMatches.length === 0} />
 					<Button onClick={() => setResetView(true)} label="Reiniciar" severity="secondary" icon="pi pi-replay" size="small" disabled={bettingMatches.length === 0} />
+					<Button onClick={() => setView(false)} label="Cancelar" severity="danger" icon="pi pi-times-circle" size="small" />
 				</header>
 				<Divider type="dashed" />
 				<article className="flex flex-col">
@@ -151,7 +152,7 @@ export function DialogCreatBets({ setView }: Props) {
 						</div>
 					</div>
 					<Divider type="dashed" />
-					<article className="flex flex-col justify-items-start gap-5 scrollbar h-[calc(100svh-24.5em)] pt-4" ref={refMatches}>
+					<article className="flex flex-col justify-items-start gap-5 scrollbar h-[calc(100svh-17.5em)] pt-4" ref={refMatches}>
 						{errors.matches.isError && <Message text={errors.matches.message} severity="error" />}
 						{bettingMatches.map((match, index) => (
 							<div key={index} className="relative grid grid-cols-[2em_2em_repeat(2,1fr)_2em_3em] w-full bg-(--surface-0) border-1 border-(--surface-d) place-content-center place-items-center py-1 rounded-md transition-all duration-250 matchOfDay">

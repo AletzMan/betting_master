@@ -61,7 +61,7 @@ export async function DELETE(request: NextRequest, context: any) {
         const response = await prisma?.match.delete({ where: { id: id } })
 
         if (response) {
-            return SuccessDelete();
+            return SuccessDelete(response);
         }
         return NotFoundError();
     } catch (error) {

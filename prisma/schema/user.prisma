@@ -12,4 +12,6 @@ model User {
     notifications Boolean  @default(false)
 
     Bet Bet[]
+
+    @@map("users")
 }

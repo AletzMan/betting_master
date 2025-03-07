@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { BadRequestError, ConflictError, DefaultError, NotFoundError, ServerError, UnprocessableEntityError } from "../_services/errors";
-import { SuccessCreate, SuccessResponse } from "../_services/successfulResponses";
+import { SuccessCreate, SuccessDelete, SuccessResponse } from "../_services/successfulResponses";
 import { ZodError } from "zod";
 import { BetSchema } from "@/validations/betSchema";
 import { randomUUID } from "crypto";
@@ -67,7 +67,6 @@ export async function POST(request: NextRequest) {
             data: {
                 ...betDataWithoutPredictions,
                 paid: false,
-                userInfoId: betDataWithoutPredictions.uid,
                 predictionIds: predictionIds,
             }, include: { userInfo: true }
         });
@@ -93,3 +92,17 @@ export async function POST(request: NextRequest) {
     }
 }
 
+export async function DELETE(request: NextRequest) {
+    try {
+        const bets = await prisma.bet.deleteMany()
+        const predictions = await prisma.prediction.deleteMany()
+
+        if (bets.count > 0 && predictions.count > 0) {
+            return SuccessDelete(bets);
+        } else {
+            return NotFoundError();
+        }
+    } catch (error) {
+        return ServerError()
+    }
+}

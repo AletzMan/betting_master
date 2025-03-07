@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { ConflictError, DefaultError, ServerError, UnprocessableEntityError } from "../_services/errors";
-import { SuccessCreate, SuccessResponse } from "../_services/successfulResponses";
+import { ConflictError, DefaultError, NotFoundError, ServerError, UnprocessableEntityError } from "../_services/errors";
+import { SuccessCreate, SuccessDelete, SuccessResponse } from "../_services/successfulResponses";
 import { ZodError } from "zod";
 import { MatchDaySchema } from "@/validations/matchDaySchema";
 
 export async function GET(request: NextRequest) {
 
-    const response = await prisma?.matchDay.findMany()
+    const response = await prisma?.matchDay.findMany({ include: { matchesRel: true, bets: true } })
     return SuccessResponse(response);
 }
 
@@ -19,39 +19,45 @@ export async function POST(request: NextRequest) {
         const newMatchData = await MatchDaySchema.parseAsync(data);
         const day = newMatchData.day;
         const matches = newMatchData.matches;
-        // 1. Crear los partidos
-        const createdMatches = await Promise.all(
-            matches.map(async (match) => {
+        // 1. Crear MatchDay primero
+        const newMatchDay = await prisma.matchDay.create({
+            data: {
+                season: newMatchData.season,
+                day: newMatchData.day,
+            },
+        });
 
+        if (!newMatchDay) {
+            return DefaultError("Error al crear MatchDay");
+        }
+
+        // 2. Crear Matches después de MatchDay
+        const createdMatches = await Promise.all(
+            newMatchData.matches.map(async (match) => {
                 return prisma.match.create({
                     data: {
                         matchDay: day,
                         homeTeam: match.homeTeam,
                         awayTeam: match.awayTeam,
                         status: match.status,
-                        startDate: match.startDate
+                        startDate: match.startDate,
                     },
                 });
             })
         );
 
-        console.log(createdMatches)
         if (createdMatches) {
-
-            // 2. Obtener los IDs de los partidos creados
+            // 3. Actualizar MatchDay con los IDs de los partidos creados
             const matchIds = createdMatches.map((match) => match?.id);
-
-            // 3. Crear la MatchDay con los IDs de los partidos
-            const newMatchDay = await prisma.matchDay.create({
+            await prisma.matchDay.update({
+                where: {
+                    id: newMatchDay.id,
+                },
                 data: {
-                    season: newMatchData.season,
                     matches: matchIds as string[],
-                    day: newMatchData.day,
                 },
             });
-            if (newMatchDay) {
-                return SuccessCreate(newMatchDay);
-            }
+            return SuccessCreate(newMatchDay);
         }
         return DefaultError("Error al crear el registro");
 
@@ -68,8 +74,22 @@ export async function POST(request: NextRequest) {
         if (error instanceof ZodError) {
             return UnprocessableEntityError(error.issues);
         }
-        //console.log(error);
+        console.log(error);
         return ServerError();
     }
 }
 
+export async function DELETE(request: NextRequest) {
+    try {
+        const matchday = await prisma.matchDay.deleteMany()
+
+
+        if (matchday.count > 0) {
+            return SuccessDelete(matchday);
+        } else {
+            return NotFoundError();
+        }
+    } catch (error) {
+        return ServerError()
+    }
+}

@@ -2,4 +2,7 @@ model Prediction {
   id          String @id @unique()
   prediction  String
   matchNumber Int
+  Bet         Bet?   @relation(fields: [id], references: [id], onDelete: Cascade)
+
+  @@map("predictions")
 }

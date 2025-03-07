@@ -177,7 +177,6 @@ const arrayBets: IBet[] = [
             "finals_won": 0,
             "last_login": new Date("2025-02-28T18:19:26.210Z"),
             "emailVerified": new Date(),
-            "uid": "",
             "notifications": false,
         },
         "predictions": [
@@ -212,7 +211,6 @@ const arrayBets: IBet[] = [
             "finals_won": 1,
             "last_login": new Date("2025-03-01T10:00:00.000Z"),
             "emailVerified": new Date(),
-            "uid": "",
             "notifications": true,
         },
         "predictions": [
@@ -247,7 +245,6 @@ const arrayBets: IBet[] = [
             "finals_won": 2,
             "last_login": new Date("2025-03-02T15:30:00.000Z"),
             "emailVerified": new Date(),
-            "uid": "",
             "notifications": false,
         },
         "predictions": [
@@ -282,7 +279,6 @@ const arrayBets: IBet[] = [
             "finals_won": 3,
             "last_login": new Date("2025-03-05T15:30:00.000Z"),
             "emailVerified": new Date("2024-05-15T10:30:00.000Z"),
-            "uid": "",
             "notifications": false
         },
         "predictions": [
@@ -317,7 +313,6 @@ const arrayBets: IBet[] = [
             "finals_won": 0,
             "last_login": new Date("2025-03-03T12:45:00.000Z"),
             "emailVerified": new Date("2024-06-20T14:15:00.000Z"),
-            "uid": "",
             "notifications": true
         },
         "predictions": [
@@ -352,7 +347,6 @@ const arrayBets: IBet[] = [
             "finals_won": 5,
             "last_login": new Date("2025-03-04T18:20:00.000Z"),
             "emailVerified": new Date("2024-07-01T09:00:00.000Z"),
-            "uid": "",
             "notifications": false
         },
         "predictions": [
@@ -387,7 +381,6 @@ const arrayBets: IBet[] = [
             "finals_won": 5,
             "last_login": new Date("2025-03-04T18:20:00.000Z"),
             "emailVerified": new Date("2024-07-01T09:00:00.000Z"),
-            "uid": "",
             "notifications": false
         },
         "predictions": [
@@ -422,7 +415,6 @@ const arrayBets: IBet[] = [
             "finals_won": 7,
             "last_login": new Date("2025-03-06T11:25:00.000Z"),
             "emailVerified": new Date("2024-08-01T15:45:00.000Z"),
-            "uid": "",
             "notifications": false
         },
         "predictions": [
@@ -457,7 +449,6 @@ const arrayBets: IBet[] = [
             "finals_won": 2,
             "last_login": new Date("2025-03-07T14:10:00.000Z"),
             "emailVerified": new Date("2024-08-15T10:20:00.000Z"),
-            "uid": "",
             "notifications": true
         },
         "predictions": [
@@ -492,7 +483,6 @@ const arrayBets: IBet[] = [
             "finals_won": 0,
             "last_login": new Date("2025-03-08T16:35:00.000Z"),
             "emailVerified": new Date("2024-09-01T12:10:00.000Z"),
-            "uid": "",
             "notifications": true
         },
         "predictions": [
@@ -527,7 +517,6 @@ const arrayBets: IBet[] = [
             "finals_won": 1,
             "last_login": new Date("2025-03-10T11:15:00.000Z"),
             "emailVerified": new Date("2024-10-01T10:00:00.000Z"),
-            "uid": "",
             "notifications": true
         },
         "predictions": [
@@ -562,7 +551,6 @@ const arrayBets: IBet[] = [
             "finals_won": 12,
             "last_login": new Date("2025-03-11T13:40:00.000Z"),
             "emailVerified": new Date("2024-10-15T11:30:00.000Z"),
-            "uid": "",
             "notifications": false
         },
         "predictions": [
@@ -597,7 +585,6 @@ const arrayBets: IBet[] = [
             "finals_won": 12,
             "last_login": new Date("2025-03-11T13:40:00.000Z"),
             "emailVerified": new Date("2024-10-15T11:30:00.000Z"),
-            "uid": "",
             "notifications": false
         },
         "predictions": [
@@ -632,7 +619,6 @@ const arrayBets: IBet[] = [
             "finals_won": 3,
             "last_login": new Date("2025-03-12T15:20:00.000Z"),
             "emailVerified": new Date("2024-10-20T14:45:00.000Z"),
-            "uid": "",
             "notifications": true
         },
         "predictions": [
@@ -667,7 +653,6 @@ const arrayBets: IBet[] = [
             "finals_won": 4,
             "last_login": new Date("2025-03-14T19:45:00.000Z"),
             "emailVerified": new Date("2024-11-01T13:20:00.000Z"),
-            "uid": "",
             "notifications": true
         },
         "predictions": [
@@ -702,7 +687,6 @@ const arrayBets: IBet[] = [
             "finals_won": 15,
             "last_login": new Date("2025-03-15T21:00:00.000Z"),
             "emailVerified": new Date("2024-11-15T15:30:00.000Z"),
-            "uid": "",
             "notifications": false
         },
         "predictions": [
@@ -737,7 +721,6 @@ const arrayBets: IBet[] = [
             "finals_won": 5,
             "last_login": new Date("2025-03-16T22:15:00.000Z"),
             "emailVerified": new Date("2024-11-20T17:45:00.000Z"),
-            "uid": "",
             "notifications": true
         },
         "predictions": [

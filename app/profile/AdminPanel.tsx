@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ICurrentMatch, IMatchDay } from "@/types/types"
+import { IMatchDay } from "@/types/types"
 import { ButtonBet } from "./ButtonBet/ButtonBet"
 import { TeamsLogos } from "@/constants/constants"
 import { DialogCreatBets } from "./DialogCreateBets/DialogCreateBets"
@@ -88,24 +88,26 @@ export function AdminPanel() {
 				{loading && <Loading height="267px" />}
 				{!loading &&
 					<div>
-						<header className="flex flex-col">
-							<div className="flex justify-between items-center">
-								<h3 className="text-sky-500">{`Jornada ${matchDayData.matchDay.day}`}</h3>
-								<Button label="Eliminar Jornada" severity="danger" icon="pi pi-trash" size="small" onClick={HandleDeleteDayMatch} />
-							</div>
-							<Divider type="dashed" />
-							<div className="flex flex-row gap-2.5 justify-around ">
-								<div className="flex gap-1.5 flex-col items-center">
-									<label className="text-sm">¿Jornada Finalizada?</label>
-									<ToggleButton className="min-w-15" checked={matchDayData.matchDay.isFinishGame} onChange={(e) => handleSetStatus(e.target.value, "isFinishGame")} onLabel="Si" offLabel="No" />
+						{matchDayData.matchDay.day &&
+							<header className="flex flex-col">
+								<div className="flex justify-between items-center">
+									<h3 className="text-sky-500">{`Jornada ${matchDayData.matchDay.day}`}</h3>
+									<Button label="Eliminar Jornada" severity="danger" icon="pi pi-trash" size="small" onClick={HandleDeleteDayMatch} />
 								</div>
-								<div className="flex gap-1.5 flex-col items-center">
-									<label className="text-sm">¿Participación abierta?</label>
-									<ToggleButton className="min-w-15" checked={matchDayData.matchDay.isAvailable} onChange={(e) => handleSetStatus(e.target.value, "isAvailable")} onLabel="Si" offLabel="No" />
+								<Divider type="dashed" />
+								<div className="flex flex-row gap-2.5 justify-around ">
+									<div className="flex gap-1.5 flex-col items-center">
+										<label className="text-sm">¿Jornada Finalizada?</label>
+										<ToggleButton className="min-w-15" checked={matchDayData.matchDay.isFinishGame} onChange={(e) => handleSetStatus(e.target.value, "isFinishGame")} onLabel="Si" offLabel="No" />
+									</div>
+									<div className="flex gap-1.5 flex-col items-center">
+										<label className="text-sm">¿Participación abierta?</label>
+										<ToggleButton className="min-w-15" checked={matchDayData.matchDay.isAvailable} onChange={(e) => handleSetStatus(e.target.value, "isAvailable")} onLabel="Si" offLabel="No" />
+									</div>
 								</div>
-							</div>
-							<Divider type="dashed" />
-						</header>
+								<Divider type="dashed" />
+							</header>
+						}
 						<article className="grid grid-cols-9 gap-1">
 							{matchDayData?.matches.map((match, index) => (
 								<div key={match.awayTeam} className="flex flex-col max-w-12">
@@ -120,23 +122,31 @@ export function AdminPanel() {
 								</div>
 							))}
 						</article>
+						{!matchDayData.matchDay.day &&
+							<div className="flex flex-col items-center gap-6">
+								<i className="pi pi-ban text-red-600" style={{ fontSize: "4em" }} />
+								<p>No se ha creado la quiniela de la semana</p>
+							</div>
+						}
 					</div>
 				}
 				<Divider type="dashed" />
-				<footer className="flex justify-around">
-					<Button
+				<footer className="flex justify-around gap-6">
+					{<Button
 						label="Crear quiniela"
 						icon="pi pi-plus"
 						size="small"
-						disabled={matchDayData!.matchDay!.results?.length > 0}
+						disabled={matchDayData!.matchDay!.results?.length > 0 || loading}
 						severity="success"
 						onClick={HandleCreate}
 						outlined />
-					{matchDayData.matchDay.day !== 0 &&
+					}
+					{matchDayData.matchDay.day !== 0 && matchDayData.matchDay.day &&
 						<Button
+							className=" "
 							label={!sending ? "Actualizar" : "Enviando..."}
 							icon={sending ? "pi pi-spin pi-spinner-dotted" : "pi pi-refresh"}
-							disabled={sending}
+							disabled={sending || loading}
 							size="small"
 							severity="success"
 							onClick={HandleUpdate} />}
