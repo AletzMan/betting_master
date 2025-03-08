@@ -1,10 +1,10 @@
-import { ITournament, Rank } from "@/types/types"
+import { ITournamentPosition, Rank } from "@/types/types"
 import Image from "next/image"
 
 interface PropsTeam {
 	team: Rank
 	position: number
-	selectedLeague: ITournament
+	selectedLeague: ITournamentPosition
 }
 
 const ClassifiedPositions = {

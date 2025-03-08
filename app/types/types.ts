@@ -337,6 +337,11 @@ export interface ITournament {
 	name: "Liga MX" | "Champions League" | "Premier League" | "La Liga" | "Bundesliga" | "Liga Holandesa" | "Serie A" | "League 1" | "Todos los torneos"
 }
 
+export interface ITournamentPosition {
+	id: string
+	name: "Liga MX" | "Champions League" | "Premier League" | "La Liga" | "Bundesliga" | "Liga Holandesa" | "Serie A" | "League 1"
+}
+
 
 export interface INews {
 	titulo: string

@@ -1,6 +1,6 @@
 "use client"
 import styles from "./stats.module.scss"
-import { ITournament, LeagueMX } from "../types/types"
+import { ITournament, ITournamentPosition, LeagueMX } from "../types/types"
 import { TeamStatistics } from "./components/TeamStatistics"
 import { TeamDescription } from "./components/TeamDescription"
 import { useEffect, useState } from "react"
@@ -13,7 +13,7 @@ import { Dropdown } from "primereact/dropdown"
 export default function PositionsPage() {
 	const [leagues, setLeagues] = useState<LeagueMX[]>([])
 	const { isLandscape } = useOrientation()
-	const [selectedLeague, setSelectLeague] = useState<ITournament>({ id: new Date().getMonth() < 6 ? "0168" : "0159", name: "Liga MX" })
+	const [selectedLeague, setSelectLeague] = useState<ITournamentPosition>({ id: new Date().getMonth() < 6 ? "0168" : "0159", name: "Liga MX" })
 	const [selectedGroup, setSelectedGruop] = useState(0)
 	const [numberGroups, setNumberGoups] = useState(0)
 	const [loading, setLoading] = useState(true)
@@ -40,7 +40,7 @@ export default function PositionsPage() {
 
 
 
-	const handleSelectTournament = (value: ITournament): void => {
+	const handleSelectTournament = (value: ITournamentPosition): void => {
 		setSelectLeague(value)
 	}
 
