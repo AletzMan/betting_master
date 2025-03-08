@@ -772,6 +772,7 @@ export interface StatsTeam {
     redCards: number
 }
 
+
 export interface StatsPlayer {
     statsPlayer: StatsPlayer2
     player: Player
@@ -845,7 +846,7 @@ export interface TeamKit3 {
 
 export interface AwayTeam7 {
     teamInfo: TeamInfo4
-    statsTeam: StatsTeam2
+    statsTeam: StatsTeam
     statsPlayers: StatsPlayer3[]
     teamKit: TeamKit4
 }
@@ -864,23 +865,7 @@ export interface AlternateCommonNames3 {
     ptBR: string
 }
 
-export interface StatsTeam2 {
-    goals: number
-    possPercentage: number
-    duelsWon: number
-    shots: number
-    shotsOnGoal: number
-    wonCorners: number
-    totalOffsides: number
-    successPass: number
-    lostPass: number
-    ballsLost: number
-    ballsRecovery: number
-    saves: number
-    fouls: number
-    yellowCards: number
-    redCards: number
-}
+
 
 export interface StatsPlayer3 {
     statsPlayer: StatsPlayer4

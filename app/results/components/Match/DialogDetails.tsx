@@ -24,6 +24,9 @@ import {
 	YellowCardIcon,
 } from "@/svg"
 import { Player } from "./Player"
+import { Dialog } from "primereact/dialog"
+import { Button } from "primereact/button"
+import { TStatistics } from "@/types/types"
 
 interface DialogProps {
 	detailsData: DetailsData
@@ -34,7 +37,7 @@ interface DialogProps {
 export function DialogDetails(props: DialogProps) {
 	const { detailsData, open, setOpen } = props
 	const [details, setDetails] = useState<DetailsData>(detailsData)
-	const [statisticsMatch, setStatisticMatch] = useState({ home: [["", 0]], away: [["", 0]] })
+	const [statisticsMatch, setStatisticMatch] = useState<{ home: [TStatistics, number][], away: [TStatistics, number][] } | null>(null)
 	const [selectedSection, setSelectedSection] = useState<"statistics" | "lineup" | "cronology">("statistics")
 
 	useEffect(() => {
@@ -48,256 +51,254 @@ export function DialogDetails(props: DialogProps) {
 	const HandleSelectSection = (section: "statistics" | "lineup" | "cronology") => {
 		setSelectedSection(section)
 	}
+	console.log(statisticsMatch)
+	console.log(details?.eventStats?.stats?.homeTeam?.statsTeam)
+	console.log(details?.eventStats?.stats?.awayTeam?.statsTeam)
 
 	return (
-		<dialog className={styles.details} open={open}>
-			<button className={styles.details_close} onClick={() => setOpen(false)}>
-				Cerrar
-			</button>
-			<section className={styles.details_section}>
-				<header className={styles.details_header}>
-					<button
-						className={`${styles.details_headerButton} ${selectedSection === "statistics" && styles.details_headerButtonActive}`}
-						onClick={() => HandleSelectSection("statistics")}
-					>
-						ESTADíSTICAS
-					</button>
-					<button
-						className={`${styles.details_headerButton} ${selectedSection === "lineup" && styles.details_headerButtonActive}`}
-						onClick={() => HandleSelectSection("lineup")}
-					>
-						ALINEACIONES
-					</button>
-					<button
-						className={`${styles.details_headerButton} ${selectedSection === "cronology" && styles.details_headerButtonActive}`}
-						onClick={() => HandleSelectSection("cronology")}
-					>
-						CRONOLOGíA
-					</button>
-				</header>
-				{selectedSection === "statistics" && (
-					<div className={styles.details_statistics}>
-						<div className={styles.details_title}>
-							<Image
-								className={styles.details_titleLogo}
-								src={details.event.sportEvent.competitors.homeTeam.images.urlLogo[0]}
-								width={50}
-								height={50}
-								alt="Logo de"
-							/>
-							<span className={styles.details_titleText}></span>
-							<Image
-								className={styles.details_titleLogo}
-								src={details.event.sportEvent.competitors.awayTeam.images.urlLogo[0]}
-								width={50}
-								height={50}
-								alt="Logo de"
-							/>
-							<span className={styles.details_titleGoals}>{details.event.score.homeTeam.totalScore}</span>
-							<span className={styles.details_posession}>Posesión</span>
-							<span className={styles.details_titleGoals}>{details.event.score.awayTeam.totalScore}</span>
-							{statisticsMatch.home.length > 1 && (
-								<>
-									<span className={styles.details_titlePossession}>{`${statisticsMatch?.home[1][1]}%`}</span>
-									<div className={styles.details_titleBar}>
-										<div
-											className={styles.details_titleBarHome}
-											style={{
-												width: `${statisticsMatch?.home[1][1]}%`,
-												backgroundColor: details.lineup.lineups.homeTeam.teamKit.colour1,
-												borderLeft: `1px solid ${details.lineup.lineups.homeTeam.teamKit.colour2}`,
-												borderTop: `1px solid ${details.lineup.lineups.homeTeam.teamKit.colour2}`,
-												borderBottom: `1px solid ${details.lineup.lineups.homeTeam.teamKit.colour2}`,
-											}}
-										></div>
-										<div
-											className={styles.details_titleBarAway}
-											style={{
-												width: `${statisticsMatch?.away[1][1]}%`,
-												backgroundColor: details.lineup.lineups.awayTeam.teamKit.colour1,
-												borderRight: `1px solid ${details.lineup.lineups.awayTeam.teamKit.colour2}`,
-												borderTop: `1px solid ${details.lineup.lineups.awayTeam.teamKit.colour2}`,
-												borderBottom: `1px solid ${details.lineup.lineups.awayTeam.teamKit.colour2}`,
-											}}
-										></div>
-									</div>
-									<span className={styles.details_titlePossession}>{`${statisticsMatch?.away[1][1]}%`}</span>
-								</>
-							)}
-						</div>
-
-						<section className={styles.details_table}>
-							<article className={`${styles.details_tableOptions} ${styles.details_tableOptionsHome}`}>
-								{statisticsMatch.home.map(
-									(statistic, index) =>
-										index > 1 && (
-											<span key={statistic[0]} className={`${styles.details_tableOption} ${styles.details_tableOptionHome}`}>
-												{statistic[1]}
-											</span>
-										)
-								)}
-							</article>
-							<article className={`${styles.details_tableOptions} ${styles.details_tableOptionsNames}`}>
-								{statisticsNames.map(
-									(statistic, index) =>
-										index > 1 && (
-											<span key={statistic.id} className={styles.details_tableOption}>
-												{statistic.name}
-											</span>
-										)
-								)}
-							</article>
-							<article className={`${styles.details_tableOptions} ${styles.details_tableOptionsAway}`}>
-								{statisticsMatch.away.map(
-									(statistic, index) =>
-										index > 1 && (
-											<span key={statistic[0]} className={`${styles.details_tableOption} ${styles.details_tableOptionAway}`}>
-												{statistic[1]}
-											</span>
-										)
-								)}
-							</article>
-						</section>
-					</div>
-				)}
-				{selectedSection === "lineup" && (
-					<div className={styles.lineups}>
-						<Field>
-							<div className={`${styles.lineups_manager} ${styles.lineups_managerHome}`}>
-								<img
-									className={styles.lineups_managerLogo}
+		<Dialog className=" " visible={open} onHide={() => setOpen(false)} >
+			<div className={`${styles.details} `}>
+				<Button className="self-end" onClick={() => setOpen(false)} label="Cerrar" icon="pi pi-times-circle" severity="danger" size="small" />
+				<section className={`${styles.details_section} scrollbar`}>
+					<header className={styles.details_header}>
+						<button
+							className={`${styles.details_headerButton} ${selectedSection === "statistics" && styles.details_headerButtonActive}`}
+							onClick={() => HandleSelectSection("statistics")}
+						>
+							ESTADíSTICAS
+						</button>
+						<button
+							className={`${styles.details_headerButton} ${selectedSection === "lineup" && styles.details_headerButtonActive}`}
+							onClick={() => HandleSelectSection("lineup")}
+						>
+							ALINEACIONES
+						</button>
+						<button
+							className={`${styles.details_headerButton} ${selectedSection === "cronology" && styles.details_headerButtonActive}`}
+							onClick={() => HandleSelectSection("cronology")}
+						>
+							CRONOLOGíA
+						</button>
+					</header>
+					{selectedSection === "statistics" && (
+						<div className={styles.details_statistics}>
+							<div className={styles.details_title}>
+								<Image
+									className={styles.details_titleLogo}
 									src={details.event.sportEvent.competitors.homeTeam.images.urlLogo[0]}
-									alt={`Logo del equipo ${details.event.sportEvent.competitors.homeTeam.commonName}`}
-									width={40}
-									height={40}
-									loading="lazy"
+									width={50}
+									height={50}
+									alt="Logo de"
 								/>
-								<span className={styles.lineups_managerName}>{FormattedCulbNames(details.event.sportEvent.competitors.homeTeam.commonName)}</span>
-								<ManagerIcon className={styles.lineups_managerIcon} />
-								<span className={styles.lineups_managerName}>{details.lineup.lineups.homeTeam.manager}</span>
-								<span className={styles.lineups_managerFormation}>{details.lineup.lineups.homeTeam.formationTeam.split("").join("-")}</span>
-							</div>
-							<div
-								className={`${styles.lineup} ${styles.lineupHome} ${details.lineup.lineups.homeTeam.formationTeam.length === 4 && styles.lineup_fourRows
-									}`}
-							>
-								{details.lineup.lineups.homeTeam.actualLineup.map((player) => (
-									<Player
-										key={player.id}
-										player={player}
-										team={{
-											color: details.lineup.lineups.homeTeam.teamKit.colour1,
-											color2: details.lineup.lineups.homeTeam.teamKit.colour2,
-											isHome: true,
-											formation: details.lineup.lineups.homeTeam.formationTeam,
-										}}
-										stats={{
-											yellowCards: details.event.statsDetails.discipline.homeTeam.yellowCards,
-											redCards: details.event.statsDetails.discipline.homeTeam.redCards,
-											goals: details.event.scoreDetails.goals.homeTeam,
-										}}
-										isTitular={true}
-									/>
-								))}
-							</div>
-							<div
-								className={`${styles.lineup} ${styles.lineupAway} ${details.lineup.lineups.awayTeam.formationTeam.length === 4 && styles.lineup_fourRows
-									}`}
-							>
-								{details.lineup.lineups.awayTeam.actualLineup.map((player) => (
-									<Player
-										key={player.id}
-										player={player}
-										team={{
-											color: details.lineup.lineups.awayTeam.teamKit.colour1,
-											color2: details.lineup.lineups.awayTeam.teamKit.colour2,
-											isHome: false,
-											formation: details.lineup.lineups.awayTeam.formationTeam,
-										}}
-										stats={{
-											yellowCards: details.event.statsDetails.discipline.awayTeam.yellowCards,
-											redCards: details.event.statsDetails.discipline.awayTeam.redCards,
-											goals: details.event.scoreDetails.goals.awayTeam,
-										}}
-										isTitular={true}
-									/>
-								))}
-							</div>
-							<div className={`${styles.lineups_manager} ${styles.lineups_managerAway}`}>
-								<img
-									className={styles.lineups_managerLogo}
+								<span className={styles.details_titleText}></span>
+								<Image
+									className={styles.details_titleLogo}
 									src={details.event.sportEvent.competitors.awayTeam.images.urlLogo[0]}
-									alt={`Logo del equipo ${details.event.sportEvent.competitors.awayTeam.commonName}`}
-									width={40}
-									height={40}
-									loading="lazy"
+									width={50}
+									height={50}
+									alt="Logo de"
 								/>
-								<span className={styles.lineups_managerName}>{FormattedCulbNames(details.event.sportEvent.competitors.awayTeam.commonName)}</span>
-								<ManagerIcon className={styles.lineups_managerIcon} />
-								<span className={styles.lineups_managerName}>{details.lineup.lineups.awayTeam.manager}</span>
-								<span className={styles.lineups_managerFormation}>{details.lineup.lineups.awayTeam.formationTeam.split("").join("-")}</span>
+								<span
+									className={`${styles.details_titleGoals} 
+									${details.event.score.homeTeam.totalScore > details.event.score.awayTeam.totalScore ? "text-lime-500" : details.event.score.homeTeam.totalScore < details.event.score.awayTeam.totalScore ? "text-red-600" : "text-yellow-500"}`}>{details.event.score.homeTeam.totalScore}</span>
+								<span className={styles.details_posession}>Posesión</span>
+								<span className={`${styles.details_titleGoals} 
+									${details.event.score.homeTeam.totalScore < details.event.score.awayTeam.totalScore ? "text-lime-500" : details.event.score.homeTeam.totalScore > details.event.score.awayTeam.totalScore ? "text-red-600" : "text-yellow-500"}`}>{details.event.score.awayTeam.totalScore}</span>
+								{statisticsMatch && statisticsMatch.home.length > 1 && (
+									<>
+										<span className={styles.details_titlePossession}>{`${statisticsMatch?.home[1][1]}%`}</span>
+										<div className={styles.details_titleBar}>
+											<div
+												className={styles.details_titleBarHome}
+												style={{
+													width: `${statisticsMatch?.home[1][1]}%`,
+													backgroundColor: `var(--cyan-600)`,
+													borderLeft: `1px solid var(--surface-800)`,
+													borderTop: `1px solid var(--surface-800)`,
+													borderBottom: `1px solid var(--surface-800)`,
+												}}
+											></div>
+											<div
+												className={styles.details_titleBarAway}
+												style={{
+													width: `${statisticsMatch?.away[1][1]}%`,
+													backgroundColor: `var(--yellow-600)`,
+													borderRight: `1px solid var(--surface-800)`,
+													borderTop: `1px solid var(--surface-800)`,
+													borderBottom: `1px solid var(--surface-800)`,
+												}}
+											></div>
+										</div>
+										<span className={styles.details_titlePossession}>{`${statisticsMatch?.away[1][1]}%`}</span>
+									</>
+								)}
 							</div>
-						</Field>
-						<h2 className={styles.lineups_title}>SUPLENTES</h2>
-						<div className={styles.substitutes}>
-							<div className={`${styles.substitutes_players} ${styles.substitutes_playersHome}`}>
-								{details.lineup.lineups.homeTeam.substitutesActualLineup.map((player) => (
-									<Player
-										key={player.id}
-										player={player}
-										team={{
-											color: details.lineup.lineups.homeTeam.teamKit.colour1,
-											color2: details.lineup.lineups.homeTeam.teamKit.colour2,
-											isHome: true,
-											formation: details.lineup.lineups.homeTeam.formationTeam,
-										}}
-										stats={{
-											yellowCards: details.event.statsDetails.discipline.homeTeam.yellowCards,
-											redCards: details.event.statsDetails.discipline.homeTeam.redCards,
-											goals: details.event.scoreDetails.goals.homeTeam,
-										}}
-										isTitular={false}
+
+							<section className={styles.details_table}>
+								<article className={`${styles.details_tableOptions} ${styles.details_tableOptionsHome}`}>
+									{statisticsMatch && statisticsMatch.home.map(([key, value], index) => (index > 1 &&
+										<span key={key} className={`${styles.details_tableOption} ${styles.details_tableOptionHome}`}>
+											{value} {/* Usar value para mostrar el valor */}
+										</span>
+									))}
+								</article>
+								<article className={`${styles.details_tableOptions} ${styles.details_tableOptionsNames}`}>
+									{statisticsMatch && statisticsMatch.away.map(([key, value], index) => (index > 1 &&
+										<span key={key} className={`${styles.details_tableOption} ${styles.details_tableOptionHome}`}>
+											{TRTADUCTIONS[key]}
+										</span>
+									))}
+								</article>
+								<article className={`${styles.details_tableOptions} ${styles.details_tableOptionsAway}`}>
+									{statisticsMatch && statisticsMatch.away.map(([key, value], index) => (index > 1 &&
+										<span key={key} className={`${styles.details_tableOption} ${styles.details_tableOptionHome}`}>
+											{value} {/* Usar value para mostrar el valor */}
+										</span>
+									))}
+								</article>
+							</section>
+						</div>
+					)}
+					{selectedSection === "lineup" && (
+						<div className={styles.lineups}>
+							<Field>
+								<div className={`${styles.lineups_manager} ${styles.lineups_managerHome}`}>
+									<img
+										className={styles.lineups_managerLogo}
+										src={details.event.sportEvent.competitors.homeTeam.images.urlLogo[0]}
+										alt={`Logo del equipo ${details.event.sportEvent.competitors.homeTeam.commonName}`}
+										width={40}
+										height={40}
+										loading="lazy"
 									/>
-								))}
-							</div>
-							<div className={`${styles.substitutes_players} ${styles.substitutes_playersAway}`}>
-								{details.lineup.lineups.awayTeam.substitutesActualLineup.map((player) => (
-									<Player
-										key={player.id}
-										player={player}
-										team={{
-											color: details.lineup.lineups.awayTeam.teamKit.colour1,
-											color2: details.lineup.lineups.awayTeam.teamKit.colour2,
-											isHome: true,
-											formation: details.lineup.lineups.awayTeam.formationTeam,
-										}}
-										stats={{
-											yellowCards: details.event.statsDetails.discipline.awayTeam.yellowCards,
-											redCards: details.event.statsDetails.discipline.awayTeam.redCards,
-											goals: details.event.scoreDetails.goals.awayTeam,
-										}}
-										isTitular={false}
+									<span className={styles.lineups_managerName}>{FormattedCulbNames(details.event.sportEvent.competitors.homeTeam.commonName)}</span>
+									<ManagerIcon className={styles.lineups_managerIcon} />
+									<span className={styles.lineups_managerName}>{details.lineup.lineups.homeTeam.manager}</span>
+									<span className={styles.lineups_managerFormation}>{details.lineup.lineups.homeTeam.formationTeam.split("").join("-")}</span>
+								</div>
+								<div
+									className={`${styles.lineup} ${styles.lineupHome} ${details.lineup.lineups.homeTeam.formationTeam.length === 4 && styles.lineup_fourRows
+										}`}
+								>
+									{details.lineup.lineups.homeTeam.actualLineup.map((player) => (
+										<Player
+											key={player.id}
+											player={player}
+											team={{
+												color: details.lineup.lineups.homeTeam.teamKit.colour1,
+												color2: details.lineup.lineups.homeTeam.teamKit.colour2,
+												isHome: true,
+												formation: details.lineup.lineups.homeTeam.formationTeam,
+											}}
+											stats={{
+												yellowCards: details.event.statsDetails.discipline.homeTeam.yellowCards,
+												redCards: details.event.statsDetails.discipline.homeTeam.redCards,
+												goals: details.event.scoreDetails.goals.homeTeam,
+											}}
+											isTitular={true}
+										/>
+									))}
+								</div>
+								<div
+									className={`${styles.lineup} ${styles.lineupAway} ${details.lineup.lineups.awayTeam.formationTeam.length === 4 && styles.lineup_fourRows
+										}`}
+								>
+									{details.lineup.lineups.awayTeam.actualLineup.map((player) => (
+										<Player
+											key={player.id}
+											player={player}
+											team={{
+												color: details.lineup.lineups.awayTeam.teamKit.colour1,
+												color2: details.lineup.lineups.awayTeam.teamKit.colour2,
+												isHome: false,
+												formation: details.lineup.lineups.awayTeam.formationTeam,
+											}}
+											stats={{
+												yellowCards: details.event.statsDetails.discipline.awayTeam.yellowCards,
+												redCards: details.event.statsDetails.discipline.awayTeam.redCards,
+												goals: details.event.scoreDetails.goals.awayTeam,
+											}}
+											isTitular={true}
+										/>
+									))}
+								</div>
+								<div className={`${styles.lineups_manager} ${styles.lineups_managerAway}`}>
+									<img
+										className={styles.lineups_managerLogo}
+										src={details.event.sportEvent.competitors.awayTeam.images.urlLogo[0]}
+										alt={`Logo del equipo ${details.event.sportEvent.competitors.awayTeam.commonName}`}
+										width={40}
+										height={40}
+										loading="lazy"
 									/>
-								))}
+									<span className={styles.lineups_managerName}>{FormattedCulbNames(details.event.sportEvent.competitors.awayTeam.commonName)}</span>
+									<ManagerIcon className={styles.lineups_managerIcon} />
+									<span className={styles.lineups_managerName}>{details.lineup.lineups.awayTeam.manager}</span>
+									<span className={styles.lineups_managerFormation}>{details.lineup.lineups.awayTeam.formationTeam.split("").join("-")}</span>
+								</div>
+							</Field>
+							<h2 className={styles.lineups_title}>SUPLENTES</h2>
+							<div className={styles.substitutes}>
+								<div className={`${styles.substitutes_players} ${styles.substitutes_playersHome}`}>
+									{details.lineup.lineups.homeTeam.substitutesActualLineup.map((player) => (
+										<Player
+											key={player.id}
+											player={player}
+											team={{
+												color: details.lineup.lineups.homeTeam.teamKit.colour1,
+												color2: details.lineup.lineups.homeTeam.teamKit.colour2,
+												isHome: true,
+												formation: details.lineup.lineups.homeTeam.formationTeam,
+											}}
+											stats={{
+												yellowCards: details.event.statsDetails.discipline.homeTeam.yellowCards,
+												redCards: details.event.statsDetails.discipline.homeTeam.redCards,
+												goals: details.event.scoreDetails.goals.homeTeam,
+											}}
+											isTitular={false}
+										/>
+									))}
+								</div>
+								<div className={`${styles.substitutes_players} ${styles.substitutes_playersAway}`}>
+									{details.lineup.lineups.awayTeam.substitutesActualLineup.map((player) => (
+										<Player
+											key={player.id}
+											player={player}
+											team={{
+												color: details.lineup.lineups.awayTeam.teamKit.colour1,
+												color2: details.lineup.lineups.awayTeam.teamKit.colour2,
+												isHome: true,
+												formation: details.lineup.lineups.awayTeam.formationTeam,
+											}}
+											stats={{
+												yellowCards: details.event.statsDetails.discipline.awayTeam.yellowCards,
+												redCards: details.event.statsDetails.discipline.awayTeam.redCards,
+												goals: details.event.scoreDetails.goals.awayTeam,
+											}}
+											isTitular={false}
+										/>
+									))}
+								</div>
 							</div>
 						</div>
-					</div>
-				)}
-				{selectedSection === "cronology" && (
-					<div className={styles.cronology}>
-						{details.narration.commentaries.map((commentary) => (
-							<div key={commentary.id} className={styles.cronology_commentaries}>
-								<div className={styles.cronology_commentariesMinute}>{`${commentary.momentAction || ""}"`}</div>
-								<div className={styles.cronology_commentariesType}>
-									{GetCommentaryIcon(commentary.type || GetCommentary(commentary.commentary) || "")}
+					)}
+					{selectedSection === "cronology" && (
+						<div className={styles.cronology}>
+							{details.narration.commentaries.map((commentary) => (
+								<div key={commentary.id} className={styles.cronology_commentaries}>
+									<div className={styles.cronology_commentariesMinute}>{`${commentary.momentAction || ""}"`}</div>
+									<div className={styles.cronology_commentariesType}>
+										{GetCommentaryIcon(commentary.type || GetCommentary(commentary.commentary) || "")}
+									</div>
+									<p className={styles.cronology_commentariesCommentary}>{commentary.commentary}</p>
 								</div>
-								<p className={styles.cronology_commentariesCommentary}>{commentary.commentary}</p>
-							</div>
-						))}
-					</div>
-				)}
-			</section>
-		</dialog>
+							))}
+						</div>
+					)}
+				</section>
+
+			</div>
+		</Dialog>
 	)
 }
 
@@ -400,3 +401,22 @@ const GetCommentaryIcon = (type: string) => {
 
 	return iconMap[type] || <CommentIcon className={styles.icons_commentary} />
 }
+
+
+const TRTADUCTIONS = {
+	possPercentage: "Porcentaje de Posesión",
+	duelsWon: "Duelos Ganados",
+	shots: "Tiros",
+	shotsOnGoal: "Tiros a Puerta",
+	wonCorners: "Córners Ganados",
+	successPass: "Pases Exitosos",
+	lostPass: "Pases Perdidos",
+	ballsLost: "Balones Perdidos",
+	ballsRecovery: "Recuperación de Balones",
+	saves: "Paradas",
+	fouls: "Faltas",
+	goals: "Goles",
+	totalOffsides: "Fuera de Juego Totales",
+	yellowCards: "Tarjetas Amarillas",
+	redCards: "Tarjetas Rojas",
+};

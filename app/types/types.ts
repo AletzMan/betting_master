@@ -445,3 +445,5 @@ export interface IPrediction {
 	matchNumber: number
 	prediction: 'L' | 'V' | 'E'
 }
+
+export type TStatistics = "possPercentage" | "duelsWon" | "shots" | "shotsOnGoal" | "wonCorners" | "successPass" | "lostPass" | "ballsLost" | "ballsRecovery" | "saves" | "fouls" | "goals" | "totalOffsides" | "yellowCards" | "redCards"

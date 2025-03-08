@@ -44,6 +44,7 @@
         &Logo {
             width: 2.5em;
             height: 2.5em;
+            filter: drop-shadow(0 0 2px #FFFFFF45);
         }
 
         &Name {
@@ -65,18 +66,18 @@
     }
 
     &_score {
-        width: 2.5em;
+        width: 2em;
+        height: 2em;
+        min-width: 2em;
         padding: 0.25em 0;
         text-align: center;
         border-radius: var(--border-radius-md);
-        background-color: var(--surface-c);
-        font-weight: 600;
+        //background-color: var(--surface-c);
+        font-weight: 700;
         font-size: 1.2em;
-        color: #b1e418;
+        text-shadow: 0 0 2px #000000;
 
-        @media (max-width: 600px) {
-            width: 2em;
-        }
+
     }
 
     &_separator {
@@ -94,6 +95,7 @@
         border-radius: var(--border-radius);
         text-transform: uppercase;
         background-color: var(--surface-d);
+        text-shadow: 0 0 3px #000000;
 
 
         &NotStarted {
@@ -342,52 +344,38 @@
 
 
 .details {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100svw;
-    height: 100svh;
+    position: relative;
     display: flex;
     align-items: flex-start;
+    gap: 0.5em;
+    flex-direction: column;
     justify-content: center;
-    padding: 3em 0 0 0;
-    background-color: #1d1d1d45;
+    background-color: transparent;
     backdrop-filter: blur(3px);
-    z-index: 5;
 
     &_statistics {
         overflow-y: auto;
         max-height: 70svh;
     }
 
-    &_close {
-        position: absolute;
-        top: 1em;
-        left: calc(50% - 3em);
-        width: 6em;
-        font-family: var(--font-montserrat);
-        padding: 0.25em 0.5em;
-        font-weight: 600;
-        color: var(--tertiaryColor);
-        border: none;
-        background-color: var(--primary-color);
-        cursor: pointer;
 
-        &:hover {
-            background-color: var(--primary-color);
-        }
-    }
 
     &_section {
         position: relative;
-        background: linear-gradient(30deg, var(--tertiaryColor), var(--backgroundColor));
-        width: 95%;
+        background: linear-gradient(30deg, var(--surface-b), var(--surface-e));
+        min-width: 35em;
         max-width: 40em;
-        //min-height: 60svh;
+        min-height: 80svh;
         max-height: 80svh;
-        border: 1px solid var(--hover-link);
+        border: 1px solid var(--surface-d);
+        border-radius: var(--border-radius-md);
         overflow-y: auto;
         padding: 0 0 2em 0;
+
+        @media (width < 600px) {
+            width: calc(100svw - 1.5em);
+            min-width: calc(100svw - 1.5em);
+        }
     }
 
     &_header {
@@ -399,11 +387,12 @@
         width: 100%;
         z-index: 4;
         padding: 0.25em;
-        background-color: var(--secondaryColor);
+        border-bottom: 1px solid var(--surface-d);
+        background-color: var(--surface-b);
 
         &Button {
             padding: 0.75em;
-            background-color: var(--headerhover-color);
+            background-color: var(--surface-c);
             color: var(--foregroundColor);
             border: none;
             font-size: 0.7em;
@@ -412,13 +401,21 @@
             font-family: var(--font-montserrat);
             transition: background-color 0.3s ease-in-out;
 
+            &:nth-child(1) {
+                border-radius: 0.5em 0 0 0;
+            }
 
+            &:nth-child(3) {
+                border-radius: 0 0.5em 0 0;
+            }
 
             &Active {
                 //border-bottom: 2px solid var(--primary-color);
-                color: var(--primary-color);
-                background-color: var(--backgroundColor);
+                color: var(--surface-50);
+                background-color: var(--primary-color);
                 font-weight: 600;
+
+
             }
         }
     }
@@ -426,7 +423,7 @@
     &_posession {
         position: relative;
         top: 1em;
-        color: var(--foregroundSecondColor);
+        color: var(--surface-700);
         text-transform: uppercase;
         font-weight: 600;
     }
@@ -437,7 +434,7 @@
         place-items: center center;
         width: 100%;
         padding: 0.25em;
-        background-color: var(--background-text);
+        background-color: var(--surface-c);
 
         &Text {
             font-weight: 500;
@@ -453,7 +450,6 @@
             padding: 0.25em;
             font-size: 1.8em;
             font-weight: 600;
-            color: var(--foregroundColor);
         }
 
         &Possession {
@@ -476,7 +472,7 @@
                 //width: 74%;
                 height: 1em;
                 border-radius: 1em 0 0 1em;
-                border-right: 1px solid var(--backgroundColor);
+                border-right: 1px solid var(--surface-c);
                 //background-color: gold;
             }
 
@@ -493,7 +489,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         width: 100%;
-        color: var(--foregroundColor);
+        color: var(--text-color);
         padding: 0.5em;
 
         @media (max-width: 600px) {
@@ -515,7 +511,7 @@
             width: 100%;
             font-size: 0.9em;
             text-align: center;
-            border-bottom: 1px solid var(--hover-link);
+            border-bottom: 1px solid var(--surface-c);
 
 
 
@@ -668,12 +664,12 @@
         column-gap: 0.5em;
         height: 2.2em;
         padding: 0.25em 0.5em;
-        background-color: var(--hover-link);
-        border: 1px solid var(--twitterTwo-color);
+        background-color: var(--surface-c);
+        border: 1px solid var(--surface-d);
 
         &Icon {
-            background-color: var(--foregroundColor);
-            color: var(--backgroundColor);
+            background-color: var(--surface-800);
+            color: var(--surface-b);
             border-radius: 2em;
             width: 1.5em;
             height: 1.5em;
@@ -687,7 +683,7 @@
 
         &Name {
             font-size: 0.8em;
-            color: var(--foregroundColor);
+            color: var(--text-color);
             padding: 0 0.3em 0 0;
         }
 
@@ -695,8 +691,8 @@
             padding: 0.15em 0.35em;
             border-radius: 2em;
             font-size: 0.8em;
-            background-color: var(--twitterTwo-color);
-            color: var(--foregroundColor);
+            background-color: var(--pink-600);
+            color: var(--text-color);
         }
 
         &Home {
@@ -713,8 +709,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 2.2em;
-    height: 2.2em;
+    width: 2.5em;
+    height: 2.5em;
 
     &_isSubstitute {
         flex-direction: row;
@@ -723,7 +719,8 @@
         padding: 1.25em 0 0.25em 0.25em;
         height: 3.5em;
         width: 100%;
-        background-color: var(--borderTwoColor);
+        border: 1px solid var(--surface-d);
+        background-color: var(--surface-c);
     }
 
     &_shirt {
@@ -731,19 +728,23 @@
         display: flex;
         flex-direction: column;
         row-gap: 0.5em;
-        width: 2.2em;
-        height: 2.2em;
+        width: 2.5em;
+        height: 2.5em;
+        filter: drop-shadow(0 0 1px #000000) brightness(120%);
         //background-color: red;
 
 
     }
 
     &_icon {
-        width: 2.2em;
-        height: 2.2em;
+        width: 2.5em;
+        height: 2.5em;
     }
 
     &_number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: absolute;
         top: calc(50% - 0.75em);
         left: calc(50% - 0.75em);
@@ -751,22 +752,21 @@
         height: 1.5em;
         font-size: 0.7em;
         font-weight: 600;
-        padding: 0.15em 0 0 0;
         text-align: center;
         border-radius: 1em;
-        background-color: var(--foregroundColor);
-        color: var(--tertiaryColor);
+        background-color: var(--text-color);
+        color: var(--surface-b);
     }
 
     &_name {
-        color: var(--foregroundColor);
+        color: var(--text-color);
         width: 7em;
         font-size: 0.65em;
         text-align: center;
         border-radius: 1em;
         padding: 0.25em;
         background-color: #034a03ee;
-        color: var(--foregroundColor);
+        line-height: 1.1em;
 
         &Substitute {
             width: 8em;
@@ -774,7 +774,6 @@
             text-align: left;
             background-color: transparent;
             backdrop-filter: none;
-
         }
     }
 
@@ -803,11 +802,6 @@
     &_away {
         transform: rotate(180deg);
 
-    }
-
-    &_position1 {
-        grid-row: 3 / 4;
-        grid-column: 3 / 4;
     }
 
     &_yellowCard {
@@ -846,6 +840,9 @@
         }
 
         &Number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: absolute;
             left: -1.1em;
             top: 0.8em;
@@ -854,10 +851,9 @@
             font-size: 0.7em;
             font-weight: 700;
             text-align: center;
-            padding: 0 0 0.4em 0;
             border-radius: 1em;
-            border: 1px solid var(--tertiaryColor);
-            background-color: var(--foregroundColor);
+            border: 1px solid var(--surface-b);
+            background-color: var(--text-color);
             color: rgb(31, 70, 9);
 
             &Substitute {
@@ -900,13 +896,13 @@
         position: absolute;
         top: 0.25em;
         left: 4.3em;
-        border-radius: 2em;
+        border-radius: 0.25em;
         padding: 0.1em 0.5em;
         font-size: 0.7em;
         text-transform: capitalize;
         font-weight: 600;
-
-        color: var(--foregroundSecondColor);
+        background-color: var(--surface-c);
+        color: var(--surface-500);
         //background-color: #d39c0f45;
     }
 }
@@ -944,7 +940,7 @@
     column-gap: 0.25em;
     width: 100%;
     margin: 1em 0 0 0;
-    background-color: var(--tertiaryColor);
+    background-color: var(--surface-a);
 
     &_players {
         display: flex;
@@ -969,7 +965,7 @@
         display: grid;
         grid-template-columns: 3em 3em 1fr;
         column-gap: 0.25em;
-        color: var(--foregroundSecondColor);
+        color: var(--text-color);
 
 
         &Minute {
@@ -977,9 +973,9 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background-color: var(--background-text);
+            background-color: var(--surface-d);
             padding: 0.25em;
-            color: #10a30d;
+            color: #0ddd0a;
 
         }
 
@@ -988,13 +984,14 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background-color: var(--background-textTwo);
+            background-color: var(--surface-d);
             padding: 0.25em;
+            fill: var(--text-color);
 
         }
 
         &Commentary {
-            background-color: var(--background-textTwo);
+            background-color: var(--surface-d);
             color: var(--foregroundSecondColor);
             padding: 0.5em;
             font-weight: 300;

@@ -58,7 +58,7 @@ export function Match({ props }: { props: PropsMatch }) {
 				{sportEvent.matchDay && <span className={styles.match_day}>{`Jornada ${sportEvent.matchDay}`}</span>}
 				<div className={styles.match_header}>
 					<div className={styles.match_team}>
-						<img
+						<Image
 							className={styles.match_teamLogo}
 							src={competitors.homeTeam.images.urlLogo[0]}
 							width={50}
@@ -67,11 +67,16 @@ export function Match({ props }: { props: PropsMatch }) {
 							loading="lazy"
 						/>
 						<span className={styles.match_teamName}>{FormattedCulbNames(competitors.homeTeam.commonName)}</span>
-						<span className={styles.match_score}>{eventData.score.homeTeam.totalScore}</span>
+						<span className={`${styles.match_score}  border-1
+									${Status !== "Sin comenzar" ? (details.event?.score.homeTeam.totalScore > details.event?.score.awayTeam.totalScore ?
+								"bg-[#28eb1230] border-[#28eb1250]" :
+								details.event?.score.homeTeam.totalScore < details.event?.score.awayTeam.totalScore ?
+									"bg-[#FF000030] border-[#FF000050]" : "bg-[#FFFF0030] border-[#FFFF0050]") : "bg-[#FFFFFF30] border-[#FFFFFF50]"}`
+						}>{eventData.score.homeTeam.totalScore}</span>
 					</div>
 					<span className={styles.match_separator}>-</span>
 					<div className={`${styles.match_team} ${styles.match_teamAway}`}>
-						<img
+						<Image
 							className={styles.match_teamLogo}
 							src={competitors.awayTeam.images.urlLogo[0]}
 							width={50}
@@ -80,7 +85,13 @@ export function Match({ props }: { props: PropsMatch }) {
 							loading="lazy"
 						/>
 						<span className={styles.match_teamName}>{FormattedCulbNames(competitors.awayTeam.commonName)}</span>
-						<span className={styles.match_score}>{eventData.score.awayTeam.totalScore}</span>
+						<span className={`${styles.match_score}  border-1
+									${Status !== "Sin comenzar" ? (details.event?.score.homeTeam.totalScore < details.event?.score.awayTeam.totalScore
+								? "bg-[#28eb1230] border-[#28eb1250]" :
+								details.event?.score.homeTeam.totalScore > details.event?.score.awayTeam.totalScore ?
+									"bg-[#FF000030] border-[#FF000050]" :
+									"bg-[#FFFF0030] border-[#FFFF0050]") : "bg-[#FFFFFF30] border-[#FFFFFF50]"}`
+						}>{eventData.score.awayTeam.totalScore}</span>
 					</div>
 				</div>
 				{(Status === "2nd half" || Status === "1st half" || Status === "Descanso" || Status === "1ª parte" || Status === "2ª parte") && (
@@ -108,8 +119,9 @@ export function Match({ props }: { props: PropsMatch }) {
 						</footer>
 					</>
 				)}
-			</div>
-			{openDialog && <DialogDetails detailsData={details} open={openDialog} setOpen={setOpenDialog} />}
+			</div >
+			{openDialog && <DialogDetails detailsData={details} open={openDialog} setOpen={setOpenDialog} />
+			}
 		</>
 	)
 }

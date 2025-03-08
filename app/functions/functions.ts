@@ -1,7 +1,7 @@
 import { Nullable } from "primereact/ts-helpers"
 import { TeamsLogos, TeamsNames } from "../constants/constants"
 import { GetResults } from "../services/fetch_utils"
-import { StatsTeam, StatsTeam2 } from "../types/DetailsMatch"
+import { StatsTeam } from "../types/DetailsMatch"
 import { Results } from "../types/ResultsTypes"
 import {
 	IBet,
@@ -13,6 +13,7 @@ import {
 	IMatchDay,
 	IUserAndState,
 	MatchDay,
+	TStatistics,
 } from "../types/types"
 
 const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "2-digit", day: "2-digit" }
@@ -108,10 +109,30 @@ export const DefineTypeGoal = (type: string) => {
 	}
 }
 
-export const GetListStats = (stats: StatsTeam | StatsTeam2) => {
-	const list = Object.entries(stats) as [string, number][]
-	return list
-}
+
+const order: (keyof StatsTeam)[] = [
+	"goals",
+	"possPercentage",
+	"duelsWon",
+	"shots",
+	"shotsOnGoal",
+	"wonCorners",
+	"successPass",
+	"lostPass",
+	"ballsLost",
+	"ballsRecovery",
+	"saves",
+	"fouls",
+	"totalOffsides",
+	"yellowCards",
+	"redCards",
+];
+
+
+export const GetListStats = (stats: StatsTeam): [TStatistics, number][] => {
+	return order.map((key) => [key, stats[key]]);
+};
+
 
 export function GetWeekendDays(): string[] {
 	const today = new Date()
