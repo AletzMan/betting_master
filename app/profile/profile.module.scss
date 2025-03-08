@@ -45,6 +45,8 @@
         width: 2em;
         height: 2em;
         border-radius: 5em;
+        color: var(--text-color);
+        cursor: pointer;
 
         &:focus {
 
@@ -53,12 +55,16 @@
                 opacity: 1;
             }
         }
+
+        &:disabled {
+            color: var(--surface-300);
+            cursor: not-allowed;
+        }
     }
 
     &_icon {
         width: 1.5em;
         height: 1.5em;
-        color: var(--text-color);
     }
 }
 

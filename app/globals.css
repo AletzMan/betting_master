@@ -2,13 +2,17 @@
 
 :root {
 	--max-width: 850px;
+	--border-radius: 0.25em !important;
+	--border-radius-sm: 4px;
 	--border-radius-md: 8px;
+	--border-radius-lg: 12px;
 	--font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono",
 		"Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono",
 		"Courier New", monospace;
 	--text-color: #ffffff;
-	--primary-color: #3abbea !important;
-	--danger-color: #f42c2c;
+	--primary-color: #38a2ff !important;
+	--secondary-color: #d1d1d1 !important;
+	--danger-color: #d72424;
 	--success-color: #65c313;
 	--info-color: #1488ee;
 	--warning-color: #ffa600;
@@ -16,11 +20,19 @@
 	--pending-color: #6d5d00;
 	--finished-color: #166d00;
 	--started-color: #680400;
-	--border-radius: 0.2em !important;
 	--row-select-color: #ae00ff40;
-	--background-success-color: #65c31320;
-	--background-warning-color: #ffa60020;
-	--background-info-color: #1488ee20;
+	--surface-a: #1c1c1c !important;
+	--surface-b: #101010 !important;
+	--surface-c: #45454550 !important;
+	--surface-d: #63626230 !important;
+	--surface-e: #161616 !important;
+	--surface-f: #242424 !important;
+	--background-primary-color: #38a2ff15;
+	--background-secondary-color: #d1d1d115;
+	--background-success-color: #65c31315;
+	--background-warning-color: #ffa60015;
+	--background-danger-color: #f42c2c015;
+	--background-info-color: #1488ee15;
 	--animate-scale: animate-scale 3.5s ease-in-out infinite alternate;
 }
 
@@ -97,8 +109,20 @@ body {
 	max-width: var(--max-width);
 }
 
-.p-dialog .p-dialog-content {
-	padding: 0;
+.p-sidebar {
+	background: linear-gradient(40deg, var(--surface-b), var(--surface-a));
+	color: rgba(255, 255, 255, 0.87);
+	border: 1px solid var(--surface-d);
+	box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+
+.p-dialog {
+	border: 1px solid var(--surface-d);
+
+	.p-dialog-content {
+		background: linear-gradient(40deg, var(--surface-b), var(--surface-a));
+		padding: 0.25em;
+	}
 }
 
 .delete-exit {
@@ -134,26 +158,10 @@ body {
 	color: var(--surface-900);
 }
 
-.p-highlight .p-tabview-nav-link {
-	background: var(--surface-a);
-	color: var(--primary-color);
-	border-color: var(--primary-color);
-
-	&:hover {
-		border-color: var(--primary-color);
-	}
-}
-
-.p-tabview-nav-link {
-	transition: all 0.2s ease-in-out;
-
-	&:hover {
-		border-color: var(--primary-color);
-	}
-
-}
 
 .p-button {
+	border-width: 1px;
+	border-radius: var(--border-radius-sm);
 
 	&.p-button-danger {
 		background: var(--danger-color);
@@ -168,7 +176,7 @@ body {
 		}
 
 		&.p-button-outlined {
-			background: transparent;
+			background: var(--background-danger-color);
 			color: var(--danger-color);
 			border-color: var(--danger-color);
 		}
@@ -187,14 +195,28 @@ body {
 		}
 
 		&.p-button-outlined {
-			background: transparent;
+			background: var(--background-success-color);
 			color: var(--success-color);
 			border-color: var(--success-color);
 		}
 	}
 
+	&.p-button-secondary {
+		&.p-button-outlined {
+			background: var(--background-secondary-color);
+			color: var(--secondary-color);
+			border-color: var(--secondary-color);
+		}
+	}
+
 	&.p-button-link {
 		color: var(--primary-color);
+	}
+
+
+	&.p-button-sm {
+		font-size: 0.8rem;
+		padding: 0.3rem 0.8rem;
 	}
 
 }
@@ -237,12 +259,7 @@ body {
 	box-shadow: 0 0 3px 0px var(--primary-color);
 }
 
-.p-inputtext:enabled:focus {
-	outline: 0;
-	outline-offset: 0;
-	border-color: var(--primary-color);
-	box-shadow: 0 0 3px 0px var(--primary-color);
-}
+
 
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
 	color: var(--primary-color);
@@ -313,9 +330,6 @@ body {
 
 }
 
-.p-inputtext.p-invalid.p-component {
-	border-color: var(--danger-color);
-}
 
 .p-card {
 	background-color: var(--surface-a);
@@ -325,6 +339,110 @@ body {
 .p-card-content {
 	padding: 0.25em 0;
 }
+
+.p-inputtext:enabled:focus {
+	outline: 0;
+	outline-offset: 0;
+	border-color: var(--primary-color);
+	box-shadow: 0 0 3px 0px var(--primary-color);
+}
+
+.p-inputtext.p-invalid.p-component {
+	border-color: var(--danger-color);
+}
+
+
+.p-inputtext.p-component {
+	font-size: 0.85rem;
+	color: rgba(255, 255, 255, 0.87);
+	padding: 0.35rem 0.75rem;
+	transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+	appearance: none;
+	border: 1px solid var(--surface-d);
+	background-color: var(--surface-b);
+	border-radius: var(--border-radius-sm);
+	outline-color: transparent;
+}
+
+.p-dropdown {
+	background: var(--surface-b);
+	border: 1px solid var(--surface-d);
+	transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+	border-radius: var(--border-radius);
+	outline-color: transparent;
+
+	& .p-dropdown-label.p-inputtext {
+		padding: 0.25em 0.75em;
+	}
+}
+
+.p-dropdown-panel {
+	background: var(--surface-b);
+	color: rgba(255, 255, 255, 0.87);
+	border: 1px solid var(--surface-d);
+	border-radius: 6px;
+	box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+
+
+
+.p-tabview-nav-link {
+	transition: all 0.2s ease-in-out;
+	padding: 0.7em 0.75em;
+
+	&:hover {
+		border-color: var(--primary-color);
+	}
+
+}
+
+.p-fieldset {
+	border: 1px solid var(--surface-c);
+	background: linear-gradient(120deg, var(--surface-b), var(--surface-a));
+	color: rgba(255, 255, 255, 0.87);
+	border-radius: var(--border-radius-sm);
+
+	.p-fieldset-legend {
+		padding: 0.5em 1em;
+		margin-left: 1em;
+		border: 1px solid var(--surface-c);
+		color: rgba(255, 255, 255, 0.87);
+		background: linear-gradient(10deg, var(--surface-b), var(--surface-a));
+		font-weight: 600;
+		border-radius: 6px;
+	}
+}
+
+.p-tabview {
+
+	.p-tabview-nav {
+
+
+		.p-tabview-nav-link {
+			background-color: var(--surface-f);
+			border-width: 1px 1px 2px 1px;
+			border-color: var(--surface-d) var(--surface-d) var(--secondary-color) var(--surface-d);
+
+		}
+
+		.p-highlight .p-tabview-nav-link {
+			background-color: var(--surface-b);
+			color: var(--primary-color);
+			border-color: var(--surface-c) var(--surface-c) var(--primary-color) var(--surface-c);
+		}
+	}
+
+	.p-tabview-panels {
+		background-color: var(--surface-e);
+		padding: 0.5em;
+		border: 1px solid var(--surface-c);
+
+	}
+
+}
+
+
 
 @keyframes animate-scale {
 	0% {

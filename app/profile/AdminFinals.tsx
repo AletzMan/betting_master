@@ -37,29 +37,36 @@ interface IDataDraw {
 export default function AdminFinals() {
     const [data, setData] = useState<IDataDraw>({ finalTeams: [], partcipants: [], position_stages: [] })
     const [errorTeams, setErrorTeams] = useState<boolean[]>([false, false, false, false, false, false, false, false])
+    const [loading, setLoading] = useState(false)
 
 
-    const HandleResetAssignedTeams = async () => {
+    const handleResetAssignedTeams = async () => {
+        await WriteMustSpin(false, "has_finished")
+        await WriteMustSpin(false, "has_started")
+        await WriteMustSpin(false, "countdown")
+        let responseCorrect: boolean[] = [true, true, true, true, true, true, true, true]
         for (let index = 0; index < data.partcipants.length; index++) {
-            await WriteMustSpin(false, "has_finished")
-            await WriteMustSpin(false, "has_started")
-            await WriteMustSpin(false, "countdown")
             const response = await UpdateFinalParticipants(data.partcipants[index].user_info.id, { team: "", progress_stage: ['quarter'], position_team: 0 })
             if (response === "FAIL") {
                 enqueueSnackbar("No se pudo restablecer los datos, intente mas tarde", { variant: "error" })
+                responseCorrect[index] = false
                 break
             }
+        }
+        if (!responseCorrect.includes(false)) {
+            enqueueSnackbar("Equipos de finalistas reseteados. Puede proceder a realizar un nuevo sorteo", { variant: "success" })
         }
     }
 
 
-    const GetFinalTable = async () => {
+    const handleGetFinalTable = async () => {
+        setLoading(true)
         const dataTeams = await GetFinalistTeams()
         const dataParticiapants = await GetFinalParticipants()
-
         const orderParticipants = dataParticiapants.sort((a, b) => a.position_team - b.position_team)
         const positionStage = dataParticiapants.map(part => part.progress_stage)
         setData({ finalTeams: dataTeams.positions, partcipants: orderParticipants, position_stages: positionStage })
+        setLoading(false)
     }
 
     const HandleStart = async () => {
@@ -108,7 +115,7 @@ export default function AdminFinals() {
         setData({ ...data, position_stages: newValue })
     }
 
-    const HandleSaveStage = async () => {
+    const handleSaveStage = async () => {
         let status = false
         for (let index = 0; index < data.position_stages.length; index++) {
             const response = await UpdateFinalParticipants(data.partcipants[index].user_info.id, { progress_stage: data.position_stages[index] })
@@ -121,13 +128,15 @@ export default function AdminFinals() {
         }
     }
 
+    console.log(data.partcipants)
+
     return (
         <div className="flex flex-col gap-2 relative h-[calc(100svh-8rem)]">
             <header className="flex items-center justify-between bg-(--surface-c) px-2 py-1">
-                <h2 className="text-center pl-4  text-sm text-amber-500">Equipos finalistas</h2>
-                <Button icon="pi pi-refresh" size="small" outlined label="Actualizar" severity="secondary" raised onClick={GetFinalTable} />
+                <Button onClick={HandleStart} label="Equipos" icon="pi pi-save" size="small" severity="success" outlined raised disabled={loading} />
+                <Button icon="pi pi-refresh" size="small" outlined label="Actualizar" severity="secondary" raised onClick={handleGetFinalTable} disabled={loading} />
             </header>
-            <div className="flex gap-1 w-full">
+            <div className="flex gap-1 w-full ">
                 <div className="flex flex-col gap-1.5 w-full max-w-46">
                     {
                         TeamsLocalNames.map((team, index) => index < 8 && (
@@ -146,8 +155,8 @@ export default function AdminFinals() {
                 </div>
                 <div className="flex flex-col justify-around gap-1.5 h-full">
                     {data.partcipants.map(participant => (
-                        <div key={participant.user_info?.id} className="h-10.5 flex items-center justify-center relative" >
-                            <button className={styles.participants_button}>
+                        <div key={participant.user_info?.id} className="h-8 flex items-center justify-center relative" >
+                            <button className={styles.participants_button} disabled={participant.team === ""} >
                                 <ViewIcon className={styles.participants_icon} />
                             </button>
                             <div className={styles.participants_user} >
@@ -160,9 +169,8 @@ export default function AdminFinals() {
             </div>
             <Divider />
             <footer className="flex items-center justify-between">
-                <Button onClick={HandleStart} label="Equipos" icon="pi pi-play" size="small" severity="success" outlined raised />
-                <Button onClick={HandleSaveStage} label="Fase" icon="pi pi-save" size="small" severity="success" raised />
-                <Button onClick={HandleResetAssignedTeams} label="Asignados" disabled={data.partcipants && data.partcipants!.length < 8} icon="pi pi-replay" size="small" severity="danger" />
+                <Button onClick={handleSaveStage} label="Fase" icon="pi pi-save" size="small" severity="success" raised disabled={data.partcipants.length < 8 || data.partcipants.some(team => team.team === "") || loading} />
+                <Button onClick={handleResetAssignedTeams} label="Asignados" disabled={data.partcipants && data.partcipants!.length < 8 || loading} icon="pi pi-replay" size="small" severity="danger" />
             </footer>
         </div>
     )

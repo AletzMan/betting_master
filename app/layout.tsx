@@ -4,11 +4,12 @@ import MaintenancePage from "./maintenance/page"
 import "./globals.css"
 import Header from "./components/Header"
 import { PrimeReactProvider } from 'primereact/api';
-//import "primereact/resources/themes/arya-blue/theme.css";
-//import "primereact/resources/themes/viva-dark/theme.css";
 //import "primereact/resources/themes/lara-dark-cyan/theme.css";
 //import "primereact/resources/themes/mdc-dark-indigo/theme.css";
+//import "primereact/resources/themes/arya-blue/theme.css";
+//import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import "primereact/resources/themes/viva-dark/theme.css";
+
 import 'primeicons/primeicons.css';
 import { SessionProvider } from "next-auth/react"
 
