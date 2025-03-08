@@ -3,10 +3,10 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    background-color: var(--hover-linkTwo);
-    border: 1px solid var(--background-textTwo);
+    background: linear-gradient(-40deg, var(--surface-b), var(--surface-f));
+    border: 1px solid var(--surface-d);
     padding: 0.5em 0.25em;
-    border-radius: var(--borderRadius);
+    border-radius: var(--border-radius-md);
     transition: background-color 0.25s ease-in-out;
 
     &:hover {
@@ -15,8 +15,8 @@
 
     &_tournament {
         padding: 0.15em 0.5em;
-        border-radius: var(--borderRadius);
-        color: var(--foregroundColor);
+        border-radius: var(--border-radius);
+        color: var(--surface-800);
     }
 
     &_day {
@@ -53,7 +53,7 @@
             text-transform: uppercase;
             text-align: center;
             font-weight: 700;
-            color: var(--foregroundSecondColor);
+            color: var(--surace-900);
 
             @media (max-width: 600px) {
                 font-size: 0.7em;
@@ -68,8 +68,8 @@
         width: 2.5em;
         padding: 0.25em 0;
         text-align: center;
-        border-radius: var(--borderRadius);
-        background-color: var(--fourthColor);
+        border-radius: var(--border-radius-md);
+        background-color: var(--surface-c);
         font-weight: 600;
         font-size: 1.2em;
         color: #b1e418;
@@ -89,23 +89,24 @@
         text-align: center;
         font-size: 0.7em;
         font-weight: 500;
+        margin: 0.25em 0;
         padding: 0.25em 0.5em;
-        border-radius: var(--borderRadius);
+        border-radius: var(--border-radius);
         text-transform: uppercase;
-        background-color: var(--secondaryColor);
+        background-color: var(--surface-d);
 
 
         &NotStarted {
-            color: #008000;
+            color: #08f708;
         }
 
         &Ended {
-            color: #808080;
+            color: #c7c3c3;
         }
 
         &Started {
             position: relative;
-            color: #f52222;
+            color: #ff0000;
 
 
 
@@ -125,7 +126,7 @@
         &Icon {
             width: 1.3em;
             height: 1.3em;
-            color: var(--foregroundColor);
+            color: var(--surface-700);
         }
 
     }
@@ -174,11 +175,11 @@
             border-radius: 2em;
             width: 2.2em;
             height: 2.2em;
-            padding: 0.2em;
+            padding: 0 0.2em 0.5em 0.2em;
 
             &::after {
                 position: absolute;
-                bottom: 0.5em;
+                bottom: 0.1em;
                 font-size: 0.7em;
                 content: "MIN";
             }
@@ -237,10 +238,10 @@
         font-size: 0.8em;
         max-width: 10em;
         font-family: var(--font-montserrat);
-        border-radius: var(--borderRadius);
-        color: var(--foregroundColor);
+        border-radius: var(--border-radius);
+        color: var(--surface-900);
         border: none;
-        background-color: #0db0f035;
+        background-color: var(--cyan-800);
         cursor: pointer;
         transition: background-color 0.15s ease-in-out;
 
@@ -260,11 +261,11 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 0 0 0.5em 0;
         width: 100%;
-        margin: 0.5em 0 0 0;
+        padding: 0 0 0.5em 0;
+        border-radius: var(--border-radius);
         border-top: 1px solid var(--hover-link);
-        background-color: var(--hover-linkTwo);
+        background: linear-gradient(-40deg, var(--surface-a), var(--surface-c));
 
     }
 
@@ -369,11 +370,11 @@
         font-weight: 600;
         color: var(--tertiaryColor);
         border: none;
-        background-color: var(--primaryColor);
+        background-color: var(--primary-color);
         cursor: pointer;
 
         &:hover {
-            background-color: var(--primaryColor);
+            background-color: var(--primary-color);
         }
     }
 
@@ -414,8 +415,8 @@
 
 
             &Active {
-                //border-bottom: 2px solid var(--primaryColor);
-                color: var(--primaryColor);
+                //border-bottom: 2px solid var(--primary-color);
+                color: var(--primary-color);
                 background-color: var(--backgroundColor);
                 font-weight: 600;
             }
@@ -440,7 +441,7 @@
 
         &Text {
             font-weight: 500;
-            color: var(--primaryColor);
+            color: var(--primary-color);
         }
 
         &Logo {
@@ -535,7 +536,7 @@
     overflow-y: auto;
 
     &_title {
-        color: var(--primaryColor);
+        color: var(--primary-color);
         margin: 2.5em 0 0 0;
         text-align: center;
     }

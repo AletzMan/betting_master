@@ -334,7 +334,7 @@ export interface IErrorMatches {
 
 export interface ITournament {
 	id: string
-	name: "Liga MX" | "Champions League" | "Premier League" | "La Liga" | "Bundesliga" | "Liga Holandesa" | "Serie A" | "League 1"
+	name: "Liga MX" | "Champions League" | "Premier League" | "La Liga" | "Bundesliga" | "Liga Holandesa" | "Serie A" | "League 1" | "Todos los torneos"
 }
 
 

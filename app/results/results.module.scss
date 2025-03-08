@@ -1,191 +1,57 @@
-.main {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    margin: 0 auto;
-    min-height: 100svh;
-    padding: 2.75em 0 1em 0;
-    width: 100%;
-    background: var(--tertiaryColor);
-    max-width: var(--max-width);
+ .matches {
+     position: relative;
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     flex-direction: column;
+     row-gap: 0.5em;
+     padding: 0.5em;
+     width: 100%;
 
-    &_landscape {
-        padding: 3.4em 0.5em 0.5em 0.5em;
+     &_refresh {
+         position: absolute;
+         right: 0.5em;
+         top: -2.2em;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         padding: 0.25em;
+         background-color: transparent;
+         border: none;
+         color: var(--surface-500);
+         cursor: pointer;
+         border-radius: 2em;
+         transition: all 0.3s ease-in-out;
 
-    }
+         &Icon {
+             width: 2em;
+             height: 2em;
+         }
 
+         &:hover {
+             background-color: var(--hover-link);
+             color: var(--primary-color);
+         }
 
-}
-
-
-.section {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0.25em 0 0.25em 0;
-    width: 100%;
-
-    &_title {
-        color: var(--primaryColor);
-        margin: 0 0 0.75em 0;
-
-        @media (max-width: 600px) {
-            font-size: 1.1em;
-        }
-    }
-}
-
-.header {
-    width: 100%;
-    background-color: var(--backgroundColor);
-
-    &_days {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        align-items: flex-start;
-        justify-content: center;
-        column-gap: 0.25em;
-        width: 100%;
-        padding: 0 0 0.25em 0;
-        border-bottom: 1px solid #45454585;
-    }
-
-    &_day {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        row-gap: 0.35em;
-        color: var(--foreground-light-color);
-        border: none;
-        cursor: pointer;
-        height: 100%;
-        background-color: transparent;
-        background-color: var(--secondaryColor);
-        transition: background-color 0.3s ease-in-out;
-        font-family: var(--font-family);
-
-        @media (pointer: fine) {
-            &:hover {
-                background-color: var(--fourthColor);
-            }
-        }
-
-        &Current {
-            background-color: var(--fourthColor);
-        }
+     }
 
 
+ }
 
-        &Text {
-            text-align: center;
-            padding: 0.1em 0;
-            width: 100%;
-            font-weight: 500;
-            background-color: var(--foregroundColor);
-            color: var(--secondaryColor);
-        }
+ .notfound {
+     color: #a20000;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     padding: 2em 0 0 0;
 
-        &Number {
-            text-align: center;
-            padding: 0.35em 0;
-            //width: 100%;
-            font-size: 1.3em;
-            font-weight: 600;
-            font-family: var(--font-family);
+     &_icon {
+         width: 4em;
+         height: 4em;
+     }
 
-            &Current {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: max-content;
-                width: 2em;
-                height: 2em;
-                text-align: center;
-                border-radius: 3em;
-                background-color: var(--foregroundSecondColor);
-                color: var(--backgroundColor);
-
-
-
-            }
-        }
-
-    }
-}
-
-.matches {
-    position: relative;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    row-gap: 0.5em;
-    padding: 0.5em;
-    width: 100%;
-
-    &_refresh {
-        position: absolute;
-        right: 0.5em;
-        top: -2.2em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.25em;
-        background-color: transparent;
-        border: none;
-        color: var(--foregroundSecondColor);
-        cursor: pointer;
-        border-radius: 2em;
-        transition: all 0.3s ease-in-out;
-
-        &Icon {
-            width: 2em;
-            height: 2em;
-        }
-
-        &:hover {
-            background-color: var(--hover-link);
-            color: var(--primaryColor);
-        }
-
-    }
-
-
-}
-
-.tournaments {
-    align-self: center;
-    justify-self: center;
-    padding: 0.25em 1em;
-    margin: 0.25em 0 0 0;
-    text-align: center;
-    padding: 0.25em 0.5em;
-    font-size: 1em;
-    font-weight: 700;
-    color: var(--primaryColor);
-    border: 1px solid transparent;
-    border-radius: var(--borderRadius);
-    background-color: var(--fourthColor);
-}
-
-.notfound {
-    color: #a20000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 2em 0 0 0;
-
-    &_icon {
-        width: 4em;
-        height: 4em;
-    }
-
-    &_text {
-        font-size: 1.5em;
-    }
-}
+     &_text {
+         font-size: 1.5em;
+     }
+ }

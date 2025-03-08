@@ -22,7 +22,7 @@
  .loading {
      width: 4em;
      height: 4em;
-     color: var(--primaryColor);
+     color: var(--primary-color);
  }
 
  .details {
@@ -33,7 +33,7 @@
      padding: 0 0.5em 0.0em 0.5em;
 
      &[open] .details_summary {
-         color: var(--primaryColor);
+         color: var(--primary-color);
 
          .details_arrow {
              transform: rotate(180deg);

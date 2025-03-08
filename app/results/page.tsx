@@ -5,11 +5,12 @@ import { GetCurrentDays } from "../functions/functions"
 import { GetResultsByTournament } from "../services/fetch_utils"
 import { NotFoundIcon, RefreshIcon } from "../svg"
 import { Results } from "../types/ResultsTypes"
-import { MatchDay } from "../types/types"
+import { ITournament, MatchDay } from "../types/types"
 import { Match } from "./components/Match/Match"
 import styles from "./results.module.scss"
 import { useEffect, useState } from "react"
 import { useOrientation } from "../hooks/useOrientation"
+import { Dropdown } from "primereact/dropdown"
 
 const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "2-digit", day: "2-digit" }
 
@@ -19,11 +20,11 @@ export default function ResultsPage() {
 	const [results, setResults] = useState<Results[]>()
 	const [loading, setLoading] = useState(true)
 	const [update, setUpdate] = useState(true)
-	const [tournament, setTournament] = useState("74_183a06e3")
+	const [tournament, setTournament] = useState<ITournament>({ id: "74_183a06e3", name: "Liga MX" })
 
 	const GetMatchesbyDay = async (date: string) => {
 		setLoading(true)
-		const response = await GetResultsByTournament(date, tournament)
+		const response = await GetResultsByTournament(date, tournament.id)
 		if (response.length > 0) {
 			setResults(
 				response.sort(function (a, b) {
@@ -62,7 +63,8 @@ export default function ResultsPage() {
 		setUpdate(true)
 	}
 
-	const HandleSelectTournament = (tournament: string) => {
+	const HandleSelectTournament = (tournament: ITournament) => {
+		console.log(tournament)
 		setTournament(tournament)
 		setUpdate(true)
 	}
@@ -73,26 +75,20 @@ export default function ResultsPage() {
 
 
 	return (
-		<main className={`${styles.main} ${isLandscape && styles.main_landscape}`}>
-			<section className={styles.section}>
-				<header className={styles.header}>
-					<div className={styles.header_days}>
+		<main className="flex flex-col items-center justify-start mx-auto pt-[2.75em] pb-4 w-full max-w-4xl">
+			<section className="relative flex flex-col items-center gap-2 justify-center py-1 w-full">
+				<header className="w-full bg-(--surface-b) ">
+					<div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] items-start   justify-center gap-x-2 w-full pb-2 border-b-1 border-b-(--surface-d)">
 						{GetCurrentDays(currentDay?.currentDate || new Date()).map((day, index) => (
-							<button key={day.id} className={`${styles.header_day} ${index === 2 && styles.header_dayCurrent}`} onClick={() => HandleSelectDate(day)}>
-								<span className={styles.header_dayText}>{day.day.short}</span>
-								<span className={`${styles.header_dayNumber} ${index === 2 && styles.header_dayNumberCurrent}`}>{day.date}</span>
-								{index === 2 && <span className={styles.header_dayFull}>{day.month}</span>}
+							<button key={day.id} className={`flex flex-col items-center h-full justify-start gap-y-1.5  text-(--surface-500) cursor-pointer transition-all border-1 border-(--surface-d) rounded-xs ease-in-out delay-100 ${index === 2 ? "bg-[linear-gradient(-40deg,var(--cyan-900),var(--surface-b))]" : "bg-[linear-gradient(-40deg,var(--surface-d),var(--surface-a))] hover:bg-[linear-gradient(-40deg,var(--surface-d),var(--surface-a))]  "}`} onClick={() => HandleSelectDate(day)}>
+								<span className={`text-center py-0.5 font-medium   text-(--surface-b) w-full ${index === 2 ? "bg-[linear-gradient(-40deg,var(--surface-500),var(--surface-900))]" : "bg-[linear-gradient(-40deg,var(--surface-300),var(--surface-600))]"}`}>{day.day.short}</span>
+								<span className={`text-center py-1.5 text-lg font-semibold ${index === 2 && "flex items-center justify-center text-(--surface-0) bg-[linear-gradient(-40deg,var(--surface-300),var(--surface-900))] w-8 h-8 rounded-full"}`}>{day.date}</span>
+								{index === 2 && <span className="text-(--surface-600)">{day.month}</span>}
 							</button>
 						))}
 					</div>
 				</header>
-				<select className={styles.tournaments} onChange={(e) => HandleSelectTournament(e.target.value)}>
-					{Torunaments.map((tournament) => (
-						<option key={tournament.id} value={tournament.id}>
-							{tournament.name}
-						</option>
-					))}
-				</select>
+				<Dropdown options={Tournaments} optionLabel="name" value={tournament} onChange={(e) => HandleSelectTournament(e.target.value)} />
 				<article className={styles.matches}>
 					{loading && <Loading height="10em" />}
 					{!loading && results && results?.length > 0 && (
@@ -101,7 +97,7 @@ export default function ResultsPage() {
 								<RefreshIcon className={styles.matches_refreshIcon} />
 							</button>
 							{results.map((event) => (
-								<Match key={event.id} props={{ eventData: event, isAllMatches: tournament === "34_45d657ef" }} />
+								<Match key={event.id} props={{ eventData: event, isAllMatches: tournament.id === "34_45d657ef" }} />
 							))}
 						</>
 					)}
@@ -113,11 +109,11 @@ export default function ResultsPage() {
 					)}
 				</article>
 			</section>
-		</main>
+		</main >
 	)
 }
 
-const Torunaments = [
+const Tournaments: ITournament[] = [
 	{
 		id: "74_183a06e3",
 		name: "Liga MX",
@@ -140,6 +136,6 @@ const Torunaments = [
 	},
 	{
 		id: "1184_45315cec",
-		name: "Ligue 1",
+		name: "League 1",
 	}
 ]

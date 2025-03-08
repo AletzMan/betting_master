@@ -5,7 +5,7 @@
     transition: all 0.4s ease-in-out;
 
     &[open] .details_summary {
-        color: var(--primaryColor);
+        color: var(--primary-color);
 
         .details_arrow {
             transform: rotate(180deg);

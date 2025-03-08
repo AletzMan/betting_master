@@ -10,6 +10,7 @@ import { DialogDetails } from "./DialogDetails"
 import { GetMatchDetails } from "@/services/fetch_utils"
 import { useEffect, useState } from "react"
 import { DetailsData } from "@/types/DetailsMatch"
+import { Divider } from "primereact/divider"
 
 interface PropsMatch {
 	eventData: Results
@@ -97,12 +98,15 @@ export function Match({ props }: { props: PropsMatch }) {
 				</div>
 				<div className={styles.match_hour}>{new Date(eventData.startDate).toLocaleTimeString("es-MX", options)}</div>
 				{Status !== "Sin comenzar" && details.eventStats && (
-					<footer className={styles.match_footer}>
-						<ScoresAndStats details={details} />
-						<button className={styles.match_buttonDetails} onClick={() => setOpenDialog(true)}>
-							Ver detalles
-						</button>
-					</footer>
+					<>
+						<Divider type="dashed" />
+						<footer className={styles.match_footer}>
+							<ScoresAndStats details={details} />
+							<button className={styles.match_buttonDetails} onClick={() => setOpenDialog(true)}>
+								Ver detalles
+							</button>
+						</footer>
+					</>
 				)}
 			</div>
 			{openDialog && <DialogDetails detailsData={details} open={openDialog} setOpen={setOpenDialog} />}
