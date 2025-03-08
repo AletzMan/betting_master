@@ -3,7 +3,6 @@ import { AppLogo, GoogleIcon } from "@/svg"
 import { signIn } from "next-auth/react"
 import { Card } from "primereact/card"
 import { Divider } from "primereact/divider"
-import { Button } from "primereact/button"
 import { useSearchParams } from "next/navigation"
 
 export default function LoginPage() {
