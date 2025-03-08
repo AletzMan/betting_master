@@ -10,7 +10,7 @@
 		"Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono",
 		"Courier New", monospace;
 	--text-color: #ffffff;
-	--primary-color: #38a2ff !important;
+	--primary-color: #ffeb3b !important;
 	--secondary-color: #d1d1d1 !important;
 	--danger-color: #d72424;
 	--success-color: #65c313;
@@ -206,6 +206,18 @@ body {
 			background: var(--background-secondary-color);
 			color: var(--secondary-color);
 			border-color: var(--secondary-color);
+		}
+	}
+
+	&.p-button-info {
+		&.p-button-text {
+			background: transparent;
+			color: var(--primary-color);
+			border-color: transparent;
+
+			&:focus {
+				box-shadow: none;
+			}
 		}
 	}
 

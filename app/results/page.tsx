@@ -75,12 +75,12 @@ export default function ResultsPage() {
 
 
 	return (
-		<main className="flex flex-col items-center justify-start mx-auto pt-[2.75em] pb-4 w-full max-w-4xl">
+		<main className="flex flex-col items-center justify-start mx-auto pt-[2.75em] pb-4 w-full max-w-4xl  scrollbar h-[calc(100svh-1em)]">
 			<section className="relative flex flex-col items-center gap-2 justify-center py-1 w-full">
-				<header className="w-full bg-(--surface-b) ">
+				<header className="sticky top-1 w-full bg-(--surface-b) z-10">
 					<div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] items-start   justify-center gap-x-1 w-full pb-2 border-b-1 border-b-(--surface-d)">
 						{GetCurrentDays(currentDay?.currentDate || new Date()).map((day, index) => (
-							<button key={day.id} className={`flex flex-col items-center h-full justify-start gap-y-1.5  text-(--surface-500) cursor-pointer transition-all border-1 border-(--surface-d) rounded-xs ease-in-out delay-100 ${index === 2 ? "bg-[linear-gradient(-40deg,var(--cyan-800),var(--surface-b))]" : "bg-[linear-gradient(-40deg,var(--surface-d),var(--surface-a))] hover:bg-[linear-gradient(-40deg,var(--surface-d),var(--surface-a))]  "}`} onClick={() => HandleSelectDate(day)}>
+							<button key={day.id} className={`flex flex-col items-center h-full justify-start gap-y-1.5  text-(--surface-500) cursor-pointer transition-all border-1 border-(--surface-d) rounded-xs ease-in-out delay-100 ${index === 2 ? "bg-[linear-gradient(-40deg,var(--yellow-800),var(--surface-b))]" : "bg-[linear-gradient(-40deg,var(--surface-d),var(--surface-a))] hover:bg-[linear-gradient(-40deg,var(--surface-d),var(--surface-a))]  "}`} onClick={() => HandleSelectDate(day)}>
 								<span className={`text-center py-0.5 font-medium   text-(--surface-b) w-full ${index === 2 ? "bg-[linear-gradient(-40deg,var(--surface-500),var(--surface-900))]" : "bg-[linear-gradient(-40deg,var(--surface-300),var(--surface-600))]"}`}>{day.day.short}</span>
 								<span className={`flex text-center  text-lg font-semibold ${index === 2 && "flex items-center justify-center text-(--surface-0) bg-[linear-gradient(-40deg,var(--surface-300),var(--surface-900))] w-8 h-8 rounded-full"}`}>{day.date}</span>
 								{index === 2 && <span className="text-(--surface-600)">{day.month}</span>}
