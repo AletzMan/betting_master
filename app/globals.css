@@ -36,7 +36,7 @@ body {
 }
 
 body {
-	background: linear-gradient(-40deg, var(--surface-b), var(--surface-c));
+	background: linear-gradient(-40deg, var(--surface-a), var(--surface-b));
 	/*font-family: "Montserrat", "Roboto Mono", sans-serif;*/
 }
 
@@ -315,6 +315,11 @@ body {
 
 .p-inputtext.p-invalid.p-component {
 	border-color: var(--danger-color);
+}
+
+.p-card {
+	background-color: var(--surface-a);
+	border: 1px solid var(--surface-d);
 }
 
 .p-card-content {
