@@ -22,10 +22,10 @@ export async function StatisticsTable({ tournament, type }: { tournament: string
 	const option = STATISTICS_OPTIONS.filter((option) => option?.type === type)[0]
 
 	return (
-		<>
+		<div className=" border-b-1 border-l-1 border-r-1 border-(--surface-d)">
 			{statistics?.rank.map((player) => (
 				<PlayerStatistics key={player.id} player={player} options={option} />
 			))}
-		</>
+		</div>
 	)
 }

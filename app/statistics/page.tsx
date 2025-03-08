@@ -5,9 +5,6 @@ import { Suspense } from "react"
 import { StatisticsTable } from "./components/StatisticsTable"
 import { Loading } from "../components/Loading/Loading"
 import { SearchParams } from "../types/appTypes"
-import { Badge } from "primereact/badge"
-
-
 
 export default async function StatisticsPage(props: { searchParams: SearchParams }) {
 	const searchParams = await props.searchParams
@@ -35,14 +32,14 @@ export default async function StatisticsPage(props: { searchParams: SearchParams
 					<span>{option?.nameHeaders[2]}</span>
 				</div>
 			</div>
-			<section className={`flex flex-col items-start w-full max-w-[30em] h-[calc(100svh-8em)] scrollbarXY`}>
-				<header className="sticky top-0 left-0 grid grid-cols-[2.5em_10em_8em_3em_3em_2.5em] place-content-start place-items-center py-1 w-max text-center bg-(--surface-d) rounded-t-sm border-b-1 border-">
-					<span className="text-(--pink-500)">POS</span>
-					<span className="text-(--pink-500)">Jugador</span>
-					<span className="text-(--pink-500)">Equipo</span>
-					<span className="text-(--pink-500)">{option?.headers[0]}</span>
-					<span className="text-(--pink-500)">{option?.headers[1]}</span>
-					<span className="text-(--pink-500)">{option?.headers[2]}</span>
+			<section className={`flex flex-col items-start w-full max-w-[30em] h-[calc(100svh-8em)] scrollbarXY rounded-sm bg-(--surface-b)`}>
+				<header className="sticky top-0 left-0 grid grid-cols-[2.5em_10em_8em_3em_3em_2.5em] place-content-start place-items-center w-max text-center font-bold bg-linear-to-r from-cyan-950 to-cyan-900 rounded-t-sm border-1 border-(--cyan-800)">
+					<span className="text-white w-full py-1">POS</span>
+					<span className="text-white w-full py-1">Jugador</span>
+					<span className="text-white w-full py-1">Equipo</span>
+					<span className="text-white w-full py-1">{option?.headers[0]}</span>
+					<span className="text-white w-full py-1">{option?.headers[1]}</span>
+					<span className="text-white w-full py-1">{option?.headers[2]}</span>
 				</header>
 				<Suspense fallback={<Loading height="15em" />}>
 					<StatisticsTable tournament={tournament} type={type} />

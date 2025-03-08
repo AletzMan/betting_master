@@ -12,15 +12,15 @@ export function PlayerStatistics(props: Props) {
 	const { player, options } = props
 
 	return (
-		<div className="grid grid-cols-[2.5em_10em_8em_3em_3em_2.5em] place-content-start place-items-center py-1  w-[calc(100svw-1em)] border-b-1 border-(--surface-d) text-center">
-			<span className={`flex items-center justify-center text-xs text-white text-ellipsis text-wrap overflow-hidden bg-(--cyan-700) w-5 h-5 rounded-full`} >{player[options.rank]}</span>
+		<div className="grid grid-cols-[2.5em_10em_8em_3em_3em_2.5em] place-content-start place-items-center py-1  border-b-1 border-dashed border-(--surface-d) text-center bg-[linear-gradient(-40deg,var(--surface-c),var(--surface-b))]">
+			<span className={`flex items-center justify-center text-sm text-cyan-100 text-ellipsis text-wrap overflow-hidden bg-(--surface-c) w-7 h-7 rounded-sm border-1 border-(--surface-d)`} >{player[options.rank]}</span>
 			<span className={`flex items-center justify-center text-sm`}>{player.knownName}</span>
 			<span className={`flex items-center justify-center text-sm`}>{player.teamName}</span>
 			<span className={`flex items-center justify-center text-sm`}>{player[options.statistic]}</span>
 			<span className={`flex items-center justify-center text-sm`}>
 				{options.totals === "passes" ? player[options.totals] - (player[options.statistic] || 0) : player[options.totals]}
 			</span>
-			<span className={`flex items-center justify-center text-sm text-(--green-300)`}>{player[options.average]}</span>
+			<span className={`flex items-center justify-center text-sm text-lime-500`}>{player[options.average]}</span>
 		</div>
 	)
 }
