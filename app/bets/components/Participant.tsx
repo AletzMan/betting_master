@@ -39,7 +39,7 @@ export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNa
                     {selectRanges?.row === index && <span className="absolute w-[120%] h-[110%] bg-(--row-select-color)"></span>}
 
                     {/*<Avatar className="border-2 border-(--primary-color)" image={bet.userInfo.image} shape="circle" size="normal" />*/}
-                    {<Image className="rounded-full border-2 border-(--primary-color) object-cover max-h-7" blurDataURL="/user-icon.png" src={bet.userInfo.image} width={28} height={28} alt={`Imagen de perfil de ${bet.userInfo.name}`} />}
+                    {<Image className="rounded-md border-2 border-(--primary-color) object-cover max-h-7" blurDataURL="/user-icon.png" src={bet.userInfo.image} width={28} height={28} alt={`Imagen de perfil de ${bet.userInfo.name}`} />}
                     {!hiddenNames && <span className="overflow-hidden whitespace-nowrap text-ellipsis h-6">{bet.name}</span>}
                     <div className="grid grid-cols-[1em_1em] gap-1.5">
                         {session.data?.user?.id === bet.uid && <i className="pi pi-star-fill text-purple-500" />}

@@ -73,7 +73,7 @@ export default function Header() {
 					}
 					{session.status && <div className="flex flex-row items-center justify-between gap-2 h-full pr-2 pl-2 w-max border-l-1 border-r-1 border-l-(--surface-d)  border-r-(--surface-d)">
 						{/*session.status === "authenticated" && <Avatar image={(session.data?.user as UserSession).image} shape="circle" size="normal" />*/}
-						{session.status === "authenticated" && <Image className="border-2 border-(--primary-color) rounded-full max-h-7 w-7" src={(session.data?.user as UserSession).image} alt="circle" width={25} height={25} />}
+						{session.status === "authenticated" && <Image className="border-2 border-(--primary-color) rounded-md max-h-7 w-7" src={(session.data?.user as UserSession).image} alt="circle" width={25} height={25} />}
 						{session.status === "unauthenticated" && <Avatar image={"/user-icon.png"} shape="circle" size="normal" />}
 						{session.status === "loading" && <Skeleton height="24px" width="24px" />}
 						<div className="flex flex-col">
