@@ -104,22 +104,22 @@ export function AdminNotifications() {
                             <div className={styles.users_data} >
                                 <Image className={styles.users_photo} src={user.image || ""} alt={`Imagen de perfil de ${user.name}`} width={70} height={70} />
                                 <div className={styles.users_group} >
-                                    <span className={styles.users_name}>{user.name}</span>
-                                    <span className={styles.users_email}>{user.email}</span>
+                                    <span className={`${styles.users_name} text-cyan-400`}>{user.name}</span>
+                                    <span className={`${styles.users_email} text-gray-400`}>{user.email}</span>
                                 </div>
-                                <span className={styles.users_date}>{new Date(user?.last_login as Date).toLocaleDateString("es-MX", SmallDateLocal)}</span>
+                                <span className={`${styles.users_date} text-orange-400`}>{new Date(user?.last_login as Date).toLocaleDateString("es-MX", SmallDateLocal)}</span>
                             </div>
                             <div className={styles.users_stats}>
                                 <div className={styles.users_bets}>
-                                    <span className={styles.users_number}>{user.total_bets}</span>
+                                    <span className={`${styles.users_number} text-lime-400 font-semibold`}>{user.total_bets}</span>
                                     <span className={styles.users_label}>quinielas</span>
                                 </div>
                                 <div className={styles.users_bets}>
-                                    <span className={styles.users_number}>{user.bets_won}</span>
+                                    <span className={`${styles.users_number} text-lime-400 font-semibold`}>{user.bets_won}</span>
                                     <span className={styles.users_label}>Ganadoras</span>
                                 </div>
                                 <div className={styles.users_bets}>
-                                    <span className={styles.users_number}>{user.finals_won}</span>
+                                    <span className={`${styles.users_number} text-lime-400 font-semibold`}>{user.finals_won}</span>
                                     <span className={styles.users_label}>Finales</span>
                                 </div>
                             </div>
