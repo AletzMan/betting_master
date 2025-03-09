@@ -36,7 +36,7 @@ export function MenuPages() {
                     <div className="flex flex-col items-center justify-start w-full mt-8 py-1 px-4 gap-1.5">
                         {LinksPage.map((link, index) => index == 0 && (
                             <Link
-                                className={`flex flex-row gap-3.5 p-1.5 items-center rounded-sm hover:bg-(--surface-d) font-bold w-full ${link.pathname === pathname ? "bg-(--primary-color) ml-6 pointer-events-none text-(--surface-50) " : "transparent pointer-events-auto text-(--surface-800) "}`}
+                                className={`flex flex-row gap-3.5 p-1.5 items-center rounded-sm hover:bg-(--surface-d) font-bold w-full ${link.pathname === pathname ? "bg-(--primary-color) ml-6 pointer-events-none text-(--surface-b) " : "transparent pointer-events-auto text-(--surface-800) "}`}
                                 key={link.id}
                                 href={link.href}
                                 title={link.title}>
@@ -47,7 +47,7 @@ export function MenuPages() {
                         <Divider align="left"><span className="text-(--secondary-color) font-light italic">Pronósticos</span></Divider>
                         {LinksPage.map((link, index) => (index > 1 && index < 4) && (
                             <Link
-                                className={`flex flex-row gap-3.5 p-1.5  items-center rounded-sm hover:bg-(--surface-d) font-bold w-full ${link.pathname === pathname ? "bg-(--primary-color) ml-6 pointer-events-none text-(--surface-50) " : "transparent pointer-events-auto text-(--surface-800) "}`}
+                                className={`flex flex-row gap-3.5 p-1.5  items-center rounded-sm hover:bg-(--surface-d) font-bold w-full ${link.pathname === pathname ? "bg-(--primary-color) ml-6 pointer-events-none text-(--surface-b) " : "transparent pointer-events-auto text-(--surface-800) "}`}
                                 key={link.id}
                                 href={link.href}
                                 title={link.title}>
@@ -58,7 +58,7 @@ export function MenuPages() {
                         <Divider align="left"><span className="text-(--secondary-color) font-light italic" >Equipos</span></Divider>
                         {LinksPage.map((link, index) => (index > 3 && index < 7) && (
                             <Link
-                                className={`flex flex-row gap-3.5 p-1.5  items-center rounded-sm hover:bg-(--surface-d) font-bold w-full ${link.pathname === pathname ? "bg-(--primary-color) ml-6 pointer-events-none text-(--surface-50) " : "transparent pointer-events-auto text-(--surface-800) "}`}
+                                className={`flex flex-row gap-3.5 p-1.5  items-center rounded-sm hover:bg-(--surface-d) font-bold w-full ${link.pathname === pathname ? "bg-(--primary-color) ml-6 pointer-events-none text-(--surface-b) " : "transparent pointer-events-auto text-(--surface-800) "}`}
 
                                 key={link.id}
                                 href={link.href}
@@ -70,7 +70,7 @@ export function MenuPages() {
                         <Divider align="left"><span className="text-(--secondary-color) font-light italic" >Cuenta</span></Divider>
                         {LinksPage.map((link, index) => index === 1 && (
                             <Link
-                                className={`flex flex-row gap-3.5 p-1.5  items-center rounded-sm hover:bg-(--surface-d) font-bold w-full ${link.pathname === pathname ? "bg-(--primary-color) ml-6 pointer-events-none text-(--surface-50) " : "transparent pointer-events-auto text-(--surface-800) "}`}
+                                className={`flex flex-row gap-3.5 p-1.5  items-center rounded-sm hover:bg-(--surface-d) font-bold w-full ${link.pathname === pathname ? "bg-(--primary-color) ml-6 pointer-events-none text-(--surface-b) " : "transparent pointer-events-auto text-(--surface-800) "}`}
 
                                 key={link.id}
                                 href={link.href}

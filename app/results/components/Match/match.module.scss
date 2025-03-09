@@ -394,7 +394,7 @@
         &Button {
             padding: 0.75em;
             background-color: var(--surface-c);
-            color: var(--foregroundColor);
+            color: var(--text-color);
             border: none;
             font-size: 0.7em;
             //border-bottom: 2px solid transparent;
@@ -412,7 +412,7 @@
 
             &Active {
                 //border-bottom: 2px solid var(--primary-color);
-                color: var(--surface-50);
+                color: var(--surface-b);
                 background-color: var(--primary-color);
                 font-weight: 600;
 
