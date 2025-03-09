@@ -60,7 +60,7 @@ const NewsTemplate = (news: INews) => {
 const header = (title: string) => {
     return (
 
-        <div className="grid grid-cols-[1fr_3fr] gap-2.5 items-center justify-start px-2 py-2 bg-gray-800">
+        <div className="grid grid-cols-[1fr_3fr] gap-2.5 items-center justify-start px-2 py-2 bg-(--surface-f)">
             {React.isValidElement(TeamsLogosNews.find(team => team.name === findFirstMatch(title, Teams))?.logo) ? (
                 React.cloneElement(TeamsLogosNews.find(team => team.name === findFirstMatch(title, Teams))?.logo as ReactSVGElement, { className: 'w-7 h-7' })
             ) : (

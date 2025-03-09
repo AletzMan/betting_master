@@ -43,7 +43,7 @@ export function MenuPages() {
                                 {link.text}
                             </Link>
                         ))}
-                        <Divider align="left"><span className="text-gray-400 font-light italic">Pronósticos</span></Divider>
+                        <Divider align="left"><span className="text-(--secondary-color) font-light italic">Pronósticos</span></Divider>
                         {LinksPage.map((link, index) => (index > 1 && index < 4) && (
                             <Link
                                 className={`flex flex-row gap-3.5 p-1.5  items-center rounded-sm hover:bg-(--surface-d) font-bold w-full ${link.pathname === pathname ? "bg-(--primary-color) ml-6 pointer-events-none text-(--surface-50) " : "transparent pointer-events-auto text-(--surface-800) "}`}
@@ -54,7 +54,7 @@ export function MenuPages() {
                                 {link.text}
                             </Link>
                         ))}
-                        <Divider align="left"><span className="text-gray-400 font-light italic" >Equipos</span></Divider>
+                        <Divider align="left"><span className="text-(--secondary-color) font-light italic" >Equipos</span></Divider>
                         {LinksPage.map((link, index) => (index > 3 && index < 7) && (
                             <Link
                                 className={`flex flex-row gap-3.5 p-1.5  items-center rounded-sm hover:bg-(--surface-d) font-bold w-full ${link.pathname === pathname ? "bg-(--primary-color) ml-6 pointer-events-none text-(--surface-50) " : "transparent pointer-events-auto text-(--surface-800) "}`}
@@ -66,7 +66,7 @@ export function MenuPages() {
                                 {link.text}
                             </Link>
                         ))}
-                        <Divider align="left"><span className="text-gray-400 font-light italic" >Cuenta</span></Divider>
+                        <Divider align="left"><span className="text-(--secondary-color) font-light italic" >Cuenta</span></Divider>
                         {LinksPage.map((link, index) => index === 1 && (
                             <Link
                                 className={`flex flex-row gap-3.5 p-1.5  items-center rounded-sm hover:bg-(--surface-d) font-bold w-full ${link.pathname === pathname ? "bg-(--primary-color) ml-6 pointer-events-none text-(--surface-50) " : "transparent pointer-events-auto text-(--surface-800) "}`}

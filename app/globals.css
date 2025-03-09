@@ -11,7 +11,7 @@
 		"Courier New", monospace;
 	--text-color: #ffffff;
 	--primary-color: #ed3371 !important;
-	--secondary-color: #a7a7a7 !important;
+	--secondary-color: #b3b3b3 !important;
 	--danger-color: #d72424;
 	--success-color: #65c313;
 	--info-color: #1488ee;
@@ -72,7 +72,7 @@ body {
 }
 
 body {
-	background: linear-gradient(-40deg, var(--surface-a), var(--surface-b));
+	background: linear-gradient(-40deg, var(--surface-b), var(--surface-e));
 	/*font-family: "Montserrat", "Roboto Mono", sans-serif;*/
 }
 
@@ -131,6 +131,10 @@ body {
 	height: 100svh;
 	overflow-y: auto;
 	max-width: var(--max-width);
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+	background-color: var(--primary-color);
 }
 
 .p-sidebar {
@@ -444,7 +448,8 @@ body {
 }
 
 .p-divider .p-divider-content {
-	background-color: var(--surface-a);
+	background-color: transparent;
+	backdrop-filter: blur(50px);
 }
 
 .p-tabview {

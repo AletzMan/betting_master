@@ -35,7 +35,7 @@ export default function MainPage() {
     const { orderBets } = useSort(matchDayInfo ? matchDayInfo.bets : null, matchDayInfo?.results);
 
     return (
-        <main className='flex flex-col items-center pt-[42.39px] h-svh bg-(--surface-c)'>
+        <main className='flex flex-col items-center pt-[42.39px] h-svh '>
             {!loading && session.status === "authenticated" && matchDayInfo && <>
                 {openDialog && matchDayInfo?.matchesRel &&
                     <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matchDayInfo.matchesRel} myBets={myBets} />
