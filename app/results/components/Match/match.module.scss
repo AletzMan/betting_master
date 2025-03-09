@@ -5,7 +5,7 @@
     width: 100%;
     background: linear-gradient(120deg, var(--surface-b), var(--surface-a));
     border: 1px solid var(--surface-d);
-    padding: 0.5em 0.25em;
+    padding: 0.5em 0.25em 0.25em 0.25em;
     border-radius: var(--border-radius-md);
     transition: background-color 0.25s ease-in-out;
 
@@ -21,7 +21,7 @@
 
     &_day {
         font-size: 0.8em;
-        color: #c86213;
+        color: var(--primary-color);
     }
 
     &_header {
@@ -230,7 +230,7 @@
     }
 
     &_hour {
-        color: #3c90cc;
+        color: #93cce4;
         font-size: 0.85em;
     }
 
@@ -241,14 +241,15 @@
         max-width: 10em;
         font-family: var(--font-montserrat);
         border-radius: var(--border-radius);
-        color: var(--surface-900);
+        color: var(--text-color);
+        text-shadow: 0 0 2px #000000;
         border: none;
-        background-color: var(--cyan-800);
+        background-color: var(--pending-color);
         cursor: pointer;
         transition: background-color 0.15s ease-in-out;
 
         &:hover {
-            background-color: #11afee35;
+            background-color: var(--draw-color);
 
         }
 
@@ -267,7 +268,7 @@
         padding: 0 0 0.5em 0;
         border-radius: var(--border-radius);
         border-top: 1px solid var(--hover-link);
-        background: linear-gradient(-40deg, var(--surface-a), var(--surface-c));
+        background: linear-gradient(-40deg, var(--surface-c), var(--surface-c));
 
     }
 

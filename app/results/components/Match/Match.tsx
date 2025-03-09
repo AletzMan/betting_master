@@ -69,9 +69,9 @@ export function Match({ props }: { props: PropsMatch }) {
 						<span className={styles.match_teamName}>{FormattedCulbNames(competitors.homeTeam.commonName)}</span>
 						<span className={`${styles.match_score}  border-1
 									${Status !== "Sin comenzar" ? (details.event?.score.homeTeam.totalScore > details.event?.score.awayTeam.totalScore ?
-								"bg-[#28eb1230] border-[#28eb1250]" :
+								"bg-(--winner-color) border-(--winner-color)" :
 								details.event?.score.homeTeam.totalScore < details.event?.score.awayTeam.totalScore ?
-									"bg-[#FF000030] border-[#FF000050]" : "bg-[#FFFF0030] border-[#FFFF0050]") : "bg-[#FFFFFF30] border-[#FFFFFF50]"}`
+									"bg-(--loser-color) border-(--loser-color)" : "bg-(--draw-color) border-(--draw-color)") : "bg-(--notstarted-color) border-(--notstarted-color)"}`
 						}>{eventData.score.homeTeam.totalScore}</span>
 					</div>
 					<span className={styles.match_separator}>-</span>
@@ -87,10 +87,10 @@ export function Match({ props }: { props: PropsMatch }) {
 						<span className={styles.match_teamName}>{FormattedCulbNames(competitors.awayTeam.commonName)}</span>
 						<span className={`${styles.match_score}  border-1
 									${Status !== "Sin comenzar" ? (details.event?.score.homeTeam.totalScore < details.event?.score.awayTeam.totalScore
-								? "bg-[#28eb1230] border-[#28eb1250]" :
+								? "bg-(--winner-color) border-(--winner-color)" :
 								details.event?.score.homeTeam.totalScore > details.event?.score.awayTeam.totalScore ?
-									"bg-[#FF000030] border-[#FF000050]" :
-									"bg-[#FFFF0030] border-[#FFFF0050]") : "bg-[#FFFFFF30] border-[#FFFFFF50]"}`
+									"bg-(--loser-color) border-(--loser-color)" :
+									"bg-(--draw-color) border-(--draw-color)") : "bg-(--notstarted-color) border-(--notstarted-color)"}`
 						}>{eventData.score.awayTeam.totalScore}</span>
 					</div>
 				</div>
