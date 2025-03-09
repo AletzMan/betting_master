@@ -80,9 +80,9 @@ export default function MainPage() {
                         {!loading && !myBets?.isNotBetsPaid && myBets.hasBets && !matchDayInfo.isAvailable && (
                             <>
                                 {matchDayInfo && matchDayInfo!.results?.length > 0 &&
-                                    <>
-                                        <section className={`relative grid w-full gap-1 pr-1 max-w-max border-1 border-transparent scrollbarXY  bg-(--surface-b) rounded-md transition-all ease-in-out delay-150 ${hiddenNames ? "grid-cols-[2.5em_1fr]" : "grid-cols-[13em_1fr]"}  `}>
-                                            <div className="sticky left-0 gap-y-1 flex flex-col bg-(--surface-b) pr-[1px] z-4 border-r-1 border-r-(--surface-d) h-full">
+                                    <div className="w-full  pl-1">
+                                        <section className={`relative grid  pb-1 w-full gap-1 pr-1 max-w-max scrollbarXY  bg-(--surface-b)  pl-1 border-1 border-(--surface-d)  rounded-md transition-all ease-in-out delay-150 ${hiddenNames ? "grid-cols-[41px_1fr]" : "grid-cols-[13em_1fr]"}  `}>
+                                            <div className="sticky left-0 gap-y-1 flex flex-col bg-(--surface-b) pr-[4px] z-4 border-r-1 border-r-(--surface-d) h-full">
                                                 <HeaderTable hiddenNames={hiddenNames} setHiddenNames={setHiddenNames} matchDayInfo={matchDayInfo} totalBets={matchDayInfo.bets.filter(bet => bet.paid).length} />
                                                 {orderBets?.map((bet, index) => (
                                                     <Participant key={bet.id} bets={matchDayInfo.bets} bet={bet} index={index} hiddenNames={hiddenNames} selectRanges={selectRanges} setSelectRanges={setSelectRanges} matchDayInfo={matchDayInfo} />
@@ -90,7 +90,7 @@ export default function MainPage() {
                                             </div>
                                             {<BettingsTable filterBets={orderBets} selectRanges={selectRanges} setSelectRanges={setSelectRanges} matchDayInfo={matchDayInfo} />}
                                         </section>
-                                    </>
+                                    </div>
                                 }
                             </>
                         )}

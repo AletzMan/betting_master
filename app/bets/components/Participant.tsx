@@ -30,8 +30,8 @@ export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNa
         <>
             {bet.paid &&
                 <div
-                    className={`relative grid grid-cols-[2em_1fr_2.5em] gap-1 items-center justify-start h-9 px-1 border-gray-700 border-1 rounded-xs overflow-hidden  
-												${hiddenNames && (winner?.includes(bet.id) ? "bg-yellow-950 border-yellow-500 " : session.data?.user?.id === bet.uid ? "bg-purple-950 border-purple-500 " : "bg-(--surface-f) border-gray-700 ")}`}
+                    className={`relative grid grid-cols-[2em_1fr_2.5em] gap-1 items-center justify-start h-9 px-[3px] bg-(--surface-a) border-gray-700 border-1 rounded-sm overflow-hidden  
+												${hiddenNames && (winner?.includes(bet.id) ? "bg-yellow-950 border-yellow-500 " : session.data?.user?.id === bet.uid ? "bg-purple-950 border-purple-500 " : "bg-(--surface-500) border-gray-700 ")}`}
 
                     onClick={() => HandleSelectRow(index, -1)}
                     onMouseLeave={HandleUnselectRow}

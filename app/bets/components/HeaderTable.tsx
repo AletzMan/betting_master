@@ -53,18 +53,18 @@ export default function HeaderTable({ hiddenNames, setHiddenNames, matchDayInfo,
     return (
         <>
             {matchDayInfo &&
-                <div className="sticky top-0 flex flex-col h-24 w-full bg-(--surface-d) z-5 overflow-hidden">
+                <div className="sticky top-0 flex flex-col h-24 w-full bg-(--surface-e) border-b-1 border-(--surface-c) z-5 overflow-hidden">
                     <div className="flex flex-col items-center justify-between w-full">
                         {!hiddenNames && <span className="text-amber-400">Monto: {(ConvertToPrice(totalBets * 13.5))}</span>}
                         {matchDayInfo.matches.length > 0 && <p className={`font-semibold ${hiddenNames ? "text-transparent" : "text-white"}`}>{`Jornada ${matchDayInfo.day}`}</p>}
                         <div className="flex flex-row gap-0.5">
-                            <select className="border-2 border-(--surface-d) max-h-11 rounded-md px-2 py-2 bg-(--surface-b)" value={new URLSearchParams(searchParams.toString()).get("sortBy") || "normal"} onChange={handleSort}>
+                            <select className="border-1 border-(--surface-c) max-h-11 rounded-md px-2 py-2 bg-(--surface-b)" value={new URLSearchParams(searchParams.toString()).get("sortBy") || "normal"} onChange={handleSort}>
                                 <option value="normal">Por participante</option>
                                 <option value="myBets">Mis quinielas</option>
                                 <option value="name">Por nombre</option>
                                 <option value="hits">Por aciertos</option>
                             </select>
-                            <button className="flex items-center justify-center w-11 h-11 bg-(--surface-b) rounded-md border-2 border-(--surface-d)" onClick={handleOrder}>
+                            <button className="flex items-center justify-center w-11 h-11 bg-(--surface-b) rounded-md border-1 border-(--surface-d)" onClick={handleOrder}>
                                 {!orderAsc ? <i className="pi pi-sort-amount-down"></i> : <i className="pi pi-sort-amount-up"></i>}
                             </button>
                         </div>
