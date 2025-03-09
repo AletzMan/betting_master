@@ -32,10 +32,10 @@ export default function MainPage() {
     const [hiddenNames, setHiddenNames] = useState(false)
     const [viewBets, setViewBets] = useState(false)
     const { matchDayInfo, myBets, loading } = useDataBets()
-    const { available, time } = useCountdownTimer(matchDayInfo?.matchesRel[0].startDate);
+    const { available, time } = useCountdownTimer(/*matchDayInfo?.matchesRel[0].startDate*/new Date("2025-03-10"));
     const [openDialog, setOpenDialog] = useState(false)
     const { orderBets } = useSort(matchDayInfo ? matchDayInfo.bets : null, matchDayInfo?.results);
-
+    console.log(available, time)
     return (
         <main className='flex flex-col items-center pt-[42.39px] h-svh '>
             {!loading && session.status === "authenticated" && matchDayInfo && <>
@@ -43,19 +43,28 @@ export default function MainPage() {
                     <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matchDayInfo.matchesRel} myBets={myBets} />
                 }
                 {matchDayInfo?.results?.length > 0 && !matchDayInfo.isFinishGame && matchDayInfo.matches?.length > 0 &&
-                    <>
-                        <HeaderPage isAvailable={matchDayInfo.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={time} />
-                        <div className="bg-(--surface-c) px-6 py-2 rounded-sm mb-1">
-                            {!matchDayInfo.isAvailable && <p className="flex items-center justify-center col-span-2 col-start-1 w-max text-sm py-0.5 px-2 rounded-sm border-1 border-red-600 bg-red-950">Tiempo agotado para enviar</p>}
-                            {matchDayInfo.isAvailable &&
-                                <p className="col-span-1 col-start-2 flex flex-col text-center justify-center text-sm">
-                                    <span>{!time.includes("-") ? "Se cierra en" : ""}</span>
-                                    {!time.includes("-") && <span className="text-lime-500 text-2xl font-normal" style={{ fontFamily: "var(--font-handjet)" }}>{` ${(time)}`}</span>}
-                                    {time.includes("-") && <span className="text-lime-500">{`Esta por comenzar`}</span>}
-                                </p>
-                            }
-                        </div>
-                    </>
+                    <HeaderPage isAvailable={matchDayInfo.isAvailable} setOpenDialog={setOpenDialog} startGames={!matchDayInfo.isAvailable} />
+                }
+                {matchDayInfo.isAvailable && !matchDayInfo.isFinishGame &&
+                    <div className="bg-(--surface-c) px-6 py-2 rounded-sm mb-1 min-w-3xs">
+                        {!available && (
+                            <p className="flex items-center justify-center col-span-2 col-start-1 w-max text-sm py-2 px-2 rounded-sm border-1 border-red-600 bg-red-950" style={{ fontFamily: "var(--font-handjet)" }}>
+                                Tiempo agotado para enviar
+                            </p>
+                        )}
+
+                        {available && (
+                            <p className="col-span-1 col-start-2 flex flex-col text-center justify-center text-sm">
+                                <span style={{ fontFamily: "var(--font-handjet)" }}>{time.includes("-") ? "Esta por comenzar" : "Se cierra en"}</span>
+                                <span
+                                    className="text-lime-500 text-2xl font-normal"
+                                    style={{ fontFamily: "var(--font-handjet)" }}
+                                >
+                                    {time}
+                                </span>
+                            </p>
+                        )}
+                    </div>
                 }
                 {matchDayInfo.isFinishGame &&
                     <div className="px-2 mt-2 mb-0.5">
@@ -95,7 +104,7 @@ export default function MainPage() {
                             <>
                                 {matchDayInfo && matchDayInfo!.results?.length > 0 &&
                                     <div className="w-full  pl-1">
-                                        <section className={`relative grid  pb-1 w-full gap-1 pr-1 max-w-max scrollbarXY  bg-(--surface-b)  pl-1 border-1 border-(--surface-d)  rounded-md transition-all ease-in-out delay-150 ${hiddenNames ? "grid-cols-[41px_1fr]" : "grid-cols-[13em_1fr]"}  `}>
+                                        <section className={`relative grid  pb-1 w-full gap-1 max-w-max scrollbarXY  bg-(--surface-b)  pl-1 border-1 border-(--surface-d)  rounded-md transition-all ease-in-out delay-150 ${hiddenNames ? "grid-cols-[41px_1fr]" : "grid-cols-[13em_1fr]"}  `}>
                                             <div className="sticky left-0 gap-y-1 flex flex-col bg-(--surface-b) pr-[4px] z-4 border-r-1 border-r-(--surface-d) h-full">
                                                 <HeaderTable hiddenNames={hiddenNames} setHiddenNames={setHiddenNames} matchDayInfo={matchDayInfo} totalBets={matchDayInfo.bets.filter(bet => bet.paid).length} />
                                                 {orderBets?.map((bet, index) => (

@@ -59,7 +59,7 @@ export default function HeaderTable({ hiddenNames, setHiddenNames, matchDayInfo,
                         {matchDayInfo.matches.length > 0 && <p className={`font-semibold ${hiddenNames ? "text-transparent" : "text-white"}`}>{`Jornada ${matchDayInfo.day}`}</p>}
                         <div className="flex flex-row gap-0.5">
                             <select className="border-1 border-(--surface-c) max-h-11 rounded-md px-2 py-2 bg-(--surface-b)" value={new URLSearchParams(searchParams.toString()).get("sortBy") || "normal"} onChange={handleSort}>
-                                <option value="normal">Por participante</option>
+                                <option className=" accent-amber-500" value="normal">Por participante</option>
                                 <option value="myBets">Mis quinielas</option>
                                 <option value="name">Por nombre</option>
                                 <option value="hits">Por aciertos</option>

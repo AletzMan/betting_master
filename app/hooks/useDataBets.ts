@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
-import { InTimeToBet, TimeRemainig } from "../functions/functions"
 import { IBet, IMatchDay, UserSession } from "../types/types"
 import { getMatchDayInfo } from "@/utils/fetchData"
 import { useSession } from "next-auth/react"
@@ -50,7 +49,6 @@ export function useDataBets() {
 		const matchDayData = await getMatchDayInfo();
 		if (matchDayData) {
 			setMatchDayData(matchDayData);
-			const isTime = InTimeToBet(matchDayData.matchesRel[0].startDate)
 		}
 	}
 

@@ -26,14 +26,14 @@ export function ConfirmedParticipationMessage({ user, bets, myBets, matchDayInfo
 
     return (
         <Card className="scrollbar" header={
-            <div className="py-2 bg-green-700">
+            <div className="py-2 bg-(--success-color) text-(--surface-b)">
                 <p className="flex flex-row gap-2.5 w-full justify-center items-center text-lg font-bold text-center"><i className="pi pi-check-circle" />¡Ya estas participando!</p>
                 <h3 className="text-sm font-bold text-center">{user?.name}</h3>
             </div>
         }>
-            <div className="flex flex-col gap-3.5">
-                <p className="text-lg font-bold text-center mb-1.5">Tu tienes <span className="">{myBets.bets.length}</span> quiniela(s)</p>
-                <div className="flex flex-col gap-2 border-1 border-[#29aa0950] bg-[#29aa0920] rounded-md px-2 py-2">
+            <div className="flex flex-col gap-3">
+                <p className="text-md font-bold text-center mb-0">Tu tienes <span className="">{myBets.bets.length}</span> quiniela(s)</p>
+                <div className="flex flex-col gap-2 border-1 border-(--background-success-color) bg-(--background-success-color) rounded-md px-2 py-2">
                     <div className="flex items-start gap-2">
                         <i className="pi pi-clock text-lime-400 mt-1" />
                         <p className="text-sm">Las quinielas estaran visibles hasta el comienzo del primer partido</p>

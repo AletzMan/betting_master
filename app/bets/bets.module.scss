@@ -9,7 +9,7 @@
      opacity: 1;
 
      &_one {
-         animation: animateOptionsOne linear 4s infinite;
+         animation: animateOptionsOne linear 3s infinite;
          /* Reducimos la duración a 4 segundos */
 
          @keyframes animateOptionsOne {
@@ -32,7 +32,7 @@
      }
 
      &_two {
-         animation: animateOptionsTwo linear 4s infinite;
+         animation: animateOptionsTwo linear 3s infinite;
          /* Reducimos la duración a 4 segundos */
 
          @keyframes animateOptionsTwo {

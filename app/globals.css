@@ -424,6 +424,7 @@ body {
 .p-card {
 	background-color: var(--surface-a);
 	border: 1px solid var(--surface-d);
+	margin: 0 4px 0 4px;
 }
 
 .p-card-content {
