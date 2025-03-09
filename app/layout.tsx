@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Jost } from "next/font/google"
+import { Handjet, Jost, Keania_One, Oxanium } from "next/font/google"
 import MaintenancePage from "./maintenance/page"
 import "./globals.css"
 import Header from "./components/Header"
@@ -21,6 +21,11 @@ const fontJost = Jost({
 	subsets: ["latin"],
 });
 
+const fontHandjet = Oxanium({
+	variable: "--font-handjet",
+	subsets: ["latin"],
+});
+
 
 export const metadata: Metadata = {
 	title: "Quiniela y Resultados",
@@ -30,7 +35,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
-			<body className={fontJost.variable}>
+			<body className={`${fontJost.variable} ${fontHandjet.variable}`}>
 				<QuinieleroLogo className="absolute w-80 h-80 left-[calc(50%-10rem)] top-[calc(50%-10rem)] opacity-1 -z-10" />
 				<SessionProvider>
 					<PrimeReactProvider  >

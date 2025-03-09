@@ -16,6 +16,7 @@ import { useSession } from "next-auth/react"
 import { ConfirmedParticipationMessage } from "./ConfirmedParticipationMessage"
 import { Card } from "primereact/card"
 import { SadIcon } from "@/svg"
+import { useCountdownTimer } from "@/hooks/useCountdownTimer"
 
 
 
@@ -30,7 +31,8 @@ export default function MainPage() {
     const [selectRanges, setSelectRanges] = useState<{ row: number; column: number } | null>(null)
     const [hiddenNames, setHiddenNames] = useState(false)
     const [viewBets, setViewBets] = useState(false)
-    const { matchDayInfo, isInTime, myBets, loading } = useDataBets()
+    const { matchDayInfo, myBets, loading } = useDataBets()
+    const { available, time } = useCountdownTimer(matchDayInfo?.matchesRel[0].startDate);
     const [openDialog, setOpenDialog] = useState(false)
     const { orderBets } = useSort(matchDayInfo ? matchDayInfo.bets : null, matchDayInfo?.results);
 
@@ -41,7 +43,19 @@ export default function MainPage() {
                     <DialogCreateBet open={openDialog} setOpen={setOpenDialog} matches={matchDayInfo.matchesRel} myBets={myBets} />
                 }
                 {matchDayInfo?.results?.length > 0 && !matchDayInfo.isFinishGame && matchDayInfo.matches?.length > 0 &&
-                    <HeaderPage isAvailable={matchDayInfo.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={isInTime.time} />
+                    <>
+                        <HeaderPage isAvailable={matchDayInfo.isAvailable} setOpenDialog={setOpenDialog} timeFirstMatch={time} />
+                        <div className="bg-(--surface-c) px-6 py-2 rounded-sm mb-1">
+                            {!matchDayInfo.isAvailable && <p className="flex items-center justify-center col-span-2 col-start-1 w-max text-sm py-0.5 px-2 rounded-sm border-1 border-red-600 bg-red-950">Tiempo agotado para enviar</p>}
+                            {matchDayInfo.isAvailable &&
+                                <p className="col-span-1 col-start-2 flex flex-col text-center justify-center text-sm">
+                                    <span>{!time.includes("-") ? "Se cierra en" : ""}</span>
+                                    {!time.includes("-") && <span className="text-lime-500 text-2xl font-normal" style={{ fontFamily: "var(--font-handjet)" }}>{` ${(time)}`}</span>}
+                                    {time.includes("-") && <span className="text-lime-500">{`Esta por comenzar`}</span>}
+                                </p>
+                            }
+                        </div>
+                    </>
                 }
                 {matchDayInfo.isFinishGame &&
                     <div className="px-2 mt-2 mb-0.5">
@@ -104,7 +118,7 @@ export default function MainPage() {
                             </div>
                         }
                     </>}
-                {!matchDayInfo.isFinishGame && orderBets?.length === 0 && matchDayInfo.matches?.length > 0 && !isInTime.available &&
+                {!matchDayInfo.isFinishGame && orderBets?.length === 0 && matchDayInfo.matches?.length > 0 && !available &&
                     <div className="flex flex-col items-center justify-center px-4 py-2 gap-4 max-w-64 bg-(--background-warning-color) rounded-md border-1 border-(--warning-color) mt-3.5">
                         <i className="pi pi-exclamation-circle text-(--warning-color)" style={{ fontSize: "3em" }} />
                         <p className="text-center">¡Ups! Parece que los partidos ya empezaron y nadie ha creado una quiniela.</p>

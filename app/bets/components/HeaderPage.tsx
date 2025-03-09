@@ -22,14 +22,7 @@ export function HeaderPage({ isAvailable, setOpenDialog, timeFirstMatch }: Props
 					style={{ maxHeight: "max-content" }}
 				/>
 			}
-			{!isAvailable && <p className="flex items-center justify-center col-span-2 col-start-1 w-max text-sm py-0.5 px-2 rounded-sm border-1 border-red-600 bg-red-950">Tiempo agotado para enviar</p>}
-			{isAvailable &&
-				<p className="col-span-1 col-start-2 flex flex-col text-center justify-center text-sm">
-					<span>{!timeFirstMatch.includes("-") ? "Se cierra en" : ""}</span>
-					{!timeFirstMatch.includes("-") && <span className="text-lime-500">{` ${(timeFirstMatch)}`}</span>}
-					{timeFirstMatch.includes("-") && <span className="text-lime-500">{`Esta por comenzar`}</span>}
-				</p>
-			}
+
 			<div className="relative flex flex-col items-end justify-start overflow-hidden h-8 gap-y-1.5 text-sm">
 				<div className={`${styles.options} ${styles.options_one}`}>
 					<i className="pi pi-trophy text-yellow-400"></i>
