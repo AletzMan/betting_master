@@ -94,11 +94,12 @@ export function AdminNotifications() {
     return (
 
         <div className="flex flex-col gap-2 relative h-[calc(100svh-9rem)] ">
-            <header className="flex items-center justify-end pb-1">
+            <header className="flex items-center justify-between pb-1 px-2">
                 <Button onClick={HandleRefreshUsers} icon="pi pi-refresh" severity="secondary" size="small" outlined label="Actualizar" />
+                {usersData && <Button label={!sending ? "Enviar notificación" : "Sending..."} size="small" severity="info" icon={sending ? "pi pi-spin pi-spinner-dotted" : "pi pi-send"} disabled={sending} onClick={HandleSendNotifications} />}
             </header>
             {!loading &&
-                <div className="flex flex-col gap-1 scrollbar">
+                <div className="flex flex-col gap-5 scrollbar pt-5 px-2">
                     {usersData && usersData.map((user, index) => (
                         <article className={`${styles.users_user} ${viewDetails === index && styles.users_userActive}`} key={user.id} onClick={(e) => HandleViewDetails(e, index)}>
                             <div className={styles.users_data} >
@@ -111,16 +112,19 @@ export function AdminNotifications() {
                             </div>
                             <div className={styles.users_stats}>
                                 <div className={styles.users_bets}>
+                                    <i className="pi pi-pen-to-square" />
+                                    <span className={styles.users_label}>Quinielas</span>
                                     <span className={`${styles.users_number} text-lime-400 font-semibold`}>{user.total_bets}</span>
-                                    <span className={styles.users_label}>quinielas</span>
                                 </div>
                                 <div className={styles.users_bets}>
-                                    <span className={`${styles.users_number} text-lime-400 font-semibold`}>{user.bets_won}</span>
+                                    <i className="pi pi-check-circle" />
                                     <span className={styles.users_label}>Ganadoras</span>
+                                    <span className={`${styles.users_number} text-lime-400 font-semibold`}>{user.bets_won}</span>
                                 </div>
                                 <div className={styles.users_bets}>
-                                    <span className={`${styles.users_number} text-lime-400 font-semibold`}>{user.finals_won}</span>
+                                    <i className="pi pi-trophy" />
                                     <span className={styles.users_label}>Finales</span>
+                                    <span className={`${styles.users_number} text-lime-400 font-semibold`}>{user.finals_won}</span>
                                 </div>
                             </div>
                             <div className={styles.users_options}>
@@ -133,15 +137,6 @@ export function AdminNotifications() {
                 </div>
             }
             {loading && <Loading height="12em" />}
-            <footer className="flex min-h-12 items-center pt-2">
-                {usersData && <Button label={!sending ? "Enviar notificación" : "Sending..."} size="small" severity="info" icon={sending ? "pi pi-spin pi-spinner-dotted" : "pi pi-send"} disabled={sending} onClick={HandleSendNotifications} />}
-                {/*<Button
-                    props={{ onClick: HandleSendNotifications, disabled: sending }}
-                    text={!sending ? "Enviar notificación" : "Sending..."}
-                    icon={sending ? <LoadingIcon className={styles.admin_updateIcon} /> : <SendIcon className={styles.admin_updateIcon} />}
-                    type="primary"
-            />*/}
-            </footer>
         </div>
     )
 }

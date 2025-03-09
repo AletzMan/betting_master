@@ -10,8 +10,8 @@
 		"Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono",
 		"Courier New", monospace;
 	--text-color: #ffffff;
-	--primary-color: #ffeb3b !important;
-	--secondary-color: #d1d1d1 !important;
+	--primary-color: #ed3371 !important;
+	--secondary-color: #a7a7a7 !important;
 	--danger-color: #d72424;
 	--success-color: #65c313;
 	--info-color: #1488ee;
@@ -21,12 +21,36 @@
 	--finished-color: #166d00;
 	--started-color: #680400;
 	--row-select-color: #ae00ff40;
-	--surface-a: #1c1c1c !important;
-	--surface-b: #101010 !important;
-	--surface-c: #45454550 !important;
-	--surface-d: #63626230 !important;
-	--surface-e: #161616 !important;
-	--surface-f: #242424 !important;
+	/*
+
+	--surface-a: #161b20 !important;
+	--surface-b: #0e1215 !important;
+	--surface-c: #2c313780 !important;
+	--surface-d: #454b504d !important;
+	--surface-e: #111417 !important;
+	--surface-f: #1c2227 !important;
+	--primary-color: #64ffda !important;
+*/
+	/*
+	--surface-a: #1a1c0f !important;
+	--surface-b: #13140a !important;
+	--surface-c: #2e312180 !important;
+	--surface-d: #404f2e4d !important;
+	--surface-e: #1c2012 !important;
+	--surface-f: #2a3220 !important;
+	--primary-color: #aeea00 !important;*/
+
+	--surface-a: #12140f !important;
+	--surface-b: #0d0e0a !important;
+	--surface-c: #2c2f1a80 !important;
+	--surface-d: #3f4a2e4d !important;
+	--surface-e: #16180f !important;
+	--surface-f: #262916 !important;
+	--primary-color: #fdd835 !important;
+
+
+	--accent-color: #a28a1f;
+	/* Azul claro */
 	--background-primary-color: #38a2ff15;
 	--background-secondary-color: #d1d1d115;
 	--background-success-color: #65c31315;
@@ -385,6 +409,7 @@ body {
 
 	& .p-dropdown-label.p-inputtext {
 		padding: 0.25em 0.75em;
+		font-size: 0.95em;
 	}
 }
 
@@ -399,15 +424,7 @@ body {
 
 
 
-.p-tabview-nav-link {
-	transition: all 0.2s ease-in-out;
-	padding: 0.7em 0.75em;
 
-	&:hover {
-		border-color: var(--primary-color);
-	}
-
-}
 
 .p-fieldset {
 	border: 1px solid var(--surface-c);
@@ -426,15 +443,37 @@ body {
 	}
 }
 
+.p-divider .p-divider-content {
+	background-color: var(--surface-a);
+}
+
 .p-tabview {
+
+	.p-tabview-nav-btn.p-link {
+		background: var(--surface-a);
+		color: var(--primary-color);
+		width: 2.857rem;
+		box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+		border-radius: 0;
+	}
 
 	.p-tabview-nav {
 
 
 		.p-tabview-nav-link {
+			transition: all 0.2s ease-in-out;
+			padding: 0.7em 0.75em;
 			background-color: var(--surface-f);
 			border-width: 1px 1px 2px 1px;
+			font-weight: 500;
+			font-size: 0.9em;
+			color: var(--secondary-color);
 			border-color: var(--surface-d) var(--surface-d) var(--secondary-color) var(--surface-d);
+
+			&:hover {
+				/*border-color: var(--primary-color);*/
+				color: var(--text-color);
+			}
 
 		}
 

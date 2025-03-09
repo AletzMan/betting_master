@@ -132,7 +132,7 @@ export default function AdminFinals() {
 
     return (
         <div className="flex flex-col gap-2 relative h-[calc(100svh-8rem)]">
-            <header className="flex items-center justify-between bg-(--surface-c) px-2 py-1">
+            <header className="flex items-center justify-between bg-(--surface-c) px-2 py-2 rounded-sm">
                 <Button onClick={HandleStart} label="Equipos" icon="pi pi-save" size="small" severity="success" outlined raised disabled={loading} />
                 <Button icon="pi pi-refresh" size="small" outlined label="Actualizar" severity="secondary" raised onClick={handleGetFinalTable} disabled={loading} />
             </header>
@@ -141,7 +141,7 @@ export default function AdminFinals() {
                     {
                         TeamsLocalNames.map((team, index) => index < 8 && (
                             <div key={team} className="grid grid-cols-[1.5em_1fr]   place-items-center  gap-1 w-full ">
-                                <span className="flex justify-center bg-(--surface-d) h-6 w-6 rounded-sm" >{index + 1}</span>
+                                <span className="flex justify-center bg-(--surface-d) h-6 w-6 rounded-sm border-1 border-(--surface-d)" >{index + 1}</span>
                                 <Dropdown className="w-full max-w-37" placeholder="Seleccione" value={data.finalTeams[index]} options={TeamsLocalNames} onChange={(e) => HandleOnChangeTeam(e, index)} />
                             </div>
                         ))

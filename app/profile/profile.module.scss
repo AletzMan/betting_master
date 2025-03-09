@@ -72,7 +72,7 @@
 .users {
     display: flex;
     flex-direction: column;
-    gap: 0.25em;
+    gap: 0.35em;
 
     &_user {
         position: relative;
@@ -83,17 +83,20 @@
         gap: 0.5em;
         padding: 0.5em;
         border: none;
+        height: max-content;
         font-size: 1em;
         font-family: var(--font-family);
         border-radius: var(--border-radius-md);
-        background: linear-gradient(-40deg, var(--surface-d), var(--surface-c));
+        background: linear-gradient(-40deg, var(--surface-e), var(--surface-b));
         border: 1px solid var(--surface-100);
-        transition: all 0.3s ease;
+        box-shadow: 0 0 3px 1px #FFFFFF20;
+        transition: all 0.3s ease-in-out;
 
 
         &Active {
-            margin: 1.5em 0;
+            margin: 0 0 1.5em 0;
             padding: 1.25em 0.5em 0em 0.5em;
+            transition: all 0.3s ease-in-out;
 
             .users_data {
 
@@ -108,7 +111,7 @@
                 }
 
                 .users_photo {
-                    transform: translateX(0.2em) translateY(-1.5em);
+                    transform: translateX(0.2em) translateY(-1.75em);
                     width: 3em;
                     height: 3em;
                 }
@@ -144,12 +147,12 @@
 
     &_name {
         font-size: 0.8em;
-        transition: all 0.3s ease;
+        transition: all 0.3s ease-in-out;
     }
 
     &_email {
         font-size: 0.7em;
-        transition: all 0.3s ease;
+        transition: all 0.3s ease-in-out;
     }
 
     &_account {
@@ -182,7 +185,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 0 1em;
+        gap: 0.25em;
+        min-width: 6em;
         border-right: 1px solid var(--surface-200);
         border-left: 1px solid var(--surface-200);
 
@@ -202,14 +206,15 @@
     &_options {
         display: none;
         justify-content: space-evenly;
-        background-color: var(--surface-b);
         width: 80%;
         padding: 0.5em;
         opacity: 0;
         border-radius: var(--border-radius);
         align-self: center;
         transition: all 0.3s ease;
-        box-shadow: 0 0 6px 1px #FFFFFF25;
+        border: 1px solid var(--surface-d);
+        background-color: var(--surface-e);
+        transition: all 0.3s ease-in-out;
     }
 
     &_delete,
