@@ -12,6 +12,7 @@ import "primereact/resources/themes/viva-dark/theme.css";
 
 import 'primeicons/primeicons.css';
 import { SessionProvider } from "next-auth/react"
+import { QuinieleroLogo } from "./svg"
 
 
 
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<body className={fontJost.variable}>
+				<QuinieleroLogo className="absolute w-80 h-80 left-[calc(50%-10rem)] top-[calc(50%-10rem)] opacity-2 -z-10" />
 				<SessionProvider>
 					<PrimeReactProvider  >
 						{<Header />}

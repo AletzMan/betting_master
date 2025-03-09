@@ -6,6 +6,7 @@ import { signOut, useSession } from "next-auth/react"
 import { Sidebar } from "primereact/sidebar"
 import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
+import { QuinieleroLogo } from "@/svg"
 
 export function MenuPages() {
     const pathname = usePathname()
@@ -26,7 +27,7 @@ export function MenuPages() {
             visible={openMenu}
             onHide={() => setOpenMenu(false)}
             content={
-                <nav >
+                <nav className="relative h-full">
                     <Button
                         label="Menu" icon="pi pi-bars"
                         text severity="info" size="large"
@@ -92,6 +93,7 @@ export function MenuPages() {
                             </button>
                         )}
                     </div>
+                    <QuinieleroLogo className="absolute bottom-4 left-4 w-20 h-20" />
                 </nav>
             } />
     )
