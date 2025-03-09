@@ -9,6 +9,8 @@
 	--font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono",
 		"Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono",
 		"Courier New", monospace;
+
+
 	--text-color: #ffffff;
 	--primary-color: #ed3371 !important;
 	--secondary-color: #b3b3b3 !important;
@@ -20,29 +22,29 @@
 	--pending-color: #544707;
 	--finished-color: #1a5903;
 	--started-color: #670603;
-	--draw-color: #e1c00430;
-	--winner-color: #3edb0430;
-	--loser-color: #d80d0630;
+	--draw-color: #e1c00420;
+	--winner-color: #3edb0420;
+	--loser-color: #d80d0620;
 	--notstarted-color: #f9f9f920;
 	--row-select-color: #ae00ff40;
-	/*
 
-	--surface-a: #161b20 !important;
+
+	/*--surface-a: #161b20 !important;
 	--surface-b: #0e1215 !important;
 	--surface-c: #2c313780 !important;
 	--surface-d: #454b504d !important;
 	--surface-e: #111417 !important;
 	--surface-f: #1c2227 !important;
-	--primary-color: #64ffda !important;
-*/
-	/*
-	--surface-a: #1a1c0f !important;
+	--primary-color: #64ffda !important;*/
+
+
+	/*	--surface-a: #1a1c0f !important;
 	--surface-b: #13140a !important;
 	--surface-c: #2e312180 !important;
 	--surface-d: #404f2e4d !important;
 	--surface-e: #1c2012 !important;
 	--surface-f: #2a3220 !important;
-	--primary-color: #aeea00 !important;*/
+	--primary-color: #aeea00 !important;
 
 	--surface-a: #12140f !important;
 	--surface-b: #0d0e0a !important;
@@ -50,10 +52,50 @@
 	--surface-d: #3f4a2e4d !important;
 	--surface-e: #16180f !important;
 	--surface-f: #262916 !important;
-	--primary-color: #fdd835 !important;
+	--primary-color: #fdd835 !important;*/
+
+	/*--surface-a: #181613 !important;
+	--surface-b: #0b0a09 !important;
+	--surface-c: #35302f7a !important;
+	--surface-d: #4a48475f !important;
+	--surface-e: #141210 !important;
+	--surface-f: #22201f !important;
+	--primary-color: #4caf50 !important;*/
+
+	/*--surface-a: #151d1e !important;
+	--surface-b: #0b0f0f !important;
+	--surface-c: #2f33338a !important;
+	--surface-d: #494e4d60 !important;
+	--surface-e: #0f1414 !important;
+	--surface-f: #1f2222 !important;
+	--primary-color: #009688 !important;*/
+
+	/* Gris azulado brillante */
+	/*--surface-a: #141414 !important; 
+	--surface-b: #060606 !important; 
+	--surface-c: #2424247a !important; 
+	--surface-d: #35353560 !important; 
+	--surface-e: #090909 !important; 
+	--surface-f: #1a1a1a !important; 
+	--primary-color: #607d8b !important;*/
+
+	--surface-a: #0e1410 !important;
+	/* Muy oscuro con un toque verde oliva oscuro */
+	--surface-b: #0b0e0d !important;
+	/* Base casi negra con saturación verde oliva */
+	--surface-c: #2f34347a !important;
+	/* Gris oscuro con un toque verde oliva */
+	--surface-d: #4b474860 !important;
+	/* Gris más oscuro con saturación verde oliva */
+	--surface-e: #0a0b09 !important;
+	/* Muy oscuro con leve saturación verde oliva */
+	--surface-f: #2c3532 !important;
+	/* Gris oscuro con saturación verde oliva */
+	--primary-color: #619e35 !important;
+	/* Verde oliva oscuro brillante */
 
 
-	--accent-color: #a28a1f;
+	--accent-color: #365b1b;
 	/* Azul claro */
 	--background-primary-color: #38a2ff15;
 	--background-secondary-color: #d1d1d115;
