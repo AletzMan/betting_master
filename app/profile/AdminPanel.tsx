@@ -38,7 +38,7 @@ export function AdminPanel() {
 	}
 
 
-	const HandleUpdate = async () => {
+	const handleUpdateMatchDay = async () => {
 		setSending(true)
 		try {
 			if (matchDayData) {
@@ -65,7 +65,7 @@ export function AdminPanel() {
 
 	}
 
-	const HandleCreate = async () => {
+	const handleCreateMatchDay = async () => {
 		setViewCreateBets(true)
 	}
 
@@ -149,7 +149,7 @@ export function AdminPanel() {
 						size="small"
 						disabled={matchDayData !== null || loading}
 						severity="success"
-						onClick={HandleCreate}
+						onClick={handleCreateMatchDay}
 						outlined />
 					}
 					{matchDayData && matchDayData.day !== 0 && matchDayData.day &&
@@ -160,7 +160,7 @@ export function AdminPanel() {
 							disabled={sending || loading}
 							size="small"
 							severity="success"
-							onClick={HandleUpdate} />}
+							onClick={handleUpdateMatchDay} />}
 				</footer>}
 			</div>
 		</>
