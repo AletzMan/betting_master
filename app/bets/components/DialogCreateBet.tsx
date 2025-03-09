@@ -129,10 +129,10 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 
 	return (
 		<Dialog className="w-[calc(100svw-1em)] max-w-150" onHide={() => setOpen(false)} visible={open} style={{ minHeight: "90svh" }}>
-			<div className="flex justify-between w-full py-1.5 z-10">
+			<div className="grid grid-cols-3 w-full py-1.5 z-10">
 				{myBets.hasBets &&
 					<>
-						<Button label="Ver mis quinielas" icon="pi pi-eye" size="small" outlined raised severity="secondary" onClick={(e) => myBetsRef.current?.toggle(e)} />
+						<Button className="col-start-1" label="Ver mis quinielas" icon="pi pi-eye" size="small" outlined raised severity="secondary" onClick={(e) => myBetsRef.current?.toggle(e)} />
 						<OverlayPanel ref={myBetsRef} >
 							<div>
 								<header className="flex flex-row gap-1.5">
@@ -163,7 +163,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 							</div>
 						</OverlayPanel>
 					</>}
-				<Button className="" icon="pi pi-question-circle" size="small" severity="info" onClick={(e) => infoRef.current?.toggle(e)} />
+				<Button className="col-start-3 place-self-end" icon="pi pi-question-circle" size="small" severity="info" onClick={(e) => infoRef.current?.toggle(e)} />
 				<OverlayPanel ref={infoRef}>
 					<div className="flex flex-col gap-2">
 						<p className="text-sm">{`Para cada partido, elige tu pronóstico haciendo clic en una de las tres opciones:`}</p>
@@ -181,7 +181,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 				<header className="flex flex-col">
 					<form className="flex flex-col gap-2.5">
 						<div className="flex flex-col">
-							<label className="text-cyan-600 pl-1" htmlFor="username">Nombre</label>
+							<label className="text-(--primary-color) pl-1" htmlFor="username">Nombre</label>
 							<InputText invalid={errors.name.isError} id="username" className="p-inputtext-sm" type="text" value={name} maxLength={13} onChange={handleChangeName} placeholder="" aria-describedby="username-help" />
 							<small className={`pl-1 ${errors.name.isError ? "text-(--danger-color)" : "text-gray-500 "}`} id="username-help">
 								{errors.name.isError ? errors.name.message : "Nombre de 5 a 13 caracteres"}
@@ -211,8 +211,8 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 				</header>
 				{loading && <Loading height="10em" />}
 				{!betSentSuccessfully && !loading &&
-					<div className={`h-[calc(100svh-21em)] scrollbar mt-2 pr-1.5`}>
-						<header className="sticky top-0 grid grid-cols-3 place-items-center w-full py-2 bg-(--surface-b) rounded-b-sm z-2">
+					<div className={`h-[calc(100svh-18em)] scrollbar mt-2 pr-1.5`}>
+						<header className="sticky top-0 grid grid-cols-3 place-items-center w-full py-2 bg-(--surface-b) border-1 border-(--surface-d) rounded-b-sm z-2">
 							<p className="uppercase font-bold text-sm">Local</p>
 							<p className="uppercase font-bold text-sm">Empate</p>
 							<p className="uppercase font-bold text-sm">Visitante</p>

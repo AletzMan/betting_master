@@ -435,7 +435,12 @@ body {
 
 
 
+.p-overlaypanel {
+	background: linear-gradient(120deg, var(--surface-b), var(--surface-a));
+	color: rgba(255, 255, 255, 0.87);
+	border: 1px solid var(--surface-d);
 
+}
 
 
 .p-fieldset {
@@ -455,9 +460,23 @@ body {
 	}
 }
 
-.p-divider .p-divider-content {
-	background-color: transparent;
-	backdrop-filter: blur(50px);
+.p-divider {
+
+
+	.p-divider-content {
+		background-color: transparent;
+		backdrop-filter: blur(50px);
+	}
+
+	&.p-divider-horizontal {
+		margin: 0.5em 0;
+
+		&::before {
+			border-top: 1px var(--surface-c);
+			border-top-style: solid
+		}
+	}
+
 }
 
 .p-tabview {

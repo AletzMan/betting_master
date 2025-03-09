@@ -26,7 +26,7 @@ export function MatchBet({ matchData, numberMatch, invalid }: PropsMatch) {
 	}
 
 	return (
-		<div className={` grid grid-cols-[2.5em_1fr_2.5em_1fr_2.5em] items-center justify-center  w-full border-1 bg-(--gray-900) rounded-sm hover:bg-(--surface-hover) gap-x-2 px-2 py-2 ${invalidInternal ? "border-[#FF000085]" : "border-(--surface-d)"}`}>
+		<div className={` grid grid-cols-[2.5em_1fr_2.5em_1fr_2.5em] items-center justify-center  w-full border-1 bg-(--surface-a) rounded-sm hover:bg-(--surface-hover) gap-x-2 px-2 py-2 ${invalidInternal ? "border-[#FF000085]" : "border-(--surface-d)"}`}>
 			<div className="flex items-center justify-center relative bg-(--surface-b) w-10 h-10 border-1 border-(--surface-d) rounded-sm hover:bg-(--cyan-900)">
 				<input
 					className="w-10 h-10 opacity-0 z-2 cursor-pointer"
