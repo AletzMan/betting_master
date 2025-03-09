@@ -10,7 +10,7 @@ import { Accordion, AccordionTab } from "primereact/accordion"
 import { Badge } from "primereact/badge"
 import { ScrollPanel } from "primereact/scrollpanel"
 import { Checkbox, CheckboxChangeEvent } from "primereact/checkbox"
-import { deleteBetByID, getBetsByDay, updateBetByID } from "@/utils/fetchData"
+import { RevalidatePath, deleteBetByID, getBetsByDay, updateBetByID } from "@/utils/fetchData"
 import Image from "next/image"
 import { Loading } from "@/components/Loading/Loading"
 import { Dialog } from "primereact/dialog"
@@ -53,6 +53,7 @@ export function PaymentsAndBets() {
 
     const GetBets = async () => {
         setLaoding(true)
+        RevalidatePath("bets")
         const response = await getBetsByDay();
         if (response && response.length > 0) {
             setBets(response)
@@ -80,7 +81,7 @@ export function PaymentsAndBets() {
         setUpdating(false)
     }
 
-    const HandleDelete = async (id: string, name: string) => {
+    const handleDeleteMatchDay = async (id: string, name: string) => {
         const deleted = confirm(`¿Estás seguro de eliminar esta quiniela? \n ${name}`)
         if (!deleted) return
         const response = await deleteBetByID(id)
@@ -99,7 +100,7 @@ export function PaymentsAndBets() {
         setMatchDay(newValue)
     }*/
 
-    const HandleGetData = async (event: MouseEvent<HTMLButtonElement>) => {
+    const handleGetDataBets = async (event: MouseEvent<HTMLButtonElement>) => {
         await GetBets()
     }
 
@@ -110,7 +111,7 @@ export function PaymentsAndBets() {
                 <div className="flex justify-between">
                     <h1 className="text-lg text-emerald-400 font-bold">{matchDay !== 0 && matchDay !== null ? `Jornada ${matchDay}` : ""}</h1>
                     {/*<Dropdown value={MatchDays[matchDay - 1]} options={MatchDays} placeholder="Seleccione Jornada" onChange={HandleChangeDay} />*/}
-                    <Button onClick={HandleGetData} className="max-h-10" icon="pi pi-refresh" outlined severity="secondary" size="small" label="Actualizar" />
+                    <Button onClick={handleGetDataBets} className="max-h-10" icon="pi pi-refresh" outlined severity="secondary" size="small" label="Actualizar" />
                 </div>
                 <Divider type="dashed" />
                 {betsByID && betsByID?.length > 0 && <div className="grid grid-cols-4 gap-1 w-full">
@@ -153,7 +154,7 @@ export function PaymentsAndBets() {
                                         <p className="text-sm">{bet.name}</p>
                                         <div className="flex items-center justify-center gap-1.5">
                                             <Checkbox type="checkbox" checked={bet.paid} onChange={(e) => handleChangeStatusPaid(e, bet.id)} />
-                                            <Button className="" onClick={() => HandleDelete(bet.id, bet.name)} icon="pi pi-trash" size="small" text raised />
+                                            <Button className="" onClick={() => handleDeleteMatchDay(bet.id, bet.name)} icon="pi pi-trash" size="small" text raised />
                                         </div>
                                     </div>
                                 ))}

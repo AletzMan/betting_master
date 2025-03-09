@@ -22,7 +22,7 @@ export interface IMatchDayData {
 
 export const getAllUsers = async (): Promise<IUser[] | null> => {
     try {
-        const response = await fetch(`${pathURL}api/users`, { cache: "force-cache", next: { revalidate: 60000, tags: ['users'] } })
+        const response = await fetch(`${pathURL}api/users`, { cache: "force-cache", next: { revalidate: 300, tags: ['users'] } })
         if (response.status === 200) {
             const responseUsers = await response.json()
             let users: IUser[] = responseUsers.response
@@ -69,7 +69,7 @@ export const getMatchDayInfo = async (): Promise<IMatchDay | null> => {
     let matchDay: IMatchDay[] = []
 
     try {
-        const response = await fetch(`${pathURL}api/matchdays`, { cache: "force-cache", next: { revalidate: 60000, tags: ['matchDayInfo'] } })
+        const response = await fetch(`${pathURL}api/matchdays`, { cache: "force-cache", next: { revalidate: 300, tags: ['matchDayInfo'] } })
         if (response.status === 200) {
             const responseMatchDay = await response.json()
             matchDay = responseMatchDay.response
@@ -106,11 +106,11 @@ export const getMatchDayData = async (): Promise<IMatchDayData | null> => {
     let matches: IMatch[] = []
 
     try {
-        const response = await fetch(`${pathURL}api/matchdays`, { cache: "force-cache", next: { revalidate: 60000, tags: ['matchDays'] } })
+        const response = await fetch(`${pathURL}api/matchdays`, { cache: "force-cache", next: { revalidate: 300, tags: ['matchDays'] } })
         if (response.status === 200) {
             const responseMatchDay = await response.json()
             matchDay = responseMatchDay.response
-            const responseMatches = await fetch(`${pathURL}api/matchdays/${matchDay[0].id}/matches?sortBy=startDate&sortOrder=asc`, { cache: "force-cache", next: { revalidate: 60000, tags: ['matches'] } })
+            const responseMatches = await fetch(`${pathURL}api/matchdays/${matchDay[0].id}/matches?sortBy=startDate&sortOrder=asc`, { cache: "force-cache", next: { revalidate: 300, tags: ['matches'] } })
             if (responseMatches.status === 200) {
                 const matchesResponse = await responseMatches.json()
                 matches = matchesResponse.response
@@ -128,7 +128,7 @@ export const getMatchDayData = async (): Promise<IMatchDayData | null> => {
 export const getBetsByDay = async (): Promise<IBet[] | null> => {
     try {
         let bets: IBet[] = []
-        const response = await fetch(`${pathURL}api/bets`, { cache: 'force-cache', next: { revalidate: 60000, tags: ['bets'] } })
+        const response = await fetch(`${pathURL}api/bets`, { cache: 'force-cache', next: { revalidate: 300, tags: ['bets'] } })
         if (response.status === 200) {
             const responseBets = await response.json();
             bets = responseBets.response;
