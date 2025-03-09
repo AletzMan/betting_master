@@ -69,7 +69,7 @@ export default function HeaderTable({ hiddenNames, setHiddenNames, matchDayInfo,
                             </button>
                         </div>
                     </div>
-                    <button className="absolute right-0 top-[5px] flex items-center justify-center h-10 w-6 rounded-l-xl  bg-[#19eded70]" onClick={HandleSetVisibilityNames}>
+                    <button className="absolute right-0 top-[5px] flex items-center justify-center h-10 w-6 rounded-l-md  bg-(--primary-color) text-(--surface-b)" onClick={HandleSetVisibilityNames}>
                         <i className={` ${hiddenNames ? "pi pi-angle-right" : "pi pi-angle-left"} `} />
                     </button>
                 </div>
