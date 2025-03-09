@@ -93,7 +93,10 @@ export function MenuPages() {
                             </button>
                         )}
                     </div>
-                    <QuinieleroLogo className="absolute bottom-4 left-4 w-20 h-20" />
+                    <div className="absolute bottom-4 left-4 flex flex-row items-end gap-2.5">
+                        <QuinieleroLogo className="w-20 h-20" />
+                        <span className="text-(--surface-c)">By Alejandro Garcia</span>
+                    </div>
                 </nav>
             } />
     )
