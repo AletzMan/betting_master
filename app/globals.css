@@ -633,7 +633,7 @@ body {
 	}
 
 	.p-tabview-panels {
-		background-color: var(--surface-b);
+		background-color: var(--surface-a);
 		padding: 0.5em;
 		border: 1px solid var(--surface-d);
 

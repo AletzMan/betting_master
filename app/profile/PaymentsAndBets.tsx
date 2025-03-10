@@ -105,7 +105,7 @@ export function PaymentsAndBets() {
     }
 
     return (
-        <div className="flex flex-col gap-2 relative h-[calc(100svh-9rem)]">
+        <div className="flex flex-col gap-2 relative h-[calc(100svh-7rem)]">
 
             <header className="flex flex-col gap-2">
                 <div className="flex justify-between">
@@ -135,34 +135,35 @@ export function PaymentsAndBets() {
                 }
             </header>
 
-            {betsByID && betsByID?.length > 0 && <ScrollPanel style={{ width: '100%', height: '400px' }} >
-                <Accordion className="flex flex-col "  /*className={`${styles.bets_bet} ${betsByID[index].bets.find(betdata => !betdata.data.paid)?.data ? styles.bets_betNoPaid : styles.bets_betPaid}`}*/>
-                    {betsByID?.map((bet, index) => (
-                        <AccordionTab key={bet.uid}
-                            header={
-                                <div className="flex items-center justify-between ">
-                                    <div className="flex gap-3 items-center">
-                                        <Image className="rounded-full border-2 border-(--primary-color) max-h-10" src={bet.bets[0].userInfo?.image || "/user_icon.png"} width={40} height={40} alt={`Imagen de perfil de ${bet.bets[0].userInfo?.name}`} />
-                                        <span className="text-xs">{bet.bets[0].userInfo?.name}</span>
-                                    </div>
-                                    <Badge className="mr-3" value={bet.bets.length} severity={betsByID[index].bets.find(betdata => !betdata.paid) ? "danger" : "success"}></Badge>
-                                </div>
-                            }>
-                            <div className="flex flex-col gap-2">
-                                {bet.bets.map((bet, index) => (
-                                    <div key={bet.id} className=" flex items-center justify-between bg-(--surface-c) px-2 py-1 rounded-sm border-1 border-(--surface-c)">
-                                        <p className="text-sm">{bet.name}</p>
-                                        <div className="flex items-center justify-center gap-1.5">
-                                            <Checkbox type="checkbox" checked={bet.paid} onChange={(e) => handleChangeStatusPaid(e, bet.id)} />
-                                            <Button className="" onClick={() => handleDeleteMatchDay(bet.id, bet.name)} icon="pi pi-trash" size="small" text raised severity="danger" />
+            {betsByID && betsByID?.length > 0 &&
+                <ScrollPanel style={{ width: '100%', height: "100%" }} >
+                    <Accordion className="flex flex-col "  /*className={`${styles.bets_bet} ${betsByID[index].bets.find(betdata => !betdata.data.paid)?.data ? styles.bets_betNoPaid : styles.bets_betPaid}`}*/>
+                        {betsByID?.map((bet, index) => (
+                            <AccordionTab key={bet.uid}
+                                header={
+                                    <div className="flex items-center justify-between ">
+                                        <div className="flex gap-3 items-center">
+                                            <Image className="rounded-full border-2 border-(--primary-color) max-h-10" src={bet.bets[0].userInfo?.image || "/user_icon.png"} width={40} height={40} alt={`Imagen de perfil de ${bet.bets[0].userInfo?.name}`} />
+                                            <span className="text-xs">{bet.bets[0].userInfo?.name}</span>
                                         </div>
+                                        <Badge className="mr-3" value={bet.bets.length} severity={betsByID[index].bets.find(betdata => !betdata.paid) ? "danger" : "success"}></Badge>
                                     </div>
-                                ))}
-                            </div>
-                        </AccordionTab>
-                    ))}
-                </Accordion>
-            </ScrollPanel>}
+                                }>
+                                <div className="flex flex-col gap-2">
+                                    {bet.bets.map((bet, index) => (
+                                        <div key={bet.id} className=" flex items-center justify-between bg-(--surface-c) px-2 py-1 rounded-sm border-1 border-(--surface-c)">
+                                            <p className="text-sm">{bet.name}</p>
+                                            <div className="flex items-center justify-center gap-1.5">
+                                                <Checkbox type="checkbox" checked={bet.paid} onChange={(e) => handleChangeStatusPaid(e, bet.id)} />
+                                                <Button className="" onClick={() => handleDeleteMatchDay(bet.id, bet.name)} icon="pi pi-trash" size="small" text raised severity="danger" />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </AccordionTab>
+                        ))}
+                    </Accordion>
+                </ScrollPanel>}
             {loading && <Loading height="14em" />}
             {!loading && <>
                 {betsByID?.length === 0 && matchDay === 0 && matchDay !== null &&
