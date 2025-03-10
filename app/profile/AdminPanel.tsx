@@ -143,11 +143,11 @@ export function AdminPanel() {
 				}
 				<Divider type="dashed" />
 				{<footer className="flex justify-around gap-6">
-					{<Button
+					{matchDayData === null && <Button
 						label="Crear quiniela"
 						icon="pi pi-plus"
 						size="small"
-						disabled={matchDayData !== null || loading}
+						disabled={loading}
 						severity="success"
 						onClick={handleCreateMatchDay}
 						outlined />
