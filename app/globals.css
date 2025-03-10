@@ -79,23 +79,28 @@
 	--surface-f: #1a1a1a !important; 
 	--primary-color: #607d8b !important;*/
 
-	--surface-a: #0e1410 !important;
-	/* Muy oscuro con un toque verde oliva oscuro */
-	--surface-b: #0b0e0d !important;
-	/* Base casi negra con saturación verde oliva */
-	--surface-c: #2f34347a !important;
-	/* Gris oscuro con un toque verde oliva */
-	--surface-d: #4b474860 !important;
-	/* Gris más oscuro con saturación verde oliva */
-	--surface-e: #0a0b09 !important;
-	/* Muy oscuro con leve saturación verde oliva */
-	--surface-f: #2c3532 !important;
-	/* Gris oscuro con saturación verde oliva */
-	--primary-color: #619e35 !important;
-	/* Verde oliva oscuro brillante */
+	/*--surface-a: #15181a !important;
+	--surface-b: #0a0d0f !important;
+	--surface-c: #2a303280 !important;
+	--surface-d: #454a4c4d !important;
+	--surface-e: #0f1213 !important;
+	--surface-f: #1d2021 !important;
+	--primary-color: #b3e5fc !important;*/
 
+	--surface-a: #101313 !important;
+	--surface-b: #080d0d !important;
+	--surface-c: #adeaea0c !important;
+	--surface-d: #454c4c4d !important;
+	--surface-e: #151616 !important;
+	--surface-f: #202121 !important;
+	--surface-f: #202121 !important;
+	--surface-g: #1b2222 !important;
+	--surface-h: #1c1c1c !important;
+	--primary-color: #81d4fa !important;
+	/* Azul celeste muy claro */
 
 	--accent-color: #365b1b;
+
 	/* Azul claro */
 	--background-primary-color: #38a2ff15;
 	--background-secondary-color: #d1d1d115;
@@ -118,7 +123,7 @@ body {
 }
 
 body {
-	background: linear-gradient(-40deg, var(--surface-b), var(--surface-e));
+	background: linear-gradient(-40deg, var(--surface-e), var(--surface-a));
 	/*font-family: "Montserrat", "Roboto Mono", sans-serif;*/
 }
 
@@ -172,7 +177,7 @@ body {
 	justify-content: flex-start;
 	flex-direction: column;
 	margin: 0 auto;
-	padding: 2.75em 0 0 0;
+	padding: 2.75em 0.25em 0 0.25em;
 	width: 100%;
 	height: 100svh;
 	overflow-y: auto;
@@ -233,6 +238,34 @@ body {
 
 	.p-button-label {
 		font-weight: 500;
+	}
+}
+
+
+
+
+.p-togglebutton {
+	.p-button {
+		background: var(--surface-b);
+		border: 1px solid var(--surface-d);
+		color: rgba(255, 255, 255, 0.87);
+		transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+		outline-color: transparent;
+
+
+	}
+
+	&.p-highlight {
+		.p-button {
+			background: var(--primary-color);
+		}
+	}
+
+	&:not(.p-disabled):has(.p-togglebutton-input:hover):not(.p-highlight) {
+
+		.p-button {
+			background: var(--surface-c);
+		}
 	}
 }
 
@@ -487,17 +520,17 @@ body {
 
 
 .p-fieldset {
-	border: 1px solid var(--surface-c);
-	background: linear-gradient(120deg, var(--surface-b), var(--surface-a));
+	border: 1px solid var(--surface-d);
+	background: var(--surface-a);
 	color: rgba(255, 255, 255, 0.87);
 	border-radius: var(--border-radius-sm);
 
 	.p-fieldset-legend {
 		padding: 0.5em 1em;
 		margin-left: 1em;
-		border: 1px solid var(--surface-c);
+		border: 1px solid var(--surface-d);
 		color: rgba(255, 255, 255, 0.87);
-		background: linear-gradient(10deg, var(--surface-b), var(--surface-a));
+		background: var(--surface-a);
 		font-weight: 600;
 		border-radius: 6px;
 	}
@@ -521,6 +554,46 @@ body {
 	}
 
 }
+
+.p-accordion {
+
+
+	.p-accordion-header {
+
+		.p-accordion-header-link {
+			background: var(--surface-a);
+			border: 1px solid var(--surface-d);
+
+			&:hover {
+				background: var(--surface-h);
+			}
+
+		}
+
+		&:not(.p-disabled).p-highlight:hover .p-accordion-header-link {
+			background: var(--surface-h);
+			color: rgba(255, 255, 255, 0.87);
+			border-color: var(--surface-d);
+		}
+	}
+
+	.p-accordion-tab:not(:first-child) .p-accordion-header .p-accordion-header-link {
+		border-top: 0 none;
+	}
+
+	.p-accordion-content {
+		padding: 1rem;
+		border: 1px solid var(--surface-d);
+		background: var(--surface-e);
+		color: rgba(255, 255, 255, 0.87);
+		border-top: 0;
+		border-top-right-radius: 0;
+		border-top-left-radius: 0;
+		/*border-bottom-right-radius: 6px;
+		border-bottom-left-radius: 6px;*/
+	}
+}
+
 
 .p-tabview {
 
@@ -555,14 +628,14 @@ body {
 		.p-highlight .p-tabview-nav-link {
 			background-color: var(--surface-b);
 			color: var(--primary-color);
-			border-color: var(--surface-c) var(--surface-c) var(--primary-color) var(--surface-c);
+			border-color: var(--surface-d) var(--surface-d) var(--primary-color) var(--surface-d);
 		}
 	}
 
 	.p-tabview-panels {
-		background-color: var(--surface-e);
+		background-color: var(--surface-b);
 		padding: 0.5em;
-		border: 1px solid var(--surface-c);
+		border: 1px solid var(--surface-d);
 
 	}
 

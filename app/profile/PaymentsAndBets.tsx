@@ -115,19 +115,19 @@ export function PaymentsAndBets() {
                 </div>
                 <Divider type="dashed" />
                 {betsByID && betsByID?.length > 0 && <div className="grid grid-cols-4 gap-1 w-full">
-                    <div className="bg-(--surface-c) border-1 border-(--surface-d)"  >
+                    <div className="bg-(--surface-c) border-1 border-(--surface-d) rounded-md"  >
                         <h3 className="text-center text-sky-500 font-semibold">Total</h3>
                         <p className="text-center">{bets.length}</p>
                     </div>
-                    <div className="bg-(--surface-c) border-1 border-(--surface-d)" >
+                    <div className="bg-(--surface-c) border-1 border-(--surface-d) rounded-md" >
                         <h3 className="text-center text-sky-500 font-semibold">Pagadas</h3>
                         <p className="text-center">{bets.filter((bet) => bet.paid).length}</p>
                     </div>
-                    <div className="bg-(--surface-c) border-1 border-(--surface-d)" >
+                    <div className="bg-(--surface-c) border-1 border-(--surface-d) rounded-md" >
                         <h3 className="text-center text-sky-500 font-semibold">Monto</h3>
                         <p className="text-center">$ {bets.filter((bet) => bet.paid).length * 13.5}</p>
                     </div>
-                    <div className="bg-(--surface-c) border-1 border-(--surface-d)" >
+                    <div className="bg-(--surface-c) border-1 border-(--surface-d) rounded-md" >
                         <h3 className="text-center text-sky-500 font-semibold">Ganancia</h3>
                         <p className="text-center">$ {bets.filter((bet) => bet.paid).length * 1.5}</p>
                     </div>
@@ -150,11 +150,11 @@ export function PaymentsAndBets() {
                             }>
                             <div className="flex flex-col gap-2">
                                 {bet.bets.map((bet, index) => (
-                                    <div key={bet.id} className=" flex items-center justify-between bg-(--surface-c) px-2 py-1">
+                                    <div key={bet.id} className=" flex items-center justify-between bg-(--surface-c) px-2 py-1 rounded-sm border-1 border-(--surface-c)">
                                         <p className="text-sm">{bet.name}</p>
                                         <div className="flex items-center justify-center gap-1.5">
                                             <Checkbox type="checkbox" checked={bet.paid} onChange={(e) => handleChangeStatusPaid(e, bet.id)} />
-                                            <Button className="" onClick={() => handleDeleteMatchDay(bet.id, bet.name)} icon="pi pi-trash" size="small" text raised />
+                                            <Button className="" onClick={() => handleDeleteMatchDay(bet.id, bet.name)} icon="pi pi-trash" size="small" text raised severity="danger" />
                                         </div>
                                     </div>
                                 ))}

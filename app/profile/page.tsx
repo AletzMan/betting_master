@@ -15,15 +15,7 @@ export default function ProfilePage() {
 	const session = useSession()
 
 	return (
-		<main className={`sectionContainer scrollbar`}>
-			{/*<section className="flex flex-col gap-2 w-full max-w-125 p-2 border-1 border-(--surface-d) rounded-b-md bg-(--surface-e)">
-				{<SettingsProfile />}
-				{user.uid === ADMIN_UID && <AppConfig />}
-				{user.uid === ADMIN_UID && <AdminPanel />}
-				{user.uid === ADMIN_UID && <AdminNotifications />}
-				{user.uid === ADMIN_UID && <BetsByUser />}
-				{user.uid === ADMIN_UID && <AdminFinals />}
-	</section>*/}
+		<main className={`sectionContainer scrollbar `}>
 			<TabView className="w-full h-full" scrollable>
 				<TabPanel header="Perfil" leftIcon="pi pi-user mr-2">
 					<SettingsProfile />

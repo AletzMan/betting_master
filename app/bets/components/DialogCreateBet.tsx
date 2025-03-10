@@ -129,10 +129,10 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 
 	return (
 		<Dialog className="w-[calc(100svw-1em)] max-w-150" onHide={() => setOpen(false)} visible={open} style={{ minHeight: "90svh" }}>
-			<div className="grid grid-cols-3 w-full py-1.5 z-10">
+			<div className="grid grid-cols-[1fr_2em_0.5fr] w-full py-1.5 z-10">
 				{myBets.hasBets &&
 					<>
-						<Button className="col-start-1" label="Ver mis quinielas" icon="pi pi-eye" size="small" outlined raised severity="secondary" onClick={(e) => myBetsRef.current?.toggle(e)} />
+						<Button className="col-start-1 max-w-38" label="Ver mis quinielas" icon="pi pi-eye" size="small" outlined raised severity="secondary" onClick={(e) => myBetsRef.current?.toggle(e)} />
 						<OverlayPanel ref={myBetsRef} >
 							<div>
 								<header className="flex flex-row gap-1.5">
