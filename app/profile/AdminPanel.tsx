@@ -118,7 +118,7 @@ export function AdminPanel() {
 								<Divider type="dashed" />
 							</header>
 						}
-						<article className="grid grid-cols-9 gap-1">
+						<article className="grid grid-cols-9 gap-1 bg-(--surface-c)  px-2 py-2 rounded-xs">
 							{matchDayData?.matchesRel.map((match, index) => (
 								<div key={match.awayTeam} className="flex flex-col max-w-12">
 									<div className="flex flex-col justify-center">

@@ -29,12 +29,11 @@ export function ButtonBet({ actualPrediction, onChange }: Props) {
 
 	return (
 		<button className={`flex items-center text-white text-shad justify-center w-full aspect-square h-full text-xl border-1 border-(--surface-100)  rounded-sm transition-all duration-200 
-		${prediction === 0 && "bg-(--yellow-700)"}
-		${prediction > 1 && "bg-(--green-700)"} 
-		${prediction === 1 && "bg-(--pink-700)"}`
+		${prediction === 0 && "bg-gray-700"}
+		${prediction > 1 && "bg-green-600"} 
+		${prediction === 1 && "bg-red-700"}`
 		}
 			onClick={HandleSetPrediction}>
-			{PREDICTIONS[prediction]}
-		</button>
+			{PREDICTIONS[prediction]}		</button>
 	)
 }
