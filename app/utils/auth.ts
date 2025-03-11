@@ -47,7 +47,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
             return true; // Permitir el inicio de sesión
         },
-        async jwt({ token, account, user, profile }) {
+        async jwt({ token, account, user, profile, trigger, session }) {
             // 3. Agregar datos del usuario al token JWT
             if (account) {
                 const dbUser = await prisma.user.findUnique({
