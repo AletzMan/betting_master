@@ -1,5 +1,5 @@
 "use client"
-import { Teams, TeamsLogos, TeamsLogosNews } from "@/constants/constants";
+import { Teams, TeamsLogosNews } from "@/constants/constants";
 import { INews } from "@/types/types";
 import { findFirstMatch } from "@/utils/helpers";
 import Image from "next/image";
@@ -37,6 +37,8 @@ const responsiveOptions = [
 
 
 export default function CarouselNews({ news }: PropsNews) {
+
+
 
     return (
         <section className="w-svw  sm:w-[calc(100svw-1em)]] max-w-7xl">

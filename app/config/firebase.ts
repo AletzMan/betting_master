@@ -1,36 +1,15 @@
 // Import the functions you need from the SDKs you need
 import { DocumentData } from "firebase-admin/firestore"
 import { getApp, getApps, initializeApp } from "firebase/app"
-import { child, get, getDatabase, onChildAdded, push, ref, set, update } from "firebase/database"
-import {
-	FacebookAuthProvider,
-	GoogleAuthProvider,
-	TwitterAuthProvider,
-	getAuth,
-	updateProfile,
-} from "firebase/auth"
-import {
-	addDoc,
-	collection,
-	deleteDoc,
-	doc,
-	getDoc,
-	getDocs,
-	getFirestore,
-	setDoc,
-	updateDoc,
-} from "firebase/firestore"
-import {
-	IBetData,
-	IBetDataDocument,
-	IBetDocument,
-	ICurrentMatch,
-	IMatchDay,
-	IFinalsTeams,
-	IFinalsParticipants,
-	IResultsMatches,
-	UserSession,
-} from "../types/types"
+import { child, get, getDatabase, onChildAdded, push, ref, set, update, } from "firebase/database"
+import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, updateProfile, } from "firebase/auth"
+import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc, } from "firebase/firestore"
+import { IFinalsTeams, IFinalsParticipants, UserSession, } from "../types/types"
+import { getMessaging } from "firebase/messaging"
+import { getAnalytics } from "firebase/analytics"
+
+
+
 
 
 // Your web app's Firebase configuration
@@ -42,13 +21,15 @@ const firebaseConfig = {
 	messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID_FIREBASE,
 	appId: process.env.NEXT_PUBLIC_APP_ID_FIREBASE,
 	databaseURL: process.env.NEXT_PUBLIC_DATABASE_URL_FIREBASE,
+	measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 }
 
 // Initialize Firebase
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)
-export const db = getFirestore(app)
-
+export const messaging = getMessaging(app)
+export const analytics = getAnalytics(app)
 export const auth = getAuth(app)
+export const db = getFirestore(app)
 export const GoogleProvider = new GoogleAuthProvider()
 export const TwitterProvider = new TwitterAuthProvider()
 export const FacebookProvider = new FacebookAuthProvider()
@@ -215,3 +196,4 @@ export const GetDataRealDataTime = async (path: string): Promise<any | undefined
 		return undefined
 	}
 }
+

@@ -82,14 +82,12 @@
         justify-content: space-between;
         gap: 0.5em;
         padding: 0.5em;
-        border: none;
         height: max-content;
         font-size: 1em;
         font-family: var(--font-family);
         border-radius: var(--border-radius-md);
-        background: linear-gradient(-40deg, var(--surface-e), var(--surface-b));
-        border: 1px solid var(--surface-100);
-        box-shadow: 0 0 3px 1px #FFFFFF20;
+        background: var(--surface-f);
+        border: 1px solid var(--surface-d);
         transition: all 0.3s ease-in-out;
 
 
@@ -213,7 +211,7 @@
         align-self: center;
         transition: all 0.3s ease;
         border: 1px solid var(--surface-d);
-        background-color: var(--surface-e);
+        background-color: var(--surface-a);
         transition: all 0.3s ease-in-out;
     }
 
@@ -229,6 +227,7 @@
         cursor: pointer;
         background-color: transparent;
         border: none;
+        color: var(--surface-500);
 
         @media (hover: hover) {
             &:hover {
@@ -241,19 +240,16 @@
     &_iconDelete {
         width: 1.3em;
         height: 1.3em;
-        color: var(--surface-700);
     }
 
     &_iconEmail {
         width: 1.85em;
         height: 1.85em;
-        color: var(--surface-700);
     }
 
     &_iconNoti {
         width: 1.85em;
         height: 1.85em;
-        color: var(--surface-700);
 
         &Active {
             color: var(--primary-color);

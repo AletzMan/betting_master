@@ -4,7 +4,7 @@ import { NotificationIcon } from "@/svg"
 import styles from "@/components/styles.module.scss"
 import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
-import { SnackbarProvider } from "notistack"
+import { SnackbarProvider, enqueueSnackbar } from "notistack"
 import { MenuPages } from "./MenuPages"
 import { useMenu } from "@/config/zustand-store"
 import { useSession } from "next-auth/react"
@@ -13,6 +13,8 @@ import { Button } from "primereact/button"
 import { Skeleton } from "primereact/skeleton"
 import { UserSession } from "@/types/types"
 import Image from "next/image"
+import { getToken, onMessage } from "firebase/messaging"
+import { messaging } from "@/config/firebase"
 
 export default function Header() {
 
@@ -22,18 +24,24 @@ export default function Header() {
 	const [notifications, setNotifications] = useState(false)
 
 	useEffect(() => {
-		const color = localStorage.getItem("colorBettingGame")
-		if (color) {
-			document.documentElement.style.setProperty("--primary-color", color)
-			document.documentElement.style.setProperty("--primaryOpacityColor", `${color}55`)
-		}
-		const notifi = localStorage.getItem("bettingNotifications")
-		if (notifi) {
-			setNotifications(notifi === "true")
-		}
-		setOpenMenu(false)
-	}, [pathname])
+		onMessage(messaging, message => {
+			console.log("Tu mensaje", message)
+			enqueueSnackbar(message.notification?.title, { variant: "info" })
+		})
+	}, [])
 
+	const activeMessage = async () => {
+		try {
+			const token = await getToken(messaging, { vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY })
+			if (token) {
+				console.log("Tu token:", token)
+			} else {
+				console.log("No tienes token")
+			}
+		} catch (error) {
+			console.log("Error al generar mensaje")
+		}
+	}
 
 	const HandleViewMenu = () => {
 		const prev = !openMenu

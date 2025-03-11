@@ -1,22 +1,21 @@
-import { cert, getApps, initializeApp, } from "firebase-admin/app"
-import { } from "firebase-admin/firestore"
+// firebaseAdmin.ts
+import admin from 'firebase-admin';
+import { cert } from 'firebase-admin/app';
 
-
-
-const FirebaseAdminConfig = {
-    credential: cert({
-        projectId: process.env.NEXT_PUBLIC_PROJECT_ID_FIREBASE,
-        clientEmail: process.env.NEXT_PUBLIC_CLIENT_MAIL_FIREBASE,
-        privateKey: process.env.NEXT_PUBLIC_PRIVATE_KEY_FIREBASE
-            ? process.env.NEXT_PUBLIC_PRIVATE_KEY_FIREBASE?.replace(/\\n/gm, "\n")
-            : undefined
-
-    })
-}
-
-export function InitApp() {
-    if (getApps().length <= 0) {
-        initializeApp(FirebaseAdminConfig)
+if (!admin.apps.length) {
+    try {
+        const serviceAccount = {
+            projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
+            clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
+            privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(/\\n/gm, '\n'),
+        };
+        admin.initializeApp({
+            credential: cert(serviceAccount),
+        });
+    } catch (error) {
+        console.error('Firebase Admin initialization error', error);
     }
 }
+
+export const firebaseAdmin = admin;
 
