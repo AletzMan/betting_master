@@ -8,10 +8,10 @@ import { getAccessToken } from "@/config/firebaseAdmin";
 const projectId = process.env.FIREBASE_ADMIN_PROJECT_ID
 
 export async function POST(request: NextRequest) {
-    const { link, token, title, message } = await request.json()
+    const { link, topic, title, message } = await request.json()
 
     const payload: Message = {
-        token,
+        topic,
         notification: {
             title: title,
             body: message

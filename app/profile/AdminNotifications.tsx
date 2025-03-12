@@ -107,7 +107,7 @@ export function AdminNotifications() {
                 {usersData && <Button label={!sending ? "Enviar notificación" : "Sending..."} size="small" severity="info" icon={sending ? "pi pi-spin pi-spinner-dotted" : "pi pi-send"} disabled={sending} onClick={HandleSendNotifications} />}
             </header>
             {!loading &&
-                <div className="flex flex-col gap-5 scrollbar pt-5 px-2">
+                <div className="flex flex-col gap-3 scrollbar pt-5 px-2">
                     {usersData && usersData.map((user, index) => (
                         <article className={`${styles.users_user} ${viewDetails === index && styles.users_userActive}`} key={user.id} onClick={(e) => HandleViewDetails(e, index)}>
                             <div className={styles.users_data} >

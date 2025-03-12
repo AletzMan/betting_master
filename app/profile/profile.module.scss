@@ -82,7 +82,7 @@
         justify-content: space-between;
         gap: 0.5em;
         padding: 0.5em;
-        height: max-content;
+        height: 3.35em;
         font-size: 1em;
         font-family: var(--font-family);
         border-radius: var(--border-radius-md);
@@ -94,7 +94,8 @@
         &Active {
             margin: 0 0 1.5em 0;
             padding: 1.25em 0.5em 0em 0.5em;
-            transition: all 0.3s ease-in-out;
+            height: 12em;
+            //transition: all 0.3s ease-in-out;
 
             .users_data {
 
@@ -145,12 +146,12 @@
 
     &_name {
         font-size: 0.8em;
-        transition: all 0.3s ease-in-out;
+        transition: all 0.2s ease-in-out;
     }
 
     &_email {
         font-size: 0.7em;
-        transition: all 0.3s ease-in-out;
+        transition: all 0.2s ease-in-out;
     }
 
     &_account {
@@ -161,8 +162,8 @@
         width: 2em;
         height: 2em;
         border-radius: var(--border-radius-md);
-        transition: all 0.4s ease;
-        box-shadow: 0 0 6px 1px #FFFFFF25;
+        border: 2px solid var(--primary-color);
+        transition: all 0.2s ease-in-out;
     }
 
     &_date {
@@ -212,7 +213,7 @@
         transition: all 0.3s ease;
         border: 1px solid var(--surface-d);
         background-color: var(--surface-a);
-        transition: all 0.3s ease-in-out;
+        //transition: all 0.3s ease-in-out;
     }
 
     &_delete,

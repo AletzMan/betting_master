@@ -1,15 +1,16 @@
 model User {
-    id            String   @id @default(uuid())
-    name          String
-    email         String   @unique
-    image         String?
-    color         String?
-    account       String?
-    total_bets    Int      @default(0)
-    bets_won      Int      @default(0)
-    finals_won    Int      @default(0)
-    last_login    DateTime @default(now())
-    notifications Boolean  @default(false)
+    id                 String   @id @default(uuid())
+    name               String
+    email              String   @unique
+    image              String?
+    color              String?
+    account            String?
+    total_bets         Int      @default(0)
+    bets_won           Int      @default(0)
+    finals_won         Int      @default(0)
+    last_login         DateTime @default(now())
+    notifications      Boolean  @default(false)
+    tokenNotifications String?
 
     Bet Bet[]
 

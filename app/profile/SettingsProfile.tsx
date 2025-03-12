@@ -91,7 +91,6 @@ export const SettingsProfile = () => {
         } finally {
             setLoading(false)
         }
-        //localStorage.setItem("bettingNotifications", `${statusNotifications}`)
     }
 
     const HandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

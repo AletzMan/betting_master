@@ -12,6 +12,7 @@ export const UserUpdateSchema = z.object({
     finals_won: z.number().int().min(0, "El número de finales ganadas debe ser mayor o igual a 0").optional(),
     last_login: z.coerce.date().optional(), // Convierte la entrada a un objeto Date
     notifications: z.boolean().optional(),
+    tokenNotifications: z.string().optional(),
 });
 
 export type UserType = z.infer<typeof UserUpdateSchema>; 

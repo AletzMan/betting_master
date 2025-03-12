@@ -9,10 +9,6 @@ import { getMessaging, getToken, isSupported } from "firebase/messaging"
 import { getAnalytics } from "firebase/analytics"
 
 
-
-
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
 	apiKey: process.env.NEXT_PUBLIC_API_KEY_FIREBASE,
 	authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN_FIREBASE,
@@ -24,9 +20,7 @@ const firebaseConfig = {
 	measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 }
 
-// Initialize Firebase
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-//export const messaging = getMessaging(app)
 let analytics;
 
 async function initializeAnalytics() {
