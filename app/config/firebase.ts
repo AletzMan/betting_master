@@ -5,7 +5,7 @@ import { child, get, getDatabase, onChildAdded, push, ref, set, update, } from "
 import { FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, updateProfile, } from "firebase/auth"
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc, } from "firebase/firestore"
 import { IFinalsTeams, IFinalsParticipants, UserSession, } from "../types/types"
-import { getMessaging } from "firebase/messaging"
+import { getMessaging, getToken, isSupported } from "firebase/messaging"
 import { getAnalytics } from "firebase/analytics"
 
 
@@ -25,9 +25,21 @@ const firebaseConfig = {
 }
 
 // Initialize Firebase
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)
-export const messaging = getMessaging(app)
-export const analytics = getAnalytics(app)
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+//export const messaging = getMessaging(app)
+let analytics;
+
+async function initializeAnalytics() {
+	if (typeof window !== "undefined" && (await isSupported())) {
+		analytics = getAnalytics(app);
+	} else {
+		console.log("Analytics is not supported in this environment");
+	}
+}
+
+initializeAnalytics();
+
+export { analytics };
 export const auth = getAuth(app)
 export const db = getFirestore(app)
 export const GoogleProvider = new GoogleAuthProvider()
@@ -197,3 +209,25 @@ export const GetDataRealDataTime = async (path: string): Promise<any | undefined
 	}
 }
 
+const messaging = async () => {
+	const supported = await isSupported();
+	return supported ? getMessaging(app) : null;
+};
+
+export const fetchToken = async () => {
+	try {
+		const fcmMessaging = await messaging();
+		if (fcmMessaging) {
+			const token = await getToken(fcmMessaging, {
+				vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
+			});
+			return token;
+		}
+		return null;
+	} catch (err) {
+		console.error("An error occurred while fetching the token:", err);
+		return null;
+	}
+};
+
+export { app, messaging };

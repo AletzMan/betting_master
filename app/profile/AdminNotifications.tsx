@@ -11,6 +11,7 @@ import { Button } from "primereact/button"
 import Image from "next/image"
 import { RevalidatePath, deleteUserByID, getAllUsers, getMatchDayInfo, updateUserByID } from "@/utils/fetchData"
 import { Loading } from "@/components/Loading/Loading"
+import axios from "axios"
 
 
 export function AdminNotifications() {
@@ -21,18 +22,25 @@ export function AdminNotifications() {
     const [day, setDay] = useState(0)
 
     const HandleSendNotifications = async () => {
-        if (usersData) {
-            const usersWithNotification = usersData.filter(users => users.notifications)
-            if (usersWithNotification.length > 0) {
-                const response = await SendNotifications(usersWithNotification, day.toString())
-                if (response) {
-                    enqueueSnackbar("Notificación enviada correctamente", { variant: "success" })
-                } else {
-                    enqueueSnackbar("Error al enviar la notificación, favor de intentarlo mas tarde", { variant: "error" })
+        setSending(true)
+        try {
+            const response = await axios.post("/api/notifications/push", {
+                token: "dklKeKyshXxAoVYfsJljFt:APA91bEeMYHNX1SpK4npwhT2FpN_4kNAN__C9svSvPw7J76DC7sxixuw0QoXbCh1d2iYbq9OD82h-a2TCNRhMKzp-EWYXJgBRya7m-a3gevtm5YH8lBkfH0",
+                title: "¡Nueva Quiniela Disponible!",
+                message: "La quiniela de esta semana ya está disponible. ¡Entra y haz tus predicciones!",
+                link: "/logo.png",
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
                 }
-            } else {
-                enqueueSnackbar("No hay usuario con notificaciones activas", { variant: "error" })
+            });
+            if (response.status === 201) {
+                enqueueSnackbar("Notificación enviada correctamente", { variant: "success" })
             }
+        } catch (error) {
+            enqueueSnackbar("Error al enviar la notificación, favor de intentarlo mas tarde", { variant: "error" })
+        } finally {
+            setSending(false)
         }
     }
 
