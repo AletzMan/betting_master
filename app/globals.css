@@ -184,6 +184,10 @@ body {
 	max-width: var(--max-width);
 }
 
+.pi {
+	pointer-events: none;
+}
+
 .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
 	background-color: var(--primary-color);
 }
@@ -341,7 +345,32 @@ body {
 		padding: 0.3rem 0.8rem;
 	}
 
+	&.p-button-info,
+	.p-button-group.p-button-info>.p-button,
+	.p-splitbutton.p-button-info>.p-button,
+	.p-fileupload-choose.p-button-info {
+		color: var(--text-color);
+		background: var(--info-color);
+		border: 1px solid var(--info-color);
+	}
+
 }
+
+.p-speeddial-button.p-button.p-button-icon-only {
+	width: 2.5rem;
+	height: 2.5rem;
+}
+
+.p-speeddial-action {
+	width: 3rem;
+	height: 3rem;
+	border: 1px solid var(--surface-f);
+	background: var(--surface-e);
+	color: var(--primary-color);
+	box-shadow: 0 0 5px 2px #00000080;
+}
+
+
 
 .p-inputswitch {
 	border-radius: 2em;
@@ -510,6 +539,19 @@ body {
 
 .p-card-content {
 	padding: 0.25em 0;
+}
+
+.p-float-label:has(input:focus) label,
+.p-float-label:has(input.p-filled) label,
+.p-float-label:has(input:-webkit-autofill) label,
+.p-float-label:has(textarea:focus) label,
+.p-float-label:has(textarea.p-filled) label,
+.p-float-label:has(.p-inputwrapper-focus) label,
+.p-float-label:has(.p-inputwrapper-filled) label {
+	top: -.5rem;
+	left: 0.25em;
+	font-size: 12px;
+	color: var(--primary-color);
 }
 
 .p-inputtext:enabled:focus {

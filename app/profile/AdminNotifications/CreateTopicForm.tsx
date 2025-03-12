@@ -7,6 +7,7 @@ import { MultiSelect } from "primereact/multiselect";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ZodIssue } from "zod";
 import { IOpenDialog } from "./AdminNotifications";
+import { FloatLabel } from "primereact/floatlabel";
 
 interface ITopicError {
     tokens: { isError: boolean, error: string }
@@ -69,23 +70,30 @@ export function CreateTopicForm({ setOpenDialog, userTokens }: Props) {
     }
 
     return (
-        <div className="flex flex-col w-full gap-2.5 p-2.5 min-w-78">
-            <h1 className="px-3 mb-5">Crear nuevo tema</h1>
-            <div className="relative flex flex-col gap-0 mb-7">
-                <InputText placeholder="Nombre del tema" invalid={errorsTopic?.topic.isError} value={topicName} onChange={(e) => setTopicName(e.currentTarget.value)} />
-                <label className="absolute -bottom-4 pl-1 text-(--danger-color) text-xs">{errorsTopic?.topic.error}</label>
-            </div>
-            {userTokens &&
-                <div className="relative flex flex-col gap-0 mb-3">
-                    <MultiSelect invalid={errorsTopic?.tokens.isError} options={userTokens} placeholder="Seleccione usuarios" optionLabel="name" value={selectedUsers} maxSelectedLabels={1} onChange={(e) => setSelectedUsers(e.value)} />
-                    <label className="absolute -bottom-4 pl-1 text-(--danger-color) text-xs">{errorsTopic?.tokens.error}</label>
+        <div className="flex flex-col w-full gap-2.5 min-w-78">
+            <h1 className="flex flex-row gap-2.5 items-center px-3 mb-5 w-full bg-(--surface-c) py-2"><i className="pi pi-pen-to-square" />Crear nuevo tema</h1>
+            <div className="flex flex-col w-full gap-2.5  p-2.5 ">
+                <div className="relative flex flex-col gap-0 mb-7">
+                    <FloatLabel className="text-sm">
+                        <label htmlFor="topic">Nombre del tema</label>
+                        <InputText className="w-full" id="topic" disabled={create} invalid={errorsTopic?.topic.isError} value={topicName} onChange={(e) => setTopicName(e.currentTarget.value)} />
+                    </FloatLabel>
+                    <label className="absolute -bottom-4 pl-1 text-(--danger-color) text-xs">{errorsTopic?.topic.error}</label>
                 </div>
-            }
-            <div className="flex flex-row justify-around gap-3 mt-8">
-                <Button className="self-end" icon="pi pi-times" severity="danger" label="Cancelar" size="small" disabled={create} loadingIcon="pi pi-spin pi-spinner-dotted" onClick={handleResetAndClose} />
-                <Button className="self-end" icon="pi pi-save" severity="success" label="Guardar" size="small" loading={create} loadingIcon="pi pi-spin pi-spinner-dotted" onClick={handleCreateTopic} />
+                {userTokens &&
+                    <div className="relative flex flex-col gap-0 mb-3">
+                        <FloatLabel className="text-sm">
+                            <label htmlFor="users">Usuarios</label>
+                            <MultiSelect className="w-full" disabled={create} invalid={errorsTopic?.tokens.isError} options={userTokens} id="users" optionLabel="name" value={selectedUsers} maxSelectedLabels={1} onChange={(e) => setSelectedUsers(e.value)} />
+                        </FloatLabel>
+                        <label className="absolute -bottom-4 pl-1 text-(--danger-color) text-xs">{errorsTopic?.tokens.error}</label>
+                    </div>
+                }
+                <div className="flex flex-row justify-around gap-3 mt-3">
+                    <Button className="self-end min-w-28" icon="pi pi-save" severity="success" label="Guardar" size="small" loading={create} loadingIcon="pi pi-spin pi-spinner-dotted" onClick={handleCreateTopic} />
+                    <Button className="self-end min-w-28" icon="pi pi-times" severity="danger" label="Cancelar" size="small" disabled={create} loadingIcon="pi pi-spin pi-spinner-dotted" onClick={handleResetAndClose} />
+                </div>
             </div>
-
         </div>
     )
 }
