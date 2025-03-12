@@ -1,49 +1,49 @@
-import { NotFoundError, ServerError } from "@/api/_services/errors";
-import { SuccessCreate } from "@/api/_services/successfulResponses";
-import { Message } from "firebase-admin/messaging";
+import { BadRequestError, ServerError, UnprocessableEntityError } from "@/api/_services/errors";
+import { SuccessCreate, SuccessDelete } from "@/api/_services/successfulResponses";
 import { NextRequest } from "next/server";
-import axios, { AxiosError } from "axios";
-import { getAccessToken } from "@/config/firebaseAdmin";
+import { subscribeTopic, unsubscribeTopic } from "@/config/firebaseAdmin";
+import { ZodError } from 'zod';
+import { subscribeSchema } from "@/validations/subscribeSchema";
 
-const projectId = process.env.FIREBASE_ADMIN_PROJECT_ID
 
 export async function POST(request: NextRequest) {
-    const { link, topic, title, message } = await request.json()
-
-    const payload: Message = {
-        topic,
-        notification: {
-            title: title,
-            body: message
-        },
-        webpush: link && {
-            fcmOptions: {
-                link,
-            }
-        }
-    }
-    const accessToken = await getAccessToken()
     try {
-        const fcmResponse = await axios.post(
-            `https://fcm.googleapis.com/v1/projects/${projectId}/messages:send`,
-            {
-                message: payload
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            }
-        );
-        return SuccessCreate({ success: true, message: "Notification Sent" })
-    } catch (error) {
-        if (error instanceof AxiosError) {
-            if (error.response?.status === 404) {
-                return NotFoundError()
-            }
-        }
-        return ServerError()
-    }
+        const { topic, tokens } = await request.json();
+        const validation = subscribeSchema.parse({ topic, tokens });
 
+        const success = await subscribeTopic(validation.tokens, validation.topic);
+
+        if (success) {
+            return SuccessCreate({ success: true, message: "Suscripción al tema exitosa." });
+        } else {
+            return BadRequestError();
+        }
+    } catch (error: any) {
+        if (error instanceof ZodError) {
+            return UnprocessableEntityError(error.issues);
+        }
+        console.error("Error en POST /subscribe:", error);
+        return ServerError();
+    }
+}
+
+export async function DELETE(request: NextRequest) {
+    try {
+        const { topic, tokens } = await request.json();
+        subscribeSchema.parse({ topic, tokens });
+
+        const success = await unsubscribeTopic(tokens, topic);
+
+        if (success) {
+            return SuccessDelete({ success: true, message: "Desuscripción del tema exitosa." });
+        } else {
+            return BadRequestError();
+        }
+    } catch (error: any) {
+        if (error instanceof ZodError) {
+            return UnprocessableEntityError(error.issues);
+        }
+        console.error("Error en DELETE /unsubscribe:", error);
+        return ServerError();
+    }
 }

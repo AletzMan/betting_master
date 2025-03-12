@@ -1,0 +1,11 @@
+model Topic {
+    id         String  @id @default(uuid())
+    uid        String
+    day        Int
+    name       String
+    season     String
+    paid       Boolean
+    tournament String
+
+    @@map("topics")
+}

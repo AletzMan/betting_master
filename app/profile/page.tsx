@@ -1,11 +1,11 @@
 
 "use client"
-import { AdminPanel } from "./AdminPanel"
-import { SettingsProfile } from "./SettingsProfile"
-import { PaymentsAndBets } from "./PaymentsAndBets"
-import AdminFinals from "./AdminFinals"
-import { AppConfig } from "./AppConfig"
-import { AdminNotifications } from "./AdminNotifications"
+import { AdminPanel } from "@/profile/AdminPanel"
+import { SettingsProfile } from "@/profile/SettingsProfile"
+import { PaymentsAndBets } from "@/profile//PaymentsAndBets"
+import AdminFinals from "@/profile/AdminFinals"
+import { AppConfig } from "@/profile//AppConfig"
+import { AdminNotifications } from "@/profile//AdminNotifications/AdminNotifications"
 import { TabPanel, TabView } from "primereact/tabview"
 import { useSession } from "next-auth/react"
 

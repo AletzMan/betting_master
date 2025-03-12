@@ -4,7 +4,6 @@ import admin from 'firebase-admin';
 import { getMessaging } from 'firebase-admin/messaging';
 
 
-
 const projectId = process.env.FIREBASE_ADMIN_PROJECT_ID
 
 
@@ -51,27 +50,31 @@ export async function getAccessToken(): Promise<string | null> {
     }
 }
 
-export async function subscribeTopic(registrationTokens: string[], topic: string) {
+export async function subscribeTopic(tokens: string[], topic: string) {
     try {
-        const response = await getMessaging().subscribeToTopic(registrationTokens, topic);
+        const response = await getMessaging().subscribeToTopic(tokens, topic);
         if (response.errors.length === 0) {
-            console.log(response)
-            return response
+            console.error("Errores de suscripción:", response.errors);
+            return true
         }
-        return null
+        return false
     } catch (error) {
-        return null
+        console.error("Error al suscribirse al tema:", error);
+        return false
     }
 }
 
-export async function unsubscribeTopic(registrationTokens: string[], topic: string) {
+export async function unsubscribeTopic(tokens: string[], topic: string) {
     try {
-        const response = await getMessaging().unsubscribeFromTopic(registrationTokens, topic)
+        const response = await getMessaging().unsubscribeFromTopic(tokens, topic)
         if (response.errors.length === 0) {
-            return response
+            console.error("Errores de desuscribirse:", response.errors);
+            return true
         }
-        return null
+        return false
     } catch (error) {
-        return null
+        console.error("Error al desuscribirse del tema:", error);
+        return false
     }
 }
+

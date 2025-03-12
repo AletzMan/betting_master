@@ -199,8 +199,9 @@ body {
 	border: 1px solid var(--surface-d);
 
 	.p-dialog-content {
-		background: linear-gradient(40deg, var(--surface-b), var(--surface-a));
 		padding: 0.25em;
+		background: linear-gradient(40deg, var(--surface-a), var(--surface-a));
+		box-shadow: 0 0 2px 1px #00000070 inset;
 	}
 }
 
@@ -215,9 +216,6 @@ body {
 	transition: opacity 300ms, transform 300ms;
 }
 
-.p-button {
-	border-radius: var(--border-radius);
-}
 
 .p-inputnumber-button {
 	background: var(--primary-color);
@@ -321,6 +319,7 @@ body {
 	}
 
 	&.p-button-info {
+
 		&.p-button-text {
 			background: transparent;
 			color: var(--primary-color);
@@ -374,6 +373,55 @@ body {
 	background: var(--primary-color);
 	border-color: var(--primary-color);
 }
+
+.p-multiselect {
+	background: var(--surface-b);
+	border: 1px solid var(--surface-d);
+	transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+	border-radius: var(--border-radius-sm);
+	outline-color: transparent;
+
+	.p-multiselect-label {
+		padding: 0.3rem 0.75rem;
+		font-size: 0.9em;
+		transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+	}
+
+	&.p-invalid.p-component {
+		border-color: var(--danger-color);
+	}
+}
+
+.p-multiselect-panel {
+	background: var(--surface-a);
+	color: rgba(255, 255, 255, 0.87);
+	border: 1px solid var(--surface-d);
+	border-radius: 6px;
+	box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+
+	.p-multiselect-header {
+		padding: 0.35rem 1.5rem;
+		border-bottom: 0 none;
+		color: rgba(255, 255, 255, 0.87);
+		background: var(--surface-g);
+		margin: 0;
+		border-top-right-radius: 6px;
+		border-top-left-radius: 6px;
+	}
+
+	.p-multiselect-items .p-multiselect-item {
+
+		color: var(--secondary-color);
+		font-size: 0.9em;
+
+		&.p-highlight {
+			color: var(--text-color);
+			background: var(--surface-c);
+		}
+	}
+}
+
+
 
 .p-dropdown:not(.p-disabled).p-focus {
 	outline: 0;
@@ -513,7 +561,7 @@ body {
 
 .p-overlaypanel {
 	background: linear-gradient(120deg, var(--surface-b), var(--surface-a));
-	color: rgba(255, 255, 255, 0.87);
+	color: rgba(214, 24, 24, 0.87);
 	border: 1px solid var(--surface-d);
 
 }
@@ -617,6 +665,7 @@ body {
 			font-size: 0.9em;
 			color: var(--secondary-color);
 			border-color: var(--surface-d) var(--surface-d) var(--secondary-color) var(--surface-d);
+			box-shadow: 0 0 2px 1px #00000050 inset;
 
 			&:hover {
 				/*border-color: var(--primary-color);*/
@@ -629,14 +678,15 @@ body {
 			background-color: var(--surface-b);
 			color: var(--primary-color);
 			border-color: var(--surface-d) var(--surface-d) var(--primary-color) var(--surface-d);
+			box-shadow: 0 0 2px 1px #00000090 inset;
 		}
 	}
 
 	.p-tabview-panels {
-		background-color: var(--surface-a);
 		padding: 0.5em;
 		border: 1px solid var(--surface-d);
-
+		background-color: var(--surface-a);
+		box-shadow: 0 0 2px 1px #00000070 inset;
 	}
 
 }
