@@ -2,9 +2,8 @@
 "use client"
 import { NotificationIcon } from "@/svg"
 import styles from "@/components/styles.module.scss"
-import { useEffect, useState } from "react"
-import { usePathname } from "next/navigation"
-import { SnackbarProvider, enqueueSnackbar } from "notistack"
+import { useState } from "react"
+import { SnackbarProvider } from "notistack"
 import { MenuPages } from "./MenuPages"
 import { useMenu } from "@/config/zustand-store"
 import { useSession } from "next-auth/react"
@@ -13,55 +12,26 @@ import { Button } from "primereact/button"
 import { Skeleton } from "primereact/skeleton"
 import { UserSession } from "@/types/types"
 import Image from "next/image"
-import { getToken, onMessage } from "firebase/messaging"
-import { messaging } from "@/config/firebase"
+import useFcmToken from "@/hooks/useFcmToken"
+import { Toast } from "primereact/toast"
 
 export default function Header() {
-
-	const pathname = usePathname()
 	const session = useSession()
 	const { openMenu, setOpenMenu } = useMenu()
 	const [notifications, setNotifications] = useState(false)
+	const { notificationPermissionStatus } = useFcmToken()
 
-	useEffect(() => {
-		onMessage(messaging, message => {
-			console.log("Tu mensaje", message)
-			enqueueSnackbar(message.notification?.title, { variant: "info" })
-		})
-	}, [])
 
-	const activeMessage = async () => {
-		try {
-			const token = await getToken(messaging, { vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY })
-			if (token) {
-				console.log("Tu token:", token)
-			} else {
-				console.log("No tienes token")
-			}
-		} catch (error) {
-			console.log("Error al generar mensaje")
-		}
-	}
 
 	const HandleViewMenu = () => {
 		const prev = !openMenu
 		setOpenMenu(prev)
 	}
 
+	const handleActiveNotifications = () => {
 
-	const HandleActiveNotifications = async () => {
-		const response = confirm("¡Activa las notificaciones y entérate cuando haya una nueva quiniela disponible!")
-		if (response) {
-			/*const response = await CreateNotification(userLocal.uid, { ...userLocal, notifications: true, account: "", last_login: new Date().toISOString(), finals_won: 0, total_bets: 0, bets_won: 0 })
-			if (response === "OK") {
-				localStorage.setItem("bettingNotifications", `${true}`)
-				setNotifications(true)
-				enqueueSnackbar("¡Notificaciones activadas con éxito!", { variant: "success" })
-			} else {
-				enqueueSnackbar("Error al activar las notificaciones. Por favor, inténtalo de nuevo.", { variant: "error" });
-			}*/
-		}
 	}
+
 
 	return (
 		<>
@@ -73,8 +43,8 @@ export default function Header() {
 					onClick={HandleViewMenu}>
 				</Button>
 				<div className="flex flex-row gap-2">
-					{!notifications &&
-						<button className={styles.notifications} onClick={HandleActiveNotifications}>
+					{notificationPermissionStatus === "default" || notificationPermissionStatus === "denied" &&
+						<button className={styles.notifications} onClick={handleActiveNotifications}>
 							<NotificationIcon className={styles.notifications_icon} />
 							<span className="absolute bottom-1.5 right-1.25 w-2.5 h-2.5 bg-red-600 rounded-xl"></span>
 						</button>
