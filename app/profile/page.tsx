@@ -23,9 +23,9 @@ export default function ProfilePage() {
 				{session.data?.user?.id === ADMIN_UID && <TabPanel header="Quiniela" leftIcon="pi pi-cog  mr-2">
 					<AdminPanel />
 				</TabPanel>}
-				{session.data?.user?.id === ADMIN_UID && <TabPanel header="Ajustes" leftIcon="pi pi-cog  mr-2">
+				{/*session.data?.user?.id === ADMIN_UID && <TabPanel header="Ajustes" leftIcon="pi pi-cog  mr-2">
 					<AppConfig />
-				</TabPanel>}
+	</TabPanel>*/}
 				{session.data?.user?.id === ADMIN_UID && <TabPanel header="Notificaciones" leftIcon="pi pi-bell  mr-2">
 					<AdminNotifications />
 				</TabPanel>}

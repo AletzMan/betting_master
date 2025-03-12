@@ -696,7 +696,10 @@ body {
 	}
 
 	.p-tabview-nav {
-
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+		min-height: 43.47px;
 
 		.p-tabview-nav-link {
 			transition: all 0.2s ease-in-out;
@@ -719,7 +722,8 @@ body {
 		.p-highlight .p-tabview-nav-link {
 			background-color: var(--surface-b);
 			color: var(--primary-color);
-			border-color: var(--surface-d) var(--surface-d) var(--primary-color) var(--surface-d);
+			padding: 1em 0.75em 0.7em 0.75em;
+			border-color: var(--surface-50) var(--surface-50) var(--primary-color) var(--surface-50);
 			box-shadow: 0 0 2px 1px #00000090 inset;
 		}
 	}
