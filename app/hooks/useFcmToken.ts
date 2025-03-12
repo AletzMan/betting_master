@@ -39,7 +39,8 @@ async function getNotificationPermissionAndToken(uid: string) {
 const handleSaveToken = async (uid: string, token: string) => {
     try {
         const response = await axios.patch(`/api/users/${uid}`, {
-            tokenNotifications: token
+            tokenNotifications: token,
+            notifications: true
         })
     } catch (error) {
     }

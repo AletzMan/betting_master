@@ -377,6 +377,7 @@ export interface IUser {
 	last_login?: Date;
 	bets_won?: number;
 	notifications?: boolean;
+	tokenNotifications?: string
 }
 
 export interface UserSession {
