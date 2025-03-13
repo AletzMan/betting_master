@@ -64,7 +64,7 @@ export const SettingsProfile = () => {
             setUserSettings(newDataUser)
         }
     }, [session])
-    console.log(session)
+
 
     const HandleSave = async () => {
         setLoading(true)

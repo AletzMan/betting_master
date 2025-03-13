@@ -51,9 +51,7 @@ export function DialogDetails(props: DialogProps) {
 	const HandleSelectSection = (section: "statistics" | "lineup" | "cronology") => {
 		setSelectedSection(section)
 	}
-	console.log(statisticsMatch)
-	console.log(details?.eventStats?.stats?.homeTeam?.statsTeam)
-	console.log(details?.eventStats?.stats?.awayTeam?.statsTeam)
+
 
 	return (
 		<Dialog className=" " visible={open} onHide={() => setOpen(false)} >

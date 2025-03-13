@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
         );
         return SuccessCreate({ success: true, message: "Notificaiones enviadas" })
     } catch (error) {
-        console.log(error)
+        console.error(error)
         if (error instanceof AxiosError) {
             if (error.response?.status === 404) {
                 return NotFoundError()

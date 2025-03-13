@@ -35,7 +35,7 @@ export default function MainPage() {
     const { available, time } = useCountdownTimer(/*matchDayInfo?.matchesRel[0].startDate*/new Date("2025-03-10T01:00:00Z"));
     const [openDialog, setOpenDialog] = useState(false)
     const { orderBets } = useSort(matchDayInfo ? matchDayInfo.bets : null, matchDayInfo?.results);
-    console.log(available, time)
+
     return (
         <main className='flex flex-col items-center pt-[42.39px] h-svh '>
             {!loading && session.status === "authenticated" && matchDayInfo && <>

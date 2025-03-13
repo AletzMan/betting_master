@@ -46,7 +46,6 @@ export function CreateTopicForm({ setOpenDialog, userTokens }: Props) {
         } catch (error) {
             if (error instanceof AxiosError) {
                 if (error.response?.status === 422) {
-                    console.log(error.response)
                     const issues: ZodIssue[] = error.response.data.issues
                     const newErrors: ITopicError = { tokens: { error: "", isError: false }, topic: { error: "", isError: false } }
                     issues.forEach(issue => {

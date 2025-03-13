@@ -97,7 +97,7 @@ export function SendTopicForm({ setOpenDialog, userTokens }: Props) {
         setErrorsTopic({ name: { error: "", isError: false }, title: { error: "", isError: false }, message: { error: "", isError: false }, link: { error: "", isError: false } })
         setOpenDialog((prev) => ({ ...prev, isOpen: false }))
     }
-    console.log(topic)
+
     return (
         <div className="flex flex-col w-full gap-2 min-w-78">
             <h1 className="flex flex-row gap-2.5 items-center px-3 mb-5 w-full bg-(--surface-c) py-2"><i className="pi pi-send" />Notificar a usuarios</h1>

@@ -17,14 +17,12 @@ export default auth(async function middleware(request: NextRequest) {
 	}
 	if (request.nextUrl.pathname.startsWith('/profile') && !cookie) {
 		if (cookie) {
-			console.log(request.referrer)
 			return NextResponse.next()
 		}
 		//return NotAuthorizedError();
 		return NextResponse.redirect(new URL(`/login?callbackUrl=${encodeURIComponent(url.pathname)}`, request.url));
 	}
 	if (request.nextUrl.pathname.startsWith('/api/users')) {
-		console.log(cookie)
 		if (cookie) {
 			return NextResponse.next()
 		}

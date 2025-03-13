@@ -45,7 +45,6 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     try {
         const id = (await params).id
         const data = await request.json()
-        console.log(id, data)
         const newUser = await UserUpdateSchema.parseAsync(data)
 
         const response = await prisma?.user.update({

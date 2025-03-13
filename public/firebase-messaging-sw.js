@@ -21,7 +21,6 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig)
 const messaging = firebase.messaging(app)
 messaging.onBackgroundMessage(payload => {
-    console.log("recibiste mensaje ausente")
     const link = payload.fcmOptions?.link || payload.data?.link
     const notificationTitle = payload.notification.title
     const notificationOptions = {

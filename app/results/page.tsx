@@ -64,7 +64,6 @@ export default function ResultsPage() {
 	}
 
 	const HandleSelectTournament = (tournament: ITournament) => {
-		console.log(tournament)
 		setTournament(tournament)
 		setUpdate(true)
 	}

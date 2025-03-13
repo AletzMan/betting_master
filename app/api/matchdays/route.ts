@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
         if (error instanceof ZodError) {
             return UnprocessableEntityError(error.issues);
         }
-        console.log(error);
+        console.error(error);
         return ServerError();
     }
 }
@@ -136,7 +136,7 @@ export async function DELETE(request: NextRequest) {
             return NotFoundError();
         }
     } catch (error) {
-        console.log(error)
+        console.error(error)
         return ServerError()
     }
 }

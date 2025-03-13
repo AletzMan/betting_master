@@ -70,10 +70,10 @@ export function SendNotificationForm({ setOpenDialog }: Props) {
         setErrorsTopic({ name: { error: "", isError: false }, title: { error: "", isError: false }, message: { error: "", isError: false }, link: { error: "", isError: false } })
         setOpenDialog((prev) => ({ ...prev, isOpen: false }))
     }
-    console.log(topic)
+    console.log(selectedUser)
     return (
         <div className="flex flex-col w-full gap-2 min-w-78">
-            <h1 className="flex flex-row gap-2.5 items-center px-3 mb-5 w-full bg-(--surface-c) py-2"><i className="pi pi-send" />Enviar notificación</h1>
+            <h1 className="flex flex-row gap-2.5 items-center px-3 mb-5 w-full bg-(--surface-c) py-2"><i className="pi pi-send" />{`Enviar notificación a ${selectedUser?.name}`}</h1>
             <div className="flex flex-col w-full gap-6.5  p-2.5 ">
                 <div className="relative flex flex-col gap-0 mb-3">
                     <FloatLabel className="text-sm">

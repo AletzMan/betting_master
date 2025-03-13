@@ -128,8 +128,6 @@ export default function AdminFinals() {
         }
     }
 
-    console.log(data.partcipants)
-
     return (
         <div className="flex flex-col gap-2 relative h-[calc(100svh-8rem)]">
             <header className="flex items-center justify-between bg-(--surface-c) px-2 py-2 rounded-sm">

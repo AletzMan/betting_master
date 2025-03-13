@@ -90,7 +90,6 @@ export const deleteMatchDay = async (): Promise<boolean> => {
         const response = await fetch(`${pathURL}api/matchdays`, { method: "DELETE" })
         if (response.status === 200) {
             const responseMatchDay = await response.json()
-            console.log(responseMatchDay)
             matchDay = responseMatchDay.response
         }
         return matchDay?.data.count === 1

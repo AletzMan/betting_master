@@ -67,7 +67,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         if (error instanceof ZodError) {
             return UnprocessableEntityError(error.issues);
         }
-        console.log(error)
+        console.error(error)
         return ServerError();
     }
 
