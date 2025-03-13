@@ -14,15 +14,15 @@ import { SendTopicForm } from "./SendTopicForm"
 import { SpeedDial } from "primereact/speeddial"
 import { MenuItem } from "primereact/menuitem"
 import { Tooltip } from "primereact/tooltip"
+import { SendNotificationForm } from "./SendNotificationForm"
 
 export interface IOpenDialog {
-    type: 'createTopic' | 'sendTopic'
+    type: 'createTopic' | 'sendTopic' | 'sendNotification'
     isOpen: boolean
 }
 
 
 export function AdminNotifications() {
-    const [sending, setSending] = useState(false)
     const [loading, setLoading] = useState(false)
     const [openDialog, setOpenDialog] = useState<IOpenDialog>({ type: 'createTopic', isOpen: false })
     const [usersData, setUsersData] = useState<IUser[] | null>(null)
@@ -36,50 +36,27 @@ export function AdminNotifications() {
 
     const items: MenuItem[] = [
         {
-            label: 'Actualizar usuarios',
+            label: 'Sincronizar lista de usuarios',
             icon: 'pi pi-refresh',
             command: () => {
                 handleRefreshUsers()
             }
         },
         {
-            label: 'Crear notificación',
+            label: 'Crear nuevo tema de notificación',
             icon: 'pi pi-pen-to-square',
             command: () => {
                 setOpenDialog({ type: 'createTopic', isOpen: true })
             }
         },
         {
-            label: 'Enviar notificación',
+            label: 'Notificar a usuarios',
             icon: 'pi pi-send',
             command: () => {
                 setOpenDialog({ type: 'sendTopic', isOpen: true })
             }
         }
     ];
-
-    const handleSendNotification = async (user: string, token: string) => {
-        setSending(true)
-        try {
-            const response = await axios.post("/api/notifications/push", {
-                token: "dklKeKyshXxAoVYfsJljFt:APA91bEeMYHNX1SpK4npwhT2FpN_4kNAN__C9svSvPw7J76DC7sxixuw0QoXbCh1d2iYbq9OD82h-a2TCNRhMKzp-EWYXJgBRya7m-a3gevtm5YH8lBkfH0",
-                title: "¡Nueva Quiniela Disponible!",
-                message: "La quiniela de esta semana ya está disponible. ¡Entra y haz tus predicciones!",
-                link: "/logo.png",
-            }, {
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            });
-            if (response.status === 201) {
-                enqueueSnackbar("Notificación enviada correctamente", { variant: "success" })
-            }
-        } catch (error) {
-            enqueueSnackbar("Error al enviar la notificación, favor de intentarlo mas tarde", { variant: "error" })
-        } finally {
-            setSending(false)
-        }
-    }
 
 
 
@@ -100,14 +77,13 @@ export function AdminNotifications() {
         }
     }
 
-
     return (
 
         <div className="flex flex-col gap-2 relative h-[calc(100svh-9rem)] ">
             {!loading &&
                 <div className="flex flex-col gap-3 scrollbar pt-5 px-2">
                     {usersData && usersData.map((user, index) => (
-                        <CardUser key={user.id} user={user} index={index} setUsersData={setUsersData} selectedView={selectedView} setSelectedView={setSelectedView} />
+                        <CardUser key={user.id} user={user} index={index} setUsersData={setUsersData} selectedView={selectedView} setSelectedView={setSelectedView} setOpenDialog={setOpenDialog} />
                     ))}
                 </div>
             }
@@ -121,6 +97,9 @@ export function AdminNotifications() {
                 )}
                 {openDialog.type === 'sendTopic' && (
                     <SendTopicForm setOpenDialog={setOpenDialog} userTokens={userTokens} />
+                )}
+                {openDialog.type === 'sendNotification' && (
+                    <SendNotificationForm setOpenDialog={setOpenDialog} />
                 )}
             </Dialog>
             {loading && <Loading height="12em" />}

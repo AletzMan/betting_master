@@ -1,16 +1,16 @@
 import { User } from "firebase/auth"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
-import { ICurrentMatch, IMatch, IPredictions, IUserInfo, Teams } from "../types/types"
+import { ICurrentMatch, IMatch, IPredictions, IUser, IUserInfo, Teams } from "../types/types"
 import { Nullable } from "primereact/ts-helpers"
 
-type IUser = {
+type IUserSettings = {
 	user: IUserInfo
 	setUser: (value: IUserInfo) => void
 }
 
 export const useUser = create(
-	persist<IUser>(
+	persist<IUserSettings>(
 		(set) => ({
 			user: { uid: "", name: "", photo: "", email: "" },
 			setUser: (value: IUserInfo) => set((state) => ({ user: value })),
@@ -69,4 +69,14 @@ interface IDialogMenu {
 export const useMenu = create<IDialogMenu>((set) => ({
 	openMenu: false,
 	setOpenMenu: (value: boolean) => set({ openMenu: value }),
+}))
+
+interface ISelecterUser {
+	selectedUser: IUser | null
+	setSelectedUser: (value: IUser | null) => void
+}
+
+export const useSelecterUser = create<ISelecterUser>((set) => ({
+	selectedUser: null,
+	setSelectedUser: (value: IUser | null) => set({ selectedUser: value }),
 }))
