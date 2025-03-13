@@ -29,13 +29,13 @@ export interface IResponseFecth {
 export const getAllUsers = async (): Promise<IResponseFecth> => {
     try {
         const response = await fetch(`${pathURL}api/users`, { cache: "force-cache", next: { revalidate: 120, tags: ['users'] } })
+        const responseUsers = await response.json()
 
         if (response.status === 200) {
-            const responseUsers = await response.json()
             let users: IUser[] = responseUsers.response
             return { data: users, error: "Not", isError: false }
         }
-        return { data: [], error: { response, url: `${pathURL}api/users` }, isError: true }
+        return { data: [], error: { responseUsers, url: `${pathURL}api/users` }, isError: true }
     } catch (error) {
         console.error(error)
         return { data: [], error: error, isError: true }
