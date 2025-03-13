@@ -44,7 +44,6 @@ export const SettingsProfile = () => {
     const session = useSession()
     const [userSettings, setUserSettings] = useState<UserType>(EmptyUserSettings)
     const [errors, setErrors] = useState(EmptyErrors)
-    const [statusNotifications, setStatusNotifications] = useState(false)
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState(false)
 
@@ -98,12 +97,6 @@ export const SettingsProfile = () => {
         setErrors({ ...errors, account: "" })
     }
 
-    const HandleStatusNotifications = (e: InputSwitchChangeEvent) => {
-        const checked = e.value
-        setUserSettings({ ...userSettings, notifications: checked })
-        setStatusNotifications(checked)
-        setErrors({ ...errors, account: "" })
-    }
 
 
     return (
@@ -130,11 +123,6 @@ export const SettingsProfile = () => {
                 {session.status === "authenticated" && <InputText invalid={errors.account !== ""} type="number" value={userSettings.account} onChange={HandleChange} placeholder="18 digitos" name="account" />}
                 {session.status === "loading" && <Skeleton height="42px" />}
                 {errors.account && <p className="text-(--danger-color) text-xs pl-1">{errors.account}</p>}
-            </div>
-            <div className="flex py-3 border-b-1 border-(--surface-d)">
-                <label className="flex flex-col gap-1 text-[13px] text-(--primary-color)">¿Recibir correo cuando haya una quiniela disponible?
-                    <InputSwitch checked={userSettings.notifications || false} onChange={HandleStatusNotifications} />
-                </label>
             </div>
             <div className="flex justify-end w-full pt-4">
                 <Button label="Guardar" icon="pi pi-save" size="small" severity="success" onClick={HandleSave} loadingIcon="pi pi-spin pi-spinner" loading={loading} />
