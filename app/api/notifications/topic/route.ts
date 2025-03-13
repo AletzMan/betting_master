@@ -1,11 +1,23 @@
-import { BadRequestError, ServerError, UnprocessableEntityError } from "@/api/_services/errors";
-import { SuccessCreate, SuccessDelete } from "@/api/_services/successfulResponses";
+import { BadRequestError, NotFoundError, ServerError, UnprocessableEntityError } from "@/api/_services/errors";
+import { SuccessCreate, SuccessDelete, SuccessResponse } from "@/api/_services/successfulResponses";
 import { NextRequest } from "next/server";
 import { subscribeTopic, unsubscribeTopic } from "@/config/firebaseAdmin";
 import { ZodError } from 'zod';
 import { subscribeSchema } from "@/validations/subscribeSchema";
 import { prisma } from "@/lib/db"
 
+export async function GET(request: NextRequest) {
+    try {
+        const response = await prisma.topic.findMany()
+
+        if (response) {
+            return SuccessResponse(response)
+        }
+        return NotFoundError()
+    } catch (error) {
+        return ServerError()
+    }
+}
 
 export async function POST(request: NextRequest) {
     try {
@@ -15,7 +27,12 @@ export async function POST(request: NextRequest) {
         const success = await subscribeTopic(validation.tokens, validation.topic);
 
         if (success) {
-            //const response = await prisma.
+            const response = await prisma.topic.create({
+                data: {
+                    name: validation.topic,
+                    tokens: validation.tokens
+                }
+            })
             return SuccessCreate({ success: true, message: "Suscripción al tema exitosa." });
         } else {
             return BadRequestError();

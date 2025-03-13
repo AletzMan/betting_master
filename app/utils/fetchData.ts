@@ -1,7 +1,7 @@
 
 "use server"
 
-import { IBet, IMatch, IMatchDay, IUser, UserSession } from "@/types/types"
+import { IBet, IMatch, IMatchDay, ITopic, IUser, UserSession } from "@/types/types"
 import { UserType } from "@/validations/userUpdateSchema"
 import axios from "axios"
 import { revalidateTag } from "next/cache"
@@ -166,5 +166,21 @@ export const deleteBetByID = async (id: string): Promise<boolean> => {
         console.error(error)
         return false
 
+    }
+}
+
+
+export const getAllTopics = async (): Promise<ITopic[] | null> => {
+    try {
+        const response = await fetch(`${pathURL}api/notifications/topic`, { cache: "force-cache", next: { revalidate: 120, tags: ['topics'] } })
+        if (response.status === 200) {
+            const responseUsers = await response.json()
+            let topics: ITopic[] = responseUsers.response
+            return topics
+        }
+        return null
+    } catch (error) {
+        console.error(error)
+        return null
     }
 }

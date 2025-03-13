@@ -453,3 +453,11 @@ export interface IPrediction {
 }
 
 export type TStatistics = "possPercentage" | "duelsWon" | "shots" | "shotsOnGoal" | "wonCorners" | "successPass" | "lostPass" | "ballsLost" | "ballsRecovery" | "saves" | "fouls" | "goals" | "totalOffsides" | "yellowCards" | "redCards"
+
+
+export interface ITopic {
+	name: string
+	title: string
+	message: string
+	link: string
+}

@@ -24,7 +24,7 @@ export function CreateTopicForm({ setOpenDialog, userTokens }: Props) {
     const [create, setCreate] = useState(false)
     const [topicName, setTopicName] = useState("")
     const [errorsTopic, setErrorsTopic] = useState<ITopicError | null>(null)
-    const [selectedUsers, setSelectedUsers] = useState<IUser[] | null>(null)
+    const [selectedUsers, setSelectedUsers] = useState<IUser[] | undefined>(undefined)
 
     const handleCreateTopic = async () => {
         setCreate(true)
@@ -40,6 +40,8 @@ export function CreateTopicForm({ setOpenDialog, userTokens }: Props) {
             });
             if (response.status === 201) {
                 enqueueSnackbar("Notificación creada correctamente", { variant: "success" })
+                setErrorsTopic({ tokens: { error: "", isError: false }, topic: { error: "", isError: false } })
+                setOpenDialog((prev) => ({ ...prev, isOpen: false }))
             }
         } catch (error) {
             if (error instanceof AxiosError) {

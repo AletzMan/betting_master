@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { IUser } from "@/types/types"
 import { enqueueSnackbar } from "notistack"
 import { Button } from "primereact/button"
@@ -30,12 +30,16 @@ export function AdminNotifications() {
     const [userTokens, setUserTokens] = useState<IUser[] | null>(null)
     const [day, setDay] = useState(0)
 
+    useEffect(() => {
+        handleRefreshUsers()
+    }, [])
+
     const items: MenuItem[] = [
         {
             label: 'Actualizar usuarios',
             icon: 'pi pi-refresh',
             command: () => {
-                HandleRefreshUsers()
+                handleRefreshUsers()
             }
         },
         {
@@ -79,7 +83,7 @@ export function AdminNotifications() {
 
 
 
-    const HandleRefreshUsers = async () => {
+    const handleRefreshUsers = async () => {
         setLoading(true)
         const response = await getAllUsers()
         if (response) {
