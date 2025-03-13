@@ -3,7 +3,6 @@ import { useState } from "react"
 import { TeamsLogosNews } from "@/constants/constants"
 import { Dialog } from "primereact/dialog"
 import { Button } from "primereact/button"
-import { Tag } from "primereact/tag"
 import { Card } from "primereact/card"
 import { Divider } from "primereact/divider"
 import { Message } from "primereact/message"
@@ -26,28 +25,28 @@ export function ConfirmedParticipationMessage({ user, bets, myBets, matchDayInfo
 
     return (
         <Card className="scrollbar" header={
-            <div className="py-2 bg-(--success-color) text-(--surface-b)">
+            <div className="py-2 bg-(--surface-b) text-(--success-color)">
                 <p className="flex flex-row gap-2.5 w-full justify-center items-center text-lg font-bold text-center"><i className="pi pi-check-circle" />¡Ya estas participando!</p>
                 <h3 className="text-sm font-bold text-center">{user?.name}</h3>
             </div>
         }>
             <div className="flex flex-col gap-3">
                 <p className="text-md font-bold text-center mb-0">Tu tienes <span className="">{myBets.bets.length}</span> quiniela(s)</p>
-                <div className="flex flex-col gap-2 border-1 border-(--background-success-color) bg-(--background-success-color) rounded-md px-2 py-2">
+                <div className="flex flex-col gap-2 border-1 border-(--surface-d) bg-(--surface-c) rounded-md px-2 py-2">
                     <div className="flex items-start gap-2">
-                        <i className="pi pi-clock text-lime-400 mt-1" />
+                        <i className="pi pi-clock text-(--warning-color) mt-[2px]" />
                         <p className="text-sm">Las quinielas estaran visibles hasta el comienzo del primer partido</p>
                     </div>
                     <Divider />
                     <div className="flex flex-col justify-start gap-y-2 px-1 py-0.5">
                         {myBets.bets.map((bet, index) => (
                             <div key={bet.id} className="grid grid-cols-[1fr_4em] gap-2">
-                                <Tag className="w-full" severity="success" >{bet.name}</Tag>
-                                <Button className="w-full" onClick={() => setDialog({ open: true, bets: bet })} outlined raised severity="success" iconPos="right" size="small" icon="pi pi-eye" />
+                                <span className="flex items-center px-2 w-full bg-(--surface-c) rounded-sm">{bet.name}</span>
+                                <Button className="w-full" onClick={() => setDialog({ open: true, bets: bet })} outlined raised severity="secondary" iconPos="right" size="small" icon="pi pi-eye" />
                             </div>
                         ))}
                     </div>
-                    <p className="text-lg font-bold text-center text-lime-400">¡Suerte!</p >
+                    <p className="text-lg font-bold text-center text-(--success-color)">¡Suerte!</p >
                 </div>
                 <Message severity="info" text="Ingresa a tu Perfil y agrega tu cuenta de deposito para recibir tu pago en caso de ganar" />
                 <a className="flex flex-row gap-2.5 items-center max-w-max self-center" href="/profile" target="_parent" rel="noopener noreferrer" >
@@ -58,8 +57,8 @@ export function ConfirmedParticipationMessage({ user, bets, myBets, matchDayInfo
             {dialog.open &&
                 <Dialog className="max-w-[calc(100svw-1em)]" visible={dialog.open} onHide={() => setDialog({ open: false, bets: {} as IBet })}>
                     <section className="flex flex-col gap-2.5">
-                        <Button className="self-end" icon="pi pi-times" text raised severity="danger" onClick={() => setDialog({ open: false, bets: {} as IBet })} />
-                        <Tag>{dialog.bets.name}</Tag>
+                        <Button className="self-end" icon="pi pi-times" size="small" severity="danger" onClick={() => setDialog({ open: false, bets: {} as IBet })} />
+                        <span className="bg-(--surface-c) rounded-sm px-2 py-1 text-center text-(--primary-color)">{dialog.bets.name}</span>
                         <article>
                             <header className="flex flex-row">
                                 {matchDayInfo!.matchesRel.map((match, index) => (
