@@ -22,6 +22,13 @@ export default auth(async function middleware(request: NextRequest) {
 		//return NotAuthorizedError();
 		return NextResponse.redirect(new URL(`/login?callbackUrl=${encodeURIComponent(url.pathname)}`, request.url));
 	}
+	if (request.nextUrl.pathname.startsWith('/finals') && !cookie) {
+		if (cookie) {
+			return NextResponse.next()
+		}
+		//return NotAuthorizedError();
+		return NextResponse.redirect(new URL(`/login?callbackUrl=${encodeURIComponent(url.pathname)}`, request.url));
+	}
 	if (request.nextUrl.pathname.startsWith('/api/users')) {
 		if (cookie) {
 			return NextResponse.next()
