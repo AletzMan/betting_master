@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import { useState } from "react"
-import { IFinalsParticipants, IFinalsTeams, IStage } from "@/types/types"
+import { IFinalsParticipants, IStage } from "@/types/types"
 import { ViewIcon } from "@/svg"
 import { AddMatchFinals, GetFinalParticipants, GetFinalistTeams, UpdateFinalParticipants, WriteMustSpin } from "@/config/firebase"
 import styles from "./profile.module.scss"
@@ -13,6 +13,10 @@ import { getDuplicateFlags } from "@/utils/helpers"
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown"
 import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
+import { MenuItem } from "primereact/menuitem"
+import { Tooltip } from "primereact/tooltip"
+import { SpeedDial } from "primereact/speeddial"
+import { SplitButton } from "primereact/splitbutton"
 
 const PositionStage: IPositionStage = {
     quarter: ['quarter'],
@@ -38,6 +42,31 @@ export default function AdminFinals() {
     const [data, setData] = useState<IDataDraw>({ finalTeams: [], partcipants: [], position_stages: [] })
     const [errorTeams, setErrorTeams] = useState<boolean[]>([false, false, false, false, false, false, false, false])
     const [loading, setLoading] = useState(false)
+
+    const items: MenuItem[] = [
+        {
+            label: 'Resetear asignación de equipos',
+            icon: 'pi pi-replay',
+            command: () => {
+                handleResetAssignedTeams()
+            }
+        },
+        {
+            label: 'Guardar equipos finalistas',
+            icon: 'pi pi-save',
+            command: () => {
+                HandleStart()
+            }
+        },
+        {
+            label: 'Guardar progreso de fases',
+            icon: 'pi pi-save',
+            command: () => {
+                handleSaveStage()
+            }
+        },
+    ];
+
 
 
     const handleResetAssignedTeams = async () => {
@@ -130,9 +159,8 @@ export default function AdminFinals() {
 
     return (
         <div className="flex flex-col gap-2 relative h-[calc(100svh-8rem)]">
-            <header className="flex items-center justify-between bg-(--surface-c) px-2 py-2 rounded-sm">
-                <Button onClick={HandleStart} label="Equipos" icon="pi pi-save" size="small" severity="success" outlined raised disabled={loading} />
-                <Button icon="pi pi-refresh" size="small" outlined label="Actualizar" severity="secondary" raised onClick={handleGetFinalTable} disabled={loading} />
+            <header className="flex items-center justify-end bg-(--surface-c) px-2 py-2 rounded-sm">
+                <SplitButton label="Sincronizar equipos" icon="pi pi-refresh" disabled={loading} loadingIcon="pi pi-spin pi-spinner" loading={loading} severity="secondary" onClick={handleGetFinalTable} model={items} size="small" />
             </header>
             <div className="flex gap-1 w-full ">
                 <div className="flex flex-col gap-1.5 w-full max-w-46">
@@ -166,10 +194,6 @@ export default function AdminFinals() {
                 </div>
             </div>
             <Divider />
-            <footer className="flex items-center justify-between">
-                <Button onClick={handleSaveStage} label="Fase" icon="pi pi-save" size="small" severity="success" raised disabled={data.partcipants.length < 8 || data.partcipants.some(team => team.team === "") || loading} />
-                <Button onClick={handleResetAssignedTeams} label="Asignados" disabled={data.partcipants && data.partcipants!.length < 8 || loading} icon="pi pi-replay" size="small" severity="danger" />
-            </footer>
         </div>
     )
 }

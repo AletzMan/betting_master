@@ -394,9 +394,18 @@ body {
 	}
 
 
-
 }
 
+.p-splitbutton {
+
+	&>.p-splitbutton-defaultbutton {
+		border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);
+	}
+
+	&>.p-splitbutton-menubutton {
+		border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
+	}
+}
 
 
 
@@ -492,6 +501,20 @@ body {
 			background: var(--surface-c);
 		}
 	}
+}
+
+.p-tieredmenu {
+	background: var(--surface-a);
+	border: 1px solid var(--surface-d);
+	padding: 0.25em;
+	box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+	width: 18em;
+
+	.p-menuitem>.p-menuitem-content .p-menuitem-link .p-menuitem-text {
+		color: var(--secondary-color);
+		font-size: 0.9em;
+	}
+
 }
 
 
