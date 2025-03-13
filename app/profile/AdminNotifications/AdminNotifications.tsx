@@ -70,8 +70,8 @@ export function AdminNotifications() {
                 if (result)
                     setDay(result?.day)
             }
-            setLoading(false)
         }
+        setLoading(false)
     }
 
     return (

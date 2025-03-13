@@ -1,7 +1,7 @@
 
 "use server"
 
-import { IBet, IMatch, IMatchDay, ITopic, IUser, UserSession } from "@/types/types"
+import { IBet, IMatch, IMatchDay, ITopic, IUser } from "@/types/types"
 import { UserType } from "@/validations/userUpdateSchema"
 import axios from "axios"
 import { revalidateTag } from "next/cache"
@@ -23,6 +23,7 @@ export interface IMatchDayData {
 export const getAllUsers = async (): Promise<IUser[] | null> => {
     try {
         const response = await fetch(`${pathURL}api/users`, { cache: "force-cache", next: { revalidate: 120, tags: ['users'] } })
+        console.log(response)
         if (response.status === 200) {
             const responseUsers = await response.json()
             let users: IUser[] = responseUsers.response
