@@ -100,7 +100,7 @@ export function SendTopicForm({ setOpenDialog, userTokens }: Props) {
     console.log(topic)
     return (
         <div className="flex flex-col w-full gap-2 min-w-78">
-            <h1 className="flex flex-row gap-2.5 items-center px-3 mb-5 w-full bg-(--surface-c) py-2"><i className="pi pi-send" />Enviar notificación</h1>
+            <h1 className="flex flex-row gap-2.5 items-center px-3 mb-5 w-full bg-(--surface-c) py-2"><i className="pi pi-send" />Notificar a usuarios</h1>
             <div className="flex flex-col w-full gap-6.5  p-2.5 ">
                 <div className="relative flex flex-col gap-0 mb-3">
                     <FloatLabel className="text-sm">

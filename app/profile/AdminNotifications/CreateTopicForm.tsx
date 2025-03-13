@@ -73,7 +73,7 @@ export function CreateTopicForm({ setOpenDialog, userTokens }: Props) {
 
     return (
         <div className="flex flex-col w-full gap-2.5 min-w-78">
-            <h1 className="flex flex-row gap-2.5 items-center px-3 mb-5 w-full bg-(--surface-c) py-2"><i className="pi pi-pen-to-square" />Crear nuevo tema</h1>
+            <h1 className="flex flex-row gap-2.5 items-center px-3 mb-5 w-full bg-(--surface-c) py-2"><i className="pi pi-pen-to-square" />Crear nuevo tema de notificación</h1>
             <div className="flex flex-col w-full gap-2.5  p-2.5 ">
                 <div className="relative flex flex-col gap-0 mb-7">
                     <FloatLabel className="text-sm">
