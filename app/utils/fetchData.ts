@@ -20,19 +20,27 @@ export interface IMatchDayData {
     matches: IMatch[]
 }
 
-export const getAllUsers = async (): Promise<IUser[] | null> => {
+export interface IResponseFecth {
+    data: IUser[]
+    error: unknown
+    isError: boolean
+}
+
+export const getAllUsers = async (): Promise<IResponseFecth> => {
     try {
         const response = await fetch(`${pathURL}api/users`, { cache: "force-cache", next: { revalidate: 120, tags: ['users'] } })
-        console.log(response)
+
+
+
         if (response.status === 200) {
             const responseUsers = await response.json()
             let users: IUser[] = responseUsers.response
-            return users
+            return { data: users, error: "Not", isError: false }
         }
-        return null
+        return { data: [], error: response.status, isError: false }
     } catch (error) {
         console.error(error)
-        return null
+        return { data: [], error: error, isError: false }
     }
 }
 

@@ -61,12 +61,11 @@ export function AdminNotifications() {
         setLoading(true)
         const response = await getAllUsers()
         console.log(response)
-        if (response) {
-            const usersWithNotifications = response?.filter(user => user.notifications)
+        if (response.data) {
+            const usersWithNotifications = response.data?.filter(user => user.notifications)
             setUserTokens(usersWithNotifications)
             if (usersWithNotifications) {
-                setUsersData(response)
-
+                setUsersData(response.data)
                 const result = await getMatchDayInfo()
                 if (result)
                     setDay(result?.day)
