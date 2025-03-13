@@ -35,7 +35,7 @@ export const getAllUsers = async (): Promise<IResponseFecth> => {
             let users: IUser[] = responseUsers.response
             return { data: users, error: `${pathURL}api/users`, isError: false }
         }
-        return { data: [], error: `${pathURL}api/users`, isError: true }
+        return { data: responseUsers.response, error: `${pathURL}api/users`, isError: true }
     } catch (error) {
         console.error(error)
         return { data: [], error: `${pathURL}api/users`, isError: true }
