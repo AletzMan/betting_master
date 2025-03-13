@@ -691,7 +691,6 @@ body {
 
 .p-overlaypanel {
 	background: linear-gradient(120deg, var(--surface-b), var(--surface-a));
-	color: rgba(214, 24, 24, 0.87);
 	border: 1px solid var(--surface-d);
 
 }
