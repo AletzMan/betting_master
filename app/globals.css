@@ -16,9 +16,15 @@
 	--secondary-color: #b3b3b3 !important;
 	--danger-color: #d72424;
 	--success-color: #65c313;
-	--info-color: #1488ee;
+	--info-color: #0dc1d9;
 	--warning-color: #ffa600;
 	--contrast-color: #e3e3e3;
+	--secondary-hover-color: #a8a6a6 !important;
+	--danger-hover-color: #c41e1e;
+	--success-hover-color: #56aa0d;
+	--info-hover-color: #08afc5;
+	--warning-hover-color: #e49503;
+	--contrast-hover-color: #c3bdbd;
 	--pending-color: #544707;
 	--finished-color: #1a5903;
 	--started-color: #670603;
@@ -87,6 +93,8 @@
 	--surface-f: #1d2021 !important;
 	--primary-color: #b3e5fc !important;*/
 
+	/*
+
 	--surface-a: #101313 !important;
 	--surface-b: #080d0d !important;
 	--surface-c: #adeaea0c !important;
@@ -94,12 +102,25 @@
 	--surface-e: #151616 !important;
 	--surface-f: #202121 !important;
 	--surface-f: #202121 !important;
-	--surface-g: #1b2222 !important;
+	--surface-g: #1c2424 !important;
 	--surface-h: #1c1c1c !important;
-	--primary-color: #81d4fa !important;
-	/* Azul celeste muy claro */
+	--primary-color: #00eaea !important;
+	--primary-hover-color: #03bebe !important;*/
 
-	--accent-color: #365b1b;
+
+	--surface-a: #101314 !important;
+	--surface-b: #080d0e !important;
+	--surface-c: #a0b0e80c !important;
+	--surface-d: #42484c4d !important;
+	--surface-e: #151819 !important;
+	--surface-f: #202324 !important;
+	--surface-g: #1c2324 !important;
+	--surface-h: #1a1c1e !important;
+	--primary-color: #65c3f2 !important;
+	--primary-hover-color: #428cb0 !important;
+
+
+	--accent-color: #428cb0;
 
 	/* Azul claro */
 	--background-primary-color: #38a2ff15;
@@ -281,6 +302,10 @@ body {
 		color: var(--surface-b);
 		border-color: var(--danger-color);
 
+		&:hover {
+			background-color: var(--danger-hover-color);
+		}
+
 		&.p-button-text {
 			background: transparent;
 			color: var(--danger-color);
@@ -300,6 +325,10 @@ body {
 		color: var(--surface-b);
 		border-color: var(--success-color);
 
+		&:hover {
+			background-color: var(--success-hover-color);
+		}
+
 		&.p-button-text {
 			background: transparent;
 			color: var(--success-color);
@@ -315,14 +344,33 @@ body {
 	}
 
 	&.p-button-secondary {
+		background: var(--secondary-color);
+		color: var(--surface-b);
+		border-color: var(--secondary-color);
+
+		&:hover {
+			background-color: var(--secondary-hover-color);
+		}
+
 		&.p-button-outlined {
 			background: var(--background-secondary-color);
 			color: var(--secondary-color);
 			border-color: var(--secondary-color);
+
+			&:hover {
+				color: var(--text-color);
+			}
 		}
 	}
 
 	&.p-button-info {
+		background-color: var(--info-color);
+		border-color: var(--info-color);
+		color: var(--text-color);
+
+		&:hover {
+			background-color: var(--info-hover-color);
+		}
 
 		&.p-button-text {
 			background: transparent;
@@ -345,16 +393,12 @@ body {
 		padding: 0.3rem 0.8rem;
 	}
 
-	&.p-button-info,
-	.p-button-group.p-button-info>.p-button,
-	.p-splitbutton.p-button-info>.p-button,
-	.p-fileupload-choose.p-button-info {
-		color: var(--text-color);
-		background: var(--info-color);
-		border: 1px solid var(--info-color);
-	}
+
 
 }
+
+
+
 
 .p-speeddial-button.p-button.p-button-icon-only {
 	width: 2.5rem;
@@ -602,6 +646,26 @@ body {
 
 
 
+.p-radiobutton {
+
+
+	& .p-radiobutton-box {
+		border: 1px solid var(--surface-d);
+		background: var(--surface-b);
+		width: 20px;
+		height: 20px;
+		color: rgba(255, 255, 255, 0.87);
+		border-radius: 50%;
+		transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+		outline-color: transparent;
+	}
+
+	&.p-highlight .p-radiobutton-box {
+		border-color: var(--primary-color);
+		background: var(--primary-color);
+	}
+}
+
 .p-overlaypanel {
 	background: linear-gradient(120deg, var(--surface-b), var(--surface-a));
 	color: rgba(214, 24, 24, 0.87);
@@ -636,7 +700,7 @@ body {
 	}
 
 	&.p-divider-horizontal {
-		margin: 0.5em 0;
+		margin: 0.65em 0;
 
 		&::before {
 			border-top: 1px var(--surface-c);
@@ -644,7 +708,12 @@ body {
 		}
 	}
 
+	&.p-divider-dashed.p-divider-horizontal:before {
+		border-top-style: dashed;
+	}
 }
+
+
 
 .p-accordion {
 

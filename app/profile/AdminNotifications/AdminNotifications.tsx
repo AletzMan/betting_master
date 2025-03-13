@@ -1,12 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { IUser } from "@/types/types"
-import { enqueueSnackbar } from "notistack"
-import { Button } from "primereact/button"
 import { getAllUsers, getMatchDayInfo } from "@/utils/fetchData"
 import { Loading } from "@/components/Loading/Loading"
-import axios from "axios"
 import { Dialog } from "primereact/dialog"
 import { CreateTopicForm } from "./CreateTopicForm"
 import { CardUser } from "./CardUser"

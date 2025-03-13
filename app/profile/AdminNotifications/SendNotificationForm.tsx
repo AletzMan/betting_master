@@ -1,20 +1,17 @@
-import { ITopic, IUser } from "@/types/types";
-import axios, { AxiosError } from "axios";
+import { ITopic } from "@/types/types";
+import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-import { MultiSelect } from "primereact/multiselect";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { ZodIssue } from "zod";
+import { Dispatch, SetStateAction, useState } from "react";
 import { IOpenDialog } from "./AdminNotifications";
 import { FloatLabel } from "primereact/floatlabel";
 import { InputTextarea } from "primereact/inputtextarea";
-import { getAllTopics } from "@/utils/fetchData";
-import { Dropdown } from "primereact/dropdown";
 import { useSelecterUser } from "@/config/zustand-store";
+import { RadioButton } from "primereact/radiobutton";
+import { Divider } from "primereact/divider";
 
 interface ITopicError {
-    name: { isError: boolean, error: string }
     title: { isError: boolean, error: string }
     message: { isError: boolean, error: string }
     link: { isError: boolean, error: string }
@@ -26,10 +23,10 @@ interface Props {
 
 
 export function SendNotificationForm({ setOpenDialog }: Props) {
-    const [topic, setTopic] = useState<ITopic>({ name: "", title: "", message: "", link: "/logo.png" })
-    const [topics, setTopics] = useState<ITopic[]>([])
     const [sending, setSending] = useState(false)
-    const [errorsTopic, setErrorsTopic] = useState<ITopicError>({ name: { error: "", isError: false }, title: { error: "", isError: false }, message: { error: "", isError: false }, link: { error: "", isError: false } })
+    const [typeNotification, setTypeNotification] = useState("newBet")
+    const [notification, setNotification] = useState<ITopic>({ name: "", title: "¡Nueva Quiniela Disponible!", message: "La quiniela de esta semana ya está disponible. ¡Entra y haz tus predicciones!", link: "/logo.png" })
+    const [errorsTopic, setErrorsTopic] = useState<ITopicError>({ title: { error: "", isError: false }, message: { error: "", isError: false }, link: { error: "", isError: false } })
     const selectedUser = useSelecterUser((state) => state.selectedUser)
 
 
@@ -37,9 +34,9 @@ export function SendNotificationForm({ setOpenDialog }: Props) {
         setSending(true)
         try {
             const response = await axios.post("/api/notifications/push", {
-                token: "dklKeKyshXxAoVYfsJljFt:APA91bEeMYHNX1SpK4npwhT2FpN_4kNAN__C9svSvPw7J76DC7sxixuw0QoXbCh1d2iYbq9OD82h-a2TCNRhMKzp-EWYXJgBRya7m-a3gevtm5YH8lBkfH0",
-                title: "¡Nueva Quiniela Disponible!",
-                message: "La quiniela de esta semana ya está disponible. ¡Entra y haz tus predicciones!",
+                token: selectedUser?.tokenNotifications,
+                title: notification.title,
+                message: notification.message,
                 link: "/logo.png",
             }, {
                 headers: {
@@ -56,53 +53,79 @@ export function SendNotificationForm({ setOpenDialog }: Props) {
         }
     }
 
-    const handleChangeTopicName = (value: ITopic) => {
-        setErrorsTopic((prev => ({ ...prev, name: { error: "", isError: false } })))
-        setTopic((prev => ({ ...prev, name: value.name })))
+    const handleChangeTypeNotification = (type: string) => {
+        setTypeNotification(type)
+        if (type === "newBet") {
+            setNotification({ name: "", title: "¡Nueva Quiniela Disponible!", message: "La quiniela de esta semana ya está disponible. ¡Entra y haz tus predicciones!", link: "/logo.png" })
+        } else if (type === "pay") {
+            setNotification({ name: "", title: "Pago Pendiente", message: "Tu pago de quiniela sigue pendiente. ¡No te preocupes, tu participación está garantizada!", link: "/logo.png" })
+        }
     }
 
-    const handleChangeTopicData = (value: string, type: 'name' | 'title' | 'message' | 'link') => {
+    const handleChangeTopicData = (value: string, type: 'title' | 'message' | 'link') => {
         setErrorsTopic((prev => ({ ...prev, [type]: { error: "", isError: false } })))
-        setTopic((prev => ({ ...prev, [type]: value })))
+        setNotification((prev => ({ ...prev, [type]: value })))
     }
 
     const handleResetAndClose = () => {
-        setErrorsTopic({ name: { error: "", isError: false }, title: { error: "", isError: false }, message: { error: "", isError: false }, link: { error: "", isError: false } })
+        setErrorsTopic({ title: { error: "", isError: false }, message: { error: "", isError: false }, link: { error: "", isError: false } })
         setOpenDialog((prev) => ({ ...prev, isOpen: false }))
     }
-    console.log(selectedUser)
+
     return (
         <div className="flex flex-col w-full gap-2 min-w-78">
-            <h1 className="flex flex-row gap-2.5 items-center px-3 mb-5 w-full bg-(--surface-c) py-2"><i className="pi pi-send" />{`Enviar notificación a ${selectedUser?.name}`}</h1>
-            <div className="flex flex-col w-full gap-6.5  p-2.5 ">
-                <div className="relative flex flex-col gap-0 mb-3">
-                    <FloatLabel className="text-sm">
-                        <label htmlFor="topic">Nombre del tema</label>
-                        {/*<InputText className="w-full" id="topic" invalid={errorsTopic?.name.isError} value={topic.name} onChange={(e) => handleChangeTopicData(e.currentTarget.value, 'name')} disabled={sending} />*/}
-                        <Dropdown className="w-full" disabled={sending} invalid={errorsTopic?.name.isError} options={topics} id="users" optionLabel="name" value={topics.find(top => top.name === topic.name)} onChange={(e) => handleChangeTopicName(e.target.value)} />
-
-                    </FloatLabel>
-                    <label className="absolute -bottom-4 pl-1 text-(--danger-color) text-xs">{errorsTopic?.name.error}</label>
+            <h1 className="flex flex-row gap-2.5 items-center px-3 mb-2 w-full bg-(--surface-c) py-2"><i className="pi pi-send" />{`Enviar notificación a ${selectedUser?.name}`}</h1>
+            {selectedUser?.notifications &&
+                <>
+                    <header className="flex flex-row gap-3.5 items-center p-1.5  rounded-sm">
+                        <label className="flex flex-row gap-1.5 items-center px-2.5">
+                            <RadioButton name="notification" value="newBet" onChange={(e) => handleChangeTypeNotification(e.value)} checked={typeNotification === "newBet"} />
+                            Nueva quiniela
+                        </label>
+                        <label className="flex flex-row gap-1.5 items-center px-2.5">
+                            <RadioButton name="notification" value="pay" onChange={(e) => handleChangeTypeNotification(e.value)} checked={typeNotification === "pay"} />
+                            Pago
+                        </label>
+                    </header>
+                    <Divider type="dashed" />
+                    <div className="flex flex-col w-full gap-6.5  p-2.5 ">
+                        <div className="relative flex flex-col gap-0 mb-3">
+                            <FloatLabel className="text-sm">
+                                <InputText className="w-full" id="title" invalid={errorsTopic?.title.isError} value={notification.title} onChange={(e) => handleChangeTopicData(e.currentTarget.value, 'title')} disabled={sending} />
+                                <label htmlFor="title">Titulo</label>
+                            </FloatLabel>
+                            <label className="absolute -bottom-4 pl-1 text-(--danger-color) text-xs">{errorsTopic?.title.error}</label>
+                        </div>
+                        <div className="relative flex flex-col gap-0 mb-3">
+                            <FloatLabel className="text-sm">
+                                <InputTextarea id="description" invalid={errorsTopic?.message.isError} value={notification.message} onChange={(e) => handleChangeTopicData(e.currentTarget.value, 'message')} rows={5} cols={50} disabled={sending} />
+                                <label htmlFor="description">Description</label>
+                            </FloatLabel>
+                            <label className="absolute -bottom-4 pl-1 text-(--danger-color) text-xs">{errorsTopic?.message.error}</label>
+                        </div>
+                        <div className="flex flex-row justify-around gap-3 mt-3">
+                            <Button className="self-end min-w-24" icon="pi pi-send" severity="secondary" label="Enviar" size="small" loading={sending} loadingIcon="pi pi-spin pi-spinner-dotted" onClick={handleSendNotification} />
+                            <Button className="self-end min-w-24" icon="pi pi-times" severity="danger" label="Cancelar" size="small" disabled={sending} loadingIcon="pi pi-spin pi-spinner-dotted" onClick={handleResetAndClose} />
+                        </div>
+                    </div>
+                </>}
+            {!selectedUser?.notifications &&
+                <div className=" px-4 flex flex-col items-center justify-center max-w-90 py-5 gap-4">
+                    <div className="flex flex-col items-center justify-center">
+                        <i className="pi pi-bell-slash text-4xl text-gray-500 mb-2"></i>
+                        <p className="text-center text-balance text-lg font-semibold">
+                            {`${selectedUser?.name}`}
+                        </p>
+                        <p className="text-center text-balance text-lg font-semibold">
+                            {`No tiene las notificaciones activadas`}
+                        </p>
+                        <p className="text-center text-balance text-md mt-1 text-gray-600">
+                            Para recibir notificaciones, debe activar los permisos en la configuración de su navegador/dispositivo.
+                        </p>
+                    </div>
+                    <Button className="min-w-24" icon="pi pi-check-circle" severity="secondary" label="Aceptar" size="small" onClick={handleResetAndClose} />
                 </div>
-                <div className="relative flex flex-col gap-0 mb-3">
-                    <FloatLabel className="text-sm">
-                        <InputText className="w-full" id="title" invalid={errorsTopic?.title.isError} value={topic.title} onChange={(e) => handleChangeTopicData(e.currentTarget.value, 'title')} disabled={sending} />
-                        <label htmlFor="title">Titulo</label>
-                    </FloatLabel>
-                    <label className="absolute -bottom-4 pl-1 text-(--danger-color) text-xs">{errorsTopic?.title.error}</label>
-                </div>
-                <div className="relative flex flex-col gap-0 mb-3">
-                    <FloatLabel className="text-sm">
-                        <InputTextarea id="description" invalid={errorsTopic?.message.isError} value={topic.message} onChange={(e) => handleChangeTopicData(e.currentTarget.value, 'message')} rows={5} cols={50} disabled={sending} />
-                        <label htmlFor="description">Description</label>
-                    </FloatLabel>
-                    <label className="absolute -bottom-4 pl-1 text-(--danger-color) text-xs">{errorsTopic?.message.error}</label>
-                </div>
-                <div className="flex flex-row justify-around gap-3 mt-3">
-                    <Button className="self-end min-w-24" icon="pi pi-send" severity="secondary" label="Enviar" size="small" loading={sending} loadingIcon="pi pi-spin pi-spinner-dotted" onClick={handleSendNotification} />
-                    <Button className="self-end min-w-24" icon="pi pi-times" severity="danger" label="Cancelar" size="small" disabled={sending} loadingIcon="pi pi-spin pi-spinner-dotted" onClick={handleResetAndClose} />
-                </div>
-            </div>
+            }
         </div>
     )
 }

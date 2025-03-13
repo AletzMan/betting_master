@@ -22,6 +22,7 @@ export function CardUser({ user, index, setUsersData, selectedView, setSelectedV
 
 
     const HandleViewDetails = (e: MouseEvent<HTMLElement>, index: number): void => {
+        setSelectedUser(user)
         if ((e.target as HTMLElement).tagName === "ARTICLE") {
             if (index === selectedView) {
                 setSelectedView(null)
@@ -33,7 +34,6 @@ export function CardUser({ user, index, setUsersData, selectedView, setSelectedV
 
     const handleDeleteUser = async (uid: string, name: string) => {
         const responseDelete = confirm(`Desea eliminar al usuario: \n${name}`)
-        setSelectedUser(user)
         if (responseDelete) {
             const response = await deleteUserByID(uid)
             if (response) {
