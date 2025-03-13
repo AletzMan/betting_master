@@ -2,14 +2,13 @@
 import { NextRequest, NextResponse } from "next/server"
 import authConfig from "./app/utils/auth.cofig"
 import NextAuth from "next-auth"
-import { NotAuthorizedError } from "./app/api/_services/errors"
 
 const { auth } = NextAuth(authConfig)
 export default auth(async function middleware(request: NextRequest) {
 	const nameCookie =
 		process.env.NODE_ENV === "development"
 			? "next-auth.session-token"
-			: "__Secure-next-auth.session-token"
+			: "__Secure-authjs.session-token"
 	let cookie = request.cookies.get(nameCookie)
 	const url = request.nextUrl.clone();
 	if (request.nextUrl.pathname.startsWith('/bets')) {
