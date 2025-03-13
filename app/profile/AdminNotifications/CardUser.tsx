@@ -1,10 +1,12 @@
 import styles from "@/profile/profile.module.scss"
 import { RevalidatePath, deleteUserByID } from "@/utils/fetchData"
 import { enqueueSnackbar } from "notistack"
-import { useState, MouseEvent, Dispatch, SetStateAction, MutableRefObject } from "react"
+import { MouseEvent, Dispatch, SetStateAction } from "react"
 import Image from "next/image"
 import { IUser } from "@/types/types"
 import { SmallDateLocal } from "@/utils/helpers"
+import { useSelecterUser } from "@/config/zustand-store"
+import { IOpenDialog } from "./AdminNotifications"
 
 interface Props {
     user: IUser
@@ -12,9 +14,11 @@ interface Props {
     selectedView: number | null
     setSelectedView: Dispatch<SetStateAction<number | null>>
     setUsersData: Dispatch<SetStateAction<IUser[] | null>>
+    setOpenDialog: Dispatch<SetStateAction<IOpenDialog>>
 }
 
-export function CardUser({ user, index, setUsersData, selectedView, setSelectedView }: Props) {
+export function CardUser({ user, index, setUsersData, selectedView, setSelectedView, setOpenDialog }: Props) {
+    const setSelectedUser = useSelecterUser((state) => state.setSelectedUser)
 
 
     const HandleViewDetails = (e: MouseEvent<HTMLElement>, index: number): void => {
@@ -27,8 +31,9 @@ export function CardUser({ user, index, setUsersData, selectedView, setSelectedV
         }
     }
 
-    const HandleDeleteUser = async (uid: string, name: string) => {
+    const handleDeleteUser = async (uid: string, name: string) => {
         const responseDelete = confirm(`Desea eliminar al usuario: \n${name}`)
+        setSelectedUser(user)
         if (responseDelete) {
             const response = await deleteUserByID(uid)
             if (response) {
@@ -75,8 +80,8 @@ export function CardUser({ user, index, setUsersData, selectedView, setSelectedV
             </div>
             <div className={styles.users_options}>
                 <div className={`flex items-center justify-center w-7 h-7 rounded-sm ${user.notifications ? "bg-(--background-info-color)" : "bg-transparent"}`} ><i className={`${styles.users_iconNoti} ${user.notifications && styles.users_iconNotiActive} ${user.notifications ? "pi pi-bell" : "pi pi-bell-slash opacity-60"}`} /></div>
-                <button className="flex items-center justify-center w-7 h-7 bg-transparent hover:bg-(--surface-c) rounded-sm" > <i className={`${styles.users_iconEmail} pi pi-envelope`} /></button>
-                <button className="flex items-center justify-center w-7 h-7 bg-transparent hover:bg-(--surface-c) hover:text-(--danger-color) rounded-sm" onClick={() => HandleDeleteUser(user.id, user.name)}><i className={`${styles.users_iconDelete} pi pi-trash`} /></button>
+                <button className="flex items-center justify-center w-7 h-7 bg-transparent hover:bg-(--surface-c) rounded-sm" onClick={() => setOpenDialog({ type: "sendNotification", isOpen: true })} > <i className={`${styles.users_iconEmail} pi pi-envelope`} /></button>
+                <button className="flex items-center justify-center w-7 h-7 bg-transparent hover:bg-(--surface-c) hover:text-(--danger-color) rounded-sm" onClick={() => handleDeleteUser(user.id, user.name)}><i className={`${styles.users_iconDelete} pi pi-trash`} /></button>
             </div>
         </article>
     )
