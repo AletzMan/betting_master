@@ -19,8 +19,7 @@ export async function POST(request: NextRequest) {
             topic: validation.name,
             notification: {
                 title: validation.title,
-                body: validation.message,
-                imageUrl: "/logo.png"
+                body: validation.message
             },
             webpush: link && {
                 fcmOptions: {

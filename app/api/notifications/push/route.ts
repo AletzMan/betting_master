@@ -14,12 +14,11 @@ export async function POST(request: NextRequest) {
         token,
         notification: {
             title: title,
-            body: message,
-            imageUrl: "/logo.png"
+            body: message
         },
         webpush: link && {
             fcmOptions: {
-                link,
+                link
             }
         }
     }
