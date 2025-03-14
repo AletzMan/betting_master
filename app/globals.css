@@ -110,16 +110,15 @@
 
 	--surface-a: #1c1e21 !important;
 	--surface-b: #141618 !important;
-	--surface-c: #A8B2BF20 !important;
-	--surface-d: #51586070 !important;
+	--surface-c: #A8B2BF15 !important;
+	--surface-d: #51586060 !important;
 	--surface-e: #232529 !important;
 	--surface-f: #2b2d31 !important;
 	--surface-g: #222427 !important;
 	--surface-h: #1a1c1f !important;
 	--primary-color: #90caf9 !important;
-	/* Azul Claro Acero */
-	--primary-hover-color: #64b5f6 !important;
 
+	--primary-hover-color: #64b5f6 !important;
 
 	--accent-color: #4b92cc;
 
