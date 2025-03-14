@@ -26,7 +26,7 @@ interface Props {
 
 
 export function SendTopicForm({ setOpenDialog, userTokens }: Props) {
-    const [topic, setTopic] = useState<ITopic>({ name: "", title: "", message: "", link: "/logo.png" })
+    const [topic, setTopic] = useState<ITopic>({ name: "", title: "", message: "", link: "https://betting-master.vercel.app/bets" })
     const [topics, setTopics] = useState<ITopic[]>([])
     const [sending, setSending] = useState(false)
     const [errorsTopic, setErrorsTopic] = useState<ITopicError>({ name: { error: "", isError: false }, title: { error: "", isError: false }, message: { error: "", isError: false }, link: { error: "", isError: false } })

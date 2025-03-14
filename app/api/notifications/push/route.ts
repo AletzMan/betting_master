@@ -14,7 +14,8 @@ export async function POST(request: NextRequest) {
         token,
         notification: {
             title: title,
-            body: message
+            body: message,
+            imageUrl: "/logo.png"
         },
         webpush: link && {
             fcmOptions: {

@@ -25,7 +25,7 @@ interface Props {
 export function SendNotificationForm({ setOpenDialog }: Props) {
     const [sending, setSending] = useState(false)
     const [typeNotification, setTypeNotification] = useState("newBet")
-    const [notification, setNotification] = useState<ITopic>({ name: "", title: "¡Nueva Quiniela Disponible!", message: "La quiniela de esta semana ya está disponible. ¡Entra y haz tus predicciones!", link: "/logo.png" })
+    const [notification, setNotification] = useState<ITopic>({ name: "", title: "¡Nueva Quiniela Disponible!", message: "La quiniela de esta semana ya está disponible. ¡Entra y haz tus predicciones!", link: "https://betting-master.vercel.app/bets" })
     const [errorsTopic, setErrorsTopic] = useState<ITopicError>({ title: { error: "", isError: false }, message: { error: "", isError: false }, link: { error: "", isError: false } })
     const selectedUser = useSelecterUser((state) => state.selectedUser)
 
@@ -37,7 +37,7 @@ export function SendNotificationForm({ setOpenDialog }: Props) {
                 token: selectedUser?.tokenNotifications,
                 title: notification.title,
                 message: notification.message,
-                link: "/logo.png",
+                link: "https://betting-master.vercel.app/bets",
             }, {
                 headers: {
                     "Content-Type": "application/json",
