@@ -74,9 +74,9 @@ export default function ResultsPage() {
 
 
 	return (
-		<main className="flex flex-col items-center justify-start mx-auto pt-[42.39px] pb-4 w-full max-w-4xl">
+		<main className="flex flex-col items-center justify-start mx-auto pt-[42.39px] pb-4 w-full max-w-4xl h-[calc(100svh)]">
 			<section className="relative flex flex-col items-center  justify-center  w-full">
-				<header className="sticky top-0 w-full bg-(--surface-b) z-10 p-1  border-b-1 border-b-(--surface-d)">
+				<header className=" w-full bg-(--surface-b) z-10 p-1  border-b-1 border-b-(--surface-d)">
 					<div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] items-start   justify-center gap-x-1 w-full">
 						{GetCurrentDays(currentDay?.currentDate || new Date()).map((day, index) => (
 							<button key={day.id} className={`flex flex-col items-center h-full justify-start gap-y-1.5  text-(--surface-500) cursor-pointer transition-all border-1 border-(--surface-d) rounded-xs ease-in-out delay-100 ${index === 2 ? "bg-[linear-gradient(-40deg,var(--accent-color),var(--surface-b))]" : "bg-[linear-gradient(-40deg,var(--surface-d),var(--surface-a))] hover:bg-[linear-gradient(-40deg,var(--surface-d),var(--surface-a))]  "}`} onClick={() => HandleSelectDate(day)}>
@@ -87,7 +87,7 @@ export default function ResultsPage() {
 						))}
 					</div>
 				</header>
-				<article className={`${styles.matches} scrollbar h-[calc(100svh-1em)]`}>
+				<article className={`${styles.matches} scrollbar h-[calc(100svh-9.4em)]`}>
 					<Dropdown options={Tournaments} optionLabel="name" value={tournament} onChange={(e) => HandleSelectTournament(e.target.value)} />
 					{loading && <Loading height="10em" />}
 					{!loading && results && results?.length > 0 && (
@@ -101,9 +101,14 @@ export default function ResultsPage() {
 						</>
 					)}
 					{!loading && results?.length === 0 && (
-						<div className={styles.notfound}>
-							<NotFoundIcon className={styles.notfound_icon} />
-							<p className={styles.notfound_text}>No hay partidos</p>
+						<div className="flex flex-col items-center justify-center p-10 rounded-xl bg-(--surface-e) border-1 border-(--surface-c) text-center">
+							<i className="pi pi-ban text-(--danger-color) mb-5" style={{ fontSize: "4em" }} />
+							<p className="text-xl font-semibold text-white mb-2 text-balance">
+								No hay partidos programados para este día.
+							</p>
+							<p className="text-gray-400">
+								Intenta seleccionar otra fecha o liga.
+							</p>
 						</div>
 					)}
 				</article>

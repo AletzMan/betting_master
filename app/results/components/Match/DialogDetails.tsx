@@ -143,7 +143,7 @@ export function DialogDetails(props: DialogProps) {
 								<article className={`${styles.details_tableOptions} ${styles.details_tableOptionsNames}`}>
 									{statisticsMatch && statisticsMatch.away.map(([key, value], index) => (index > 1 &&
 										<span key={key} className={`${styles.details_tableOption} ${styles.details_tableOptionHome}`}>
-											{TRTADUCTIONS[key]}
+											{TRADUCTIONS[key]}
 										</span>
 									))}
 								</article>
@@ -401,7 +401,7 @@ const GetCommentaryIcon = (type: string) => {
 }
 
 
-const TRTADUCTIONS = {
+const TRADUCTIONS = {
 	possPercentage: "Porcentaje de Posesión",
 	duelsWon: "Duelos Ganados",
 	shots: "Tiros",

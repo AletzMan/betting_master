@@ -56,7 +56,7 @@ export function CardUser({ user, index, setUsersData, selectedView, setSelectedV
             <div className={styles.users_data} >
                 <Image className={styles.users_photo} src={user.image || ""} alt={`Imagen de perfil de ${user.name}`} width={70} height={70} />
                 <div className={styles.users_group} >
-                    <span className={`${styles.users_name} text-cyan-400`}>{user.name}</span>
+                    <span className={`${styles.users_name} text-(--info-color)`}>{user.name}</span>
                     <span className={`${styles.users_email} text-gray-400`}>{user.email}</span>
                 </div>
                 <span className={`${styles.users_date} text-violet-300`}>{new Date(user?.last_login as Date).toLocaleDateString("es-MX", SmallDateLocal)}</span>

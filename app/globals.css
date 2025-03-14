@@ -108,23 +108,20 @@
 	--primary-hover-color: #03bebe !important;*/
 
 
-	--surface-a: #181818 !important;
-	--surface-b: #121212 !important;
-	--surface-c: #A8A8A820 !important;
-	--surface-d: #50505070 !important;
-	--surface-e: #202020 !important;
-	--surface-f: #292929 !important;
-	--surface-g: #252525 !important;
-	--surface-h: #1c1c1c !important;
-	--primary-color: #448aff !important;
-	/* Azul eléctrico */
-	--primary-hover-color: #2979ff !important;
+	--surface-a: #1c1e21 !important;
+	--surface-b: #141618 !important;
+	--surface-c: #A8B2BF20 !important;
+	--surface-d: #51586070 !important;
+	--surface-e: #232529 !important;
+	--surface-f: #2b2d31 !important;
+	--surface-g: #222427 !important;
+	--surface-h: #1a1c1f !important;
+	--primary-color: #90caf9 !important;
+	/* Azul Claro Acero */
+	--primary-hover-color: #64b5f6 !important;
 
 
-
-
-
-	--accent-color: #428cb0;
+	--accent-color: #4b92cc;
 
 	/* Azul claro */
 	--background-primary-color: #38a2ff15;
@@ -144,11 +141,12 @@
 html,
 body {
 	max-width: 100vw;
-	overflow-x: hidden;
 }
 
 body {
-	background: linear-gradient(-40deg, var(--surface-e), var(--surface-a));
+	overflow-x: hidden;
+	overflow-y: hidden;
+	background: linear-gradient(-40deg, var(--surface-b), var(--surface-a));
 	/*font-family: "Montserrat", "Roboto Mono", sans-serif;*/
 }
 
