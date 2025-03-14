@@ -780,6 +780,14 @@ export const LinksPage = [
 	},
 	{
 		id: 1,
+		text: "Noticias",
+		pathname: "/news",
+		href: "/news",
+		title: "Ir a pagina de noticias",
+		icon: <i className="pi pi-receipt" style={{ fontSize: '1.25rem' }} />,
+	},
+	{
+		id: 2,
 		text: "Perfil",
 		pathname: "/profile",
 		href: "/profile",
@@ -787,7 +795,7 @@ export const LinksPage = [
 		icon: <i className="pi  pi-id-card " style={{ fontSize: '1.25rem' }} />,
 	},
 	{
-		id: 2,
+		id: 3,
 		text: "Quinielas",
 		pathname: "/bets",
 		href: "/bets",
@@ -795,7 +803,7 @@ export const LinksPage = [
 		icon: <i className="pi pi-list" style={{ fontSize: '1.25rem' }} />,
 	},
 	{
-		id: 3,
+		id: 4,
 		text: "Finales",
 		pathname: "/finals",
 		href: "/finals",
@@ -803,7 +811,7 @@ export const LinksPage = [
 		icon: <i className="pi pi-trophy" style={{ fontSize: '1.25rem' }} />,
 	},
 	{
-		id: 4,
+		id: 5,
 		text: "Resultados",
 		pathname: "/results",
 		href: "/results",
@@ -811,7 +819,7 @@ export const LinksPage = [
 		icon: <i className="pi pi-receipt" style={{ fontSize: '1.25rem' }} />,
 	},
 	{
-		id: 5,
+		id: 6,
 		text: "Posiciones",
 		pathname: "/positions",
 		href: "/positions",
@@ -819,7 +827,7 @@ export const LinksPage = [
 		icon: <i className="pi pi-sort-numeric-down" style={{ fontSize: '1.25rem' }} />,
 	},
 	{
-		id: 6,
+		id: 7,
 		text: "Estadísticas",
 		pathname: "/statistics",
 		href: `/statistics?tournament=${new Date().getMonth() < 6 ? "0168" : "0159"}&type=goals`,
