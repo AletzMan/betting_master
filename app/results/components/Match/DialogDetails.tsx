@@ -57,7 +57,7 @@ export function DialogDetails(props: DialogProps) {
 		<Dialog className=" " visible={open} onHide={() => setOpen(false)} >
 			<div className={`${styles.details} `}>
 				<Button className="self-end" onClick={() => setOpen(false)} label="Cerrar" icon="pi pi-times-circle" severity="danger" size="small" />
-				<section className={`${styles.details_section} scrollbar`}>
+				<section className={`${styles.details_section}`}>
 					<header className={styles.details_header}>
 						<button
 							className={`${styles.details_headerButton} ${selectedSection === "statistics" && styles.details_headerButtonActive}`}
@@ -158,7 +158,7 @@ export function DialogDetails(props: DialogProps) {
 						</div>
 					)}
 					{selectedSection === "lineup" && (
-						<div className={styles.lineups}>
+						<div className={`${styles.lineups} scrollbar`}>
 							<Field>
 								<div className={`${styles.lineups_manager} ${styles.lineups_managerHome}`}>
 									<img
@@ -281,7 +281,7 @@ export function DialogDetails(props: DialogProps) {
 						</div>
 					)}
 					{selectedSection === "cronology" && (
-						<div className={styles.cronology}>
+						<div className={`${styles.cronology} scrollbar`}>
 							{details.narration.commentaries.map((commentary) => (
 								<div key={commentary.id} className={styles.cronology_commentaries}>
 									<div className={styles.cronology_commentariesMinute}>{`${commentary.momentAction || ""}"`}</div>
