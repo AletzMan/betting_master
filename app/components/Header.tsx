@@ -18,7 +18,6 @@ import { Toast } from "primereact/toast"
 export default function Header() {
 	const session = useSession()
 	const { openMenu, setOpenMenu } = useMenu()
-	const [notifications, setNotifications] = useState(false)
 	const { notificationPermissionStatus } = useFcmToken()
 
 

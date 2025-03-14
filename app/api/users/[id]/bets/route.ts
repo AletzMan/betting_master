@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { SuccessResponse } from "@/api/_services/successfulResponses";
 import { NotFoundError, ServerError } from "@/api/_services/errors";
-
+import { prisma } from "@/lib/db"
 
 export async function GET(request: NextRequest, context: any) {
     try {

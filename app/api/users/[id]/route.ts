@@ -1,10 +1,10 @@
 import { NextRequest } from "next/server";
 import { SuccessDelete, SuccessResponse, SuccessUpdate } from "../../_services/successfulResponses";
 import { ConflictError, NotFoundError, ServerError, UnprocessableEntityError } from "../../_services/errors";
-import { UserSchema } from "@/validations/userSchema";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { ZodError } from "zod";
 import { UserUpdateSchema } from "@/validations/userUpdateSchema";
+import { ZodError } from "zod";
+import { prisma } from "@/lib/db"
 
 export async function GET(request: NextRequest, context: any) {
     try {
@@ -58,6 +58,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         }
         return NotFoundError();
     } catch (error) {
+        console.log(error)
         if (error instanceof PrismaClientKnownRequestError) {
             if (error.code === "P2002") {
                 return ConflictError();
