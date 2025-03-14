@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Link from "next/link"
 import { LinksPage } from "@/constants/constants"
 import { usePathname } from "next/navigation"
@@ -7,12 +8,16 @@ import { Sidebar } from "primereact/sidebar"
 import { Button } from "primereact/button"
 import { Divider } from "primereact/divider"
 import { QuinieleroLogo } from "@/svg"
+import { useEffect } from "react"
 
 export function MenuPages() {
     const pathname = usePathname()
     const { openMenu, setOpenMenu } = useMenu()
     const session = useSession()
 
+    useEffect(() => {
+        setOpenMenu(false)
+    }, [pathname])
 
     const HandleSignOut = async () => {
         try {

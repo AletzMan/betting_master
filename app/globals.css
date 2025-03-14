@@ -108,16 +108,20 @@
 	--primary-hover-color: #03bebe !important;*/
 
 
-	--surface-a: #101314 !important;
-	--surface-b: #080d0e !important;
-	--surface-c: #a0b0e80c !important;
-	--surface-d: #42484c4d !important;
-	--surface-e: #151819 !important;
-	--surface-f: #202324 !important;
-	--surface-g: #1c2324 !important;
-	--surface-h: #1a1c1e !important;
-	--primary-color: #65c3f2 !important;
-	--primary-hover-color: #428cb0 !important;
+	--surface-a: #181818 !important;
+	--surface-b: #121212 !important;
+	--surface-c: #A8A8A820 !important;
+	--surface-d: #50505070 !important;
+	--surface-e: #202020 !important;
+	--surface-f: #292929 !important;
+	--surface-g: #252525 !important;
+	--surface-h: #1c1c1c !important;
+	--primary-color: #448aff !important;
+	/* Azul eléctrico */
+	--primary-hover-color: #2979ff !important;
+
+
+
 
 
 	--accent-color: #428cb0;
@@ -129,7 +133,7 @@
 	--background-warning-color: #ffa60015;
 	--background-danger-color: #f42c2c015;
 	--background-info-color: #1488ee15;
-	--animate-scale: animate-scale 3.5s ease-in-out infinite alternate;
+
 }
 
 
@@ -829,6 +833,9 @@ body {
 
 }
 
+.--animate-scale {
+	--animate-scale: animate-scale 3.5s ease-in-out infinite alternate;
+}
 
 
 @keyframes animate-scale {
