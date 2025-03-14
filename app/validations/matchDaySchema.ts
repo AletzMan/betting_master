@@ -10,7 +10,7 @@ export const MatchSchema = z.object({
 
 export const MatchDaySchema = z.object({
     day: z.coerce.number({ invalid_type_error: "Jornada debe ser mayor a 0" }),
-    matches: z.array(MatchSchema, { required_error: "Se requiere al menos un partido" }).min(8, "Se requiere al menos 8 partidos"), // Validación de matches
+    matches: z.array(MatchSchema, { required_error: "Se requiere al menos un partido" }).min(1, "Se requiere al menos 8 partidos"), // Validación de matches
     season: z.string({ required_error: "Temporada es requerido" }).min(1, "Temporada es requerido"),
 });
 

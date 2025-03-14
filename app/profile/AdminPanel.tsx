@@ -75,6 +75,7 @@ export function AdminPanel() {
 			const response = await deleteMatchDay()
 			if (response) {
 				enqueueSnackbar("Jornada eliminadoa exitosamente", { variant: "success" })
+				GetDay()
 			} else {
 				enqueueSnackbar("No se puede eliminar la joranda actual", { variant: "error" })
 			}
@@ -87,7 +88,6 @@ export function AdminPanel() {
 		setMatchDayData((prev) => ({ ...prev as IMatchDay, results: results }))
 	}
 	const handleSetStatus = (checked: boolean, type: 'isAvailable' | 'isFinishGame') => {
-
 		setMatchDayData((prev) => ({ ...prev as IMatchDay, [`${type}`]: checked }))
 	}
 

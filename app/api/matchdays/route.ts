@@ -129,7 +129,7 @@ export async function DELETE(request: NextRequest) {
 
         // 4. Eliminar MatchDay.
         const matchday = await prisma.matchDay.deleteMany();
-
+        console.log(matchday.count)
         if (matchday.count > 0) {
             return SuccessDelete(matchday);
         } else {
