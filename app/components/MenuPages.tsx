@@ -38,8 +38,8 @@ export function MenuPages() {
                         text severity="info" size="large"
                         onClick={() => setOpenMenu(false)}>
                     </Button>
-                    <div className="flex flex-col items-center justify-start w-full  py-1 px-4 gap-1 border-t-1 border-dashed border-(--surface-c)">
-                        {LinksPage.map((link, index) => index <= 1 && (
+                    <div className="flex flex-col items-center justify-start w-full  py-2 px-4 gap-1 border-t-1 border-dashed border-(--surface-c)">
+                        {LinksPage.map((link, index) => index === 0 && (
                             <Link
                                 className={`flex flex-row gap-3.5 p-1.5 items-center text-sm rounded-sm  hover:bg-(--surface-c) hover:text-(--text-color) font-bold w-full ${link.pathname === pathname ? "bg-(--primary-color) ml-6 pointer-events-none text-(--surface-b) " : "transparent pointer-events-auto text-(--secondary-color) "}`}
                                 key={link.id}
