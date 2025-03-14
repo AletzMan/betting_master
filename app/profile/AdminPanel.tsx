@@ -118,9 +118,9 @@ export function AdminPanel() {
 								<Divider type="dashed" />
 							</header>
 						}
-						<article className="grid grid-cols-9 gap-1 bg-(--surface-c)  px-2 py-2 rounded-xs">
+						<article className="grid grid-cols-9 gap-1 bg-(--surface-e)  px-2 py-2 rounded-xs">
 							{matchDayData?.matchesRel.map((match, index) => (
-								<div key={match.awayTeam} className="flex flex-col max-w-12">
+								<div key={match.awayTeam} className="flex flex-col gap-1 max-w-12">
 									<div className="flex flex-col justify-center">
 										<span className="text-xs text-center">{TeamsLogos.find(logo => logo.id.toString() === match.homeTeam)?.abbName}</span>
 										<span className="text-xs text-center text-amber-300">{"vs"}</span>
