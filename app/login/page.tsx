@@ -1,5 +1,5 @@
 "use client"
-import { AppLogo, QuinieleroLogo } from "@/svg"
+import { QuinieleroLogo } from "@/svg"
 import { Card } from "primereact/card"
 import { Suspense } from 'react'
 import LoginOptions from "./LoginOptions"

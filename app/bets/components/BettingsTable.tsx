@@ -33,7 +33,7 @@ export function BettingsTable({ filterBets, selectRanges, setSelectRanges, match
                         <Fragment key={bet.id}>
                             {bet.paid &&
                                 <ul className="grid grid-cols-[repeat(9,2.5em)] gap-x-1 w-full" key={bet.name}>
-                                    {bet.predictions?.map((betInfo, index) => (
+                                    {bet.predictions?.sort((a, b) => a.matchNumber - b.matchNumber).map((betInfo, index) => (
                                         <li
                                             key={betInfo.id}
                                             className={`relative flex items-center justify-center w-full h-9`}

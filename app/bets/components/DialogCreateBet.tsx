@@ -38,8 +38,7 @@ interface IBetErrors {
 
 const EmptyBetErrors: IBetErrors = { name: { isError: false, message: "" }, predictions: { isError: false, message: "", index: [] } }
 
-const EmptyBetPredictions = ["", "", "", "", "", "", "", "", ""
-]
+const EmptyBetPredictions = ["", "", "", "", "", "", "", "", ""]
 
 export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps) {
 	const session = useSession();
@@ -150,7 +149,7 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 											<span className="text-xs px-1.5 font-normal text-(--cyan-400) py-0.5 bg-(--surface-c) max-w-30">{bet.name}</span>
 											<article className="w-full">
 												<main className="flex flex-row gap-1.5 w-full">
-													{bet.predictions.map((prediction, index) => (
+													{bet.predictions.sort((a, b) => a.matchNumber - b.matchNumber).map((prediction, index) => (
 														<div key={prediction.id} className="w-full">
 															<p className="text-white text-center bg-lime-700 rounded-sm">{prediction.prediction}</p>
 														</div>

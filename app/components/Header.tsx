@@ -36,7 +36,7 @@ export default function Header() {
 	return (
 		<>
 			<SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }} />
-			<header className="flex fixed w-full border-b-1 border-b-(--surface-d) z-5 h-[2.65em] bg-(--surface-b) justify-between ">
+			<header className="flex fixed top-0 w-full border-b-1 border-b-(--surface-d) z-5 h-[2.65em] bg-(--surface-b) justify-between ">
 				<Button
 					label="Menu" icon="pi pi-bars"
 					text severity="info" size="large"

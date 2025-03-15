@@ -70,7 +70,7 @@ export function ConfirmedParticipationMessage({ user, bets, myBets, matchDayInfo
                                 ))}
                             </header>
                             <main className="flex flex-row">
-                                {dialog.bets.predictions.map((result, index) => (
+                                {dialog.bets.predictions.sort((a, b) => a.matchNumber - b.matchNumber).map((result, index) => (
                                     <div key={index} className="flex flex-col justify-center px-0.5 items-center text-sm font-semibold w-12 text-white border-t-1 border-t-(--surface-d)  border-l-1 border-l-(--surface-d)  border-b-1 border-b-(--surface-d)" >
                                         <p className="bg-lime-600 w-full text-center rounded-xs">{result.prediction}</p>
                                     </div>
