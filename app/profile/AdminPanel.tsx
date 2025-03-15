@@ -119,18 +119,32 @@ export function AdminPanel() {
 							</header>
 						}
 						<article className="grid grid-cols-9 gap-1 bg-(--surface-e)  px-2 py-2 rounded-xs">
-							{matchDayData?.matchesRel.map((match, index) => (
-								<div key={match.awayTeam} className="flex flex-col gap-1 max-w-12">
-									<div className="flex flex-col justify-center">
-										<span className="text-xs text-center">{TeamsLogos.find(logo => logo.id.toString() === match.homeTeam)?.abbName}</span>
-										<span className="text-xs text-center text-amber-300">{"vs"}</span>
-										<span className="text-xs text-center">{TeamsLogos.find(logo => logo.id.toString() === match.awayTeam)?.abbName}</span>
+							{matchDayData?.matchesRel
+								?.slice() // Crea una copia del array para evitar mutaciones
+								.sort((a, b) => {
+									const dateA = new Date(a.startDate as Date).getTime();
+									const dateB = new Date(b.startDate as Date).getTime();
+									return dateA - dateB;
+								})
+								.map((match, index) => (
+									<div key={match.awayTeam} className="flex flex-col gap-1 max-w-12">
+										<div className="flex flex-col justify-center">
+											<span className="text-xs text-center">
+												{TeamsLogos.find((logo) => logo.id.toString() === match.homeTeam)?.abbName}
+											</span>
+											<span className="text-xs text-center text-amber-300">{"vs"}</span>
+											<span className="text-xs text-center">
+												{TeamsLogos.find((logo) => logo.id.toString() === match.awayTeam)?.abbName}
+											</span>
+										</div>
+										{matchDayData.day && (
+											<ButtonBet
+												actualPrediction={matchDayData.results[index] as string}
+												onChange={(value) => handleSetResults(value, index)}
+											/>
+										)}
 									</div>
-									{matchDayData.day && (
-										<ButtonBet actualPrediction={matchDayData.results[index] as string} onChange={(value) => handleSetResults(value, index)} />
-									)}
-								</div>
-							))}
+								))}
 						</article>
 
 					</div>
