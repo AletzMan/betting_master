@@ -295,7 +295,7 @@ export const sortByHits = (
 	if (results.length > 0 && betsArray) {
 		for (let index = 0; index < betsArray.length; index++) {
 			let hits = 0
-			betsArray[index].predictions.forEach((predictions, index) => {
+			betsArray[index].predictions.sort((a, b) => a.matchNumber - b.matchNumber).forEach((predictions, index) => {
 				if (predictions.prediction === results[index]) {
 					hits++
 				}

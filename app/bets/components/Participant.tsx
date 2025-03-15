@@ -19,6 +19,7 @@ export function Participant({ bets, bet, selectRanges, setSelectRanges, hiddenNa
     const session = useSession()
     const { winner } = useWinner(bets, matchDayInfo.results)
 
+
     const HandleSelectRow = (row: number, column: number) => {
         setSelectRanges({ row, column })
     }
