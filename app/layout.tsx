@@ -39,9 +39,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<QuinieleroLogo className="absolute w-80 h-80 left-[calc(50%-10rem)] top-[calc(50%-10rem)] opacity-1 -z-10" />
 				<SessionProvider>
 					<PrimeReactProvider  >
-						{/*<Header />*/}
-						{/*children*/}
-						{<MaintenancePage />}
+						{<Header />}
+						{children}
+						{/*<MaintenancePage />*/}
 					</PrimeReactProvider>
 				</SessionProvider>
 			</body>

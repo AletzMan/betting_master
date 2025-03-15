@@ -217,9 +217,22 @@ export function DialogCreateBet({ open, setOpen, matches, myBets }: DialogProps)
 							<p className="uppercase font-bold text-sm">Visitante</p>
 						</header>
 						<div className="flex flex-col gap-1 mt-1">
-							{bets.length > 0 && matches.map((match, index) =>
-								<MatchBet key={match.homeTeam} matchData={match} numberMatch={index} invalid={errors.predictions.index.includes(index)} />
-							)}
+							{bets.length > 0 &&
+								matches
+									.slice() // Crea una copia del array
+									.sort((a, b) => {
+										const dateA = new Date(a.startDate as Date).getTime();
+										const dateB = new Date(b.startDate as Date).getTime();
+										return dateA - dateB;
+									})
+									.map((match, index) => (
+										<MatchBet
+											key={match.homeTeam}
+											matchData={match}
+											numberMatch={index}
+											invalid={errors.predictions.index.includes(index)}
+										/>
+									))}
 						</div>
 					</div>
 				}
