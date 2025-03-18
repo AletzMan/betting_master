@@ -84,7 +84,7 @@ export function AdminNotifications() {
                     ))}
                 </div>
             }
-            <footer className="fixed  bottom-15 flex items-center justify-end pb-1 px-2 w-full h-10">
+            <footer className="fixed  bottom-15 flex items-center justify-end pb-1 px-2 w-20 h-10">
                 <Tooltip target=".speeddial-bottom-left .p-speeddial-action" position="right" />
                 <SpeedDial model={items} direction="up" transitionDelay={80} showIcon="pi pi-bars" hideIcon="pi pi-times" className="speeddial-bottom-left left-0 bottom-0" buttonClassName="p-button-info p-button-sm " />
             </footer>

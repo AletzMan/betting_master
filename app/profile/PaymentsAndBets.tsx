@@ -68,6 +68,7 @@ export function PaymentsAndBets() {
         setUpdating(true)
         const isPaid = e.checked
         const response = await updateBetByID(id, isPaid || false)
+        console.log(response)
         if (response) {
             setBets((prevBets) =>
                 prevBets.map(bet =>
