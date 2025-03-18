@@ -104,7 +104,7 @@ export default function MainPage() {
                             <>
                                 {matchDayInfo && matchDayInfo!.results?.length > 0 &&
                                     <div className="w-full px-1 ">
-                                        <section className={`relative grid  pb-1 w-full gap-1 max-w-max scrollbarXY bg-(--surface-b)   border-1 border-(--surface-d)  rounded-md transition-all ease-in-out delay-150 ${hiddenNames ? "grid-cols-[41px_1fr]" : "grid-cols-[13em_1fr]"}  `}>
+                                        <section className={`relative grid  pb-1 w-full gap-1 max-w-max scrollbarXY bg-(--surface-b)  h-[calc(100svh-5.5em)] border-1 border-(--surface-d) rounded-md ${hiddenNames ? "grid-cols-[45px_1fr]" : "grid-cols-[13em_1fr]"}  `}>
                                             <div className="sticky left-0 gap-y-1 flex flex-col  bg-(--surface-b) px-[4px] z-4 border-r-1 border-r-(--surface-d) h-full">
                                                 <HeaderTable hiddenNames={hiddenNames} setHiddenNames={setHiddenNames} matchDayInfo={matchDayInfo} totalBets={matchDayInfo.bets.filter(bet => bet.paid).length} />
                                                 {orderBets?.map((bet, index) => (
