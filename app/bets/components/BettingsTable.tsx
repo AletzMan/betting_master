@@ -23,8 +23,8 @@ export function BettingsTable({ filterBets, selectRanges, setSelectRanges, match
 
     return (
 
-        <div className="  flex flex-col w-full h-full gap-y-0  bg-(--surface-b)">
-            <ul className="sticky top-0 grid grid-cols-[repeat(9,2.5em)] gap-x-1 mr-1 bg-(--surface-d) w-max z-3">
+        <div className="  flex flex-col w-full h-full   bg-(--surface-b)">
+            <ul className="sticky top-0 grid grid-cols-[repeat(9,2.5em)] gap-x-1 py-1 mr-1 bg-(--surface-b) w-max z-3">
                 {matchDayInfo.matches && matchDayInfo.matchesRel?.length > 0 &&
                     matchDayInfo.matchesRel
                         ?.slice()
@@ -37,7 +37,7 @@ export function BettingsTable({ filterBets, selectRanges, setSelectRanges, match
                             <HeaderMatches key={match.awayTeam} match={match} index={index} matchDayInfo={matchDayInfo} />
                         ))}
             </ul>
-            <div className="flex flex-col pt-1 pr-1 gap-y-1 ">
+            <div className="flex flex-col pt-[1px] pr-1 gap-y-1 ">
                 {filterBets && filterBets!.length > 0 &&
                     filterBets.map((bet, indexOne) => (
                         <Fragment key={bet.id}>
