@@ -21,7 +21,7 @@ export function WinningBets({ bets, matches }: Props) {
     }, [bets, winner])
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center  h-[calc(100svh-6em)] overflow-y-auto">
             <ConfettiExplosion duration={3000} force={0.6} particleCount={150} width={1000} />
             <section className="flex flex-wrap flex-row justify-center gap-3 p-2">
                 {
