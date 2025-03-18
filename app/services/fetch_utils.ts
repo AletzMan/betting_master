@@ -80,14 +80,11 @@ export const GetResultsByTournament = async (
 
 		if (response.status === 200) {
 			return response.data.data.data
-		} else if (response.status === 204) {
-			return {} as Results[]
 		}
 	} catch (error) {
 		if (axios.isAxiosError(error) && error.response) {
-			console.error(error)
+			return {} as Results[]
 		}
-		return {} as Results[]
 	}
 	return {} as Results[]
 }
