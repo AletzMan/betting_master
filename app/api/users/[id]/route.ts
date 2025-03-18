@@ -58,7 +58,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         }
         return NotFoundError();
     } catch (error) {
-        console.log(error)
+        console.error(error)
         if (error instanceof PrismaClientKnownRequestError) {
             if (error.code === "P2002") {
                 return ConflictError();

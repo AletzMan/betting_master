@@ -17,11 +17,9 @@ export function useWinner(bets: IBet[] | null, results: string[]) {
 		let winners = [] as string[]
 		try {
 			const OrderBets = sortByHits("desc", betsArray, results)
-			console.log(OrderBets)
 			const newBets = OrderBets.filter(
 				(bets) => bets.hits >= OrderBets[0].hits && bets.hits !== 0
 			)
-			console.log(newBets)
 			newBets.map((newBet) => {
 				winners.push(newBet.id)
 			})

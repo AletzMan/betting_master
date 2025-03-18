@@ -60,7 +60,6 @@ export function AdminNotifications() {
     const handleRefreshUsers = async () => {
         setLoading(true)
         const response = await getAllUsers()
-        console.log(response)
         if (response.data) {
             const usersWithNotifications = response.data?.filter(user => user.notifications)
             setUserTokens(usersWithNotifications)

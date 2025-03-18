@@ -28,7 +28,6 @@ async function getNotificationPermissionAndToken(uid: string) {
         if (permission === "granted") {
             const newToken = await fetchToken();
             if (newToken) {
-                console.log(uid, newToken)
                 handleSaveToken(uid, newToken)
             }
             return newToken

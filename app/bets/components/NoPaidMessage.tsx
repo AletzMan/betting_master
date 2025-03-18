@@ -53,7 +53,6 @@ export const NoPaidMessage = ({ myBets, user, matchDayInfo }: Props) => {
             }, 100);
         }
     }
-    console.log(myBets)
     return (
         <Card className="scrollbar" header={
             <div className="py-2 bg-(--surface-b)">
