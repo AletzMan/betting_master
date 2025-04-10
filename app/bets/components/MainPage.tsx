@@ -32,7 +32,11 @@ export default function MainPage() {
     const [hiddenNames, setHiddenNames] = useState(false)
     const [viewBets, setViewBets] = useState(false)
     const { matchDayInfo, myBets, loading } = useDataBets()
-    const { available, time } = useCountdownTimer(matchDayInfo?.matchesRel.sort((a, b) => a.startDate - b.startDate)[0].startDate /*new Date("2025-03-10T01:00:00Z")*/);
+    const { available, time } = useCountdownTimer(matchDayInfo?.matchesRel.sort((a, b) => {
+        const dateA = new Date(a.startDate as Date).getTime(); // Obtener milisegundos
+        const dateB = new Date(b.startDate as Date).getTime(); // Obtener milisegundos
+        return dateA - dateB;
+    })[0].startDate /*new Date("2025-03-10T01:00:00Z")*/);
     const [openDialog, setOpenDialog] = useState(false)
     const { orderBets } = useSort(matchDayInfo ? matchDayInfo.bets : null, matchDayInfo?.results);
 
